@@ -29,7 +29,7 @@
                                         <label>Project Status</label>
                                         <select name="Client" class="form-control" id="Client"  required >
                                             <option value="" >Select Client</option>
-                                            <?php foreach (Status as $row):
+                                            <?php foreach ($Status as $row):
                                             {
 
                                                 echo "<option value= " .$row['project_status_Icode'].">" . $row['Status_Name'] . "</option>";
