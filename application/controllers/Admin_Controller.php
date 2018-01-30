@@ -636,6 +636,7 @@ class Admin_Controller extends CI_Controller
         $status = $this->input->post('Status', true);
         $User_Icode = $this->session->userdata['userid'];
         $data = $this->technical_admin_model->Search_Project($status, $User_Icode);
+        print_r($data);
         $output = null;
         $i = 1;
         foreach ($data as $row) {
