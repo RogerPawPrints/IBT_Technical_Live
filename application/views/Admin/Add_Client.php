@@ -3,8 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Add Client KARTHIK
-        <small></small>
+
+      Add Client
+
+
+        <small>KARTHIK</small>
       </h1>
 
       <ol class="breadcrumb">
