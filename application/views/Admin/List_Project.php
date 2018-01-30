@@ -56,7 +56,7 @@
 
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="old">
                             <div class="col-md-12 ">
                                 <table id="demoPostTable" data-order='[[ 1, "asc" ]]' data-page-length='25' class="table table-striped table-bordered bootstrap-datatable datatable responsive">
                                     <thead>

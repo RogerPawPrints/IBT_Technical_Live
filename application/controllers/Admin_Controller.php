@@ -639,9 +639,9 @@ class Admin_Controller extends CI_Controller
         $output = null;
         $i = 1;
         foreach ($data as $row) {
-            $requirement_id = $row['Requirement_Icode'];
-            $req_Status = $row['Requirement_Status'];
-            $rtype = $row['Requirement_Type'];
+//            $requirement_id = $row['Requirement_Icode'];
+//            $req_Status = $row['Requirement_Status'];
+//            $rtype = $row['Requirement_Type'];
             $output .= "<tr >";
             $output .= "<td>" . $i . "</td>";
             $output .= "<td><a href='#'>" . $row['Client_Company_Name'] . "</a></td>";
