@@ -269,4 +269,12 @@ class Technical_Admin_Model extends CI_Model
         return 1;
     }
 
+    //** Get All Projects */
+    public function Get_All_Projects($id)
+    {
+        $query=$this->db->query("SELECT * FROM ibt_project_table A INNER JOIN ibt_client B on A.Project_Client_Icode = B.Client_Icode
+                                 INNER  JOIN  project_status_master C on A.Project_Status = C.project_status_Icode WHERE A.Project_Created_By = '$id' ");
+        return $query->result_array();
+    }
+
 }
