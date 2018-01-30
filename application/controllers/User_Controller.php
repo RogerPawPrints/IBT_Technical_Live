@@ -20,11 +20,11 @@ class User_Controller extends CI_Controller
     //** Admin Dashboard**//
     public function dashboard()
     {
-        $this->load->view('Admin/header');
-        $this->load->view('Admin/left');
-        $this->load->view('Admin/top');
-        $this->load->view('Admin/dashboard');
-        $this->load->view('Admin/footer');
+        $this->load->view('User/header');
+        $this->load->view('User/left');
+        $this->load->view('User/top');
+        $this->load->view('User/dashboard');
+        $this->load->view('User/footer');
     }
 
 }
