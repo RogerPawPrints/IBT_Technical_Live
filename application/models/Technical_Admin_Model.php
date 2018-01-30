@@ -276,5 +276,11 @@ class Technical_Admin_Model extends CI_Model
                                  INNER  JOIN  project_status_master C on A.Project_Status = C.project_status_Icode WHERE A.Project_Created_By = '$id' ");
         return $query->result_array();
     }
+    //** Get Project Status */
+    public function Get_Project_Status()
+    {
+        $query=$this->db->query("SELECT * FROM project_status_master ");
+        return $query->result_array();
+    }
 
 }
