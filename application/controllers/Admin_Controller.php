@@ -621,7 +621,8 @@ class Admin_Controller extends CI_Controller
     //** LIST PROJECT */
     public function List_Project()
     {
-        $this->data['List']= $this->technical_admin_model->Get_All_Projects();
+        $icode = $this->session->userdata['userid'];
+        $this->data['List']= $this->technical_admin_model->Get_All_Projects($icode);
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
         $this->load->view('Admin/top');
