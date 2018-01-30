@@ -3,7 +3,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Add Client
+      Add Client IBT
         <small></small>
       </h1>
 
