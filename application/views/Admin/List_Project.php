@@ -11,7 +11,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            View Contact
+            List of Project
             <small></small>
         </h1>
     </section>
@@ -21,22 +21,6 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="<?php echo site_url('Admin_Controller/Add_Client'); ?>">Add Client</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo site_url('Admin_Controller/View_Client_Details'); ?>">View Client</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo site_url('Admin_Controller/Add_Contact'); ?>">Add Contact</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo site_url('Admin_Controller/View_Client'); ?>">View Client</a>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-12 ">
@@ -44,33 +28,33 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Client Company Name</th>
-                                        <th>Contact Name</th>
-                                        <th>Description</th>
-                                        <th>Phone number</th>
-                                        <th>Email</th>
-                                        <th></th>
+                                        <th>Client Name</th>
+                                        <th>Country</th>
+                                        <th>Project</th>
+                                        <th>Start Date</th>
+                                        <th>Planned End Date</th>
+                                        <th>Actual End Date</th>
+                                        <th>Estimated Hours</th>
+                                        <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     $i=1;
-                                    foreach($contacts_details as $r)
+                                    foreach($List as $r)
                                     {
                                         ?>
                                         <tr>
                                             <td><?php echo $i; ?></td>
                                             <td><?php echo $r['Client_Company_Name']; ?></td>
-                                            <td><?php echo $r['Contact_Name']; ?></td>
-                                            <td><?php echo $r['Contact_Designation']; ?></td>
-                                            <td><?php echo $r['Contact_Number']; ?></td>
-                                            <td><?php echo $r['Contact_Email']; ?></td>
-                                            <td><input type='button' class="btn btn-info" id="edit_button"  data-toggle="modal" data-target="#myModal2"  value="edit" onclick="edit_row('<?php echo $r['Contact_ID']; ?>');">
-                                                <a class="btn btn-danger" href="javascript:;" onclick="Delete_Contact('<?php echo $r['Contact_ID']; ?>')">
-                                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                                    Delete
-                                                </a>
-                                            </td>
+                                            <td><?php echo $r['Client_Country']; ?></td>
+                                            <td><?php echo $r['Project_Name']; ?></td>
+                                            <td><?php echo $r['Project_Start_Date']; ?></td>
+                                            <td><?php echo $r['Planned_End_Date']; ?></td>
+                                            <td><?php echo $r['Actual_End_Date']; ?></td>
+                                            <td><?php echo $r['Estimation_Hours']; ?></td>
+                                            <td><?php echo $r['Status_Name']; ?></td>
+
                                         </tr>
                                         <?php
                                         $i++;
@@ -82,25 +66,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" style="width: 60%;" >
-                        <div class="modal-content" >
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Edit Contact</h4>
-                            </div>
-                            <div class="modal-body" id="edit_code">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="Submit" onclick="update()" class="btn btn-success" >Update</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
