@@ -23,7 +23,7 @@ class Technical_Login_Model extends CI_Model
 	    }
 	    else
 	    {
-	    	$query= $this->db->query("SELECT * FROM ibt_technical_user  WHERE User_Login = '".$uname."'  AND User_Password = '".$pwd."' ");
+	    	$query= $this->db->query("SELECT * FROM ibt_technical_users  WHERE User_Login = '".$uname."'  AND User_Password = '".$pwd."' ");
 	    	if($query->num_rows() == 1)
 	    	{
 	    		$row = $query->row();
