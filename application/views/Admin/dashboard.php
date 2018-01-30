@@ -3,8 +3,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard Modifications
-        <small>Version 111111</small>
+        IBT
+        <small>Version</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
