@@ -30,7 +30,11 @@ class User_Controller extends CI_Controller
     /*Create Task*/
     public function Create_Task()
     {
-
+        $this->load->view('User/header');
+        $this->load->view('User/left');
+        $this->load->view('User/top');
+        $this->load->view('User/create_task');
+        $this->load->view('User/footer');
     }
 
 }
