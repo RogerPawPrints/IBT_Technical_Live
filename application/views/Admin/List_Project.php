@@ -166,72 +166,10 @@
 
     }
 
-
-    function edit_row(id)
+    function get_rest()
     {
-        $.ajax({   url:"<?php echo site_url('Admin_Controller/Edit_Contact'); ?>",
-            data: {id: id},
-            type: "POST",
-            cache: false,
-            success:function(data){
-                $("#edit_code").html(data);
-
-            }
-        });
-    }
-
-    function update()
-    {
-        var contact_id = document.getElementById('contact_id').value;
-        var clientid = document.getElementById('client_contact_id').value;
-        var contact_name = document.getElementById('contact_name').value;
-        var desig = document.getElementById('contact_desig').value;
-        var phone = document.getElementById('contact_phone1').value;
-        var email = document.getElementById('contact_email').value;
-        var im = document.getElementById('contact_im').value;
-
-        $.ajax({url:"<?php echo site_url('Admin_Controller/Update_Contact'); ?>",
-            data: {id: contact_id,client_id: clientid, contact_Name: contact_name, Desig: desig, Phone: phone, Email: email, IM: im  },
-            type: "POST",
-            cache: false,
-            success:function(data){
-                location.reload();
-
-            }
-        });
-    }
-
-    function Delete_Contact(id)
-    {
-
-        var job = confirm("Are you sure you want  to Delete confirm ?");
-        if(job!=true)
-        {
-            return false;
-        }
-        else
-        {
-            $.ajax({   url:"<?php echo site_url('Admin_Controller/Delete_Contact'); ?>",
-                data: {id: id},
-                type: "POST",
-                cache: false,
-                success:function(data){
-                    if(data == '1')
-                    {
-                        alert("success");
-                        location.reload();
-                    }
-                    else
-                    {
-                        alert("Failed");
-                    }
-
-                }
-            });
-
-        }
+        location.reload();
 
     }
-
 
 </script>
