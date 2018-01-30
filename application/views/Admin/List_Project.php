@@ -5,6 +5,12 @@
 
         });
     } );
+    $(document).ready( function () {
+
+        $('#demoPostTable1').addClass( 'nowrap' ).DataTable( {
+
+        });
+    } );
 </script>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -27,7 +33,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Project Status</label>
-                                        <select name="Client" class="form-control" id="Client"  required >
+                                        <select name="Status" class="form-control" id="Status"  required >
                                             <option value="" >Select Client</option>
                                             <?php foreach ($Status as $row):
                                             {
@@ -94,6 +100,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="box box-primary" id="fulldata" style="display:none">
+
+                    <div class="box-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="demoPostTable1"  data-page-length='25' class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                    <thead>
+                                    <th>#</th>
+                                    <th>Client Name</th>
+                                    <th>Country</th>
+                                    <th>Project</th>
+                                    <th>Start Date</th>
+                                    <th>Planned End Date</th>
+                                    <th>Actual End Date</th>
+                                    <th>Estimated Hours</th>
+                                    <th>Status</th>
+                                    </thead>
+                                    <tbody id="comments1">
+
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -103,55 +138,34 @@
 
 <script type="text/javascript">
 
+    function search_Data()
+    {
 
-    $('input.typeahead').typeahead({
-        source:  function (query, process) {
-            return $.get('<?php echo site_url('Admin_Controller/get_client'); ?>', { query: query }, function (data) {
-                console.log(data);
-                data = $.parseJSON(data);
-                return process(data);
+        var Status = document.getElementById('Status').value;
+
+        if(Status == "")
+        {
+            alert("Please Select Date");
+        }
+        else
+        {
+            $.ajax({
+                url:"<?php echo site_url('Admin_Controller/Search_Project'); ?>",
+                data: {Status: Status },
+                type: "POST",
+                success:function(data){
+                    //alert(data);
+                    $('#old').hide();
+                    $('#fulldata').show();
+                    $('#comments1').html(data);
+                    $('#demoPostTable1').DataTable();
+
+                }
             });
         }
-    });
-
-    function search()
-    {
-        var company_name = document.getElementById('client_name').value;
-        $.ajax({
-            url:"<?php echo site_url('Admin_Controller/get_client_Details'); ?>",
-            data: {company: company_name},
-            type: "POST",
-            success:function(data){
-
-                if(data == 1)
-                {
-                    alert("Client Already Added...");
-                }
-                else
-                {
-                    data = $.parseJSON(data);
-                    $('#details').show();
-                    var url = data[0]['WebURL'];
-                    document.getElementById('client_web').value = url;
-                    var address = data[0]['Address'];
-                    document.getElementById('client_Address').value = address;
-                    var Country = data[0]['Country'];
-                    document.getElementById('Country').value = Country;
-                    var State = data[0]['State'];
-                    document.getElementById('State').value = State;
-                    var City = data[0]['City'];
-                    document.getElementById('City').value = City;
-                    var phone = data[0]['Company_Contact'];
-                    document.getElementById('phone').value = phone;
-                    var Email = data[0]['Company_Email'];
-                    document.getElementById('Email').value = Email;b
-                }
-
-
-            }
-        });
 
     }
+
 
     function edit_row(id)
     {

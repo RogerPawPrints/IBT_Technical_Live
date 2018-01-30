@@ -630,6 +630,33 @@ class Admin_Controller extends CI_Controller
         $this->load->view('Admin/List_Project',$this->data, FALSE);
         $this->load->view('Admin/footer');
     }
+    //** Search Project */
+    public function Search_Project()
+    {
+        $status = $this->input->post('Status', true);
+        $User_Icode = $this->session->userdata['userid'];
+        $data = $this->technical_admin_model->Search_Project($status, $User_Icode);
+        $output = null;
+        $i = 1;
+        foreach ($data as $row) {
+            $requirement_id = $row['Requirement_Icode'];
+            $req_Status = $row['Requirement_Status'];
+            $rtype = $row['Requirement_Type'];
+            $output .= "<tr >";
+            $output .= "<td>" . $i . "</td>";
+            $output .= "<td><a href='#'>" . $row['Client_Company_Name'] . "</a></td>";
+            $output .= "<td>" . $row['Client_Country'] . "</td>";
+            $output .= "<td>" . $row['Project_Name'] . "</td>";
+            $output .= "<td>" . $row['Project_Start_Date'] . "</td>";
+            $output .= "<td>" . $row['Planned_End_Date'] . "</td>";
+            $output .= "<td>" . $row['Actual_End_Date'] . "</td>";
+            $output .= "<td>" . $row['Estimation_Hours'] . "</td>";
+            $output .= "<td>" . $row['Status_Name'] . "</td>";
+            $output .=  "</tr>";
+            $i++;
+        }
+        echo $output;
+    }
 
 
 
