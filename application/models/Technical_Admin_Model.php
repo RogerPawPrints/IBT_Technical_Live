@@ -283,11 +283,11 @@ class Technical_Admin_Model extends CI_Model
         return $query->result_array();
     }
     //** Search Project */
-    public function Search_Project($id,$status)
+    public function Search_Project($status,$id)
     {
         $query=$this->db->query("SELECT * FROM ibt_project_table A INNER JOIN ibt_client B on A.Project_Client_Icode = B.Client_Icode
                                  INNER  JOIN  project_status_master C on A.Project_Status = C.project_status_Icode WHERE A.Project_Created_By = '$id' and A.Project_Status ='$status'  ");
-        echo $this->db->last_query();
+       // echo $this->db->last_query();
         return $query->result_array();
     }
 
