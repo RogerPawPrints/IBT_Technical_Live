@@ -4,7 +4,7 @@
     <section class="content-header">
       <h1>
         IBT
-        <small>Krthik</small>
+        <small>User</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

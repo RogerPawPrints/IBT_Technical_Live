@@ -27,5 +27,11 @@ class User_Controller extends CI_Controller
         $this->load->view('User/footer');
     }
 
+    /*Create Task*/
+    public function Create_Task()
+    {
+
+    }
+
 }
 ?>
