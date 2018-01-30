@@ -4,7 +4,7 @@
     <section class="content-header">
       <h1>
         Dashboard Modifications
-        <small>Version </small>
+        <small>Version 111111</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
