@@ -469,6 +469,7 @@ class Admin_Controller extends CI_Controller
             'Estimation_Hours '  => $this->input->post('Est_Hour',true),
             'Technical_Platform'=> $this->input->post('Technical',true),
             'Technical_Skill'=> $this->input->post('Skill',true),
+            'Project_Status' => '1',
             'Project_Created_By '  => $this->session->userdata['userid']);
         $insert_project = $this->technical_admin_model->Insert_Fixed_Cost($project_data);
         if($insert_project != '0')
@@ -630,7 +631,7 @@ class Admin_Controller extends CI_Controller
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
         $this->load->view('Admin/top');
-        $this->load->view('Admin/Create_Resource',$this->data, FALSE);
+        $this->load->view('Admin/List_Project',$this->data, FALSE);
         $this->load->view('Admin/footer');
     }
 
