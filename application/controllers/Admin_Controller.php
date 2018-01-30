@@ -621,13 +621,7 @@ class Admin_Controller extends CI_Controller
     //** LIST PROJECT */
     public function List_Project()
     {
-        $this->data['work_details']= $this->technical_admin_model->get_work_category();
-        $this->data['contract_details']= $this->technical_admin_model->get_contract();
-        $this->data['Work_Type']= $this->technical_admin_model->get_Work_Type();
-        $this->data['Client']= $this->technical_admin_model->get_All_client();
-        $this->data['Member']= $this->technical_admin_model->get_technical_member();
-        $this->data['Role_Master']= $this->technical_admin_model->get_Role_Master();
-        $this->data['Contract_Term']= $this->technical_admin_model->get_Contract_terms();
+        $this->data['List']= $this->technical_admin_model->Get_All_Projects();
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
         $this->load->view('Admin/top');
