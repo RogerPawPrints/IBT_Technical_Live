@@ -17,4 +17,15 @@ class Technical_User_Model extends CI_Model
 
     /*Select Project*/
 
+
+    /*Show on Select Project*/
+
+    public function Show_On_Select_Project($id)
+    {
+        $query = $this->db->query("SELECT * FROM ibt_project_table A INNER JOIN ibt_client B ON A.Project_Client_Icode=B.Client_Icode INNER JOIN ibt_workcategory C ON C.WorkCategory_Icode=A.Project_Work_Category_Icode INNER JOIN ibt_work_type D ON D.Work_Icode=A.Project_Work_Type_Icode  WHERE A.Project_Icode='$id'");
+        return $query->row_array(0);
+    }
+
+    /*Show on Select Project*/
+
 }
