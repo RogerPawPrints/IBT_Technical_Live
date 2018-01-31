@@ -305,7 +305,7 @@ class Technical_Admin_Model extends CI_Model
     public function Get_Project_Phase_Details($project_id)
     {
         $query=$this->db->query(" SELECT * FROM ibt_project_table A INNER JOIN project_phase B on A.Project_Icode = B.Proj_Project_Icode
-                                  INNER  JOIN  projct_phase_master C on A.Phase_Master_Icode = C.Project_Phase_Icode WHERE A.Project_Icode ='$project_id'  ");
+                                  INNER  JOIN  projct_phase_master C on B.Phase_Master_Icode = C.Project_Phase_Icode WHERE A.Project_Icode ='$project_id'  ");
         // echo $this->db->last_query();
         return $query->result_array();
 
