@@ -116,7 +116,6 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <h2>Modules</h2>
                                         <table id="tblCustomers6"  data-page-length='25' class="table table-striped">
                                             <thead>
                                             <tr>
