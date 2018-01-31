@@ -42,7 +42,7 @@ class User_Controller extends CI_Controller
     public function Show_On_Project_Select()
     {
         $project_code=$this->input->post('id', true);
-        $data= $this->technical_user_model->Show_On_Select_Project( $project_code);
+        $data= $this->technical_user_model->Show_On_Select_Project($project_code);
         echo json_encode($data);
     }
 
