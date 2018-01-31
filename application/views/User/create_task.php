@@ -33,53 +33,36 @@
                     <div class="box-body">
                         <div class="row padding_class">
                             <div class="col-md-12">
+
                                 <div class="col-md-3">
-                                    <label>Project</label>
-                                    <input class="form-control"  type="text" id="Project_Name" name="Project_Name" placeholder="Enter Project Name" >
+                                    <div class="form-group">
+                                        <label>Select Project</label>
+                                        <select name="Project_Select" class="form-control" id="Project_Select"  required >
+                                            <option value="" >Select Project</option>
+                                            <?php foreach ($Select_Project as $row):
+                                            {
+                                                echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
+                                            }
+                                            endforeach; ?>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Client Name</label>
-                                        <select name="Client" class="form-control" id="Client"  required >
-                                            <option value="" >Select Project</option>
-                                            <?php foreach ($Select_Project as $row):
-                                            {
-
-                                                echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
-
-                                            }
-                                            endforeach; ?>
-                                        </select>
+                                        <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly style="display: none" class="show_on_project"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Work Category</label>
-                                        <select name="Work_Category" class="form-control" id="Work_Category"  required >
-                                            <option value="" >Select Category</option>
-                                            <?php foreach ($work_details as $row):
-                                            {
-
-                                                echo "<option value= " .$row['WorkCategory_Icode'].">" . $row['WorkCategory_Name'] . "</option>";
-
-                                            }
-                                            endforeach; ?>
-                                        </select>
+                                        <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly style="display: none" class="show_on_project"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Work Type</label>
-                                        <select name="Work_Type" class="form-control" id="Work_Type"  required >
-                                            <option value="" >Select Work Type</option>
-                                            <?php foreach ($Work_Type as $row):
-                                            {
-
-                                                echo "<option value= " .$row['Work_Icode'].">" . $row['Work_Name'] . "</option>";
-
-                                            }
-                                            endforeach; ?>
-                                        </select>
+                                        <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly style="display: none" class="show_on_project"/>
                                     </div>
                                 </div>
                             </div>
@@ -403,17 +386,27 @@
             theDiv.slideDown().removeClass("hidden");
             $("#Member option:selected").attr('disabled','disabled');
         });
-        $("#Client").change(function(){
+        $("#Project_Select").change(function(){
             //  alert("hiiii");
             /*dropdown post *///
             $.ajax({
-                url:"<?php echo site_url('Admin_Controller/get_Client_Contact'); ?>",
+                url:"<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
                 data: {id:
                     $(this).val()},
                 type: "POST",
                 success:function(data){
-                    $("#details").show();
-                    $("#contacts").html(data);
+                    $(".show_on_project").show();
+                    var task_details = $.parseJSON(data);
+
+                    var client_name = task_details[0]['Client_Company_Name'];
+                    document.getElementById('Client_Name').value=client_name;
+
+                    var work_cat = task_details[0]['WorkCategory_Name'];
+                    document.getElementById('Work_Category').value=work_cat;
+
+                    var work_type = task_details[0]['Work_Name'];
+                    document.getElementById('Work_Type').value=work_type;
+
                 }
             });
         });
