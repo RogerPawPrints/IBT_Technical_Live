@@ -115,11 +115,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <div class="col-md-3">
                                         <table id="tblCustomers6"  data-page-length='25' class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th>Modules</th>
+                                                <th>Task Attachment</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
@@ -140,6 +141,7 @@
 
                                     </div>
                                 </div>
+                            </div>
                             </div>
 
                             <button type="submit" class="btn btn-info pull-right" onclick="Save_Fixed()" >Save</button>
