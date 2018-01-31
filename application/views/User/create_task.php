@@ -322,7 +322,7 @@
 </div>
 </section>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
@@ -389,7 +389,7 @@
             $("#Member option:selected").attr('disabled','disabled');
         });
         $("#Project_Select").change(function(){
-             alert("hiiii");
+            // alert("hiiii");
             /*dropdown post *///
             $.ajax({
                 url:"<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
@@ -400,7 +400,7 @@
                    // alert(data);
                     $("#show_on_project").show();
                     var task_details = $.parseJSON(data);
-                   alert(task_details[0]['Client_Company_Name']);
+                   alert(task_details);
                     var client_name = task_details[0]['Client_Company_Name'];
                     //alert(client_name);
                     document.getElementById('Client_Name').value=client_name;
@@ -412,6 +412,8 @@
                     document.getElementById('Work_Type').value=work_type;
 
                 }
+
+
             });
         });
 

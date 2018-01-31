@@ -301,4 +301,16 @@ class Technical_Admin_Model extends CI_Model
         return $query->result_array();
     }
 
+    //** Get Project Phase Details */
+    public function Get_Project_Phase_Details($project_id)
+    {
+        $query=$this->db->query(" SELECT * FROM ibt_project_table A INNER JOIN project_phase B on A.Project_Client_Icode = B.Project_Phase_Icode
+                                  INNER  JOIN  project_status_master C on A.Project_Status = C.project_status_Icode INNER  JOIN ibt_workcategory D on A.Project_Work_Category_Icode = D.WorkCategory_Icode
+                                  INNER  JOIN ibt_work_type E on A.Project_Work_Type_Icode = E.Work_Icode INNER JOIN ibt_contractcategory F on A.Project_Contract_Icode = F.Contracttype_Icode 
+                                  WHERE A.Project_Icode ='$project_id'  ");
+        // echo $this->db->last_query();
+        return $query->result_array();
+
+    }
+
 }

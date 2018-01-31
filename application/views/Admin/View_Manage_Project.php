@@ -128,9 +128,9 @@
                                 </div>
                             </div>
 
-                            <div class="row padding_class" id="Show_phase" style="display: none">
+                            <div class="row padding_class" id="Show_Phase" >
                                 <div class="col-md-12" >
-                                    <h2>Phases</h2>
+                                    <h2>Phase Management</h2>
                                     <table id="tblCustomers5"  data-page-length='25' class="table table-striped">
                                         <thead>
                                         <tr>
@@ -144,6 +144,7 @@
                                         <tbody>
                                         </tbody>
                                         <tfoot>
+
                                         <tr>
                                             <td>
                                                 <div class="form-group">
@@ -268,7 +269,8 @@
 
     function show_phase()
     {
-        $('#show_phase').show();
+        alert("dsfdsf");
+        $('#Show_Phase').show();
         $('#show_Resource').hide();
         $('#show_Status').hide();
     }

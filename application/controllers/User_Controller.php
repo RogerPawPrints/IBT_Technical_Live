@@ -43,7 +43,6 @@ class User_Controller extends CI_Controller
     {
         $project_code=$this->input->post('id', true);
         $data= $this->technical_user_model->Show_On_Select_Project($project_code);
-        print_r($data);
         echo json_encode($data);
     }
 
