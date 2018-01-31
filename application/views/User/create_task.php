@@ -400,7 +400,7 @@
                    // alert(data);
                     $("#show_on_project").show();
                     var task_details = $.parseJSON(data);
-                   alert(task_details);
+                   //alert(task_details);
                     var client_name = task_details[0]['Client_Company_Name'];
                     //alert(client_name);
                     document.getElementById('Client_Name').value=client_name;
