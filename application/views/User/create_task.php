@@ -181,7 +181,7 @@
 
 
         $("#Project_Select").change(function () {
-             alert("hiiii");
+             //alert("hiiii");
             /*dropdown post *///
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
