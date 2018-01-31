@@ -155,7 +155,7 @@
                                                 <td id="end<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_End_Date'];?></td>
                                                 <td id="hour<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Estimate_Hour'];?></td>
                                                 <td>
-                                                    <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
+                                                    <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edittttt" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                     <input type='button' class="save_button" id="save_button<?php echo $row['Project_Phase_Icode'];?>" value="save" onclick="save_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                     <input type='button' class="delete_button" id="delete_button<?php echo $row['Project_Phase_Icode'];?>" value="delete" onclick="delete_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                 </td>
@@ -223,19 +223,14 @@
 </div>
 
 <script type="text/javascript" src="modify_records.js"></script>
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $(function(){
-            $('.datepicker').datepicker({
-                format: 'mm-dd-yyyy'
-            });
-        });
-        $(".datepick").datepicker();
+
 
 
         $('#Phase_date_start').datepicker({
@@ -278,25 +273,20 @@
         var End=document.getElementById("end"+id).innerHTML;
         var Hour=document.getElementById("hour"+id).innerHTML;
         document.getElementById("phase"+id).innerHTML="<input type='text' id='Phase_Master"+id+"' value='"+Phase+"' readonly>";
-        document.getElementById("start"+id).innerHTML="<input  type='date' id='Phase_date_start"+id+"' name='startDate' value='"+Start+"'   onmousedown='datepick();'>";
+        document.getElementById("start"+id).innerHTML="<input  type='text' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onclick=''  >";
         document.getElementById("end"+id).innerHTML="<input type='text' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"'>";
         document.getElementById("hour"+id).innerHTML="<input type='text' id='Hours"+id+"' value='"+Hour+"'>";
     }
 
-    function datepick() {
-        if (!Modernizr.inputtypes['date']) {
-            $('input[type=date]').datepicker({
-                todayBtn:  1,
-                autoclose: true,
-                startDate: new Date(),
-            }).on('changeDate', function (selected) {
-                var minDate = new Date(selected.date.valueOf());
-                $('#Phase_date_end').datepicker('setStartDate', minDate);
-            });
 
 
-        }
-    }
+       $('input[type=date]').datepicker({
+           dateFormat: 'yy-mm-dd',
+           startDate: new Date(),
+           todayBtn:  1
+       });
+
+
 
 
 </script>
