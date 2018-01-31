@@ -202,7 +202,7 @@
                                                         <option value="" >Select Phase</option>
                                                         <?php foreach ($Phase_Master as $row):
                                                         {
-                                                            echo '<option value= "'.$row['Project_Phase_Icode'].'">' . $row['Phase_Name'] . '</option>';
+                                                            echo '<option value= "'.$row['Project_Phase_Master_Icode'].'">' . $row['Phase_Name'] . '</option>';
                                                         }
                                                         endforeach; ?>
                                                     </select>

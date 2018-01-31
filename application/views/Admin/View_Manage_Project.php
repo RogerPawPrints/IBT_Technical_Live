@@ -149,37 +149,20 @@
                                         foreach ($phase as $row)
                                         {
                                             ?>
-                                            <tr id="row<?php echo $i; ?>">
-                                                <td><input type="hidden" name="Phase_Master[]" value="<?php echo $row['Phase_Master_Icode']; ?>">
-                                                    <input type="text" name="Phase" value="<?php echo $row['Phase_Name']; ?>"></td>
+                                            <tr id="row<?php echo $row['Project_Phase_Icode'];?>">
+                                                <td id="name_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Name'];?></td>
+                                                <td id="age_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Start_Date'];?></td>
+                                                <td id="age_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_End_Date'];?></td>
+                                                <td id="age_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Estimate_Hour'];?></td>
                                                 <td>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-calendar">
-                                                            </i>
-                                                        </div>
-                                                        <input class="form-control" id="Phase_date_start" name="Phase_date_start[]" value="<?php echo $row['Phase_Start_Date']; ?>" type="text"/>
-                                                    </div>
+                                                    <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
+                                                    <input type='button' class="save_button" id="save_button<?php echo $row['Project_Phase_Icode'];?>" value="save" onclick="save_row('<?php echo $row['Project_Phase_Icode'];?>');">
+                                                    <input type='button' class="delete_button" id="delete_button<?php echo $row['Project_Phase_Icode'];?>" value="delete" onclick="delete_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                 </td>
-
-                                                <td>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-calendar">
-                                                            </i>
-                                                        </div>
-                                                        <input class="form-control" id="Phase_date_end" name="Phase_date_end[]" value="<?php echo $row['Phase_End_Date']; ?>" type="text"/>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input  class="form-control" name="Hours[]" id="Hours" value="<?php echo $row['Estimate_Hour']; ?>" type="number" min="0" step="1" required />
-                                                    </div>
-                                                </td>
-
                                             </tr>
 
                                         <?php
+                                            $i++;
                                         }
                                         ?>
 
@@ -238,7 +221,8 @@
 </div>
 </section>
 </div>
-
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="modify_records.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
@@ -246,48 +230,7 @@
 
     $(document).ready(function() {
 
-        $("#startdate").datepicker({
-            todayBtn:  1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#enddate').datepicker('setStartDate', minDate);
-        });
 
-        $("#startdate").datepicker({
-            todayBtn:  1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#Member_start_working_date').datepicker('setStartDate', minDate);
-        });
-
-        $("#enddate").datepicker()
-            .on('changeDate', function (selected) {
-                var minDate = new Date(selected.date.valueOf());
-                $('#startdate').datepicker('setEndDate', minDate);
-            });
-
-        $("#startdate").datepicker({
-            todayBtn:  1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#Phase_date_start').datepicker('setStartDate', minDate);
-        });
-
-        $("#Phase_date_start").datepicker({
-            todayBtn:  1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#Phase_date_end').datepicker('setStartDate', minDate);
-        });
-    });
 
     $("#Member").change(function(){
         //  alert("hiiii");
@@ -304,6 +247,7 @@
             }
         });
     });
+    });
 
     function show_phase()
     {
@@ -312,5 +256,37 @@
         $('#show_Resource').hide();
         $('#show_Status').hide();
     }
+        function edit_row(no)
+        {
+            alert(no);
+            var Pdate_start=document.getElementById("Phase_date_start"+no);
+            //alert(Pdate_start);
+            var Pdate_end=document.getElementById("Phase_date_end"+no);
+            var Hour=document.getElementById("Hours"+no);
+
+            var name_data=Pdate_start.innerHTML;
+            alert(name_data);
+            var country_data=Pdate_end.innerHTML;
+            var age_data=Hour.innerHTML;
+
+            Pdate_start.innerHTML="<input type='text' id='Phase_date_start"+no+"' value='"+name_data+"'>";
+            Pdate_end.innerHTML="<input type='text' id='Phase_date_end"+no+"' value='"+country_data+"'>";
+            Hour.innerHTML="<input type='text' id='Hours"+no+"' value='"+age_data+"'>";
+        }
+//            document.getElementById("edit_button"+no).style.display="none";
+//            document.getElementById("save_button"+no).style.display="block";
+//
+//            var Pdate_start=document.getElementById("Phase_date_start"+no);
+//            var Pdate_end=document.getElementById("Phase_date_end"+no);
+//            var Hour=document.getElementById("Hours"+no);
+//
+//            var name_data=Pdate_start.innerHTML;
+//            var country_data=Pdate_end.innerHTML;
+//            var age_data=Hour.innerHTML;
+//
+//            Pdate_start.innerHTML="<input type='text' id='Phase_date_start"+no+"' value='"+name_data+"'>";
+//            Pdate_end.innerHTML="<input type='text' id='Phase_date_end"+no+"' value='"+country_data+"'>";
+//            Hour.innerHTML="<input type='text' id='Hours"+no+"' value='"+age_data+"'>";
+//        }
 
 </script>
