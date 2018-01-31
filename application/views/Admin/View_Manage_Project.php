@@ -120,6 +120,13 @@
                             <?php
                             }
                             ?>
+                            <div class="form-group">
+
+                                <input type="radio" name="Rtype" id="Project" value="Project" checked  onclick="show_project()" /> <label style="margin-right: 20px; font-weight: normal;">Change Date</label>
+                                <input type="radio" name="Rtype" id="Resource" value="Resource" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Resource</label>
+                                <input type="radio" name="Rtype" id="Resource" value="Status" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Status</label>
+
+                            </div>
 
                             <div class="row padding_class">
                                 <div class="col-md-12" >
@@ -339,80 +346,6 @@
             var minDate = new Date(selected.date.valueOf());
             $('#Phase_date_end').datepicker('setStartDate', minDate);
         });
-
-
-
-        $("#Phase_Master").change(function(){
-            var value = $("#Phase_Master option:selected").val();
-            var theDiv = $(".is" + value);
-
-            theDiv.slideDown().removeClass("hidden");
-            $("#Phase_Master option:selected").attr('disabled','disabled');
-        });
-        $("#Member").change(function(){
-            var value = $("#Member option:selected").val();
-            var theDiv = $(".is" + value);
-
-            theDiv.slideDown().removeClass("hidden");
-            $("#Member option:selected").attr('disabled','disabled');
-        });
-        $("#Client").change(function(){
-            //  alert("hiiii");
-            /*dropdown post *///
-            $.ajax({
-                url:"<?php echo site_url('Admin_Controller/get_Client_Contact'); ?>",
-                data: {id:
-                    $(this).val()},
-                type: "POST",
-                success:function(data){
-                    $("#details").show();
-                    $("#contacts").html(data);
-                }
-            });
-        });
-
-        var date_input_WO=$('input[name="date_Wo"]');
-        var date_input_Start=$('input[name="date_start"]');
-        var date_input_End=$('input[name="date_end"]');
-
-        //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input_WO.datepicker({
-            format: 'yyyy-mm-dd',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
-        date_input_Start.datepicker({
-            format: 'yyyy-mm-dd',
-            container: container,
-            startDate: new Date(),
-            todayHighlight: true,
-            autoclose: true,
-        })
-        date_input_End.datepicker({
-            format: 'yyyy-mm-dd',
-            container: container,
-            startDate: new Date(),
-            todayHighlight: true,
-            autoclose: true,
-        })
-//        $('#Phase_date_start').datepicker({
-//            format: 'yyyy-mm-dd',
-//            container: container,
-//            startDate: new Date(),
-//            todayHighlight: true,
-//            autoclose: true,
-//        })
-//        $('#Phase_date_end').datepicker({
-//            format: 'yyyy-mm-dd',
-//            container: container,
-//            startDate: new Date(),
-//            todayHighlight: true,
-//            autoclose: true,
-//        });
-        $('#check-all').checkAll();
-
     });
 
     $("#Member").change(function(){
@@ -430,27 +363,6 @@
             }
         });
     });
-
-    //$(function(){
-    //        // add multiple select / deselect functionality
-    //        $("#selectall").click(function () {
-    //            $('.case').attr('checked', this.checked);
-    //        });
-    //        // if all checkbox are selected, check the selectall checkbox
-    //        // and viceversa
-    //        $(".case").click(function(){
-    //
-    //            if($(".case").length == $(".case:checked").length) {
-    //                $("#selectall").attr("checked", "checked");
-    //            } else {
-    //                $("#selectall").removeAttr("checked");
-    //            }
-    //
-    //        });
-    // $('#check-all').checkAll();
-
-    //});
-
     function Add() {
 
         if($('#Phase_Master').val() == "")
