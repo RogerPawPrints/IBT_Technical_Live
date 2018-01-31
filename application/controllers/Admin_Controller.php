@@ -636,16 +636,16 @@ class Admin_Controller extends CI_Controller
         $status = $this->input->post('Status', true);
         $User_Icode = $this->session->userdata['userid'];
         $data = $this->technical_admin_model->Search_Project($status, $User_Icode);
-        print_r($data);
+        //print_r($data);
         $output = null;
         $i = 1;
         foreach ($data as $row) {
-//            $requirement_id = $row['Requirement_Icode'];
+              $Project = $row['Project_Icode'];
 //            $req_Status = $row['Requirement_Status'];
 //            $rtype = $row['Requirement_Type'];
             $output .= "<tr >";
             $output .= "<td>" . $i . "</td>";
-            $output .= "<td><a href='#'>" . $row['Client_Company_Name'] . "</a></td>";
+            $output .= "<td><a href='select_project/$Project'>" . $row['Client_Company_Name'] . "</a></td>";
             $output .= "<td>" . $row['Client_Country'] . "</td>";
             $output .= "<td>" . $row['Project_Name'] . "</td>";
             $output .= "<td>" . $row['Project_Start_Date'] . "</td>";
@@ -657,6 +657,18 @@ class Admin_Controller extends CI_Controller
             $i++;
         }
         echo $output;
+    }
+
+    //** Select Perticular Project */
+    public function select_project($project_id)
+    {
+        //$icode = $this->session->userdata['userid'];
+        $this->data['project']= $this->technical_admin_model->Get_Project_Details($project_id);
+        $this->load->view('Admin/header');
+        $this->load->view('Admin/left');
+        $this->load->view('Admin/top');
+        $this->load->view('Admin/View_Manage_Project',$this->data, FALSE);
+        $this->load->view('Admin/footer');
     }
 
 
