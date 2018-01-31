@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Estiamtion Hour</label>
-                                        <div class="input-group">
+                                        <div class="form-group">
                                             <input class="form-control" id="Task_E_Hour" name="Task_E_Hour" placeholder="Estimtion Hours" type="number" min="0" step="1"/>
                                         </div>
                                     </div>
