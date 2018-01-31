@@ -47,24 +47,26 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div id="show_on_project">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Client Name</label>
-                                        <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly style="display: none" class="show_on_project"/>
+                                        <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Work Category</label>
-                                        <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly style="display: none" class="show_on_project"/>
+                                        <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly  />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Work Type</label>
-                                        <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly style="display: none" class="show_on_project"/>
+                                        <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly  />
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <div class="row padding_class">
@@ -395,7 +397,8 @@
                     $(this).val()},
                 type: "POST",
                 success:function(data){
-                    $(".show_on_project").show();
+                    alert(data);
+                    $("#show_on_project").show();
                     var task_details = $.parseJSON(data);
 
                     var client_name = task_details[0]['Client_Company_Name'];
