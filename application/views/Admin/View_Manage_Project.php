@@ -120,12 +120,12 @@
                             <?php
                             }
                             ?>
-                            <div class="form-group">
-
-                                <input type="radio" name="Rtype" id="Project" value="Project" checked  onclick="show_project()" /> <label style="margin-right: 20px; font-weight: normal;">Change Date</label>
-                                <input type="radio" name="Rtype" id="Resource" value="Resource" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Resource</label>
-                                <input type="radio" name="Rtype" id="Resource" value="Status" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Status</label>
-
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <input type="radio" name="Rtype" id="Project" value="Project" checked  onclick="show_project()" /> <label style="margin-right: 20px; font-weight: normal;">Change Date</label></div>
+                                    <div class="col-md-3"><input type="radio" name="Rtype" id="Resource" value="Resource" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Resource</label></div>
+                                    <div class="col-md-3"><input type="radio" name="Rtype" id="Resource" value="Status" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Status</label></div>
+                                </div>
                             </div>
 
                             <div class="row padding_class">
