@@ -26,7 +26,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Create Fixed Cost Project
+            View/Manager Project
             <small></small>
         </h1>
 
@@ -42,77 +42,36 @@
             <div class="col-md-12 ">
                 <div class="box box-primary">
                     <div class="box-body">
+                        <?php
+                        foreach ($project as $key)
+                        {
+                            ?>
                         <div class="row padding_class">
                             <div class="col-md-12">
                                 <div class="col-md-3">
                                     <label>Project</label>
-                                    <input class="form-control"  type="text" id="Project_Name" name="Project_Name" placeholder="Enter Project Name" >
+                                    <input class="form-control"  type="text" id="Project_Name" name="Project_Name" value="<?php echo $key['Project_Name']; ?>" placeholder="Enter Project Name" readonly >
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Client Name</label>
-                                        <select name="Client" class="form-control" id="Client"  required >
-                                            <option value="" >Select Client</option>
-                                            <?php foreach ($Client as $row):
-                                            {
-
-                                                echo "<option value= " .$row['Client_Icode'].">" . $row['Client_Company_Name'] . "</option>";
-
-                                            }
-                                            endforeach; ?>
-                                        </select>
+                                        <input class="form-control"  type="text" id="Client" name="Client" value="<?php echo $key['Client_Company_Name']; ?>" readonly >
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Work Category</label>
-                                        <select name="Work_Category" class="form-control" id="Work_Category"  required >
-                                            <option value="" >Select Category</option>
-                                            <?php foreach ($work_details as $row):
-                                            {
-
-                                                echo "<option value= " .$row['WorkCategory_Icode'].">" . $row['WorkCategory_Name'] . "</option>";
-
-                                            }
-                                            endforeach; ?>
-                                        </select>
+                                        <input class="form-control"  type="text" id="Work_Category" name="Work_Category" value="<?php echo $key['WorkCategory_Name']; ?>" readonly >
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Work Type</label>
-                                        <select name="Work_Type" class="form-control" id="Work_Type"  required >
-                                            <option value="" >Select Work Type</option>
-                                            <?php foreach ($Work_Type as $row):
-                                            {
-
-                                                echo "<option value= " .$row['Work_Icode'].">" . $row['Work_Name'] . "</option>";
-
-                                            }
-                                            endforeach; ?>
-                                        </select>
+                                        <input class="form-control"  type="text" id="Work_Type" name="Work_Type" value="<?php echo $key['Work_Name']; ?>" readonly >
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row padding_class">
-                            <div class="col-md-12" id="details" style="display: none;">
-                                <table id="tblCustomer"  data-page-length='25' class="table  table-bordered bootstrap-datatable datatable responsive">
-                                    <thead>
-                                    <th><input id="check-all" type="checkbox" /></th>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Designation</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>IM</th>
-                                    </thead>
-                                    <tbody id="contacts">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
                         <div id="Fixed" >
                             <div class="row padding_class" >
                                 <div class="col-md-12" >
@@ -123,7 +82,7 @@
                                                 <i class="fa fa-calendar">
                                                 </i>
                                             </div>
-                                            <input class="form-control" id="date_Wo" name="date_Wo" placeholder="YYYY/MM/DD" type="text"/>
+                                            <input class="form-control" id="date_Wo" name="date_Wo" value="<?php echo $key['Project_WO_Date']; ?>"  type="text"/>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -133,7 +92,7 @@
                                                 <i class="fa fa-calendar">
                                                 </i>
                                             </div>
-                                            <input class="form-control" type="text" placehoder="Start Date" name="date_start" id="startdate"/>
+                                            <input class="form-control" type="text" value="<?php echo $key['Project_Start_Date']; ?>" name="date_start" id="startdate"/>
 
                                             <!--                                        <input class="form-control" id="date_start" name="date_start" placeholder="YYYY/MM/DD" type="text"/>-->
                                         </div>
@@ -146,38 +105,21 @@
                                                 </i>
                                             </div>
                                             <!--                                        <input class="form-control" id="date_end" name="date_end" placeholder="YYYY/MM/DD" type="text"/>-->
-                                            <input class="form-control" type="text" placehoder="End Date" name="date_end" id="enddate"/>
+                                            <input class="form-control" type="text" value="<?php echo $key['Planned_End_Date']; ?>" name="date_end" id="enddate"/>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Estiamtion Hour</label>
                                         <div class="input-group">
-                                            <input class="form-control" id="E_Hour" name="E_Hour" placeholder="Estimtion Hours" type="number" min="0" step="1"/>
+                                            <input class="form-control" id="E_Hour" name="E_Hour" value="<?php echo $key['Estimation_Hours']; ?>" type="number" min="0" step="1"/>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label>Technical Platform</label>
-                                <div class="form-group">
-                                    <select name="technical" class="form-control" id="technical" required >
-                                        <option value="" >Select platform</option>
-                                        <?php foreach ($technical as $row):
-                                        {
-                                            echo '<option value= "'.$row['Tech_Icode'].'">' . $row['Tech_Name'] . '</option>';
-                                        }
-                                        endforeach; ?>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Technical Skills</label>
-                                    <textarea name="skill" id="skill" class="form-control"></textarea>
-                                </div>
-                            </div>
+                            <?php
+                            }
+                            ?>
 
                             <div class="row padding_class">
                                 <div class="col-md-12" >
