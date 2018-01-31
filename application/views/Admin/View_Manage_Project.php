@@ -155,8 +155,8 @@
                                                 <td id="end<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_End_Date'];?></td>
                                                 <td id="hour<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Estimate_Hour'];?></td>
                                                 <td>
-                                                    <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edittttt" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
-                                                    <input type='button' class="save_button" id="save_button<?php echo $row['Project_Phase_Icode'];?>" value="save" onclick="save_row('<?php echo $row['Project_Phase_Icode'];?>');">
+                                                    <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
+
                                                     <input type='button' class="delete_button" id="delete_button<?php echo $row['Project_Phase_Icode'];?>" value="delete" onclick="delete_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                 </td>
                                             </tr>
@@ -273,18 +273,35 @@
         var End=document.getElementById("end"+id).innerHTML;
         var Hour=document.getElementById("hour"+id).innerHTML;
         document.getElementById("phase"+id).innerHTML="<input type='text' id='Phase_Master"+id+"' value='"+Phase+"' readonly>";
-        document.getElementById("start"+id).innerHTML="<input  type='text' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onclick=''  >";
-        document.getElementById("end"+id).innerHTML="<input type='text' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"'>";
-        document.getElementById("hour"+id).innerHTML="<input type='text' id='Hours"+id+"' value='"+Hour+"'>";
+        document.getElementById("start"+id).innerHTML="<input  type='text' class='phase_Start' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onmousedown='show_date1()'  >";
+        document.getElementById("end"+id).innerHTML="<input type='text' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
+        document.getElementById("hour"+id).innerHTML="<input type='number' id='Hours"+id+"' value='"+Hour+"'>";
     }
 
+//    function show_date()
+//    {
+//        $('.phase_end').datepicker({
+//            dateFormat: 'yy-mm-dd',
+//            startDate: new Date(),
+//            todayBtn:  1
+//        }).on('changeDate', function (selected) {
+//            var minDate = new Date(selected.date.valueOf());
+//            $('.phase_Start').datepicker('setStartDate', minDate);
+//        });
+//    }
+    function show_date1()
+    {
+        $('.phase_Start').datepicker({
+            dateFormat: 'yy-mm-dd',
+            startDate: new Date(),
+            autoclose: true,
+            todayBtn:  1
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('.phase_end').datepicker('setStartDate', minDate);
 
-
-       $('input[type=date]').datepicker({
-           dateFormat: 'yy-mm-dd',
-           startDate: new Date(),
-           todayBtn:  1
-       });
+        });
+    }
 
 
 
