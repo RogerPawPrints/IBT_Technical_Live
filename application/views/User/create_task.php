@@ -85,8 +85,7 @@
                                         <label>Task Start Date</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
-                                                <i class="fa fa-calendar">
-                                                </i>
+                                                <i class="fa fa-calendar"> </i>
                                             </div>
                                             <input class="form-control" type="text" placehoder="Task Start Date" name="task_date_start" id="startdate"/>
                                             <!--<input class="form-control" id="date_start" name="date_start" placeholder="YYYY/MM/DD" type="text"/>-->
@@ -107,29 +106,14 @@
                                         <div class="input-group">
                                             <input class="form-control" id="Task_E_Hour" name="Task_E_Hour" placeholder="Estimtion Hours" type="number" min="0" step="1"/>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label>Technical Platform</label>
-                                <div class="form-group">
-                                    <select name="technical" class="form-control" id="technical" required >
-                                        <option value="" >Select platform</option>
-                                        <?php foreach ($technical as $row):
-                                        {
-                                            echo '<option value= "'.$row['Tech_Icode'].'">' . $row['Tech_Name'] . '</option>';
-                                        }
-                                        endforeach; ?>
-                                    </select>
 
-                                </div>
-                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>Technical Skills</label>
-                                    <textarea name="skill" id="skill" class="form-control"></textarea>
+                                    <label>Task Description</label>
+                                    <textarea name="task_desc" id="task_desc" class="form-control"></textarea>
                                 </div>
                             </div>
 
