@@ -26,6 +26,14 @@ class Technical_User_Model extends CI_Model
         return $query->result_array();
     }
 
-    /*Show on Select Project*/
+    /*Show on Select Resource*/
+
+    public function Select_Resource($id)
+    {
+        $query = $this->db->query("SELECT * FROM project_team A INNER JOIN ibt_technical_users B ON A.User_Icode=B.User_Icode WHERE A.Proj_Project_Icode = '$id'");
+        return $query->result_array();
+    }
+
+    /*Select Resource*/
 
 }
