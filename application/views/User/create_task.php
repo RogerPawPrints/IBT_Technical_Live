@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-3">
                                         <table id="tblCustomers6"  data-page-length='25' class="table table-striped">
                                             <thead>
                                             <tr>
@@ -129,10 +129,9 @@
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
-                                                        <input type="file" class="form-control" name="Task_Attachment[]" id="Task_Attachment" placeholder="Enter Modules" required />
+                                                        <input type="file" class="form-control" name="Task_Attachment[]" id="Task_Attachment" required />
                                                     </div>
                                                 </td>
-
                                                 <td><input type="button" onclick="Add_Task_Attachment()" value="Add Attachment" /></td>
                                             </tr>
 
@@ -269,6 +268,5 @@
                 table.deleteRow(row[0].rowIndex);
             }
         };
-
 
 </script>
