@@ -15,13 +15,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Create Fixed Cost Project
+            Create Task
             <small></small>
         </h1>
 
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Add Client</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i>Task Management</a></li>
+            <li class="active">Create Task</li>
         </ol>
     </section>
 
@@ -41,11 +41,11 @@
                                     <div class="form-group">
                                         <label>Client Name</label>
                                         <select name="Client" class="form-control" id="Client"  required >
-                                            <option value="" >Select Client</option>
-                                            <?php foreach ($Client as $row):
+                                            <option value="" >Select Project</option>
+                                            <?php foreach ($Select_Project as $row):
                                             {
 
-                                                echo "<option value= " .$row['Client_Icode'].">" . $row['Client_Company_Name'] . "</option>";
+                                                echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
 
                                             }
                                             endforeach; ?>
