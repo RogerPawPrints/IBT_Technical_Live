@@ -88,7 +88,7 @@
                                                 <i class="fa fa-calendar">
                                                 </i>
                                             </div>
-                                            <input class="form-control" type="text" placehoder="Start Date" name="date_start" id="startdate"/>
+                                            <input class="form-control" type="text" placehoder="Task Start Date" name="task_date_start" id="startdate"/>
 
                                             <!--                                        <input class="form-control" id="date_start" name="date_start" placeholder="YYYY/MM/DD" type="text"/>-->
                                         </div>
@@ -101,16 +101,10 @@
                                                 </i>
                                             </div>
                                             <!--                                        <input class="form-control" id="date_end" name="date_end" placeholder="YYYY/MM/DD" type="text"/>-->
-                                            <input class="form-control" type="text" placehoder="End Date" name="date_end" id="enddate"/>
+                                            <input class="form-control" type="text" placehoder="End Date" name="task_date_end" id="enddate"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>Estiamtion Hour</label>
-                                        <div class="input-group">
-                                            <input class="form-control" id="E_Hour" name="E_Hour" placeholder="Estimtion Hours" type="number" min="0" step="1"/>
-                                        </div>
 
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -320,14 +314,7 @@
             $('#enddate').datepicker('setStartDate', minDate);
         });
 
-        $("#startdate").datepicker({
-            todayBtn:  1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#Member_start_working_date').datepicker('setStartDate', minDate);
-        });
+
 
         $("#enddate").datepicker()
             .on('changeDate', function (selected) {
@@ -335,40 +322,7 @@
                 $('#startdate').datepicker('setEndDate', minDate);
             });
 
-        $("#startdate").datepicker({
-            todayBtn:  1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#Phase_date_start').datepicker('setStartDate', minDate);
-        });
 
-        $("#Phase_date_start").datepicker({
-            todayBtn:  1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#Phase_date_end').datepicker('setStartDate', minDate);
-        });
-
-
-
-        $("#Phase_Master").change(function(){
-            var value = $("#Phase_Master option:selected").val();
-            var theDiv = $(".is" + value);
-
-            theDiv.slideDown().removeClass("hidden");
-            $("#Phase_Master option:selected").attr('disabled','disabled');
-        });
-        $("#Member").change(function(){
-            var value = $("#Member option:selected").val();
-            var theDiv = $(".is" + value);
-
-            theDiv.slideDown().removeClass("hidden");
-            $("#Member option:selected").attr('disabled','disabled');
-        });
         $("#Project_Select").change(function(){
             // alert("hiiii");
             /*dropdown post *///
