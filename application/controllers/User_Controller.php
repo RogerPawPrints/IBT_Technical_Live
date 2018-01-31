@@ -30,7 +30,7 @@ class User_Controller extends CI_Controller
     /*Create Task*/
     public function Create_Task()
     {
-        $this->data['Select_Project']= $this->Technical_User_Model->Select_Project();
+        $this->data['Select_Project']= $this->technical_user_model->Select_Project();
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
