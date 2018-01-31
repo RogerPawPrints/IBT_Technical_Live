@@ -144,6 +144,44 @@
                                         <tbody>
                                         </tbody>
                                         <tfoot>
+                                        <?php
+                                        $i=1;
+                                        foreach ($phase as $row)
+                                        {
+                                            ?>
+                                            <tr id="row<?php echo $i; ?>">
+                                                <td><input type="hidden" name="Phase_Master[]" value="<?php echo $row['Phase_Master_Icode']; ?>">
+                                                    <input type="text" name="Phase" value="<?php echo $row['Phase_Name']; ?>"></td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar">
+                                                            </i>
+                                                        </div>
+                                                        <input class="form-control" id="Phase_date_start" name="Phase_date_start[]" value="<?php echo $row['Phase_Start_Date']; ?>" type="text"/>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar">
+                                                            </i>
+                                                        </div>
+                                                        <input class="form-control" id="Phase_date_end" name="Phase_date_end[]" value="<?php echo $row['Phase_End_Date']; ?>" type="text"/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input  class="form-control" name="Hours[]" id="Hours" value="<?php echo $row['Estimate_Hour']; ?>" type="number" min="0" step="1" required />
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+
+                                        <?php
+                                        }
+                                        ?>
 
                                         <tr>
                                             <td>
