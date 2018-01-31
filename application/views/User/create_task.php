@@ -397,11 +397,12 @@
                     $(this).val()},
                 type: "POST",
                 success:function(data){
-                    alert(data);
+                  //  alert(data);
                     $("#show_on_project").show();
                     var task_details = $.parseJSON(data);
 
                     var client_name = task_details[0]['Client_Company_Name'];
+                    alert(client_name);
                     document.getElementById('Client_Name').value=client_name;
 
                     var work_cat = task_details[0]['WorkCategory_Name'];
