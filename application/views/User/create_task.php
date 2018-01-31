@@ -397,7 +397,7 @@
                     $(this).val()},
                 type: "POST",
                 success:function(data){
-                  //  alert(data);
+                    alert(data);
                     $("#show_on_project").show();
                     var task_details = $.parseJSON(data);
 
