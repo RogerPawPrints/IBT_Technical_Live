@@ -150,10 +150,10 @@
                                         {
                                             ?>
                                             <tr id="row<?php echo $row['Project_Phase_Icode'];?>">
-                                                <td id="name_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Name'];?></td>
-                                                <td id="age_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Start_Date'];?></td>
-                                                <td id="age_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_End_Date'];?></td>
-                                                <td id="age_val<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Estimate_Hour'];?></td>
+                                                <td id="phase<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Name'];?></td>
+                                                <td id="start<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Start_Date'];?></td>
+                                                <td id="end<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_End_Date'];?></td>
+                                                <td id="hour<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Estimate_Hour'];?></td>
                                                 <td>
                                                     <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                     <input type='button' class="save_button" id="save_button<?php echo $row['Project_Phase_Icode'];?>" value="save" onclick="save_row('<?php echo $row['Project_Phase_Icode'];?>');">
@@ -166,7 +166,7 @@
                                         }
                                         ?>
 
-                                        <tr>
+                                        <tr id="new_row">
                                             <td>
                                                 <div class="form-group">
                                                     <select name="Phase_Master[]" class="form-control" id="Phase_Master" required >
@@ -221,16 +221,31 @@
 </div>
 </section>
 </div>
-<script type="text/javascript" src="jquery.js"></script>
+
 <script type="text/javascript" src="modify_records.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
 <script type="text/javascript">
 
     $(document).ready(function() {
+        $(function(){
+            $('.datepicker').datepicker({
+                format: 'mm-dd-yyyy'
+            });
+        });
+        $(".datepick").datepicker();
 
 
+        $('#Phase_date_start').datepicker({
+            todayBtn:  1,
+            autoclose: true,
+            startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#Phase_date_end').datepicker('setStartDate', minDate);
+        });
 
     $("#Member").change(function(){
         //  alert("hiiii");
@@ -256,37 +271,32 @@
         $('#show_Resource').hide();
         $('#show_Status').hide();
     }
-        function edit_row(no)
-        {
-            alert(no);
-            var Pdate_start=document.getElementById("Phase_date_start"+no);
-            //alert(Pdate_start);
-            var Pdate_end=document.getElementById("Phase_date_end"+no);
-            var Hour=document.getElementById("Hours"+no);
+    function edit_row(id)
+    {
+        var Phase=document.getElementById("phase"+id).innerHTML;
+        var Start=document.getElementById("start"+id).innerHTML;
+        var End=document.getElementById("end"+id).innerHTML;
+        var Hour=document.getElementById("hour"+id).innerHTML;
+        document.getElementById("phase"+id).innerHTML="<input type='text' id='Phase_Master"+id+"' value='"+Phase+"' readonly>";
+        document.getElementById("start"+id).innerHTML="<input  type='date' id='Phase_date_start"+id+"' name='startDate' value='"+Start+"'   onmousedown='datepick();'>";
+        document.getElementById("end"+id).innerHTML="<input type='text' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"'>";
+        document.getElementById("hour"+id).innerHTML="<input type='text' id='Hours"+id+"' value='"+Hour+"'>";
+    }
 
-            var name_data=Pdate_start.innerHTML;
-            alert(name_data);
-            var country_data=Pdate_end.innerHTML;
-            var age_data=Hour.innerHTML;
+    function datepick() {
+        if (!Modernizr.inputtypes['date']) {
+            $('input[type=date]').datepicker({
+                todayBtn:  1,
+                autoclose: true,
+                startDate: new Date(),
+            }).on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('#Phase_date_end').datepicker('setStartDate', minDate);
+            });
 
-            Pdate_start.innerHTML="<input type='text' id='Phase_date_start"+no+"' value='"+name_data+"'>";
-            Pdate_end.innerHTML="<input type='text' id='Phase_date_end"+no+"' value='"+country_data+"'>";
-            Hour.innerHTML="<input type='text' id='Hours"+no+"' value='"+age_data+"'>";
+
         }
-//            document.getElementById("edit_button"+no).style.display="none";
-//            document.getElementById("save_button"+no).style.display="block";
-//
-//            var Pdate_start=document.getElementById("Phase_date_start"+no);
-//            var Pdate_end=document.getElementById("Phase_date_end"+no);
-//            var Hour=document.getElementById("Hours"+no);
-//
-//            var name_data=Pdate_start.innerHTML;
-//            var country_data=Pdate_end.innerHTML;
-//            var age_data=Hour.innerHTML;
-//
-//            Pdate_start.innerHTML="<input type='text' id='Phase_date_start"+no+"' value='"+name_data+"'>";
-//            Pdate_end.innerHTML="<input type='text' id='Phase_date_end"+no+"' value='"+country_data+"'>";
-//            Hour.innerHTML="<input type='text' id='Hours"+no+"' value='"+age_data+"'>";
-//        }
+    }
+
 
 </script>
