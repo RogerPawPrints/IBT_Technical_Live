@@ -33,7 +33,7 @@
                     <div class="box-body">
                         <div class="row padding_class">
                             <div class="col-md-12">
-
+                                <form name="create_task_form" action="<?php echo site_url('User_Controller/Insert_Task'); ?>" enctype="multipart/form-data" method="post">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Select Project</label>
@@ -52,6 +52,7 @@
                                         <div class="form-group">
                                             <label>Client Name</label>
                                             <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
+                                            <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -116,7 +117,7 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <div class="col-md-3">
+
                                         <table id="tblCustomers6"  data-page-length='25' class="table table-striped">
                                             <thead>
                                             <tr>
@@ -130,7 +131,7 @@
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
-                                                        <input type="file" class="form-control" name="Task_Attachment[]" id="Task_Attachment" required />
+                                                        <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
                                                     </div>
                                                 </td>
                                                 <td><input type="button" onclick="Add_Task_Attachment()" value="Add Attachment" /></td>
@@ -142,12 +143,10 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-info pull-right" onclick="Save_Fixed()" >Save</button>
-                            <button type="submit" class="btn btn-danger pull-right" onclick="cancel()" >Cancel</button>
 
 
+                            <button type="submit" name="insert_task" class="btn btn-info pull-right" >Save</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -199,6 +198,10 @@
                     var client_name = task_details.Client_Details[0]['Client_Company_Name'];
                     //alert(client_name);
                     document.getElementById('Client_Name').value = client_name;
+
+                    var Client_Name_icode = task_details.Client_Details[0]['Client_Icode'];
+                    //alert(client_name);
+                    document.getElementById('Client_Name_icode').value = Client_Name_icode;
 
                     var work_cat = task_details.Client_Details[0]['WorkCategory_Name'];
                     document.getElementById('Work_Category').value = work_cat;

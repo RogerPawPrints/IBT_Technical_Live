@@ -36,4 +36,17 @@ class Technical_User_Model extends CI_Model
 
     /*Select Resource*/
 
+
+    public function Insert_Task($task_data)
+    {
+        $this->db->insert('ibt_task_master', $task_data);
+        return $this->db->insert_id();
+    }
+
+    public function Insert_Task_Attachment($data)
+    {
+        $this->db->insert('ibt_task_attachments', $data);
+        return 1;
+    }
+
 }
