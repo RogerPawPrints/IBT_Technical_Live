@@ -47,7 +47,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="show_on_project">
+                                <div id="show_on_project" style="display: none">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Client Name</label>
