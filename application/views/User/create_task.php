@@ -89,20 +89,25 @@
                                                 </i>
                                             </div>
                                             <input class="form-control" type="text" placehoder="Task Start Date" name="task_date_start" id="startdate"/>
-
-                                            <!--                                        <input class="form-control" id="date_start" name="date_start" placeholder="YYYY/MM/DD" type="text"/>-->
+                                            <!--<input class="form-control" id="date_start" name="date_start" placeholder="YYYY/MM/DD" type="text"/>-->
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label>Task end date </label>
+                                        <label>Task End Date</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
-                                                <i class="fa fa-calendar">
-                                                </i>
+                                                <i class="fa fa-calendar"></i>
                                             </div>
-                                            <!--                                        <input class="form-control" id="date_end" name="date_end" placeholder="YYYY/MM/DD" type="text"/>-->
+                                            <!--<input class="form-control" id="date_end" name="date_end" placeholder="YYYY/MM/DD" type="text"/>-->
                                             <input class="form-control" type="text" placehoder="Task End Date" name="task_date_end" id="enddate"/>
                                         </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Estiamtion Hour</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="Task_E_Hour" name="Task_E_Hour" placeholder="Estimtion Hours" type="number" min="0" step="1"/>
+                                        </div>
+
                                     </div>
 
                                 </div>
