@@ -51,6 +51,7 @@
                                 <div class="col-md-3">
                                     <label>Project</label>
                                     <input class="form-control"  type="text" id="Project_Name" name="Project_Name" value="<?php echo $key['Project_Name']; ?>" placeholder="Enter Project Name" readonly >
+                                    <input type="hidden" name="project_icode" id="project_icode" value="<?php echo $key['Project_Icode']; ?>" >
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -127,6 +128,18 @@
                                     <div class="col-md-3"><input type="radio" name="Rtype" id="Resource" value="Status" onclick="show_Status()" /> <label style="font-weight: normal;">Change Status</label></div>
                                 </div>
                             </div>
+                            <div class="col-md-12" >
+                                <div class="col-md-3">
+                                    <label>New End Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar">
+                                            </i>
+                                        </div>
+                                        <input class="form-control" id="date_new" name="date_new" placeholder="New End Date"   type="text" />
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row padding_class" id="Show_Phase" >
                                 <div class="col-md-12" >
@@ -156,7 +169,7 @@
                                                 <td id="hour<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Estimate_Hour'];?></td>
                                                 <td>
                                                     <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
-
+                                                    <input type='button' class="save_button" style="display: none" id="save_button<?php echo $row['Project_Phase_Icode'];?>" value="save" onclick="save_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                     <input type='button' class="delete_button" id="delete_button<?php echo $row['Project_Phase_Icode'];?>" value="delete" onclick="delete_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                 </td>
                                             </tr>
@@ -173,7 +186,7 @@
                                                         <option value="" >Select Phase</option>
                                                         <?php foreach ($Phase_Master as $row):
                                                         {
-                                                            echo '<option value= "'.$row['Project_Phase_Icode'].'">' . $row['Phase_Name'] . '</option>';
+                                                            echo '<option value= "'.$row['Project_Phase_Master_Icode'].'">' . $row['Phase_Name'] . '</option>';
                                                         }
                                                         endforeach; ?>
                                                     </select>
@@ -242,6 +255,16 @@
             $('#Phase_date_end').datepicker('setStartDate', minDate);
         });
 
+        var date_input_WO=$('input[name="date_new"]');
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input_WO.datepicker({
+            format: 'yyyy-mm-dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+            startDate: new Date()
+        })
+
     $("#Member").change(function(){
         //  alert("hiiii");
         /*dropdown post *///
@@ -272,23 +295,14 @@
         var Start=document.getElementById("start"+id).innerHTML;
         var End=document.getElementById("end"+id).innerHTML;
         var Hour=document.getElementById("hour"+id).innerHTML;
-        document.getElementById("phase"+id).innerHTML="<input type='text' id='Phase_Master"+id+"' value='"+Phase+"' readonly>";
-        document.getElementById("start"+id).innerHTML="<input  type='text' class='phase_Start' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onmousedown='show_date1()'  >";
-        document.getElementById("end"+id).innerHTML="<input type='text' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
-        document.getElementById("hour"+id).innerHTML="<input type='number' id='Hours"+id+"' value='"+Hour+"'>";
-    }
+        document.getElementById("phase"+id).innerHTML="<input type='text' name='Phase_Master[]' id='Phase_Master"+id+"' value='"+Phase+"' readonly>";
+        document.getElementById("start"+id).innerHTML="<input  type='text' name='Phase_date_start[]' class='phase_Start' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onmousedown='show_date1()'  >";
+        document.getElementById("end"+id).innerHTML="<input type='text' name='Phase_date_end[]' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
+        document.getElementById("hour"+id).innerHTML="<input type='number' name='Hour[]' id='Hours"+id+"' value='"+Hour+"' min='0' step='1'>";
 
-//    function show_date()
-//    {
-//        $('.phase_end').datepicker({
-//            dateFormat: 'yy-mm-dd',
-//            startDate: new Date(),
-//            todayBtn:  1
-//        }).on('changeDate', function (selected) {
-//            var minDate = new Date(selected.date.valueOf());
-//            $('.phase_Start').datepicker('setStartDate', minDate);
-//        });
-//    }
+        document.getElementById("edit_button"+id).style.display="none";
+        document.getElementById("save_button"+id).style.display="block";
+    }
     function show_date1()
     {
         $('.phase_Start').datepicker({
@@ -302,7 +316,40 @@
 
         });
     }
+    function save_row(id)
+    {
+        var phase=document.getElementById("Phase_Master"+id).value;
+        var start=document.getElementById("Phase_date_start"+id).value;
+        var end=document.getElementById("Phase_date_end"+id).value;
+        var hour=document.getElementById("Hours"+id).value;
+        var project_icode=document.getElementById("project_icode").value;
+        alert(start);
 
+        $.ajax
+        ({
+            type:'post',
+                url:"<?php echo site_url('Admin_Controller/Save_Phase'); ?>",
+                data: {
+                    project:id,
+                    project_icode:project_icode,
+                    phase_code:phase,
+                    Start_date:start,
+                    End_date:end,
+                    Hours:hour
+            },
+            success:function(response) {
+                if(response=="success")
+                {
+                    document.getElementById("name_val"+id).innerHTML=name;
+                    document.getElementById("age_val"+id).innerHTML=age;
+                    document.getElementById("edit_button"+id).style.display="block";
+                    document.getElementById("save_button"+id).style.display="none";
+                }
+            }
+        });
+    }
+
+    
 
 
 

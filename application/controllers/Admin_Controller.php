@@ -672,6 +672,13 @@ class Admin_Controller extends CI_Controller
         $this->load->view('Admin/footer');
     }
 
+    //** Save Dynamic Phase Values */
+    public function Save_Phase()
+    {
+        $project_code = $this->input->post('project', true);
+        print_r($project_code);
+    }
+
 
 
 }

@@ -103,7 +103,10 @@ class User_Controller extends CI_Controller
 
 
         }
-
+        //Get files data from database
+        $data['files'] = $this->file->getRows();
+        //Pass the files data to view
+        $this->load->view('User/index', $data);
     }
 
 }
