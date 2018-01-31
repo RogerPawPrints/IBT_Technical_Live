@@ -69,35 +69,16 @@
                             </div>
                             </div>
                         </div>
-                        <div class="row padding_class">
-                            <div class="col-md-12" id="details" style="display: none;">
-                                <table id="tblCustomer"  data-page-length='25' class="table  table-bordered bootstrap-datatable datatable responsive">
-                                    <thead>
-                                    <th><input id="check-all" type="checkbox" /></th>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Designation</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>IM</th>
-                                    </thead>
-                                    <tbody id="contacts">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
 
                         <div id="Fixed" >
                             <div class="row padding_class" >
                                 <div class="col-md-12" >
                                     <div class="col-md-3">
-                                        <label>Project WO Date</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar">
-                                                </i>
-                                            </div>
-                                            <input class="form-control" id="date_Wo" name="date_Wo" placeholder="YYYY/MM/DD" type="text"/>
+                                        <div class="form-group">
+                                            <label>Select Resource</label>
+                                            <select name="Resource_Select" class="form-control" id="Resource_Select"  required >
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -401,15 +382,25 @@
                     $("#show_on_project").show();
                     var task_details = $.parseJSON(data);
                    //alert(task_details);
-                    var client_name = task_details[0]['Client_Company_Name'];
+                    var client_name = task_details.Client_Details[0]['Client_Company_Name'];
                     //alert(client_name);
                     document.getElementById('Client_Name').value=client_name;
 
-                    var work_cat = task_details[0]['WorkCategory_Name'];
+                    var work_cat = task_details.Client_Details[0]['WorkCategory_Name'];
                     document.getElementById('Work_Category').value=work_cat;
 
-                    var work_type = task_details[0]['Work_Name'];
+                    var work_type = task_details.Client_Details[0]['Work_Name'];
                     document.getElementById('Work_Type').value=work_type;
+
+                    var count = Object.keys(task_details.Resource_Select).length;
+                    //alert(count_tot);
+
+
+                    for(var i = 0; i < count; i++)
+                    {
+                        Resource = task_details.Resource_Select[i];
+                        $("#Resource_Select").append("<option value='" + Resource.User_Icode + "' >" + Resource.User_Name + "</option>");
+                    }
 
                 }
 
