@@ -144,102 +144,6 @@
                                 </div>
                             </div>
 
-
-
-                            <div class="row padding_class">
-                                <div class="col-md-6">
-                                    <h2>Modules</h2>
-                                    <table id="tblCustomers6"  data-page-length='25' class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Modules</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="Modules[]" id="Modules" placeholder="Enter Modules" required />
-                                                </div>
-                                            </td>
-
-                                            <td><input type="button" onclick="Add_modules()" value="Add Modules" /></td>
-                                        </tr>
-
-                                        </tfoot>
-                                    </table>
-
-                                </div>
-                            </div>
-                            <div class="row padding_class">
-                                <div class="col-md-12" >
-                                    <h2>Team</h2>
-                                    <table id="tblCustomers7"  data-page-length='25' class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Team Member</th>
-                                            <th>Actual Designation</th>
-                                            <th>Project Role </th>
-                                            <th>Work Start Date</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group">
-                                                    <select name="Member[]" class="form-control" id="Member" required >
-                                                        <option value="" >Select Member</option>
-                                                        <?php foreach ($Member as $row):
-                                                        {
-                                                            echo '<option value= "'.$row['User_Icode'].'">' . $row['User_Name'] . '</option>';
-                                                        }
-                                                        endforeach; ?>
-                                                    </select>
-
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" id="designation" name="designation[]"  type="text"/>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="form-group">
-                                                    <select name="Role_Master[]" class="form-control" id="Role_Master" required >
-                                                        <option value="" >Select Role</option>
-                                                        <?php foreach ($Role_Master as $row):
-                                                        {
-                                                            echo '<option value= "'.$row['Role_Icode'].'">' . $row['Role_Name'] . '</option>';
-                                                        }
-                                                        endforeach; ?>
-                                                    </select>
-
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar">
-                                                        </i>
-                                                    </div>
-                                                    <input class="form-control" id="Member_start_working_date" name="Member_start_working_date[]" placeholder="YYYY/MM/DD" type="text"/>
-                                                </div>
-                                            </td>
-                                            <td><input type="button" onclick="Add_member()" value="Add" /></td>
-                                        </tr>
-
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
                             <button type="submit" class="btn btn-info pull-right" onclick="Save_Fixed()" >Save</button>
                             <button type="submit" class="btn btn-danger pull-right" onclick="cancel()" >Cancel</button>
 
@@ -324,12 +228,12 @@
                 alert("Please Enter Modules...");
             }
             else {
-                AddRow_modules($('#Task_Attachment').val());
+                AddRow_Task_Attachment($('#Task_Attachment').val());
                 $("#Task_Attachment").val("");
             }
         };
 
-        function AddRow_modules(Modules) {
+        function AddRow_Task_Attachment(Task_Attachment) {
             var tBody = $("#tblCustomers6 > TBODY")[0];
 
             //Add Row.
