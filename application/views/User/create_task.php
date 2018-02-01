@@ -118,12 +118,11 @@
 
                                     <div class="col-md-12">
 
-
-                                                    <div class="form-group">
-                                                        <label>Select Multiple Files to upload.</label>
-                                                        <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
-                                                    </div>
-
+                                        <div class="form-group">
+                                            <label>Task Attachments</label>
+                                            <label>Select Multiple Files to upload.</label>
+                                            <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +163,7 @@
             });
 
 
-        $("#Project_Select").change(function () {
+        $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
              //alert("hiiii");
             /*dropdown post *///
             //document.getElementById('Resource_Select').value = '';

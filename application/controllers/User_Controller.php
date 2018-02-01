@@ -38,7 +38,9 @@ class User_Controller extends CI_Controller
         $this->load->view('User/create_task', $this->data, FALSE);
         $this->load->view('User/footer');
     }
+    /*Create Task*/
 
+    /*select Resource and project details*/
     public function Show_On_Project_Select()
     {
         $project_code = $this->input->post('id', true);
@@ -54,7 +56,9 @@ class User_Controller extends CI_Controller
         echo json_encode($full_data);
 
     }
+    /*select Resource and project details*/
 
+    /*Insert Task in Database*/
     public function Insert_Task()
     {
         $task_data = array(
@@ -66,8 +70,10 @@ class User_Controller extends CI_Controller
             'Task_Estimated_Hours' => $this->input->post('Task_E_Hour'),
             'Task_Description' => $this->input->post('task_desc'),
             'Task_Created_By' => $this->session->userdata['userid']);
-        $insert_project = $this->technical_user_model->Insert_Task($task_data);
+        $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
         $data = array();
+
+        /*Insert Task Attachments*/
         if ($insert_project != '0') {
             $config ['upload_path'] = './uploads/task';
             $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
@@ -99,7 +105,7 @@ class User_Controller extends CI_Controller
                     $attachment = array('Attachment_Task_Icode' => $insert_project,
                         'Attachment_Path' =>$name['file_name'],
                         'Attachment_Created_By' => $this->session->userdata['userid']);
-                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment);
+                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
 
 
                 }
@@ -111,5 +117,6 @@ class User_Controller extends CI_Controller
 
 
     }
+    /*Insert Tssk in Database*/
 }
 ?>
