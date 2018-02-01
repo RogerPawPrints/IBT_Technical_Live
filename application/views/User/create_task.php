@@ -130,11 +130,22 @@
                                             <tfoot>
                                             <tr>
                                                 <td>
-                                                    <div class="form-group">
-                                                        <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
-                                                    </div>
+                                                    <fieldset>
+                                                        <legend>Upload Multiple File(s)</legend>
+                                                        <section>
+                                                            <label>Browse a file</label>
+                                                            <label>
+                                                                <input type="file" name="upload_file1" id="upload_file1" readonly="true"/>
+                                                            </label>
+                                                            <div id="moreImageUpload"></div>
+                                                            <div style="clear:both;"></div>
+                                                            <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
+                                                                <a href="javascript:void(0);" id="attachMore">Attach another file</a>
+                                                            </div>
+                                                        </section>
+                                                    </fieldset>
                                                 </td>
-                                                <td><input type="button" onclick="Add_Task_Attachment()" value="Add Attachment" /></td>
+
                                             </tr>
 
                                             </tfoot>
@@ -158,6 +169,41 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[id^='upload_file']").each(function() {
+            var id = parseInt(this.id.replace("upload_file", ""));
+            $("#upload_file" + id).change(function() {
+                if ($("#upload_file" + id).val() !== "") {
+                    $("#moreImageUploadLink").show();
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var upload_number = 2;
+        $('#attachMore').click(function() {
+            //add more file
+            var moreUploadTag = '';
+            moreUploadTag += '<div class="element"><label for="upload_file"' + upload_number + '>Upload File ' + upload_number + '</label>';
+            moreUploadTag += '<input type="file" id="upload_file' + upload_number + '" name="upload_file' + upload_number + '"/>';
+            moreUploadTag += '&nbsp;<a href="javascript:del_file(' + upload_number + ')" style="cursor:pointer;" onclick="return confirm(\"Are you really want to delete ?\")">Delete ' + upload_number + '</a></div>';
+            $('<dl id="delete_file' + upload_number + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreImageUpload');
+            upload_number++;
+        });
+    });
+</script>
+<script type="text/javascript">
+    function del_file(eleId) {
+        var ele = document.getElementById("delete_file" + eleId);
+        ele.parentNode.removeChild(ele);
+    }
+</script>
+
+
 
 <script type="text/javascript">
 
