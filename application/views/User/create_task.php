@@ -18,6 +18,11 @@
             Create Task
             <small></small>
         </h1>
+        <?php if($this->session->flashdata('message')){?>
+            <div class="alert alert-success">
+                <?php echo $this->session->flashdata('message')?>
+            </div>
+        <?php } ?>
 
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Task Management</a></li>
