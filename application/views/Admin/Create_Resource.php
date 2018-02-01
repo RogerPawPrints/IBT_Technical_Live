@@ -431,7 +431,7 @@
         var cell = $(row.insertCell(-1));
 
         var term = $("<input />");
-        term.attr("type", "text");
+        term.attr("type", "hidden");
         term.attr("name", "Member[]");
         term.val(Members);
         cell.append(term);
