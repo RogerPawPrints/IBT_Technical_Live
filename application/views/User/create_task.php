@@ -118,27 +118,12 @@
 
                                     <div class="col-md-12">
 
-                                        <table id="tblCustomers6"  data-page-length='25' class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Task Attachment</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <td>
+
                                                     <div class="form-group">
                                                         <label>Select Multiple Files to upload.</label>
                                                         <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
                                                     </div>
-                                                </td>
-                                            </tr>
 
-                                            </tfoot>
-                                        </table>
 
                                     </div>
                                 </div>
@@ -183,7 +168,7 @@
         $("#Project_Select").change(function () {
              //alert("hiiii");
             /*dropdown post *///
-            document.getElementById('Resource_Select').value = '';
+            //document.getElementById('Resource_Select').value = '';
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
                 data: {
