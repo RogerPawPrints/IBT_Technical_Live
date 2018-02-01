@@ -253,7 +253,13 @@
 
     $(document).ready(function() {
 
+        $("#Phase_Master").change(function(){
+            var value = $("#Phase_Master option:selected").val();
+            var theDiv = $(".is" + value);
 
+            theDiv.slideDown().removeClass("hidden");
+            $("#Phase_Master option:selected").attr('disabled','disabled');
+        });
 
         $('#Phase_date_start').datepicker({
             todayBtn:  1,
