@@ -70,44 +70,67 @@ class User_Controller extends CI_Controller
         $data = array();
         if($insert_project != '0')
         {
-            $filesCount = count($_FILES['Task_Attachment']['name']);
-            for($i = 0; $i < $filesCount; $i++){
-                $_FILES['Task_Attachment']['name'] = $_FILES['Task_Attachment']['name'][$i];
-                $_FILES['Task_Attachment']['type'] = $_FILES['Task_Attachment']['type'][$i];
-                $_FILES['Task_Attachment']['tmp_name'] = $_FILES['Task_Attachment']['tmp_name'][$i];
-                $_FILES['Task_Attachment']['error'] = $_FILES['Task_Attachment']['error'][$i];
-                $_FILES['Task_Attachment']['size'] = $_FILES['Task_Attachment']['size'][$i];
+            $dir_path = './uploads/';
+            $config['upload_path'] = $dir_path;
+            $config['allowed_types'] = '*';
+            $config['max_size'] = '0';
+            $config['max_filename'] = '255';
+            $config['encrypt_name'] = TRUE;
 
-                $uploadPath = 'uploads/files/';
-                $config['upload_path'] = $uploadPath;
-                $config['allowed_types'] = 'gif|jpg|png';
+            //upload file
+            $i = 0;
+            $files = array();
+            $is_file_error = FALSE;
 
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
-                if($this->upload->do_upload('userFile')){
-                    $fileData = $this->upload->data();
-                    $uploadData[$i]['file_name'] = $fileData['file_name'];
-                    $uploadData[$i]['created'] = date("Y-m-d H:i:s");
-                    $uploadData[$i]['modified'] = date("Y-m-d H:i:s");
+            if ($_FILES['upload_file1']['size'] <= 0) {
+                $this->handle_error('Select at least one file.');
+            } else {
+                foreach ($_FILES as $key => $value) {
+                    if (!empty($value['name'])) {
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload($key)) {
+                            $this->handle_error($this->upload->display_errors());
+                            $is_file_error = TRUE;
+                        } else {
+                            $files[$i] = $this->upload->data();
+                            ++$i;
+                        }
+                    }
                 }
-                if(!empty($uploadData)){
-                    $attachment = array('Attachment_Task_Icode' =>  $insert_project,
-                        'Attachment_Path' =>$uploadData,
-                        'Attachment_Created_By'=>$this->session->userdata['userid']);
-                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment);
+            }
+
+            // There were errors, we have to delete the uploaded files
+            if ($is_file_error && $files) {
+                for ($i = 0; $i < count($files); $i++) {
+                    $file = $dir_path . $files[$i]['file_name'];
+                    if (file_exists($file)) {
+                        unlink($file);
+                    }
                 }
+            }
 
+            if (!$is_file_error && $files) {
+                $resp = $this->file->save_files_info($files);
+                if ($resp === TRUE) {
+                    $this->handle_success('File(s) was/were successfully uploaded.');
+                } else {
+                    for ($i = 0; $i < count($files); $i++) {
+                        $file = $dir_path . $files[$i]['file_name'];
+                        if (file_exists($file)) {
+                            unlink($file);
+                        }
+                    }
+                    $this->handle_error('Error while saving file info to Database.');
+                }
+            }
 
-
+        $data['errors'] = $this->error;
+        $data['success'] = $this->success;
+        $this->load->view('uploadfiles', $data);
         }
-
-
-        }
-        //Get files data from database
-        $data['files'] = $this->file->getRows();
-        //Pass the files data to view
-        $this->load->view('User/index', $data);
     }
 
-}
+        }
+
+
 ?>
