@@ -124,7 +124,6 @@
                                                         <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
                                                     </div>
 
-
                                     </div>
                                 </div>
                             </div>
