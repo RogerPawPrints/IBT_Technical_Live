@@ -120,9 +120,9 @@
                                     <div class="col-md-3">
 
                                         <div class="form-group">
-                                            <label>Task Attachments</label>
                                             <legend>Upload Multiple File(s)</legend>
-                                            <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
+                                            <label>Task Attachments</label>
+                                            <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required style="border: none" />
                                         </div>
                                     </div>
                                 </div>
