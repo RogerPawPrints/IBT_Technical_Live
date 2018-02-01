@@ -665,6 +665,7 @@ class Admin_Controller extends CI_Controller
         //$icode = $this->session->userdata['userid'];
         $this->data['project']= $this->technical_admin_model->Get_Project_Details($project_id);
         $this->data['phase']= $this->technical_admin_model->Get_Project_Phase_Details($project_id);
+        $this->data['Phase_master']=$this->technical_admin_model->Get_Project_Phase_Master_Details($project_id);
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
         $this->load->view('Admin/top');
@@ -675,8 +676,16 @@ class Admin_Controller extends CI_Controller
     //** Save Dynamic Phase Values */
     public function Save_Phase()
     {
-        $project_code = $this->input->post('project', true);
-        print_r($project_code);
+        $project_Phase_code = $this->input->post('project', true);
+        $project_phase = array(
+            'Phase_Start_Date' => $this->input->post('Start_date', true),
+            'Phase_End_Date' => $this->input->post('End_date', true),
+            'Estimate_Hour' => $this->input->post('Hours', true),
+            'Modified_By' =>$this->session->userdata['userid'],
+            'Modified_On' =>date('Y-m-d'));
+        $this->db->where('Project_Phase_Icode',$project_Phase_code);
+        $this->db->update('project_phase', $project_phase);
+        echo 1;
     }
 
 

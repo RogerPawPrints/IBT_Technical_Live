@@ -310,5 +310,11 @@ class Technical_Admin_Model extends CI_Model
         return $query->result_array();
 
     }
+    //** Get project phase master details */
+    public function Get_Project_Phase_Master_Details($project_id)
+    {
+        $query=$this->db->query("SELECT A.Project_Phase_Master_Icode,A.Phase_Name FROM projct_phase_master A LEFT OUTER JOIN project_phase B on A.Project_Phase_Master_Icode = B.Phase_Master_Icode WHERE B.Proj_Project_Icode='$project_id'");
+        return $query->result_array();
+    }
 
 }

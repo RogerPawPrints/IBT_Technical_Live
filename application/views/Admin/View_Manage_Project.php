@@ -184,7 +184,7 @@
                                                 <div class="form-group">
                                                     <select name="Phase_Master[]" class="form-control" id="Phase_Master" required >
                                                         <option value="" >Select Phase</option>
-                                                        <?php foreach ($Phase_Master as $row):
+                                                        <?php foreach ($Phase_master as $row):
                                                         {
                                                             echo '<option value= "'.$row['Project_Phase_Master_Icode'].'">' . $row['Phase_Name'] . '</option>';
                                                         }
@@ -323,7 +323,7 @@
         var end=document.getElementById("Phase_date_end"+id).value;
         var hour=document.getElementById("Hours"+id).value;
         var project_icode=document.getElementById("project_icode").value;
-        alert(start);
+
 
         $.ajax
         ({
@@ -338,16 +338,20 @@
                     Hours:hour
             },
             success:function(response) {
-                if(response=="success")
+                if(response=="1")
                 {
-                    document.getElementById("name_val"+id).innerHTML=name;
-                    document.getElementById("age_val"+id).innerHTML=age;
+                    document.getElementById("phase"+id).innerHTML=phase;
+                    document.getElementById("start"+id).innerHTML=start;
+                    document.getElementById("end"+id).innerHTML=end;
+                    document.getElementById("hour"+id).innerHTML=hour;
                     document.getElementById("edit_button"+id).style.display="block";
                     document.getElementById("save_button"+id).style.display="none";
                 }
             }
         });
     }
+
+
 
     
 
