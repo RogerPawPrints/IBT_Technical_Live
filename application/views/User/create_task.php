@@ -115,12 +115,13 @@
                                             <textarea name="task_desc" id="task_desc" class="form-control"></textarea>
                                         </div>
                                     </div>
+                                    <div class="col-md-9"></div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-3">
 
                                         <div class="form-group">
                                             <label>Task Attachments</label>
-                                            <label>Select Multiple Files to upload.</label>
+                                            <legend>Upload Multiple File(s)</legend>
                                             <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
                                         </div>
                                     </div>
