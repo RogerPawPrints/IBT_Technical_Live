@@ -75,7 +75,7 @@ class User_Controller extends CI_Controller
             $config['allowed_types'] = '*';
             $config['max_size'] = '0';
             $config['max_filename'] = '255';
-            $config['encrypt_name'] = TRUE;
+            //$config['encrypt_name'] = TRUE;
 
             //upload file
             $i = 0;
