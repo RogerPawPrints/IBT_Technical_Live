@@ -135,7 +135,7 @@
                                                         <section>
                                                             <label>Browse a file</label>
                                                             <label>
-                                                                <input type="file" name="upload_file1" id="upload_file1" readonly="true"/>
+                                                                <input type="file" name="upload_file1" id="upload_file1[]" multiple readonly="true"/>
                                                             </label>
                                                             <div id="moreImageUpload"></div>
                                                             <div style="clear:both;"></div>
