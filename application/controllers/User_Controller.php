@@ -71,6 +71,7 @@ class User_Controller extends CI_Controller
         if($insert_project != '0')
         {
             $this->load->library('upload', $config);
+            $config ['upload_path'] = './uploads/';
 
             // Cache the real $_FILES array, because the original
             // will be overwritten soon :)
@@ -82,13 +83,14 @@ class User_Controller extends CI_Controller
             {
                 // Overwrite the default $_FILES array with a single file's data
                 // to make the $_FILES array consumable by the upload library
+
                 $_FILES['Task_Attachment']['name']        = $files['Task_Attachment']['name'][$i];
                 $_FILES['Task_Attachment']['type']        = $files['Task_Attachment']['type'][$i];
                 $_FILES['Task_Attachment']['tmp_name']    = $files['Task_Attachment']['tmp_name'][$i];
                 $_FILES['Task_Attachment']['error']        = $files['Task_Attachment']['error'][$i];
                 $_FILES['Task_Attachment']['size']        = $files['Task_Attachment']['size'][$i];
 
-                if( ! $this->upload->do_upload('upload_field_name'))
+                if( ! $this->upload->do_upload('Task_Attachment'))
                 {
                     // Handle upload errors
 
@@ -105,16 +107,8 @@ class User_Controller extends CI_Controller
             }
 
 
-
-
-
-
         }
-        //Get files data from database
-        $data['files'] = $this->file->getRows();
-        //Pass the files data to view
-        $this->load->view('User/index', $data);
-    }
+
 
 }
 ?>
