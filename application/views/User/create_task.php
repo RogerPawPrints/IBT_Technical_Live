@@ -183,6 +183,7 @@
         $("#Project_Select").change(function () {
              //alert("hiiii");
             /*dropdown post *///
+            document.getElementById('Resource_Select').value = '';
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
                 data: {
