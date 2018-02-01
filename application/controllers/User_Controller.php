@@ -73,8 +73,6 @@ class User_Controller extends CI_Controller
 
 
 
-
-
     /*Insert Task in Database*/
     public function Insert_Task()
     {
