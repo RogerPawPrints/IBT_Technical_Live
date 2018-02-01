@@ -50,9 +50,7 @@ class User_Controller extends CI_Controller
         $resource_name = $this->technical_user_model->Select_Resource($project_code);
        // print_r($resource_name);
 
-        $full_data = array('Client_Details' => $data,
-                           'Resource_Select' => $resource_name
-        );
+        $full_data = array('Client_Details' => $data );
 
         echo json_encode($full_data);
 
@@ -61,8 +59,6 @@ class User_Controller extends CI_Controller
     public function Show_On_Project_Resource()
     {
         $project_code = $this->input->post('id', true);
-
-
 
         $resource_name = $this->technical_user_model->Select_Resource($project_code);
         $output = null;
