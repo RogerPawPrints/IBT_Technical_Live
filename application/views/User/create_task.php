@@ -131,10 +131,10 @@
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
+                                                        <label>Select Multiple Files to upload.</label>
                                                         <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
                                                     </div>
                                                 </td>
-                                                <td><p>Select Multiple Files to upload.</p></td>
                                             </tr>
 
                                             </tfoot>
