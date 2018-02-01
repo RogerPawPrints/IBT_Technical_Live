@@ -365,117 +365,35 @@
         var project_Old_End=document.getElementById("enddate").value;
         var project_New_End=document.getElementById("date_new").value;
         var Cmd=document.getElementById("Comments").value;
-        $.ajax({
-            url:"<?php echo site_url('Admin_Controller/Save_History'); ?>",
-            data: {Project_id:project_icode,
-                   Project_old:project_Old_End,
-                   Project_New:project_New_End,
-                   Comments:Cmd
-            },
-            type: "POST",
-            success:function(server_response){
-                if(server_response == 1)
-                {
-                    alert("Success...");
-                    window.location.href = document.referrer;
-                }
-                else {
-                    alert("Failed..");
-                }
-            }
-        });
 
+        if(project_New_End == "" || Cmd == "" )
+        {
+            alert("Please Enter All Fields...");
+        }
+        else
+            {
+                $.ajax({
+                    url:"<?php echo site_url('Admin_Controller/Save_History'); ?>",
+                    data: {Project_id:project_icode,
+                        Project_old:project_Old_End,
+                        Project_New:project_New_End,
+                        Comments:Cmd
+                    },
+                    type: "POST",
+                    success:function(server_response){
+                        if(server_response == 1)
+                        {
+                            alert("Success...");
+                            window.location.href = document.referrer;
+                        }
+                        else {
+                            alert("Failed..");
+                        }
+                    }
+                });
+        }
     }
-    function save_New_row()
-    {
 
-        var phase=document.getElementById("Phase_Master").value;
-        var start=document.getElementById("Phase_date_start").value;
-        var end=document.getElementById("Phase_date_end").value;
-        var hour=document.getElementById("Hours").value;
-        var project_icode=document.getElementById("project_icode").value;
-        var text_t = $("#Phase_Master option:selected").text();
-
-
-
-        $.ajax
-        ({
-            type:'post',
-            url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
-            data: {
-
-                project_icode:project_icode,
-                phase_code:phase,
-                Start_date:start,
-                End_date:end,
-                Hours:hour
-            },
-            success:function(response) {
-                if(response=="1")
-                {
-                    var tBody = $("#tblCustomers5 > TBODY")[0];
-                    //Add Row.
-                    row = tBody.insertRow(-1);
-
-                    //Add Name cell.
-                    var cell = $(row.insertCell(-1));
-
-
-                    var tech1 = $("<input />");
-                    tech1.attr("type", "text");
-                    tech1.attr("name", "test2");
-                    tech1.attr('readonly', true);
-                    tech1.val(text_t);
-                    cell.append(tech1);
-
-
-
-                    //Add Country cell.
-                    cell = $(row.insertCell(-1));
-
-                    var Area = $("<input />");
-                    Area.attr("type", "text");
-                    Area.attr("name", "Phase_date_start[]");
-                    Area.attr('readonly', true);
-                    Area.val(start);
-                    cell.append(Area);
-
-
-
-                    cell = $(row.insertCell(-1));
-                    var expr = $("<input />");
-                    expr.attr("type", "text");
-                    expr.attr("name", "Phase_date_end[]");
-                    expr.attr('readonly', true);
-                    expr.val(end);
-                    cell.append(expr);
-
-
-                    cell = $(row.insertCell(-1));
-
-                    var time = $("<input />");
-                    time.attr("type", "text");
-                    time.attr("name", "Hours[]");
-                    tech1.attr('readonly', true);
-                    time.val(hour);
-                    cell.append(time);
-
-                    //Add Button cell.
-                    cell = $(row.insertCell(-1));
-                    var btnRemove = $("<input />");
-                    btnRemove.attr("type", "button");
-                    btnRemove.attr("onclick", "Remove(this);");
-                    btnRemove.val("Remove");
-                    cell.append(btnRemove);
-                    $("#Phase_Master").val("");
-                    $("#Phase_date_start").val("");
-                    $("#Phase_date_end").val("");
-                    $("#Hours").val("");
-
-                }
-            }
-        });
-    }
 
 
     function Remove(button) {
@@ -525,33 +443,42 @@
         var project_icode=document.getElementById("project_icode").value;
         var text_t = $("#Phase_Master option:selected").text();
 
-        $.ajax
-        ({
-            type:'post',
-            url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
-            data: {
+        if(phase == "0" || start == "" || end=="" || hour==""  )
+        {
+            alert("Please Select All Fields...");
+        }
+        else
+        {
+            $.ajax
+            ({
+                type:'post',
+                url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
+                data: {
 
-                project_icode:project_icode,
-                phase_code:phase,
-                Start_date:start,
-                End_date:end,
-                Hours:hour
-            },
-            success:function(response) {
-                if(response!="")
-                {
-                    var id=response;
-                    var table=document.getElementById("tblCustomers5");
-                    var table_len=(table.rows.length)-1;
-                    var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/></td></tr>";
+                    project_icode:project_icode,
+                    phase_code:phase,
+                    Start_date:start,
+                    End_date:end,
+                    Hours:hour
+                },
+                success:function(response) {
+                    if(response!="")
+                    {
+                        var id=response;
+                        var table=document.getElementById("tblCustomers5");
+                        var table_len=(table.rows.length)-1;
+                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/></td></tr>";
 
-                    $("#Phase_Master").val("");
-                    $("#Phase_date_start").val("");
-                    $("#Phase_date_end").val("");
-                    $("#Hours").val("");
+                        $("#Phase_Master").val("");
+                        $("#Phase_date_start").val("");
+                        $("#Phase_date_end").val("");
+                        $("#Hours").val("");
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
     }
 
 
