@@ -70,6 +70,7 @@ class User_Controller extends CI_Controller
         $data = array();
         if ($insert_project != '0') {
             $config ['upload_path'] = './uploads/';
+            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc';
             $this->load->library('upload', $config);
             // Cache the real $_FILES array, because the original
             // will be overwritten soon :)
@@ -93,8 +94,10 @@ class User_Controller extends CI_Controller
                     // If an error occurs jump to the next file
                     break;
                 } else {
+                    $name = $this->upload->data();
+                    //$data = array('file_name' =>$name['file_name']);
                     $attachment = array('Attachment_Task_Icode' => $insert_project,
-                        'Attachment_Path' => $uploadData,
+                        'Attachment_Path' =>$name['file_name'],
                         'Attachment_Created_By' => $this->session->userdata['userid']);
                     $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment);
                 }
