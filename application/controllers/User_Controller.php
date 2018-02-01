@@ -30,28 +30,28 @@ class User_Controller extends CI_Controller
     /*Create Task*/
     public function Create_Task()
     {
-        $this->data['Select_Project']= $this->technical_user_model->Select_Project();
+        $this->data['Select_Project'] = $this->technical_user_model->Select_Project();
         //$this->data['Select_Project']= $this->technical_user_model->Show_On_Select_Project();
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
-        $this->load->view('User/create_task',$this->data, FALSE);
+        $this->load->view('User/create_task', $this->data, FALSE);
         $this->load->view('User/footer');
     }
 
     public function Show_On_Project_Select()
     {
-        $project_code=$this->input->post('id', true);
+        $project_code = $this->input->post('id', true);
 
-        $data= $this->technical_user_model->Show_On_Select_Project($project_code);
+        $data = $this->technical_user_model->Show_On_Select_Project($project_code);
 
-        $resource_name= $this->technical_user_model->Select_Resource($project_code);
+        $resource_name = $this->technical_user_model->Select_Resource($project_code);
 
         $full_data = array('Client_Details' => $data,
-                            'Resource_Select' => $resource_name
-            );
+            'Resource_Select' => $resource_name
+        );
 
-        echo  json_encode($full_data);
+        echo json_encode($full_data);
 
     }
 
@@ -60,48 +60,43 @@ class User_Controller extends CI_Controller
         $task_data = array(
             'Task_Project_Icode' => $this->input->post('Project_Select'),
             'Task_Client_Icode ' => $this->input->post('Client_Name_icode'),
-            'Task_Resource_Icode'  => $this->input->post('Resource_Select'),
-            'Task_Start_Date'  => $this->input->post('task_date_start'),
-            'Task_End_Date'  => $this->input->post('task_date_end'),
-            'Task_Estimated_Hours'  => $this->input->post('Task_E_Hour'),
-            'Task_Description'  => $this->input->post('task_desc'),
-            'Task_Created_By'  => $this->session->userdata['userid']);
+            'Task_Resource_Icode' => $this->input->post('Resource_Select'),
+            'Task_Start_Date' => $this->input->post('task_date_start'),
+            'Task_End_Date' => $this->input->post('task_date_end'),
+            'Task_Estimated_Hours' => $this->input->post('Task_E_Hour'),
+            'Task_Description' => $this->input->post('task_desc'),
+            'Task_Created_By' => $this->session->userdata['userid']);
         $insert_project = $this->technical_user_model->Insert_Task($task_data);
         $data = array();
-        if($insert_project != '0')
-        {
+        if ($insert_project != '0') {
             $this->load->library('upload', $config);
             $config ['upload_path'] = './uploads/';
 
             // Cache the real $_FILES array, because the original
             // will be overwritten soon :)
-            $files        = $_FILES;
-            $file_count    = count($_FILES['Task_Attachment']['name']);
+            $files = $_FILES;
+            $file_count = count($_FILES['Task_Attachment']['name']);
 
             // Iterate over the $files array
-            for($i = 0; $i < $file_count; $i++)
-            {
+            for ($i = 0; $i < $file_count; $i++) {
                 // Overwrite the default $_FILES array with a single file's data
                 // to make the $_FILES array consumable by the upload library
 
-                $_FILES['Task_Attachment']['name']        = $files['Task_Attachment']['name'][$i];
-                $_FILES['Task_Attachment']['type']        = $files['Task_Attachment']['type'][$i];
-                $_FILES['Task_Attachment']['tmp_name']    = $files['Task_Attachment']['tmp_name'][$i];
-                $_FILES['Task_Attachment']['error']        = $files['Task_Attachment']['error'][$i];
-                $_FILES['Task_Attachment']['size']        = $files['Task_Attachment']['size'][$i];
+                $_FILES['Task_Attachment']['name'] = $files['Task_Attachment']['name'][$i];
+                $_FILES['Task_Attachment']['type'] = $files['Task_Attachment']['type'][$i];
+                $_FILES['Task_Attachment']['tmp_name'] = $files['Task_Attachment']['tmp_name'][$i];
+                $_FILES['Task_Attachment']['error'] = $files['Task_Attachment']['error'][$i];
+                $_FILES['Task_Attachment']['size'] = $files['Task_Attachment']['size'][$i];
 
-                if( ! $this->upload->do_upload('Task_Attachment'))
-                {
+                if (!$this->upload->do_upload('Task_Attachment')) {
                     // Handle upload errors
 
                     // If an error occurs jump to the next file
                     break;
-                }
-                else
-                {
-                    $attachment = array('Attachment_Task_Icode' =>  $insert_project,
-                        'Attachment_Path' =>$uploadData,
-                        'Attachment_Created_By'=>$this->session->userdata['userid']);
+                } else {
+                    $attachment = array('Attachment_Task_Icode' => $insert_project,
+                        'Attachment_Path' => $uploadData,
+                        'Attachment_Created_By' => $this->session->userdata['userid']);
                     $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment);
                 }
             }
@@ -110,5 +105,6 @@ class User_Controller extends CI_Controller
         }
 
 
+    }
 }
 ?>
