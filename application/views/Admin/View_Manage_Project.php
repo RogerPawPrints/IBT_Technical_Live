@@ -225,7 +225,9 @@
                                                 </div>
                                             </td>
 
-                                            <td><input type="button" onclick="Add()" value="Add" /></td>
+                                            <td>
+                                                <input type='button' class="save_button"  id="save_button" value="save" onclick="save_New_row();">
+<!--                                                <input type="button" onclick="Add()" value="Add" /></td>-->
                                         </tr>
 
                                         </tfoot>
@@ -384,6 +386,111 @@
         });
 
     }
+    function save_New_row()
+    {
+
+        var phase=document.getElementById("Phase_Master").value;
+        var start=document.getElementById("Phase_date_start").value;
+        var end=document.getElementById("Phase_date_end").value;
+        var hour=document.getElementById("Hours").value;
+        var project_icode=document.getElementById("project_icode").value;
+        var text_t = $("#Phase_Master option:selected").text();
+
+
+
+        $.ajax
+        ({
+            type:'post',
+            url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
+            data: {
+
+                project_icode:project_icode,
+                phase_code:phase,
+                Start_date:start,
+                End_date:end,
+                Hours:hour
+            },
+            success:function(response) {
+                if(response=="1")
+                {
+                    var tBody = $("#tblCustomers5 > TBODY")[0];
+                    //Add Row.
+                    row = tBody.insertRow(-1);
+
+                    //Add Name cell.
+                    var cell = $(row.insertCell(-1));
+
+
+                    var tech1 = $("<input />");
+                    tech1.attr("type", "text");
+                    tech1.attr("name", "test2");
+                    tech1.attr('readonly', true);
+                    tech1.val(text_t);
+                    cell.append(tech1);
+
+
+
+                    //Add Country cell.
+                    cell = $(row.insertCell(-1));
+
+                    var Area = $("<input />");
+                    Area.attr("type", "text");
+                    Area.attr("name", "Phase_date_start[]");
+                    Area.attr('readonly', true);
+                    Area.val(start);
+                    cell.append(Area);
+
+
+
+                    cell = $(row.insertCell(-1));
+                    var expr = $("<input />");
+                    expr.attr("type", "text");
+                    expr.attr("name", "Phase_date_end[]");
+                    expr.attr('readonly', true);
+                    expr.val(end);
+                    cell.append(expr);
+
+
+                    cell = $(row.insertCell(-1));
+
+                    var time = $("<input />");
+                    time.attr("type", "text");
+                    time.attr("name", "Hours[]");
+                    tech1.attr('readonly', true);
+                    time.val(hour);
+                    cell.append(time);
+
+                    //Add Button cell.
+                    cell = $(row.insertCell(-1));
+                    var btnRemove = $("<input />");
+                    btnRemove.attr("type", "button");
+                    btnRemove.attr("onclick", "Remove(this);");
+                    btnRemove.val("Remove");
+                    cell.append(btnRemove);
+                    $("#Phase_Master").val("");
+                    $("#Phase_date_start").val("");
+                    $("#Phase_date_end").val("");
+                    $("#Hours").val("");
+
+                }
+            }
+        });
+    }
+
+
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: ")) {
+
+            //Get the reference of the Table.
+            var table = $("#tblCustomers5")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
 
 
 

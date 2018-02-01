@@ -713,6 +713,25 @@ class Admin_Controller extends CI_Controller
         }
     }
 
+    public function Save_New_Phase()
+    {
+        $project_Phase_code = $this->input->post('project', true);
+        $project_phase = array('Phase_Master_Icode' => $this->input->post('phase_code', true),
+            'Proj_Project_Icode' => $this->input->post('project_icode', true),
+            'Phase_Start_Date' => $this->input->post('Start_date', true),
+            'Phase_End_Date' => $this->input->post('End_date', true),
+            'Estimate_Hour' => $this->input->post('Hours', true),
+            'Created_By' =>$this->session->userdata['userid']);
+        $insert_project_phase = $this->technical_admin_model->insert_project_phase($project_phase);
+        if($insert_project_phase == 1)
+        {
+            echo 1;
+        }
+        else{
+           echo 0;
+        }
+    }
+
 
 
 }
