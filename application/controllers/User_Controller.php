@@ -100,6 +100,7 @@ class User_Controller extends CI_Controller
                         'Attachment_Path' =>$name['file_name'],
                         'Attachment_Created_By' => $this->session->userdata['userid']);
                     $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment);
+                    redirect('/User_Controller/Create_Task');
                 }
             }
 
