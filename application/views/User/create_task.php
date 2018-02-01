@@ -34,40 +34,40 @@
                         <div class="row padding_class">
                             <div class="col-md-12">
                                 <form name="create_task_form" action="<?php echo site_url('User_Controller/Insert_Task'); ?>" enctype="multipart/form-data" method="post">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Select Project</label>
-                                        <select name="Project_Select" class="form-control" id="Project_Select"  required >
-                                            <option value="" >Select Project</option>
-                                            <?php foreach ($Select_Project as $row):
-                                            {
-                                                echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
-                                            }
-                                            endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="show_on_project" style="display: none">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Client Name</label>
-                                            <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
-                                            <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
+                                            <label>Select Project</label>
+                                            <select name="Project_Select" class="form-control" id="Project_Select"  required >
+                                                <option value="" >Select Project</option>
+                                                <?php foreach ($Select_Project as $row):
+                                                    {
+                                                        echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
+                                                    }
+                                                endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Work Category</label>
-                                            <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly  />
+                                    <div id="show_on_project" style="display: none">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Client Name</label>
+                                                <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
+                                                <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Work Category</label>
+                                                <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Work Type</label>
+                                                <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly  />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Work Type</label>
-                                            <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly  />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -130,11 +130,22 @@
                                             <tfoot>
                                             <tr>
                                                 <td>
-                                                    <div class="form-group">
-                                                        <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
-                                                    </div>
+                                                    <fieldset>
+                                                        <legend>Upload Multiple File(s)</legend>
+                                                        <section>
+                                                            <label>Browse a file</label>
+                                                            <label>
+                                                                <input type="file" name="upload_file1" id="upload_file1" readonly="true"/>
+                                                            </label>
+                                                            <div id="moreImageUpload"></div>
+                                                            <div style="clear:both;"></div>
+                                                            <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
+                                                                <a href="javascript:void(0);" id="attachMore">Attach another file</a>
+                                                            </div>
+                                                        </section>
+                                                    </fieldset>
                                                 </td>
-                                                <td><input type="button" onclick="Add_Task_Attachment()" value="Add Attachment" /></td>
+
                                             </tr>
 
                                             </tfoot>
@@ -160,6 +171,41 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
 <script type="text/javascript">
+    $(document).ready(function() {
+        $("input[id^='upload_file']").each(function() {
+            var id = parseInt(this.id.replace("upload_file", ""));
+            $("#upload_file" + id).change(function() {
+                if ($("#upload_file" + id).val() !== "") {
+                    $("#moreImageUploadLink").show();
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var upload_number = 2;
+        $('#attachMore').click(function() {
+            //add more file
+            var moreUploadTag = '';
+            moreUploadTag += '<div class="element"><label for="upload_file"' + upload_number + '>Upload File ' + upload_number + '</label>';
+            moreUploadTag += '<input type="file" id="upload_file' + upload_number + '" name="upload_file' + upload_number + '"/>';
+            moreUploadTag += '&nbsp;<a href="javascript:del_file(' + upload_number + ')" style="cursor:pointer;" onclick="return confirm(\"Are you really want to delete ?\")">Delete ' + upload_number + '</a></div>';
+            $('<dl id="delete_file' + upload_number + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreImageUpload');
+            upload_number++;
+        });
+    });
+</script>
+<script type="text/javascript">
+    function del_file(eleId) {
+        var ele = document.getElementById("delete_file" + eleId);
+        ele.parentNode.removeChild(ele);
+    }
+</script>
+
+
+
+<script type="text/javascript">
 
     $(document).ready(function() {
 
@@ -181,7 +227,7 @@
 
 
         $("#Project_Select").change(function () {
-             //alert("hiiii");
+            //alert("hiiii");
             /*dropdown post *///
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
@@ -226,52 +272,52 @@
     });
 
 
-        function Add_Task_Attachment() {
+    function Add_Task_Attachment() {
 
-            if ($('#Task_Attachment').val() == "") {
-                alert("Please Enter Modules...");
-            }
-            else {
-                AddRow_Task_Attachment($('#Task_Attachment').val());
-                $("#Task_Attachment").val("");
-            }
-        };
+        if ($('#Task_Attachment').val() == "") {
+            alert("Please Enter Modules...");
+        }
+        else {
+            AddRow_Task_Attachment($('#Task_Attachment').val());
+            $("#Task_Attachment").val("");
+        }
+    };
 
-        function AddRow_Task_Attachment(Task_Attachment) {
-            var tBody = $("#tblCustomers6 > TBODY")[0];
+    function AddRow_Task_Attachment(Task_Attachment) {
+        var tBody = $("#tblCustomers6 > TBODY")[0];
 
-            //Add Row.
-            row = tBody.insertRow(-1);
+        //Add Row.
+        row = tBody.insertRow(-1);
 
-            //Add Name cell.
-            var cell = $(row.insertCell(-1));
+        //Add Name cell.
+        var cell = $(row.insertCell(-1));
 
-            var tech = $("<input />");
-            tech.attr("type", "text");
-            tech.attr("name", "Task_Attachment[]");
-            tech.val(Task_Attachment);
-            cell.append(tech);
-            //Add Button cell.
-            cell = $(row.insertCell(-1));
-            var btnRemove = $("<input />");
-            btnRemove.attr("type", "button");
-            btnRemove.attr("onclick", "Remove_Task_Attachment(this);");
-            btnRemove.val("Remove");
-            cell.append(btnRemove);
-        };
+        var tech = $("<input />");
+        tech.attr("type", "text");
+        tech.attr("name", "Task_Attachment[]");
+        tech.val(Task_Attachment);
+        cell.append(tech);
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "Remove_Task_Attachment(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+    };
 
-        function Remove_Task_Attachment(button) {
-            //Determine the reference of the Row using the Button.
-            var row = $(button).closest("TR");
-            var name = $("TD", row).eq(0).html();
-            if (confirm("Do you want to delete: ")) {
+    function Remove_Task_Attachment(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: ")) {
 
-                //Get the reference of the Table.
-                var table = $("#tblCustomers6")[0];
+            //Get the reference of the Table.
+            var table = $("#tblCustomers6")[0];
 
-                //Delete the Table row using it's Index.
-                table.deleteRow(row[0].rowIndex);
-            }
-        };
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
 
 </script>

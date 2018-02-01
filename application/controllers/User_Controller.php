@@ -126,7 +126,7 @@ class User_Controller extends CI_Controller
 
         $data['errors'] = $this->error;
         $data['success'] = $this->success;
-        $this->load->view('uploadfiles', $data);
+        //$this->load->view('uploadfiles', $data);
         }
     }
 
