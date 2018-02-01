@@ -129,7 +129,7 @@
                             </div>
 
 
-                            <button type="submit" name="insert_task" class="btn btn-info pull-right" >Save</button>
+                            <button type="submit" name="insert_task" class="btn btn-success pull-right" >Save</button>
                             </form>
                         </div>
                     </div>
