@@ -320,7 +320,7 @@ class Technical_Admin_Model extends CI_Model
     public function Save_Project_History($data)
     {
         $this->db->insert('Project_Date_History', $data);
-        return 1;
+        return $this->db->insert_id();
     }
     //** Delete phase */
     public function Delete_project_phase($phase_id)

@@ -226,7 +226,7 @@
                                             </td>
 
                                             <td>
-                                                <input type='button' class="save_button"  id="save_button" value="save" onclick="save_New_row();">
+                                                <input type='button' class="save_button"  id="save_button" value="save" onclick="insert_row();">
 <!--                                                <input type="button" onclick="Add()" value="Add" /></td>-->
                                         </tr>
 
@@ -496,20 +496,59 @@
     function delete_row(id)
     {
        // alert(id);
+        if (confirm("Do you want to delete: ")) {
+            $.ajax
+            ({
+                type: 'post',
+                url: "<?php echo site_url('Admin_Controller/Delete_Phase'); ?>",
+                data: {
+                    Phase_id: id,
+                },
+                success: function (response) {
+                    //alert(response);
+                    if (response == '1') {
+                        //alert("dfafaf");
+                        var row = document.getElementById("row" + id);
+                        row.parentNode.removeChild(row);
+                    }
+                }
+            });
+        }
+    }
+
+    function insert_row()
+    {
+        var phase=document.getElementById("Phase_Master").value;
+        var start=document.getElementById("Phase_date_start").value;
+        var end=document.getElementById("Phase_date_end").value;
+        var hour=document.getElementById("Hours").value;
+        var project_icode=document.getElementById("project_icode").value;
+        var text_t = $("#Phase_Master option:selected").text();
+
         $.ajax
         ({
             type:'post',
-            url:"<?php echo site_url('Admin_Controller/Delete_Phase'); ?>",
-            data:{
-                Phase_id:id,
+            url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
+            data: {
+
+                project_icode:project_icode,
+                phase_code:phase,
+                Start_date:start,
+                End_date:end,
+                Hours:hour
             },
             success:function(response) {
-                alert(response);
-                if(response == '1')
+                if(response!="")
                 {
-                    //alert("dfafaf");
-                    var row=document.getElementById("row"+id);
-                    row.parentNode.removeChild(row);
+                    var id=response;
+                    var table=document.getElementById("tblCustomers5");
+                    var table_len=(table.rows.length)-1;
+                    var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/></td></tr>";
+
+                    $("#Phase_Master").val("");
+                    $("#Phase_date_start").val("");
+                    $("#Phase_date_end").val("");
+                    $("#Hours").val("");
                 }
             }
         });

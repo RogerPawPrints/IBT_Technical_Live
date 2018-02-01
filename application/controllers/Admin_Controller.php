@@ -723,13 +723,8 @@ class Admin_Controller extends CI_Controller
             'Estimate_Hour' => $this->input->post('Hours', true),
             'Created_By' =>$this->session->userdata['userid']);
         $insert_project_phase = $this->technical_admin_model->insert_project_phase($project_phase);
-        if($insert_project_phase == 1)
-        {
-            echo 1;
-        }
-        else{
-           echo 0;
-        }
+        echo $insert_project_phase;
+
     }
     public function Delete_Phase()
     {
