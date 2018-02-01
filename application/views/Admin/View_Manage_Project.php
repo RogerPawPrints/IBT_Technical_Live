@@ -139,6 +139,12 @@
                                         <input class="form-control" id="date_new" name="date_new" placeholder="New End Date"   type="text" />
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Comments</label>
+                                    <textarea name="Comments" id="Comments" class="form-control"></textarea>
+                                </div>
+                                </div>
                             </div>
 
                             <div class="row padding_class" id="Show_Phase" >
@@ -226,6 +232,7 @@
                                     </table>
                                 </div>
                             </div>
+                            <button type="button" class="btn btn-success pull-right"  onclick="Save_Phase_History()" >Save</button>
                         </div>
                     </div>
                 </div>
@@ -349,6 +356,33 @@
                 }
             }
         });
+    }
+    function Save_Phase_History()
+    {
+        var project_icode=document.getElementById("project_icode").value;
+        var project_Old_End=document.getElementById("enddate").value;
+        var project_New_End=document.getElementById("date_new").value;
+        var Cmd=document.getElementById("Comments").value;
+        $.ajax({
+            url:"<?php echo site_url('Admin_Controller/Save_History'); ?>",
+            data: {Project_id:project_icode,
+                   Project_old:project_Old_End,
+                   Project_New:project_New_End,
+                   Comments:Cmd
+            },
+            type: "POST",
+            success:function(server_response){
+                if(server_response == 1)
+                {
+                    alert("Success...");
+                    window.location.href = document.referrer;
+                }
+                else {
+                    alert("Failed..");
+                }
+            }
+        });
+
     }
 
 

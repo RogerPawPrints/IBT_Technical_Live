@@ -687,6 +687,31 @@ class Admin_Controller extends CI_Controller
         $this->db->update('project_phase', $project_phase);
         echo 1;
     }
+    //** Save Project HISTORy */
+    public function Save_History()
+    {
+        $project_id = $this->input->post('Project_id', true);
+        $project_History = array(
+            'History_Project_Icode' => $this->input->post('Project_id', true),
+            'History_Project_Old_Date' => $this->input->post('Project_old', true),
+            'History_Project_New_Date' => $this->input->post('Project_New', true),
+            'History_Project_Comments' =>$this->input->post('Comments', true),
+            'Created_By' =>$this->session->userdata['userid']);
+        $insert_History = $this->technical_admin_model->Save_Project_History($project_History);
+        if($insert_History == '1')
+        {
+            $upload_project = array(
+            'Planned_End_Date' => $this->input->post('Project_New', true),
+                'Modified_By' =>$this->session->userdata['userid'],
+                'Modified_On' =>date('Y-m-d'));
+            $this->db->where('Project_Icode',$project_id);
+            $this->db->update('ibt_project_table', $upload_project);
+            echo 1;
+        }
+        else{
+            echo 0;
+        }
+    }
 
 
 
