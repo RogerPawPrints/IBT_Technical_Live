@@ -696,13 +696,16 @@ class Admin_Controller extends CI_Controller
             'History_Project_Icode' => $this->input->post('Project_id', true),
             'History_Project_Old_Date' => $this->input->post('Project_old', true),
             'History_Project_New_Date' => $this->input->post('Project_New', true),
+            'History_Estimate_Old_Hour' => $this->input->post('Old_Hours', true),
+            'History_Estimate_New_Hour' => $this->input->post('New_Hours', true),
             'History_Project_Comments' =>$this->input->post('Comments', true),
             'Created_By' =>$this->session->userdata['userid']);
         $insert_History = $this->technical_admin_model->Save_Project_History($project_History);
         if($insert_History == '1')
         {
             $upload_project = array(
-            'Planned_End_Date' => $this->input->post('Project_New', true),
+                'Planned_End_Date' => $this->input->post('Project_New', true),
+                'Estimation_Hours' =>$this->input->post('New_Hours', true),
                 'Modified_By' =>$this->session->userdata['userid'],
                 'Modified_On' =>date('Y-m-d'));
             $this->db->where('Project_Icode',$project_id);

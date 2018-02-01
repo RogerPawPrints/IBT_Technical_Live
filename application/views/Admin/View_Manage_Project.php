@@ -122,10 +122,10 @@
                             }
                             ?>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-3"> <input type="radio" name="Rtype" id="Project" value="Project" checked  onclick="show_phase()" /> <label style="margin-right: 20px; font-weight: normal;">Change Date</label></div>
-                                    <div class="col-md-3"><input type="radio" name="Rtype" id="Resource" value="Resource" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Resource</label></div>
-                                    <div class="col-md-3"><input type="radio" name="Rtype" id="Resource" value="Status" onclick="show_Status()" /> <label style="font-weight: normal;">Change Status</label></div>
+                                <div class="col-md-12" style="padding: 15px;">
+                                    <div class="col-md-3" style="font-size: 15px;color: #d43b13;"> <input type="radio" name="Rtype" id="Project" value="Project" checked  onclick="show_phase()" /> <label style="margin-right: 20px; font-weight: normal;">Change Date</label></div>
+                                    <div class="col-md-3" style="font-size: 15px;color: #d43b13;"><input type="radio" name="Rtype" id="Resource" value="Resource" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Resource</label></div>
+                                    <div class="col-md-3" style="font-size: 15px;color: #d43b13;"><input type="radio" name="Rtype" id="Resource" value="Status" onclick="show_Status()" /> <label style="font-weight: normal;">Change Status</label></div>
                                 </div>
                             </div>
                             <div class="col-md-12" >
@@ -138,6 +138,12 @@
                                         </div>
                                         <input class="form-control" id="date_new" name="date_new" placeholder="New End Date"   type="text" />
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>New Estimated Hours</label>
+                                    <input  class="form-control" name="New_Hours" id="New_Hours" placeholder="Estimation New Hours" type="number" min="0" step="1" required />
+                                </div>
                                 </div>
                                 <div class="col-md-3">
                                 <div class="form-group">
@@ -370,9 +376,11 @@
         var project_icode=document.getElementById("project_icode").value;
         var project_Old_End=document.getElementById("enddate").value;
         var project_New_End=document.getElementById("date_new").value;
+        var New_Hours=document.getElementById("New_Hours").value;
+        var Old_Hours=document.getElementById("E_Hour").value;
         var Cmd=document.getElementById("Comments").value;
 
-        if(project_New_End == "" || Cmd == "" )
+        if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
             alert("Please Enter All Fields...");
         }
@@ -383,6 +391,8 @@
                     data: {Project_id:project_icode,
                         Project_old:project_Old_End,
                         Project_New:project_New_End,
+                        New_Hours:New_Hours,
+                        Old_Hours:Old_Hours,
                         Comments:Cmd
                     },
                     type: "POST",
