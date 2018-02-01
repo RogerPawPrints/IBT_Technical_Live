@@ -69,8 +69,8 @@ class User_Controller extends CI_Controller
         $insert_project = $this->technical_user_model->Insert_Task($task_data);
         $data = array();
         if ($insert_project != '0') {
-            $config ['upload_path'] = './uploads/';
-            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc';
+            $config ['upload_path'] = './uploads/task';
+            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
             $this->load->library('upload', $config);
             // Cache the real $_FILES array, because the original
             // will be overwritten soon :)

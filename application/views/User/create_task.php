@@ -134,7 +134,7 @@
                                                         <input type="file" class="form-control" name="Task_Attachment[]" multiple id="Task_Attachment" required />
                                                     </div>
                                                 </td>
-                                                <td><input type="button" onclick="Add_Task_Attachment()" value="Add Attachment" /></td>
+                                                <td><p>Select Multiple Files to upload.</p></td>
                                             </tr>
 
                                             </tfoot>
@@ -225,53 +225,5 @@
         });
     });
 
-
-        function Add_Task_Attachment() {
-
-            if ($('#Task_Attachment').val() == "") {
-                alert("Please Enter Modules...");
-            }
-            else {
-                AddRow_Task_Attachment($('#Task_Attachment').val());
-                $("#Task_Attachment").val("");
-            }
-        };
-
-        function AddRow_Task_Attachment(Task_Attachment) {
-            var tBody = $("#tblCustomers6 > TBODY")[0];
-
-            //Add Row.
-            row = tBody.insertRow(-1);
-
-            //Add Name cell.
-            var cell = $(row.insertCell(-1));
-
-            var tech = $("<input />");
-            tech.attr("type", "text");
-            tech.attr("name", "Task_Attachment[]");
-            tech.val(Task_Attachment);
-            cell.append(tech);
-            //Add Button cell.
-            cell = $(row.insertCell(-1));
-            var btnRemove = $("<input />");
-            btnRemove.attr("type", "button");
-            btnRemove.attr("onclick", "Remove_Task_Attachment(this);");
-            btnRemove.val("Remove");
-            cell.append(btnRemove);
-        };
-
-        function Remove_Task_Attachment(button) {
-            //Determine the reference of the Row using the Button.
-            var row = $(button).closest("TR");
-            var name = $("TD", row).eq(0).html();
-            if (confirm("Do you want to delete: ")) {
-
-                //Get the reference of the Table.
-                var table = $("#tblCustomers6")[0];
-
-                //Delete the Table row using it's Index.
-                table.deleteRow(row[0].rowIndex);
-            }
-        };
 
 </script>
