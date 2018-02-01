@@ -493,6 +493,29 @@
     };
 
 
+    function delete_row(id)
+    {
+       // alert(id);
+        $.ajax
+        ({
+            type:'post',
+            url:"<?php echo site_url('Admin_Controller/Delete_Phase'); ?>",
+            data:{
+                Phase_id:id,
+            },
+            success:function(response) {
+                alert(response);
+                if(response == '1')
+                {
+                    //alert("dfafaf");
+                    var row=document.getElementById("row"+id);
+                    row.parentNode.removeChild(row);
+                }
+            }
+        });
+    }
+
+
 
     
 

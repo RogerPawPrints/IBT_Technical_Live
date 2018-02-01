@@ -731,6 +731,21 @@ class Admin_Controller extends CI_Controller
            echo 0;
         }
     }
+    public function Delete_Phase()
+    {
+        $Phase_id = $this->input->post('Phase_id', true);
+        //print_r($Phase_id);
+        $Delete_project_phase = $this->technical_admin_model->Delete_project_phase($Phase_id);
+        if($Delete_project_phase == 1)
+        {
+            echo 1;
+        }
+        else
+            {
+            echo 0;
+        }
+
+    }
 
 
 
