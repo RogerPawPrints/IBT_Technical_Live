@@ -75,7 +75,7 @@ class User_Controller extends CI_Controller
             $config['allowed_types'] = '*';
             $config['max_size'] = '0';
             $config['max_filename'] = '255';
-            //$config['encrypt_name'] = TRUE;
+            $config['encrypt_name'] = TRUE;
 
             //upload file
             $i = 0;
@@ -109,20 +109,20 @@ class User_Controller extends CI_Controller
                 }
             }
 
-//            if (!$is_file_error && $files) {
-//                $resp = $this->file->Insert_Task_Attachment($files);
-//                if ($resp === TRUE) {
-//                    $this->handle_success('File(s) was/were successfully uploaded.');
-//                } else {
-//                    for ($i = 0; $i < count($files); $i++) {
-//                        $file = $dir_path . $files[$i]['file_name'];
-//                        if (file_exists($file)) {
-//                            unlink($file);
-//                        }
-//                    }
-//                    $this->handle_error('Error while saving file info to Database.');
-//                }
-//            }
+            if (!$is_file_error && $files) {
+                $resp = $this->file->save_files_info($files);
+                if ($resp === TRUE) {
+                    $this->handle_success('File(s) was/were successfully uploaded.');
+                } else {
+                    for ($i = 0; $i < count($files); $i++) {
+                        $file = $dir_path . $files[$i]['file_name'];
+                        if (file_exists($file)) {
+                            unlink($file);
+                        }
+                    }
+                    $this->handle_error('Error while saving file info to Database.');
+                }
+            }
 
             $data['errors'] = $this->error;
             $data['success'] = $this->success;
