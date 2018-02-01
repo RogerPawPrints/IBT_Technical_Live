@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 col-md-offset-9">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Task Description</label>
                                             <textarea name="task_desc" id="task_desc" class="form-control"></textarea>
@@ -117,7 +117,7 @@
                                     </div>
 
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
 
                                         <div class="form-group">
                                             <legend>Upload Multiple File(s)</legend>
