@@ -48,15 +48,36 @@ class User_Controller extends CI_Controller
         $data = $this->technical_user_model->Show_On_Select_Project($project_code);
 
         $resource_name = $this->technical_user_model->Select_Resource($project_code);
+       // print_r($resource_name);
 
         $full_data = array('Client_Details' => $data,
-            'Resource_Select' => $resource_name
+                           'Resource_Select' => $resource_name
         );
 
         echo json_encode($full_data);
 
     }
     /*select Resource and project details*/
+    public function Show_On_Project_Resource()
+    {
+        $project_code = $this->input->post('id', true);
+
+
+
+        $resource_name = $this->technical_user_model->Select_Resource($project_code);
+        $output = null;
+        foreach ( $resource_name as $row)
+        {
+            //here we build a dropdown item line for each
+            // query result
+            $output .= "<option value='".$row['User_Icode']."'>".$row['User_Name']."</option>";
+        }
+        echo $output;
+    }
+
+
+
+
 
     /*Insert Task in Database*/
     public function Insert_Task()

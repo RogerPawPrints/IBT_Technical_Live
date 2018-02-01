@@ -194,15 +194,26 @@
                     var work_type = task_details.Client_Details[0]['Work_Name'];
                     document.getElementById('Work_Type').value = work_type;
 
-                    var count = Object.keys(task_details.Resource_Select).length;
-                    //alert(count_tot);
+                }
 
 
-                    for (var i = 0; i < count; i++) {
-                        Resource = task_details.Resource_Select[i];
-                        $("#Resource_Select").append("<option value='" + Resource.User_Icode + "' >" + Resource.User_Name + "</option>");
-                    }
+            });
+        });
 
+
+        $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
+            //alert("hiiii");
+            /*dropdown post *///
+            //document.getElementById('Resource_Select').value = '';
+            $.ajax({
+                url: "<?php echo site_url('User_Controller/Show_On_Project_Resource'); ?>",
+                data: {
+                    id:
+                        $(this).val()
+                },
+                type: "POST",
+                success: function (data) {
+                    $("#Resource_Select").html(data);
                 }
 
 
