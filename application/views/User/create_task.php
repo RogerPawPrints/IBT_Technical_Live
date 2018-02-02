@@ -143,7 +143,7 @@
                             </div>
 
 
-                            <button type="button" name="insert_task" class="btn btn-success pull-right" onclick="saveee()" >Save</button>
+                            <input type="submit" name="file_upload" value="Upload"/>
                             </form>
 
 <!--                            -
