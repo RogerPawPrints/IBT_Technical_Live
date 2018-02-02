@@ -243,49 +243,21 @@
             project_Phase.push(project_P[i].value);
         }
 
-        $.ajaxFileUpload({
+        $.ajax({
             url:"<?php echo site_url('User_Controller/Save_Upload'); ?>",
-            secureuri		:false,
-            fileElementId	:'user_files',
-            dataType		: 'json',
-            data			: {
-                id: project_Phase
-            },
-            success	: function (data, status)
-            {
-                if(data.status != 'error')
+            data: {id: project_P},
+            type: "POST",
+            cache: false,
+            success:function(data) {
+                if(data == '1')
                 {
-                    $('#files').html('<p>Reloading files...</p>');
-                    refresh_files();
-                    $('#title').val('');
+                    alert("Successs");
+                    location.reload();
                 }
-                alert(data.msg);
+                else {
+                    alert("Failed..");
+                }
+
             }
-        });
-
-        //$.ajax({
-        //    url:"<?php //echo site_url('User_Controller/Save_Upload'); ?>//",
-        //    secureuri		:false,
-        //    fileElementId	:'userfile',
-        //    dataType		: 'json',
-        //    data: {id: project_Phase},
-        //    type: "POST",
-        //    cache: false,
-        //    success:function(data) {
-        //        if(data == '1')
-        //        {
-        //            alert("Successs");
-        //            location.reload();
-        //        }
-        //        else {
-        //            alert("Failed..");
-        //        }
-        //
-        //    }
-        //})
-
-
-    }
-
 
 </script>
