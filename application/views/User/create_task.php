@@ -125,8 +125,8 @@
 
                                         <div class="form-group">
                                             <input class="files form-control-file" id="Task_Attachment" name="user_files[]" type="file" >
-                                            <span><a href="javascript:void(0);" class="add" >Add More Files</a></span>
                                             <div class="contents"></div>
+                                            <span><a href="javascript:void(0);" class="add" >Add More Files</a></span>
                                         </div>
                                     </div>
                                 </div>
