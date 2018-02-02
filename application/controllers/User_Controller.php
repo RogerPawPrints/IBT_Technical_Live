@@ -90,37 +90,23 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments*/
         if ($insert_project != '0') {
-            $config ['upload_path'] = './uploads/task';
-            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
-            $this->load->library('upload', $config);
-            // Cache the real $_FILES array, because the original
-            // will be overwritten soon :)
-            $files = $_FILES;
-            $file_count = count($_FILES['Task_Attachment']['name']);
+            if (count($_FILES["user_files"]) > 0) {
+                $folderName = "./uploads/";
+                $counter = 0;
+                for ($i = 0; $i < count($_FILES["user_files"]["name"]); $i++) {
+                    if ($_FILES["user_files"]["name"][$i] <> "") {
 
-            // Iterate over the $files array
-            for ($i = 0; $i < $file_count; $i++) {
-                // Overwrite the default $_FILES array with a single file's data
-                // to make the $_FILES array consumable by the upload library
+                        $ext = strtolower(end(explode(".", $_FILES["user_files"]["name"][$i])));
+                        $filePath = $folderName . rand(10000, 990000) . '_' . time() . '.' . $ext;
 
-                $_FILES['Task_Attachment']['name'] = $files['Task_Attachment']['name'][$i];
-                $_FILES['Task_Attachment']['type'] = $files['Task_Attachment']['type'][$i];
-                $_FILES['Task_Attachment']['tmp_name'] = $files['Task_Attachment']['tmp_name'][$i];
-                $_FILES['Task_Attachment']['error'] = $files['Task_Attachment']['error'][$i];
-                $_FILES['Task_Attachment']['size'] = $files['Task_Attachment']['size'][$i];
-
-                if (!$this->upload->do_upload('Task_Attachment')) {
-                    // Handle upload errors
-
-                    // If an error occurs jump to the next file
-                    break;
-                } else {
-                    $name = $this->upload->data();
-                    //$data = array('file_name' =>$name['file_name']);
-                    $attachment = array('Attachment_Task_Icode' => $insert_project,
-                        'Attachment_Path' =>$name['file_name'],
-                        'Attachment_Created_By' => $this->session->userdata['userid']);
-                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
+                        if (!move_uploaded_file($_FILES["user_files"]["tmp_name"][$i], $filePath)) {
+                            $msg .= "Failed to upload" . $_FILES["user_files"]["name"][$i] . ". <br>";
+                            $counter++;
+                        }
+                    }
+                    $msg = ($counter == 0) ? "Files uploaded Successfully" : "Erros : ".$msg;
+                }
+            }
 
 
                 }

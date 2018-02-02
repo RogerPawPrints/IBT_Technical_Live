@@ -126,7 +126,7 @@
                                         <div class="form-group">
                                             <input class="files form-control-file" id="Task_Attachment" name="user_files[]" type="file" >
                                             <div class="contents"></div>
-                                            <span><a href="javascript:void(0);" class="add" >Add More Files</a></span>
+                                            <span><a href="javascript:void(0);" class="add btn" >Add More Files</a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -156,8 +156,6 @@
         $('.contents').on('click', '.rem', function() {
             $(this).parent("div").remove();
         });
-
-
 
 
         $("#startdate").datepicker({
