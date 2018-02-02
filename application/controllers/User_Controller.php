@@ -106,7 +106,7 @@ class User_Controller extends CI_Controller
 
                 $errors = FALSE;
 
-                foreach($_FILES as $key => $value)
+                foreach($_FILES['user_files'] as $key => $value)
                 {
                     if( ! empty($value['name']))
                     {
