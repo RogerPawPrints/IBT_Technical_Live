@@ -753,13 +753,21 @@ class Admin_Controller extends CI_Controller
     {
         $Phase_id = $this->input->post('Phase_id', true);
         //print_r($Phase_id);
-        $Delete_project_phase = $this->technical_admin_model->Delete_project_phase($Phase_id);
-        if($Delete_project_phase == 1)
+        $old_phase =$this->technical_admin_model->Get_Project_Phase_Old_Details($Phase_id);
+        $insert_phase = array('History_Phase_Icode' => $this->input->post('Phase_id', true),
+            'Phase_History_Master_Icode' =>$old_phase[0]['Phase_Master_Icode'],
+            'Phase_Old_Start_Date' => $old_phase[0]['Phase_Start_Date'],
+            'Phase_Old_End_Date' => $old_phase[0]['Phase_End_Date'],
+            'Phase_Old_Hours' => $old_phase[0]['Estimate_Hour'],
+            'Phase_Delete' =>'1',
+            'Created_By' => $this->session->userdata['userid']);
+        $insert_phase_history = $this->technical_admin_model->insert_phase_history($insert_phase);
+        if($insert_phase_history == '1')
         {
+            $Delete_project_phase = $this->technical_admin_model->Delete_project_phase($Phase_id);
             echo 1;
         }
-        else
-            {
+        else{
             echo 0;
         }
 

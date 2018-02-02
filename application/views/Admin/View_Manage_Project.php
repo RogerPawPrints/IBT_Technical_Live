@@ -182,6 +182,7 @@
                                                 <td>
                                                     <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                     <input type='button' class="save_button" style="display: none" id="save_button<?php echo $row['Project_Phase_Icode'];?>" value="save" onclick="save_row('<?php echo $row['Project_Phase_Icode'];?>');">
+                                                    <input type='button' class="cancel_button" style="display: none" id="cancel_button<?php echo $row['Project_Phase_Icode'];?>" value="cancel" onclick="cancel('<?php echo $row['Project_Phase_Icode'];?>');">
                                                     <input type='button' class="delete_button" id="delete_button<?php echo $row['Project_Phase_Icode'];?>" value="delete" onclick="delete_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                 </td>
                                             </tr>
@@ -323,6 +324,7 @@
 
         document.getElementById("edit_button"+id).style.display="none";
         document.getElementById("save_button"+id).style.display="block";
+        document.getElementById("cancel_button"+id).style.display="block";
     }
     function show_date1()
     {
@@ -425,6 +427,22 @@
             table.deleteRow(row[0].rowIndex);
         }
     };
+
+    function cancel(id)
+    {
+        alert(id);
+        var Phase=document.getElementById("phase"+id).innerHTML;
+        var Start=document.getElementById("start"+id).innerHTML;
+        var End=document.getElementById("end"+id).innerHTML;
+        var Hour=document.getElementById("hour"+id).innerHTML;
+        document.getElementById("phase"+id).innerHTML=Phase;
+        document.getElementById("start"+id).innerHTML=Start;
+        document.getElementById("end"+id).innerHTML=End;
+        document.getElementById("hour"+id).innerHTML=Hour;
+        document.getElementById("edit_button"+id).style.display="block";
+        document.getElementById("save_button"+id).style.display="none";
+
+    }
 
 
     function delete_row(id)
