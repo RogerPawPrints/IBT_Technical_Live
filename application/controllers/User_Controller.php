@@ -139,5 +139,14 @@ class User_Controller extends CI_Controller
 
     }
     /*Insert Tssk in Database*/
+
+
+    public function Save_Upload()
+    {
+        $phase_Hour = $this->input->post('id',true);
+        $count_Phase = sizeof($phase_Hour);
+        print_r($count_Phase);
+
+    }
 }
 ?>

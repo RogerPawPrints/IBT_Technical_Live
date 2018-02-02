@@ -242,7 +242,25 @@
         for (var i = 0, iLen = project_P.length; i < iLen; i++) {
             project_Phase.push(project_P[i].value);
         }
-        alert(project_Phase);
+
+        $.ajax({
+            url:"<?php echo site_url('User_Controller/Save_Upload'); ?>",
+            data: {id: project_Phase},
+            type: "POST",
+            cache: false,
+            success:function(data) {
+                if(data == '1')
+                {
+                    alert("Successs");
+                    location.reload();
+                }
+                else {
+                    alert("Failed..");
+                }
+
+            }
+        })
+
 
     }
 
