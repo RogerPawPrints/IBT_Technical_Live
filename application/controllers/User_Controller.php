@@ -90,97 +90,68 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-            //$config ['upload_path'] = './uploads/task';
-            $dir_path = './uploads/';
-            $config['upload_path'] = $dir_path;
-            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
-            $this->load->library('upload', $config);
-            // Cache the real $_FILES array, because the original
-            // will be overwritten soon :)
-            /*$files = $_FILES;
-            $file_count = sizeof($_FILES['user_files']['name']);*/
+            if ($this->input->post('file_upload')) {
+                //file upload destination
+                $dir_path = './upload/';
+                $config['upload_path'] = $dir_path;
+                $config['allowed_types'] = '*';
+                $config['max_size'] = '0';
+                $config['max_filename'] = '255';
+                $config['encrypt_name'] = TRUE;
 
-            $i = 0;
-            $files = array();
-            $is_file_error = FALSE;
+                //upload file
+                $i = 0;
+                $files = array();
+                $is_file_error = FALSE;
 
-            if ($_FILES['user_files']['size'] <= 0) {
-                $this->handle_error('Select at least one file.');
-            } else {
-                foreach ($_FILES as $key => $value) {
-                    if (!empty($value['name'])) {
-                        $this->load->library('upload', $config);
-                        if (!$this->upload->do_upload($key)) {
-                            $this->handle_error($this->upload->display_errors());
-                            $is_file_error = TRUE;
-                        } else {
-                            $files[$i] = $this->upload->data();
-                            ++$i;
+                if ($_FILES['upload_file1']['size'] <= 0) {
+                    $this->handle_error('Select at least one file.');
+                } else {
+                    foreach ($_FILES as $key => $value) {
+                        if (!empty($value['name'])) {
+                            $this->load->library('upload', $config);
+                            if (!$this->upload->do_upload($key)) {
+                                $this->handle_error($this->upload->display_errors());
+                                $is_file_error = TRUE;
+                            } else {
+                                $files[$i] = $this->upload->data();
+                                ++$i;
+                            }
                         }
                     }
                 }
-            }
 
-            // There were errors, we have to delete the uploaded files
-            if ($is_file_error && $files) {
-                for ($i = 0; $i < count($files); $i++) {
-                    $file = $dir_path . $files[$i]['file_name'];
-                    if (file_exists($file)) {
-                        unlink($file);
-                    }
-                }
-            }
-
-            if (!$is_file_error && $files) {
-
-                $resp = $this->file->save_files_info($files);
-                if ($resp === TRUE) {
-                    $this->handle_success('File(s) was/were successfully uploaded.');
-                } else {
+                // There were errors, we have to delete the uploaded files
+                if ($is_file_error && $files) {
                     for ($i = 0; $i < count($files); $i++) {
                         $file = $dir_path . $files[$i]['file_name'];
                         if (file_exists($file)) {
                             unlink($file);
                         }
                     }
-                    $this->handle_error('Error while saving file info to Database.');
+                }
+
+                if (!$is_file_error && $files) {
+                    $resp = $this->file->save_files_info($files);
+                    if ($resp === TRUE) {
+                        $this->handle_success('File(s) was/were successfully uploaded.');
+                    } else {
+                        for ($i = 0; $i < count($files); $i++) {
+                            $file = $dir_path . $files[$i]['file_name'];
+                            if (file_exists($file)) {
+                                unlink($file);
+                            }
+                        }
+                        $this->handle_error('Error while saving file info to Database.');
+                    }
                 }
             }
-        }
-
-
-
-
-
-            // Iterate over the $files array
-       /*     for ($i = 0; $i < $file_count; $i++) {
-                // Overwrite the default $_FILES array with a single file's data
-                // to make the $_FILES array consumable by the upload library
-
-                $_FILES['user_files']['name'] = $files['user_files']['name'][$i];
-                $_FILES['user_files']['type'] = $files['user_files']['type'][$i];
-                $_FILES['user_files']['tmp_name'] = $files['user_files']['tmp_name'][$i];
-                $_FILES['user_files']['error'] = $files['user_files']['error'][$i];
-                $_FILES['user_files']['size'] = $files['user_files']['size'][$i];
-
-                if (!$this->upload->do_upload('user_files')) {
-                    // Handle upload errors
-
-                    // If an error occurs jump to the next file
-                    break;
-                } else {
-                    $name = $this->upload->data();
-                    //$data = array('file_name' =>$name['file_name']);
-                    $attachment = array('Attachment_Task_Icode' => $insert_project,
-                        'Attachment_Path' =>$name['file_name'],
-                        'Attachment_Created_By' => $this->session->userdata['userid']);
-                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
-
-
-
-
+            $data['errors'] = $this->error;
+            $data['success'] = $this->success;
             $this->session->set_flashdata('message', 'Task Created Successfully..');
             redirect('/User_Controller/Create_Task');
+
+        }
 
         }
 
