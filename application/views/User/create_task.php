@@ -133,7 +133,7 @@
                             </div>
 
 
-                            <button type="submit" name="insert_task" class="btn btn-success pull-right" onclick="saveee()" >Save</button>
+                            <button type="button" name="insert_task" class="btn btn-success pull-right" onclick="saveee()" >Save</button>
                             </form>
                         </div>
                     </div>
@@ -241,22 +241,18 @@
         for (var i = 0, iLen = project_P.length; i < iLen; i++) {
             project_Phase.push(project_P[i].value);
         }
-
         $.ajax({
             url: "<?php echo site_url('User_Controller/Save_Upload'); ?>",
-            data: {id: project_P},
+            data: {
+                id:
+                    $(this).val()
+            },
             type: "POST",
-            cache: false,
             success: function (data) {
-                if (data == '1') {
-                    alert("Successs");
-                    location.reload();
-                }
-                else {
-                    alert("Failed..");
-                }
-
+                $("#Resource_Select").html(data);
             }
+
+
         });
     }
 
