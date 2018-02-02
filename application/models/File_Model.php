@@ -12,18 +12,17 @@ class File_Model extends CI_Model {
     //table name
     private $file = 'ibt_task_attachments';   // files
 
-    function save_files_info($files) {
+    function save_files_info($files,$id) {
         //start db traction
         $this->db->trans_start();
         //file data
         $file_data = array();
         foreach ($files as $file) {
             $file_data[] = array(
-                'file_name' => $file['file_name'],
-                'file_orig_name' => $file['orig_name'],
-                'file_path' => $file['full_path'],
-                'upload_date' => date('Y-m-d H:i:s')
-            );
+                'Attachment_Task_Icode' => $file['file_name'],
+                'Attachment_Path' => $id,
+                'Attachment_Created_By' => $this->session->userdata['userid']);
+
         }
         //insert file data
         $this->db->insert_batch($this->file, $file_data);
