@@ -96,8 +96,7 @@ class User_Controller extends CI_Controller
             // Cache the real $_FILES array, because the original
             // will be overwritten soon :)
             $files = $_FILES;
-            $file_count = count($_FILES['user_files']);
-            echo $file_count;
+            $file_count = count($_FILES['user_files']['size']);
 
             // Iterate over the $files array
             for ($i = 0; $i < $file_count; $i++) {
