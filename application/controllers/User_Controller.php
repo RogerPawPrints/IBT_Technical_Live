@@ -92,7 +92,7 @@ class User_Controller extends CI_Controller
         if ($insert_project != '0') {
             if ($this->input->post('file_upload')) {
                 //file upload destination
-                $dir_path = './upload/';
+                $dir_path = './uploads/';
                 $config['upload_path'] = $dir_path;
                 $config['allowed_types'] = '*';
                 $config['max_size'] = '0';
