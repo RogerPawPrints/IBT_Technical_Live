@@ -124,9 +124,10 @@
                                     <div class="col-md-12">
 
                                         <div class="form-group">
-                                            <input class="files form-control-file" id="Task_Attachment" name="user_files[]" type="file" >
-                                            <div class="contents"></div>
-                                            <span><a href="javascript:void(0);" class="add btn" >Add More Files</a></span>
+                                            <input type="file" name="upload_file1" id="upload_file1" readonly="true"/>
+                                            <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
+                                                <a href="javascript:void(0);" id="attachMore">Attach another file</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -146,17 +147,45 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[id^='upload_file']").each(function() {
+            var id = parseInt(this.id.replace("upload_file", ""));
+            $("#upload_file" + id).change(function() {
+                if ($("#upload_file" + id).val() !== "") {
+                    $("#moreImageUploadLink").show();
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var upload_number = 2;
+        $('#attachMore').click(function() {
+            //add more file
+            var moreUploadTag = '';
+            moreUploadTag += '<div class="element"><label for="upload_file"' + upload_number + '>Upload File ' + upload_number + '</label>';
+            moreUploadTag += '<input type="file" id="upload_file' + upload_number + '" name="upload_file' + upload_number + '"/>';
+            moreUploadTag += '&nbsp;<a href="javascript:del_file(' + upload_number + ')" style="cursor:pointer;" onclick="return confirm(\"Are you really want to delete ?\")">Delete ' + upload_number + '</a></div>';
+            $('<dl id="delete_file' + upload_number + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreImageUpload');
+            upload_number++;
+        });
+    });
+</script>
+<script type="text/javascript">
+    function del_file(eleId) {
+        var ele = document.getElementById("delete_file" + eleId);
+        ele.parentNode.removeChild(ele);
+    }
+</script>
+
+
+
 <script type="text/javascript">
 
     $(document).ready(function() {
-
-        $(".add").click(function() {
-            $('<div><input class="files form-control-file" name="user_files[]" type="file" ><span class="rem" ><a href="javascript:void(0);" >Remove</span></div>').appendTo(".contents");
-        });
-        $('.contents').on('click', '.rem', function() {
-            $(this).parent("div").remove();
-        });
-
 
         $("#startdate").datepicker({
             todayBtn: 1,
