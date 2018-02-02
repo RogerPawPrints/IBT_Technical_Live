@@ -678,15 +678,34 @@ class Admin_Controller extends CI_Controller
     public function Save_Phase()
     {
         $project_Phase_code = $this->input->post('project', true);
-        $project_phase = array(
-            'Phase_Start_Date' => $this->input->post('Start_date', true),
-            'Phase_End_Date' => $this->input->post('End_date', true),
-            'Estimate_Hour' => $this->input->post('Hours', true),
-            'Modified_By' =>$this->session->userdata['userid'],
-            'Modified_On' =>date('Y-m-d'));
-        $this->db->where('Project_Phase_Icode',$project_Phase_code);
-        $this->db->update('project_phase', $project_phase);
-        echo 1;
+        $old_phase =$this->technical_admin_model->Get_Project_Phase_Old_Details($project_Phase_code);
+        $insert_phase = array('History_Phase_Icode' => $this->input->post('project', true),
+            'Phase_History_Master_Icode' =>$old_phase[0]['Phase_Master_Icode'],
+            'Phase_Old_Start_Date' => $old_phase[0]['Phase_Start_Date'],
+            'Phase_Old_End_Date' => $old_phase[0]['Phase_End_Date'],
+            'Phase_Old_Hours' => $old_phase[0]['Estimate_Hour'],
+            'Phase_New_Start_Date' => $this->input->post('Start_date', true),
+            'Phase_New_End_Date' => $this->input->post('End_date', true),
+            'Phase_New_Hours' => $this->input->post('Hours', true),
+            'Created_By' => $this->session->userdata['userid']);
+        $insert_phase_history = $this->technical_admin_model->insert_phase_history($insert_phase);
+        if($insert_phase_history == '1')
+        {
+            $project_phase = array(
+                'Phase_Start_Date' => $this->input->post('Start_date', true),
+                'Phase_End_Date' => $this->input->post('End_date', true),
+                'Estimate_Hour' => $this->input->post('Hours', true),
+                'Modified_By' =>$this->session->userdata['userid'],
+                'Modified_On' =>date('Y-m-d'));
+            $this->db->where('Project_Phase_Icode',$project_Phase_code);
+            $this->db->update('project_phase', $project_phase);
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+
     }
     //** Save Project HISTORy */
     public function Save_History()

@@ -328,5 +328,18 @@ class Technical_Admin_Model extends CI_Model
         $query = $this->db->query("DELETE from project_phase where Project_Phase_Icode = '$phase_id'");
         return $this->db->insert_id();
     }
+    //** Get Old Phase Values */
+    public function Get_Project_Phase_Old_Details($phase_icode)
+    {
+        $query=$this->db->query("SELECT Phase_Master_Icode,Phase_Start_Date,Phase_End_Date,Estimate_Hour FROM Project_Phase_Icode WHERE  Project_Phase_Icode='$phase_icode'");
+        return $query->result_array();
+
+    }
+    //** Insert phase History */
+    public function insert_phase_history($data)
+    {
+        $this->db->insert('phase_date_history', $data);
+        return 1;
+    }
 
 }
