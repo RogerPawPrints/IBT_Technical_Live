@@ -246,7 +246,7 @@
         $.ajaxFileUpload({
             url:"<?php echo site_url('User_Controller/Save_Upload'); ?>",
             secureuri		:false,
-            fileElementId	:'userfile',
+            fileElementId	:'user_files',
             dataType		: 'json',
             data			: {
                 id: project_Phase
