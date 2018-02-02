@@ -268,6 +268,18 @@
             $("#Phase_Master option:selected").attr('disabled','disabled');
         });
 
+        $('#date_new').datepicker({
+            todayBtn:  1,
+            autoclose: true,
+            startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#Phase_date_start').datepicker('setEndDate', minDate);
+            $('#Phase_date_end').datepicker('setEndDate', minDate);
+            $('.phase_Start').datepicker('setEndDate', minDate);
+            $('.phase_end').datepicker('setEndDate', minDate);
+        });
+
         $('#Phase_date_start').datepicker({
             todayBtn:  1,
             autoclose: true,
@@ -277,15 +289,6 @@
             $('#Phase_date_end').datepicker('setStartDate', minDate);
         });
 
-        var date_input_WO=$('input[name="date_new"]');
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input_WO.datepicker({
-            format: 'yyyy-mm-dd',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-            startDate: new Date()
-        })
 
     $("#Member").change(function(){
         //  alert("hiiii");
@@ -321,13 +324,16 @@
         document.getElementById("start"+id).innerHTML="<input  type='text' name='Phase_date_start[]' class='phase_Start' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onmousedown='show_date1()'  >";
         document.getElementById("end"+id).innerHTML="<input type='text' name='Phase_date_end[]' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
         document.getElementById("hour"+id).innerHTML="<input type='number' name='Hour[]' id='Hours"+id+"' value='"+Hour+"' min='0' step='1'>";
-
         document.getElementById("edit_button"+id).style.display="none";
         document.getElementById("save_button"+id).style.display="block";
         document.getElementById("cancel_button"+id).style.display="block";
     }
     function show_date1()
     {
+        var date_new = $('#date_new').datepicker('getDate');
+        $('.phase_Start').datepicker('setEndDate', date_new);
+        $('.phase_Start').datepicker('setStartDate', new Date());
+        $('.phase_end').datepicker('setEndDate', date_new);
         $('.phase_Start').datepicker({
             dateFormat: 'yy-mm-dd',
             startDate: new Date(),
@@ -336,7 +342,6 @@
         }).on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('.phase_end').datepicker('setStartDate', minDate);
-
         });
     }
     function save_row(id)
@@ -430,15 +435,13 @@
 
     function cancel(id)
     {
-        alert(id);
         var Phase=document.getElementById("phase"+id).innerHTML;
         var Start=document.getElementById("start"+id).innerHTML;
         var End=document.getElementById("end"+id).innerHTML;
         var Hour=document.getElementById("hour"+id).innerHTML;
         document.getElementById("phase"+id).innerHTML=Phase;
         document.getElementById("start"+id).innerHTML=Start;
-        document.getElementById("end"+id).innerHTML=End;
-        document.getElementById("hour"+id).innerHTML=Hour;
+        document.getElementById("hour"+id).innerHTML=hour;
         document.getElementById("edit_button"+id).style.display="block";
         document.getElementById("save_button"+id).style.display="none";
 
@@ -517,7 +520,7 @@
 
 
 
-    
+
 
 
 
