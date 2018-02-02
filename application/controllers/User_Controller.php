@@ -200,5 +200,10 @@ class User_Controller extends CI_Controller
 
 
     }
+
+    public function upload()
+    {
+        $this->load->view('User/upload');
+    }
 }
 ?>
