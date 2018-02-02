@@ -28,7 +28,7 @@
             color: darkgreen;
         }
     </style>
-    <script src="<?php echo assets_url(); ?>assets/js/jquery-1.9.1.min.js"></script>
+
 </head>
 <body>
 <div class="message_box">
