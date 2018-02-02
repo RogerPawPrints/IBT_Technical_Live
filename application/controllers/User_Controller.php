@@ -104,17 +104,17 @@ class User_Controller extends CI_Controller
                             $counter++;
                         }
                     }
-                    $msg = ($counter == 0) ? "Files uploaded Successfully" : "Erros : ".$msg;
+                    $msg = ($counter == 0) ? "Files uploaded Successfully" : "Erros : " . $msg;
                 }
             }
 
 
-                }
-            }
+        }
+
             $this->session->set_flashdata('message', 'Task Created Successfully..');
             redirect('/User_Controller/Create_Task');
 
-        }
+
 
 
     }
