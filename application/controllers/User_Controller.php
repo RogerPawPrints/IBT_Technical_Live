@@ -92,7 +92,7 @@ class User_Controller extends CI_Controller
         if ($insert_project != '0') {
 
              $fileee = $this->input->post('user_files');
-            $count_Phase = sizeof($fileee);
+            $count_Phase = count($fileee);
 
             print_r($count_Phase);
 
