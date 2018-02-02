@@ -91,59 +91,41 @@ class User_Controller extends CI_Controller
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
 
-                $upload_dir = 'uploads';
-                $config = array();
-                $files = array();
+            $config ['upload_path'] = './uploads/';
+            $config['allowed_types']        = 'doc|docx|xls|xlsx|ppt|pptx|pdf|txt|jpg|png|jpeg|bmp|gif|avi|flv|mpg|wmv|mp3|wma|wav|zip|rar';
+            $this->load->library('upload', $config);
+            // Cache the real $_FILES array, because the original
+            // will be overwritten soon :)
+            $files = $_FILES;
+            $file_count = sizeof($_FILES['user_files']['name']);
 
-                if(empty($config))
-                {
-                    $config['upload_path'] = './uploads/';
-                    $config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|pdf|txt|jpg|png|jpeg|bmp|gif|avi|flv|mpg|wmv|mp3|wma|wav|zip|rar';
-                    $config['max_size']      = '800000000';
+            // Iterate over the $files array
+            for ($i = 0; $i < $file_count; $i++) {
+                // Overwrite the default $_FILES array with a single file's data
+                // to make the $_FILES array consumable by the upload library
+
+                $_FILES['user_files']['name'] = $files['user_files']['name'][$i];
+                $_FILES['user_files']['type'] = $files['user_files']['type'][$i];
+                $_FILES['user_files']['tmp_name'] = $files['user_files']['tmp_name'][$i];
+                $_FILES['user_files']['error'] = $files['user_files']['error'][$i];
+                $_FILES['user_files']['size'] = $files['user_files']['size'][$i];
+
+                if (!$this->upload->do_multi_upload('user_files')) {
+                    // Handle upload errors
+
+                    // If an error occurs jump to the next file
+                    break;
+                } else {
+                    $name = $this->upload->data();
+                    //$data = array('file_name' =>$name['file_name']);
+                    $attachment = array('Attachment_Task_Icode' => $insert_project,
+                        'Attachment_Path' =>$name['file_name'],
+                        'Attachment_Created_By' => $this->session->userdata['userid']);
+                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
+
+
                 }
-
-                $this->load->library('upload', $config);
-
-                $errors = FALSE;
-
-                foreach($_FILES['user_files'] as $key => $value)
-                {
-                    if( ! empty($value['name']))
-                    {
-                        if( ! $this->upload->do_upload($key))
-                        {
-                            $data['upload_message'] = $this->upload->display_errors(ERR_OPEN, ERR_CLOSE); // ERR_OPEN and ERR_CLOSE are error delimiters defined in a config file
-                            $this->load->vars($data);
-
-                            $errors = TRUE;
-                        }
-                        else
-                        {
-                            // Build a file array from all uploaded files
-                            $files[] = $this->upload->data();
-                        }
-                    }
-                }
-
-                // There was errors, we have to delete the uploaded files
-                if($errors)
-                {
-                    foreach($files as $key => $file)
-                    {
-                        @unlink($file['full_path']);
-                    }
-                }
-                elseif(empty($files) AND empty($data['upload_message']))
-                {
-                    $this->lang->load('upload');
-                    $data['upload_message'] = ERR_OPEN.$this->lang->line('upload_no_file_selected').ERR_CLOSE;
-                    $this->load->vars($data);
-                }
-                else
-                {
-                    return $files;
-                }
-
+            }
             $this->session->set_flashdata('message', 'Task Created Successfully..');
             redirect('/User_Controller/Create_Task');
 
