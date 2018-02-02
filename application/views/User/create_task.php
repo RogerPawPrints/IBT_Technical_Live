@@ -169,6 +169,9 @@
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
 
 
 <script type="text/javascript">
@@ -202,117 +205,4 @@
         var ele = document.getElementById("delete_file" + eleId);
         ele.parentNode.removeChild(ele);
     }
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
-<script type="text/javascript">
-
-    $(document).ready(function() {
-
-        $(".add").click(function() {
-            $('<div><input class="files form-control-file" name="user_files[]" type="file" ><span class="rem" ><a href="javascript:void(0);" >Remove</span></div>').appendTo(".contents");
-        });
-        $('.contents').on('click', '.rem', function() {
-            $(this).parent("div").remove();
-        });
-
-
-        $("#startdate").datepicker({
-            todayBtn: 1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#enddate').datepicker('setStartDate', minDate);
-        });
-
-
-        $("#enddate").datepicker()
-            .on('changeDate', function (selected) {
-                var minDate = new Date(selected.date.valueOf());
-                $('#startdate').datepicker('setEndDate', minDate);
-            });
-
-
-        $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
-            //alert("hiiii");
-            /*dropdown post *///
-            //document.getElementById('Resource_Select').value = '';
-            $.ajax({
-                url: "<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
-                data: {
-                    id:
-                        $(this).val()
-                },
-                type: "POST",
-                success: function (data) {
-                    // alert(data);
-                    $("#show_on_project").show();
-                    var task_details = $.parseJSON(data);
-                    //alert(task_details);
-                    var client_name = task_details.Client_Details[0]['Client_Company_Name'];
-                    //alert(client_name);
-                    document.getElementById('Client_Name').value = client_name;
-
-                    var Client_Name_icode = task_details.Client_Details[0]['Client_Icode'];
-                    //alert(client_name);
-                    document.getElementById('Client_Name_icode').value = Client_Name_icode;
-
-                    var work_cat = task_details.Client_Details[0]['WorkCategory_Name'];
-                    document.getElementById('Work_Category').value = work_cat;
-
-                    var work_type = task_details.Client_Details[0]['Work_Name'];
-                    document.getElementById('Work_Type').value = work_type;
-
-                }
-
-
-            });
-        });
-
-
-        $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
-            //alert("hiiii");
-            /*dropdown post *///
-            //document.getElementById('Resource_Select').value = '';
-            $.ajax({
-                url: "<?php echo site_url('User_Controller/Show_On_Project_Resource'); ?>",
-                data: {
-                    id:
-                        $(this).val()
-                },
-                type: "POST",
-                success: function (data) {
-                    $("#Resource_Select").html(data);
-                }
-
-
-            });
-        });
-    });
-
-    function saveee() {
-
-
-
-        var project_P = document.getElementsByName("user_files[]").val;
-        var project_Phase = [];
-        for (var i = 0, iLen = project_P.length; i < iLen; i++) {
-            project_Phase.push(project_P[i].value);
-        }
-        var data   = new FormData(project_Phase);
-        alert(data);
-        $.ajax({
-            url: "<?php echo site_url('User_Controller/Save_Upload'); ?>",
-            data: {id:data},
-            type: "POST",
-            success: function (data) {
-                $("#Resource_Select").html(data);
-            }
-
-
-        });
-    }
-
 </script>
