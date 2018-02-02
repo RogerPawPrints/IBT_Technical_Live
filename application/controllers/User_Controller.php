@@ -90,43 +90,49 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-            $config ['upload_path'] = './uploads/task';
-            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
-            $this->load->library('upload', $config);
-            // Cache the real $_FILES array, because the original
-            // will be overwritten soon :)
-            $files = $_FILES;
-            $file_count = sizeof($_FILES['user_files']['name']);
 
-            // Iterate over the $files array
-            for ($i = 0; $i < $file_count; $i++) {
-                // Overwrite the default $_FILES array with a single file's data
-                // to make the $_FILES array consumable by the upload library
+             $fileee = $this->input->post('user_files');
+            $count_Phase = sizeof($fileee);
 
-                $_FILES['user_files']['name'] = $files['user_files']['name'][$i];
-                $_FILES['user_files']['type'] = $files['user_files']['type'][$i];
-                $_FILES['user_files']['tmp_name'] = $files['user_files']['tmp_name'][$i];
-                $_FILES['user_files']['error'] = $files['user_files']['error'][$i];
-                $_FILES['user_files']['size'] = $files['user_files']['size'][$i];
+            print_r($count_Phase);
 
-                if (!$this->upload->do_upload('user_files')) {
-                    // Handle upload errors
-
-                    // If an error occurs jump to the next file
-                    break;
-                } else {
-                    $name = $this->upload->data();
-                    //$data = array('file_name' =>$name['file_name']);
-                    $attachment = array('Attachment_Task_Icode' => $insert_project,
-                        'Attachment_Path' =>$name['file_name'],
-                        'Attachment_Created_By' => $this->session->userdata['userid']);
-                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
-
-
-                }
-            }
-            $this->session->set_flashdata('message', 'Task Created Successfully..');
-            redirect('/User_Controller/Create_Task');
+//            $config ['upload_path'] = './uploads/task';
+//            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
+//            $this->load->library('upload', $config);
+//            // Cache the real $_FILES array, because the original
+//            // will be overwritten soon :)
+//            $files = $_FILES;
+//            $file_count = sizeof($_FILES['user_files']['name']);
+//
+//            // Iterate over the $files array
+//            for ($i = 0; $i < $file_count; $i++) {
+//                // Overwrite the default $_FILES array with a single file's data
+//                // to make the $_FILES array consumable by the upload library
+//
+//                $_FILES['user_files']['name'] = $files['user_files']['name'][$i];
+//                $_FILES['user_files']['type'] = $files['user_files']['type'][$i];
+//                $_FILES['user_files']['tmp_name'] = $files['user_files']['tmp_name'][$i];
+//                $_FILES['user_files']['error'] = $files['user_files']['error'][$i];
+//                $_FILES['user_files']['size'] = $files['user_files']['size'][$i];
+//
+//                if (!$this->upload->do_upload('user_files')) {
+//                    // Handle upload errors
+//
+//                    // If an error occurs jump to the next file
+//                    break;
+//                } else {
+//                    $name = $this->upload->data();
+//                    //$data = array('file_name' =>$name['file_name']);
+//                    $attachment = array('Attachment_Task_Icode' => $insert_project,
+//                        'Attachment_Path' =>$name['file_name'],
+//                        'Attachment_Created_By' => $this->session->userdata['userid']);
+//                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
+//
+//
+//                }
+//            }
+//            $this->session->set_flashdata('message', 'Task Created Successfully..');
+//            redirect('/User_Controller/Create_Task');
 
         }
 
