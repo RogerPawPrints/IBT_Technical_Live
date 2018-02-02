@@ -139,7 +139,7 @@
 <!--                            -
 //                            echo form_open_multipart($this->uri->uri_string(), array('id' => 'upload-file-form'));
 //                            ?> -->
-                                <form name="create_task_form" action="--><?php echo site_url('UploadFiles'); ?><!--" enctype="multipart/form-data" method="post">
+                                <form name="create_task_form" action="<?php echo site_url('UploadFiles'); ?>" enctype="multipart/form-data" method="post">
 
                             <fieldset>
                                 <legend>Upload Multiple File(s)</legend>
