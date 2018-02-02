@@ -234,7 +234,7 @@
 
     function saveee() {
         alert("dsdsfd");
-        var project_P = document.getElementsByName("user_files[]");
+        var project_P = document.getElementsByName("user_files");
 //        var names = document.getElementsByName('name[]');
         alert(project_P)
 
@@ -244,9 +244,7 @@
         }
         $.ajax({
             url: "<?php echo site_url('User_Controller/Save_Upload'); ?>",
-            data: {
-                id:project_Phase
-            },
+            data: {id:project_Phase},
             type: "POST",
             success: function (data) {
                 $("#Resource_Select").html(data);
