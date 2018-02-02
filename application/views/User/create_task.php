@@ -125,6 +125,8 @@
 
                                         <div class="form-group">
                                             <input type="file" name="upload_file1" id="upload_file1" readonly="true"/>
+                                            <div id="moreImageUpload"></div>
+                                            <div style="clear:both;"></div>
                                             <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
                                                 <a href="javascript:void(0);" id="attachMore">Attach another file</a>
                                             </div>
@@ -160,6 +162,7 @@
         });
     });
 </script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         var upload_number = 2;
@@ -174,6 +177,7 @@
         });
     });
 </script>
+
 <script type="text/javascript">
     function del_file(eleId) {
         var ele = document.getElementById("delete_file" + eleId);
