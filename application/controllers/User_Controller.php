@@ -88,7 +88,7 @@ class User_Controller extends CI_Controller
         $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
         $data = array();
 
-        /*Insert Task Attachments*/
+        /*Insert Task Attachments.*/
         if ($insert_project != '0') {
             $config ['upload_path'] = './uploads/task';
             $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
