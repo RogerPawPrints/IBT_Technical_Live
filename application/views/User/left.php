@@ -27,7 +27,7 @@
             </span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="<?php echo site_url('User_Controller/upload'); ?>"><i class="fa fa-circle-o"></i> <span>Create Task</span></a></li>
+                  <li><a href="<?php echo site_url('User_Controller/Create_Task'); ?>"><i class="fa fa-circle-o"></i> <span>Create Task</span></a></li>
                  <!-- <li><a href="<?php /*echo site_url('Admin_Controller/Work'); */?>"><i class="fa fa-circle-o"></i> <span>Work Category</span></a></li>
                   <li><a href="<?php /*echo site_url('Admin_Controller/Work_Type'); */?>"><i class="fa fa-circle-o"></i> <span>Work Type</span></a></li>
                   <li><a href="<?php /*echo site_url('Admin_Controller/Phase_Master'); */?>"><i class="fa fa-circle-o"></i> <span>Phase Master</span></a></li>
