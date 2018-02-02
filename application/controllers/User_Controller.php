@@ -48,7 +48,7 @@ class User_Controller extends CI_Controller
         $data = $this->technical_user_model->Show_On_Select_Project($project_code);
 
         $resource_name = $this->technical_user_model->Select_Resource($project_code);
-       // print_r($resource_name);
+        // print_r($resource_name);
 
         $full_data = array('Client_Details' => $data );
 
@@ -90,73 +90,67 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-            if ($this->input->post('file_upload')) {
-                //file upload destination
-                $dir_path = './uploads/';
-                $config['upload_path'] = $dir_path;
-                $config['allowed_types'] = '*';
-                $config['max_size'] = '0';
-                $config['max_filename'] = '255';
-                $config['encrypt_name'] = TRUE;
-                $this->load->library('upload', $config);
-                //upload file
-                $i = 0;
+
+                $upload_dir = 'uploads';
+                $config = array();
                 $files = array();
-                $is_file_error = FALSE;
 
-                if ($_FILES['upload_file1']['size'] <= 0) {
-                    $this->handle_error('Select at least one file.');
-                } else {
-                    foreach ($_FILES as $key => $value) {
-                        if (!empty($value['name'])) {
-                            $this->load->library('upload', $config);
-                            if (!$this->upload->do_upload($key)) {
-                                $this->handle_error($this->upload->display_errors());
-                                $is_file_error = TRUE;
-                            } else {
-                                $files[$i] = $this->upload->data();
-                                ++$i;
-                            }
+                if(empty($config))
+                {
+                    $config['upload_path'] = './uploads/';
+                    $config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|pdf|txt|jpg|png|jpeg|bmp|gif|avi|flv|mpg|wmv|mp3|wma|wav|zip|rar';
+                    $config['max_size']      = '800000000';
+                }
+
+                $this->load->library('upload', $config);
+
+                $errors = FALSE;
+
+                foreach($_FILES as $key => $value)
+                {
+                    if( ! empty($value['name']))
+                    {
+                        if( ! $this->upload->do_upload($key))
+                        {
+                            $data['upload_message'] = $this->upload->display_errors(ERR_OPEN, ERR_CLOSE); // ERR_OPEN and ERR_CLOSE are error delimiters defined in a config file
+                            $this->load->vars($data);
+
+                            $errors = TRUE;
+                        }
+                        else
+                        {
+                            // Build a file array from all uploaded files
+                            $files[] = $this->upload->data();
                         }
                     }
                 }
 
-                // There were errors, we have to delete the uploaded files
-                if ($is_file_error && $files) {
-                    for ($i = 0; $i < count($files); $i++) {
-                        $file = $dir_path . $files[$i]['file_name'];
-                        if (file_exists($file)) {
-                            unlink($file);
-                        }
+                // There was errors, we have to delete the uploaded files
+                if($errors)
+                {
+                    foreach($files as $key => $file)
+                    {
+                        @unlink($file['full_path']);
                     }
+                }
+                elseif(empty($files) AND empty($data['upload_message']))
+                {
+                    $this->lang->load('upload');
+                    $data['upload_message'] = ERR_OPEN.$this->lang->line('upload_no_file_selected').ERR_CLOSE;
+                    $this->load->vars($data);
+                }
+                else
+                {
+                    return $files;
                 }
 
-                if (!$is_file_error && $files) {
-                    $resp = $this->file->save_files_info($files);
-                    if ($resp === TRUE) {
-                        $this->handle_success('File(s) was/were successfully uploaded.');
-                    } else {
-                        for ($i = 0; $i < count($files); $i++) {
-                            $file = $dir_path . $files[$i]['file_name'];
-                            if (file_exists($file)) {
-                                unlink($file);
-                            }
-                        }
-                        $this->handle_error('Error while saving file info to Database.');
-                    }
-                }
-            }
-            $data['errors'] = $this->error;
-            $data['success'] = $this->success;
             $this->session->set_flashdata('message', 'Task Created Successfully..');
             redirect('/User_Controller/Create_Task');
 
         }
 
-        }
 
-
-
+    }
     /*Insert Tssk in Database*/
 }
 ?>

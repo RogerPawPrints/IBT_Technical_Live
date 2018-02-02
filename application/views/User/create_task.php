@@ -39,40 +39,40 @@
                         <div class="row padding_class">
                             <div class="col-md-12">
                                 <form name="create_task_form" action="<?php echo site_url('User_Controller/Insert_Task'); ?>" enctype="multipart/form-data" method="post">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Select Project</label>
-                                        <select name="Project_Select" class="form-control" id="Project_Select"  required >
-                                            <option value="" >Select Project</option>
-                                            <?php foreach ($Select_Project as $row):
-                                            {
-                                                echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
-                                            }
-                                            endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="show_on_project" style="display: none">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Client Name</label>
-                                            <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
-                                            <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
+                                            <label>Select Project</label>
+                                            <select name="Project_Select" class="form-control" id="Project_Select"  required >
+                                                <option value="" >Select Project</option>
+                                                <?php foreach ($Select_Project as $row):
+                                                    {
+                                                        echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
+                                                    }
+                                                endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Work Category</label>
-                                            <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly  />
+                                    <div id="show_on_project" style="display: none">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Client Name</label>
+                                                <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
+                                                <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Work Category</label>
+                                                <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Work Type</label>
+                                                <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly  />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Work Type</label>
-                                            <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly  />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -124,12 +124,9 @@
                                     <div class="col-md-12">
 
                                         <div class="form-group">
-                                            <input type="file" name="upload_file1" id="upload_file1" readonly="true"/>
-                                            <div id="moreImageUpload"></div>
-                                            <div style="clear:both;"></div>
-                                            <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
-                                                <a href="javascript:void(0);" id="attachMore">Attach another file</a>
-                                            </div>
+                                            <input class="files form-control-file" id="Task_Attachment" name="user_files[]" type="file" >
+                                            <div class="contents"></div>
+                                            <span><a href="javascript:void(0);" class="add btn" >Add More Files</a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -149,47 +146,17 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
-
 <script type="text/javascript">
+
     $(document).ready(function() {
-        $("input[id^='upload_file']").each(function() {
-            var id = parseInt(this.id.replace("upload_file", ""));
-            $("#upload_file" + id).change(function() {
-                if ($("#upload_file" + id).val() !== "") {
-                    $("#moreImageUploadLink").show();
-                }
-            });
+
+        $(".add").click(function() {
+            $('<div><input class="files form-control-file" name="user_files[]" type="file" ><span class="rem" ><a href="javascript:void(0);" >Remove</span></div>').appendTo(".contents");
         });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        var upload_number = 2;
-        $('#attachMore').click(function() {
-            //add more file
-            var moreUploadTag = '';
-            moreUploadTag += '<div class="element"><label for="upload_file"' + upload_number + '>Upload File ' + upload_number + '</label>';
-            moreUploadTag += '<input type="file" id="upload_file' + upload_number + '" name="upload_file' + upload_number + '"/>';
-            moreUploadTag += '&nbsp;<a href="javascript:del_file(' + upload_number + ')" style="cursor:pointer;" onclick="return confirm(\"Are you really want to delete ?\")">Delete ' + upload_number + '</a></div>';
-            $('<dl id="delete_file' + upload_number + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreImageUpload');
-            upload_number++;
+        $('.contents').on('click', '.rem', function() {
+            $(this).parent("div").remove();
         });
-    });
-</script>
 
-<script type="text/javascript">
-    function del_file(eleId) {
-        var ele = document.getElementById("delete_file" + eleId);
-        ele.parentNode.removeChild(ele);
-    }
-</script>
-
-
-
-<script type="text/javascript">
-
-    $(document).ready(function() {
 
         $("#startdate").datepicker({
             todayBtn: 1,
@@ -209,7 +176,7 @@
 
 
         $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
-             //alert("hiiii");
+            //alert("hiiii");
             /*dropdown post *///
             //document.getElementById('Resource_Select').value = '';
             $.ajax({
