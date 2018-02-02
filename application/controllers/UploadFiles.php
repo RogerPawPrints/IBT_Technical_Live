@@ -29,7 +29,7 @@ class UploadFiles extends CI_Controller {
     function index() {
         if ($this->input->post('file_upload')) {
             //file upload destination
-            $dir_path = './upload/';
+            $dir_path = './uploads/';
             $config['upload_path'] = $dir_path;
             $config['allowed_types'] = '*';
             $config['max_size'] = '0';
