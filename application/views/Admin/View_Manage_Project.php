@@ -178,7 +178,7 @@
                                                 <td id="phase<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Name'];?></td>
                                                 <td id="start<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_Start_Date'];?></td>
                                                 <td id="end<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Phase_End_Date'];?></td>
-                                                <td id="hour<?php echo $row['Project_Phase_Icode'];?>"><?php echo $row['Estimate_Hour'];?></td>
+                                                <td id="hour<?php echo $row['Project_Phase_Icode'];?>" class="estimation"><?php echo $row['Estimate_Hour'];?></td>
                                                 <td>
                                                     <input type='button' class="edit_button" id="edit_button<?php echo $row['Project_Phase_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['Project_Phase_Icode'];?>');">
                                                     <input type='button' class="save_button" style="display: none" id="save_button<?php echo $row['Project_Phase_Icode'];?>" value="save" onclick="save_row('<?php echo $row['Project_Phase_Icode'];?>');">
