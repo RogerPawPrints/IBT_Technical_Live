@@ -232,8 +232,7 @@
         });
     });
 
-    function saveee()
-    {
+    function saveee() {
         alert("dsdsfd");
         var project_P = document.getElementsByName("user_files[]");
 //        var names = document.getElementsByName('name[]');
@@ -244,13 +243,12 @@
         }
 
         $.ajax({
-            url:"<?php echo site_url('User_Controller/Save_Upload'); ?>",
+            url: "<?php echo site_url('User_Controller/Save_Upload'); ?>",
             data: {id: project_P},
             type: "POST",
             cache: false,
-            success:function(data) {
-                if(data == '1')
-                {
+            success: function (data) {
+                if (data == '1') {
                     alert("Successs");
                     location.reload();
                 }
@@ -259,5 +257,7 @@
                 }
 
             }
+        });
+    }
 
 </script>
