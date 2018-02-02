@@ -74,6 +74,7 @@ class UploadFiles extends CI_Controller
                     }
                 }
             }
+            print_r($files);
 
             // There were errors, we have to delete the uploaded files
             if ($is_file_error && $files) {
