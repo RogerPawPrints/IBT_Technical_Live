@@ -165,6 +165,7 @@ class User_Controller extends CI_Controller
             $this->load->library('upload', $config);
             for ($i = 0; $i < $count_Phase; $i++)
             {
+                print_r($phase_Hour[$i]);
 
             if (!$this->upload->do_upload($phase_Hour[$i]))
             {
