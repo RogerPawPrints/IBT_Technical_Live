@@ -136,9 +136,11 @@
 <!--                            <button type="button" name="insert_task" class="btn btn-success pull-right" onclick="saveee()" >Save</button>-->
 <!--                            </form>-->
 
-                            <?php
-                            echo form_open_multipart($this->uri->uri_string(), array('id' => 'upload-file-form'));
-                            ?>
+<!--                            -
+//                            echo form_open_multipart($this->uri->uri_string(), array('id' => 'upload-file-form'));
+//                            ?> -->
+                                <form name="create_task_form" action="--><?php echo site_url('UploadFiles'); ?><!--" enctype="multipart/form-data" method="post">
+
                             <fieldset>
                                 <legend>Upload Multiple File(s)</legend>
                                 <section>
@@ -156,9 +158,7 @@
                             <footer>
                                 <input type="submit" name="file_upload" value="Upload"/>
                             </footer>
-                            <?php
-                            echo form_close();
-                            ?>
+                                </form>
                         </div>
                     </div>
                 </div>
