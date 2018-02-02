@@ -333,7 +333,9 @@
         var date_new = $('#date_new').datepicker('getDate');
         $('.phase_Start').datepicker('setEndDate', date_new);
         $('.phase_Start').datepicker('setStartDate', new Date());
+
         $('.phase_end').datepicker('setEndDate', date_new);
+
         $('.phase_Start').datepicker({
             dateFormat: 'yy-mm-dd',
             startDate: new Date(),
