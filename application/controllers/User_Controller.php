@@ -98,7 +98,7 @@ class User_Controller extends CI_Controller
                 $config['max_size'] = '0';
                 $config['max_filename'] = '255';
                 $config['encrypt_name'] = TRUE;
-
+                $this->load->library('upload', $config);
                 //upload file
                 $i = 0;
                 $files = array();
