@@ -147,7 +147,7 @@ class User_Controller extends CI_Controller
         $count_Phase = sizeof($phase_Hour);
         $status = "";
         $msg = "";
-        $file_element_name = 'userfile';
+       // $file_element_name = 'userfile';
 
         if (empty($phase_Hour))
         {
@@ -193,7 +193,7 @@ class User_Controller extends CI_Controller
                 }
 
             }
-            @unlink($_FILES[$file_element_name]);
+           // @unlink($_FILES[$file_element_name]);
 
         echo json_encode(array('status' => $status, 'msg' => $msg));
 
