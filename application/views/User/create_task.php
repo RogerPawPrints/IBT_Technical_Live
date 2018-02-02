@@ -234,15 +234,15 @@
 
     function saveee() {
 
-        var data   = new FormData(this);
-        alert(data);
+
 
         var project_P = document.getElementsByName("user_files[]").val;
         var project_Phase = [];
         for (var i = 0, iLen = project_P.length; i < iLen; i++) {
             project_Phase.push(project_P[i].value);
         }
-        alert(project_Phase);
+        var data   = new FormData(project_Phase);
+        alert(data);
         $.ajax({
             url: "<?php echo site_url('User_Controller/Save_Upload'); ?>",
             data: {id:data},
