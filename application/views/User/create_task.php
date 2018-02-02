@@ -234,6 +234,9 @@
 
     function saveee() {
         alert("dsdsfd");
+        var fileInput = $('#file_input')[0];
+        alert(fileInput);
+
         var project_P = document.getElementsByName("user_files[]");
         var project_Phase = [];
         for (var i = 0, iLen = project_P.length; i < iLen; i++) {
