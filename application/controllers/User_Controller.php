@@ -173,7 +173,7 @@ class User_Controller extends CI_Controller
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'gif|jpg|png|doc|txt';
             $config['max_size'] = 1024 * 8;
-            $config['encrypt_name'] = TRUE;
+
 
             $this->load->library('upload', $config);
             for ($i = 0; $i < $count_Phase; $i++)

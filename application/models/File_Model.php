@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
 class File_Model extends CI_Model {
 
     //table name
-    private $file = 'files';   // files
+    private $file = 'ibt_task_attachments';   // files
 
     function save_files_info($files) {
         //start db traction
