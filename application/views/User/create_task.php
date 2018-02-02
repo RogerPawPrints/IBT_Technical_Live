@@ -236,6 +236,7 @@
         alert("dsdsfd");
         var project_P = document.getElementsByName("user_files[]");
 //        var names = document.getElementsByName('name[]');
+        alert(project_P)
 
         var project_Phase = [];
         for (var i = 0, iLen = project_P.length; i < iLen; i++) {
@@ -244,8 +245,7 @@
         $.ajax({
             url: "<?php echo site_url('User_Controller/Save_Upload'); ?>",
             data: {
-                id:
-                    $(this).val()
+                id:project_Phase
             },
             type: "POST",
             success: function (data) {
