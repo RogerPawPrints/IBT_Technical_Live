@@ -3,32 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Upload Multiple File(s)</title>
-    <style type="text/css">
-        body {
-            background-color: #fff;
-            margin: 40px;
-            font: 13px/20px normal Helvetica, Arial, sans-serif;
-            color: #4F5155;
-        }
-        #body{
-            margin: 0 15px 0 15px;
-        }
-        #container{
-            margin: 10px;
-            border: 1px solid #D0D0D0;
-            -webkit-box-shadow: 0 0 8px #D0D0D0;
-        }
-        .error {
-            color: #E13300;
-        }
-        .info {
-            color: gold;
-        }
-        .success {
-            color: darkgreen;
-        }
-    </style>
-
 </head>
 <body>
 <div class="message_box">
