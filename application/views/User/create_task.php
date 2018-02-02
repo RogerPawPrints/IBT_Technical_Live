@@ -126,6 +126,7 @@
                                         <div class="form-group">
                                             <input class="files form-control-file" id="Task_Attachment" name="user_files[]" type="file" >
                                             <span><a href="javascript:void(0);" class="add" >Add More Files</a></span>
+                                            <div class="contents"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +151,7 @@
     $(document).ready(function() {
 
         $(".add").click(function() {
-            $('<div><input class="files" name="user_files[]" type="file" ><span class="rem" ><a href="javascript:void(0);" >Remove</span></div>').appendTo(".contents");
+            $('<div><input class="files form-control-file" name="user_files[]" type="file" ><span class="rem" ><a href="javascript:void(0);" >Remove</span></div>').appendTo(".contents");
         });
         $('.contents').on('click', '.rem', function() {
             $(this).parent("div").remove();
