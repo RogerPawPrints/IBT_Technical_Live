@@ -124,9 +124,8 @@
                                     <div class="col-md-12">
 
                                         <div class="form-group">
-                                            <legend>Upload Multiple File(s).</legend>
-                                            <label>Task Attachments</label>
-                                            <input type="file" class="form-control-file" name="Task_Attachment[]" multiple id="Task_Attachment" required />
+                                            <input class="files form-control-file" id="Task_Attachment" name="user_files[]" type="file" >
+                                            <span><a href="javascript:void(0);" class="add" >Add More Files</a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -149,6 +148,16 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+
+        $(".add").click(function() {
+            $('<div><input class="files" name="user_files[]" type="file" ><span class="rem" ><a href="javascript:void(0);" >Remove</span></div>').appendTo(".contents");
+        });
+        $('.contents').on('click', '.rem', function() {
+            $(this).parent("div").remove();
+        });
+
+
+
 
         $("#startdate").datepicker({
             todayBtn: 1,
