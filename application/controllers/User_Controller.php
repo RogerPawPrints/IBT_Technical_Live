@@ -163,18 +163,21 @@ class User_Controller extends CI_Controller
             $config['encrypt_name'] = TRUE;
 
             $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload($file_element_name))
+            for ($i = 0; $i < $count_Phase; $i++)
             {
+
+            if (!$this->upload->do_upload($phase_Hour[$i]))
+            {
+                print_r("error");
                 $status = 'error';
                 $msg = $this->upload->display_errors('', '');
             }
             else
             {
-                for ($i = 0; $i < $count_Phase; $i++)
-                {
+                print_r("success");
+
                     $data = $this->upload->data();
-                    $file_id = $this->files_model->insert_file($data['file_name'], $phase_Hour[$i]);
+                   // $file_id = $this->files_model->insert_file($data['file_name'], $phase_Hour[$i]);
                     if($file_id)
                     {
                         $status = "success";
