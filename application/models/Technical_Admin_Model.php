@@ -331,7 +331,7 @@ class Technical_Admin_Model extends CI_Model
     //** Get Old Phase Values */
     public function Get_Project_Phase_Old_Details($phase_icode)
     {
-        $query=$this->db->query("SELECT Phase_Master_Icode,Phase_Start_Date,Phase_End_Date,Estimate_Hour FROM Project_Phase_Icode WHERE  Project_Phase_Icode='$phase_icode'");
+        $query=$this->db->query("SELECT Phase_Master_Icode,Phase_Start_Date,Phase_End_Date,Estimate_Hour FROM project_phase WHERE  Project_Phase_Icode='$phase_icode'");
         return $query->result_array();
 
     }
