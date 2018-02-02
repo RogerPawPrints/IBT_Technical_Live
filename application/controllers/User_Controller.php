@@ -90,9 +90,8 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-
-            $config ['upload_path'] = './uploads/';
-            $config['allowed_types']        = 'doc|docx|xls|xlsx|ppt|pptx|pdf|txt|jpg|png|jpeg|bmp|gif|avi|flv|mpg|wmv|mp3|wma|wav|zip|rar';
+            $config ['upload_path'] = './uploads/task';
+            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
             $this->load->library('upload', $config);
             // Cache the real $_FILES array, because the original
             // will be overwritten soon :)
@@ -110,7 +109,7 @@ class User_Controller extends CI_Controller
                 $_FILES['user_files']['error'] = $files['user_files']['error'][$i];
                 $_FILES['user_files']['size'] = $files['user_files']['size'][$i];
 
-                if (!$this->upload->do_multi_upload('user_files')) {
+                if (!$this->upload->do_upload('user_files')) {
                     // Handle upload errors
 
                     // If an error occurs jump to the next file
