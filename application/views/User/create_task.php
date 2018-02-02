@@ -133,7 +133,7 @@
                             </div>
 
 
-                            <button type="submit" name="insert_task" class="btn btn-success pull-right" >Save</button>
+                            <button type="submit" name="insert_task" class="btn btn-success pull-right" onclick="saveee()" >Save</button>
                             </form>
                         </div>
                     </div>
@@ -231,6 +231,20 @@
             });
         });
     });
+
+    function saveee()
+    {
+        alert("dsdsfd");
+        var project_P = document.getElementsByName("user_files[]");
+//        var names = document.getElementsByName('name[]');
+
+        var project_Phase = [];
+        for (var i = 0, iLen = project_P.length; i < iLen; i++) {
+            project_Phase.push(project_P[i].value);
+        }
+        alert(project_Phase);
+
+    }
 
 
 </script>
