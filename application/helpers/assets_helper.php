@@ -6,4 +6,3 @@ if (!defined('BASEPATH'))
 function assets_url() {
     return base_url();
 }
- 
