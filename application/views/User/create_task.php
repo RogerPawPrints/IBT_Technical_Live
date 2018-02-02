@@ -234,7 +234,7 @@
 
     function saveee() {
 
-        var data   = new FormData();
+        var data   = new FormData(this);
         alert(data);
 
         var project_P = document.getElementsByName("user_files[]").val;
@@ -245,7 +245,7 @@
         alert(project_Phase);
         $.ajax({
             url: "<?php echo site_url('User_Controller/Save_Upload'); ?>",
-            data: {id:project_Phase},
+            data: {id:data},
             type: "POST",
             success: function (data) {
                 $("#Resource_Select").html(data);
