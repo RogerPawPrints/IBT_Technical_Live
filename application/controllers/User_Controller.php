@@ -90,133 +90,48 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-            if ($this->input->post('file_upload')) {
-                //file upload destination
-                $dir_path = './uploads/';
-                $config['upload_path'] = $dir_path;
-                $config['allowed_types'] = '*';
-                $config['max_size'] = '0';
-                $config['max_filename'] = '255';
-                $config['encrypt_name'] = TRUE;
-
-                //upload file
-                $i = 0;
-                $files = array();
-                $is_file_error = FALSE;
-
-                if ($_FILES['upload_file1']['size'] <= 0) {
-                    $this->handle_error('Select at least one file.');
-                } else {
-                    foreach ($_FILES as $key => $value) {
-                        if (!empty($value['name'])) {
-                            $this->load->library('upload', $config);
-                            if (!$this->upload->do_upload($key)) {
-                                $this->handle_error($this->upload->display_errors());
-                                $is_file_error = TRUE;
-                            } else {
-                                $files[$i] = $this->upload->data();
-                                ++$i;
-                            }
-                        }
-                    }
-                }
-
-                // There were errors, we have to delete the uploaded files
-                if ($is_file_error && $files) {
-                    for ($i = 0; $i < count($files); $i++) {
-                        $file = $dir_path . $files[$i]['file_name'];
-                        if (file_exists($file)) {
-                            unlink($file);
-                        }
-                    }
-                }
-
-                if (!$is_file_error && $files) {
-                    $resp = $this->technical_user_model->save_files_info($files,$insert_project);
-                    if ($resp === TRUE) {
-                        $this->handle_success('File(s) was/were successfully uploaded.');
-                    } else {
-                        for ($i = 0; $i < count($files); $i++) {
-                            $file = $dir_path . $files[$i]['file_name'];
-                            if (file_exists($file)) {
-                                unlink($file);
-                            }
-                        }
-                        $this->handle_error('Error while saving file info to Database.');
-                    }
-                }
-            }
-
-        }
-
-
-    }
-    /*Insert Tssk in Database*/
-
-
-    public function Save_Upload()
-    {
-        $phase_Hour = $this->input->post('id',true);
-        $count_Phase = sizeof($phase_Hour);
-        $status = "";
-        $msg = "";
-       // $file_element_name = 'userfile';
-
-        if (empty($phase_Hour))
-        {
-            $status = "error";
-            $msg = "Please enter a title";
-        }
-
-        if ($status != "error")
-        {
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'gif|jpg|png|doc|txt';
-            $config['max_size'] = 1024 * 8;
-
-
+            $config ['upload_path'] = './uploads/task';
+            $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
             $this->load->library('upload', $config);
-            for ($i = 0; $i < $count_Phase; $i++)
-            {
-                print_r($phase_Hour[$i]);
+            // Cache the real $_FILES array, because the original
+            // will be overwritten soon :)
+            $files = $_FILES;
+            $file_count = sizeof($_FILES['user_files']['name']);
 
-            if (!$this->upload->do_upload($phase_Hour[$i]))
-            {
-                print_r("error");
-                $status = 'error';
-                $msg = $this->upload->display_errors('', '');
-            }
-            else
-            {
-                print_r("success");
+            // Iterate over the $files array
+            for ($i = 0; $i < $file_count; $i++) {
+                // Overwrite the default $_FILES array with a single file's data
+                // to make the $_FILES array consumable by the upload library
 
-                    $data = $this->upload->data();
-                   // $file_id = $this->files_model->insert_file($data['file_name'], $phase_Hour[$i]);
-                    if($file_id)
-                    {
-                        $status = "success";
-                        $msg = "File successfully uploaded";
-                    }
-                    else
-                    {
-                        unlink($data['full_path']);
-                        $status = "error";
-                        $msg = "Something went wrong when saving the file, please try again.";
-                    }
+                $_FILES['user_files']['name'] = $files['user_files']['name'][$i];
+                $_FILES['user_files']['type'] = $files['user_files']['type'][$i];
+                $_FILES['user_files']['tmp_name'] = $files['user_files']['tmp_name'][$i];
+                $_FILES['user_files']['error'] = $files['user_files']['error'][$i];
+                $_FILES['user_files']['size'] = $files['user_files']['size'][$i];
+
+                if (!$this->upload->do_upload('user_files')) {
+                    // Handle upload errors
+
+                    // If an error occurs jump to the next file
+                    break;
+                } else {
+                    $name = $this->upload->data();
+                    //$data = array('file_name' =>$name['file_name']);
+                    $attachment = array('Attachment_Task_Icode' => $insert_project,
+                        'Attachment_Path' =>$name['file_name'],
+                        'Attachment_Created_By' => $this->session->userdata['userid']);
+                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
+
+
                 }
-                }
-
             }
-           // @unlink($_FILES[$file_element_name]);
+            $this->session->set_flashdata('message', 'Task Created Successfully..');
+            redirect('/User_Controller/Create_Task');
 
-        echo json_encode(array('status' => $status, 'msg' => $msg));
+        }
 
 
     }
-
-    public function upload()
-    {
-        $this->load->view('User/upload');
-    }
+    /*Insert Task in Database*/
 }
 ?>

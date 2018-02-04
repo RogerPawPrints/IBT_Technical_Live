@@ -49,7 +49,7 @@ class Technical_User_Model extends CI_Model
         $this->db->insert('ibt_task_attachments', $data);
         return 1;
     }
-    function save_files_info($files,$taskid) {
+    /*function save_files_info($files,$taskid) {
 
         //file data
         $file_data = array();
@@ -62,6 +62,6 @@ class Technical_User_Model extends CI_Model
         $this->db->insert('ibt_task_attachments', $file_data);
         return 1;
 
-    }
+    }*/
 
 }
