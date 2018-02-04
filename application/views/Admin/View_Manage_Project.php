@@ -354,7 +354,6 @@
         var hour=document.getElementById("Hours"+id).value;
         var project_icode=document.getElementById("project_icode").value;
 
-
         $.ajax
         ({
             type:'post',
