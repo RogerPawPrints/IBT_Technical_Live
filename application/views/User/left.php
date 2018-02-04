@@ -35,6 +35,7 @@
 
               </ul>
           </li>
+          <li><a href="<?php echo site_url('User_Controller/Task_Entry'); ?>"><i class="far fa-history"></i> <span>Task Entry</span></a></li>
           <!--<li class="treeview">
           <a href="#">
             <i class="fa fa-table"></i> <span>Client Entry</span>
