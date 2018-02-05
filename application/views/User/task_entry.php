@@ -22,13 +22,10 @@
             <small></small>
         </h1>
 
-
             <ul  class="nav nav-pills">
                 <li class="active"><a  href="#1a" data-toggle="tab">Assigned Task</a></li>
                 <li><a href="#2a" data-toggle="tab">Other</a></li>
             </ul>
-
-
 
     </section>
 
@@ -83,7 +80,7 @@
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $r['Client_Company_Name']; ?></td>
                                                     <td><?php echo $r['Project_Name']; ?></td>
-                                                    <td><?php echo $r['Project_Name']; ?></td>
+                                                    <td><?php echo $r['User_Nmae']; ?></td>
                                                     <td><?php echo $r['Task_Description']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <td><?php echo $r['Task_End_Date']; ?></td>

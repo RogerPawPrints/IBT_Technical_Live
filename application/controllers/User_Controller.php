@@ -127,6 +127,7 @@ class User_Controller extends CI_Controller
 
                 }
             }
+
             $this->session->set_flashdata('message', 'Task Created Successfully..');
             redirect('/User_Controller/Create_Task');
 
