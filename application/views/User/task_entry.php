@@ -80,7 +80,7 @@
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $r['Client_Company_Name']; ?></td>
                                                     <td><?php echo $r['Project_Name']; ?></td>
-                                                    <td><?php echo $r['User_Nmae']; ?></td>
+                                                    <td><?php echo $r['User_Name']; ?></td>
                                                     <td><?php echo $r['Task_Description']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <td><?php echo $r['Task_End_Date']; ?></td>
