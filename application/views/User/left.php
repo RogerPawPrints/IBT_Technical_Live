@@ -21,7 +21,7 @@
 
           <li class="treeview">
               <a href="#">
-                  <i class="fa fa-table"></i> <span>Task Management.</span>
+                  <i class="fa fa-table"></i> <span>Task Management</span>
                   <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -35,7 +35,7 @@
 
               </ul>
           </li>
-          <li><a href="<?php echo site_url('User_Controller/Task_Entry'); ?>"><i class="far fa-history"></i> <span>Task Entry</span></a></li>
+          <li><a href="<?php echo site_url('User_Controller/Task_Entry'); ?>"><i class="fa fa-history"></i> <span>Task Entry</span></a></li>
           <!--<li class="treeview">
           <a href="#">
             <i class="fa fa-table"></i> <span>Client Entry</span>
