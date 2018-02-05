@@ -37,7 +37,7 @@ class Technical_User_Model extends CI_Model
 
     /*Select Resource*/
 
-
+    /*Insert Task & Attachments*/
     public function Insert_Task($task_data)
     {
         $this->db->insert('ibt_task_master', $task_data);
@@ -49,19 +49,18 @@ class Technical_User_Model extends CI_Model
         $this->db->insert('ibt_task_attachments', $data);
         return 1;
     }
-    /*function save_files_info($files,$taskid) {
+    /*Insert Task & Attachments*/
 
-        //file data
-        $file_data = array();
-        foreach ($files as $file) {
-            $file_data[] = array(
-                'Attachment_Task_Icode' => $taskid,
-                'Attachment_Path' => $file['file_name'],
-                'Attachment_Created_By' => $this->session->userdata['userid']);
-        }
-        $this->db->insert('ibt_task_attachments', $file_data);
-        return 1;
+    /*Assigned Tasks*/
 
-    }*/
+    public function Assigned_Task()
+    {
+        $user_icode = $this->session->userdata['userid'];
+        $query = $this->db->query("SELECT * FROM ibt_task_master A INNER JOIN ibt_client B ON A.Task_Client_Icode=B.Client_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode WHERE A.Task_Resource_Icode ='$user_icode'");
+        return $query->result_array();
+    }
+
+    /*Assigned Tasks*/
+
 
 }
