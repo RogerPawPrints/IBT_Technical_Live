@@ -142,7 +142,7 @@ class User_Controller extends CI_Controller
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
-        $this->load->view('User/task_entry', $this->data, FALSE);
+        $this->load->view('User/task_entry';
         $this->load->view('User/footer');
     }
     /*Task Entry*/
