@@ -61,7 +61,7 @@ class Technical_User_Model extends CI_Model
         $query = $this->db->query("SELECT * FROM ibt_task_master A INNER JOIN ibt_client B ON A.Task_Client_Icode=B.Client_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode INNER JOIN ibt_technical_users D on A.Task_Created_By=D.User_Icode WHERE A.Task_Resource_Icode ='$user_icode'");
 
 
-        echo $this->db->last_query();
+        //echo $this->db->last_query();
         return $query->result_array();
     }
 
