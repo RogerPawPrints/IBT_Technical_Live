@@ -1,6 +1,6 @@
 <?php
 /**Vibu */
-
+?>
 <style>
     .padding_class {
         padding: 10px 0;
