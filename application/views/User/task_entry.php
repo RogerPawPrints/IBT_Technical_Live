@@ -87,7 +87,7 @@
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" id="mymodal" class="btn btn-primary" data-toggle="modal" data-target="#myModal">View</button></td>
+                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">View</button></td>
 
 
                                                 </tr>
