@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label>Task Start Date</label>
+                                        <label>Task Start Date </label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"> </i>
