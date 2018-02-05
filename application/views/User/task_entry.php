@@ -18,7 +18,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Create Task
+            Task Entry
             <small></small>
         </h1>
         <?php if($this->session->flashdata('message')){?>
