@@ -45,6 +45,16 @@ class UploadFiles extends CI_Controller
 //        $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
 //        if ($insert_project != '0') {
         if ($this->input->post('file_upload')) {
+                    $task_data = array(
+            'Task_Project_Icode' => $this->input->post('Project_Select'),
+            'Task_Client_Icode ' => $this->input->post('Client_Name_icode'),
+            'Task_Resource_Icode' => $this->input->post('Resource_Select'),
+            'Task_Start_Date' => $this->input->post('task_date_start'),
+            'Task_End_Date' => $this->input->post('task_date_end'),
+            'Task_Estimated_Hours' => $this->input->post('Task_E_Hour'),
+            'Task_Description' => $this->input->post('task_desc'),
+            'Task_Created_By' => $this->session->userdata['userid']);
+        $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
             //file upload destination
             $dir_path = './uploads/';
             $config['upload_path'] = $dir_path;
