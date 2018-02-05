@@ -11,6 +11,7 @@ class Technical_User_Model extends CI_Model
     public function Select_Project()
     {
         $user_icode = $this->session->userdata['userid'];
+
         $query = $this->db->query("SELECT * FROM ibt_project_table A INNER JOIN project_team B on A.Project_Icode=B.Proj_Project_Icode WHERE B.User_Icode ='$user_icode' and B.Role_Master_Icode ='1'");
         return $query->result_array();
     }
@@ -53,10 +54,12 @@ class Technical_User_Model extends CI_Model
 
     /*Assigned Tasks*/
 
-    public function Assigned_Task()
+    public function Assigned_Task_Entry()
     {
         $user_icode = $this->session->userdata['userid'];
+        //print_r($user_icode);
         $query = $this->db->query("SELECT * FROM ibt_task_master A INNER JOIN ibt_client B ON A.Task_Client_Icode=B.Client_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode WHERE A.Task_Resource_Icode ='$user_icode'");
+        //echo $this->db->last_query();
         return $query->result_array();
     }
 

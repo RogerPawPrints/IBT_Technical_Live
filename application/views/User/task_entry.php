@@ -42,7 +42,96 @@
                             <div class="col-md-12">
                                 <div class="tab-content clearfix">
                                     <div class="tab-pane active" id="1a">
-                                        <h3>Assigned Task</h3>
+                                        <h3>Assigned Tasks</h3>
+
+                                        <table id="assigned_tasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <th>Client</th>
+                                                <th>Project</th>
+                                                <th>Lead</th>
+                                                <th>Task Description</th>
+                                                <th>Start date</th>
+                                                <th>End Date</th>
+                                                <th>Estimated Hours</th>
+                                                <th>Logged Hours</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <td>#</td>
+                                                <th>Client</th>
+                                                <th>Project</th>
+                                                <th>Lead</th>
+                                                <th>Task Description</th>
+                                                <th>Start date</th>
+                                                <th>End Date</th>
+                                                <th>Estimated Hours</th>
+                                                <th>Logged Hours</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            <?php
+                                            $i=1;
+                                            foreach($task_details as $r)
+                                            {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $r['Client_Company_Name']; ?></td>
+                                                    <td><?php echo $r['Project_Name']; ?></td>
+                                                    <td><?php echo $r['Project_Name']; ?></td>
+                                                    <td><?php echo $r['Task_Description']; ?></td>
+                                                    <td><?php echo $r['Task_Start_Date']; ?></td>
+                                                    <td><?php echo $r['Task_End_Date']; ?></td>
+                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
+                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
+                                                    <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
+                                                    <td><button type="button" id="mymodal" class="btn btn-primary" data-toggle="modal" data-target="#myModal">View</button></td>
+
+
+                                                </tr>
+                                                <?php
+                                                $i++;
+                                            }
+                                            ?>
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Today's Task</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                <label for="work_progress" class="form-control-label">Work Progress:</label>
+                                                                <textarea class="form-control" id="work_progress"></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="work_hours" class="form-control-label">Hours:</label>
+                                                                <input type="text" class="form-control" id="work_hours">
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal -->
+
+
                                     </div>
                                     <div class="tab-pane" id="2a">
                                         <h3>Other Task</h3>
@@ -62,90 +151,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <script type="text/javascript">
-
     $(document).ready(function() {
+        $('#assigned_tasks').DataTable();
+    } );
 
-        $(".add").click(function() {
-            $('<div><input class="files form-control-file" name="user_files[]" type="file" ><span class="rem" ><a href="javascript:void(0);" >Remove</span></div>').appendTo(".contents");
-        });
-        $('.contents').on('click', '.rem', function() {
-            $(this).parent("div").remove();
-        });
-
-
-        $("#startdate").datepicker({
-            todayBtn: 1,
-            autoclose: true,
-            startDate: new Date(),
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#enddate').datepicker('setStartDate', minDate);
-        });
-
-
-        $("#enddate").datepicker()
-            .on('changeDate', function (selected) {
-                var minDate = new Date(selected.date.valueOf());
-                $('#startdate').datepicker('setEndDate', minDate);
-            });
-
-
-        $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
-            //alert("hiiii");
-            /*dropdown post *///
-            //document.getElementById('Resource_Select').value = '';
-            $.ajax({
-                url: "<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
-                data: {
-                    id:
-                        $(this).val()
-                },
-                type: "POST",
-                success: function (data) {
-                    // alert(data);
-                    $("#show_on_project").show();
-                    var task_details = $.parseJSON(data);
-                    //alert(task_details);
-                    var client_name = task_details.Client_Details[0]['Client_Company_Name'];
-                    //alert(client_name);
-                    document.getElementById('Client_Name').value = client_name;
-
-                    var Client_Name_icode = task_details.Client_Details[0]['Client_Icode'];
-                    //alert(client_name);
-                    document.getElementById('Client_Name_icode').value = Client_Name_icode;
-
-                    var work_cat = task_details.Client_Details[0]['WorkCategory_Name'];
-                    document.getElementById('Work_Category').value = work_cat;
-
-                    var work_type = task_details.Client_Details[0]['Work_Name'];
-                    document.getElementById('Work_Type').value = work_type;
-
-                }
-
-
-            });
-        });
-
-
-        $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
-            //alert("hiiii");
-            /*dropdown post *///
-            //document.getElementById('Resource_Select').value = '';
-            $.ajax({
-                url: "<?php echo site_url('User_Controller/Show_On_Project_Resource'); ?>",
-                data: {
-                    id:
-                        $(this).val()
-                },
-                type: "POST",
-                success: function (data) {
-                    $("#Resource_Select").html(data);
-                }
-
-
-            });
-        });
-    });
 
 
 </script>

@@ -137,7 +137,7 @@ class User_Controller extends CI_Controller
     /*Task Entry*/
     public function Task_Entry()
     {
-        $this->data['Select_Project'] = $this->technical_user_model->Assigned_Task();
+        $this->data['task_details'] = $this->technical_user_model->Assigned_Task_Entry();
         //$this->data['Select_Project']= $this->technical_user_model->Show_On_Select_Project();
         $this->load->view('User/header');
         $this->load->view('User/left');
@@ -147,6 +147,15 @@ class User_Controller extends CI_Controller
     }
     /*Task Entry*/
 
+    /*Single Assigned Task*/
+    public function Single_Assigned_Task()
+    {
+        $this->load->view('User/header');
+        $this->load->view('User/left');
+        $this->load->view('User/top');
+        $this->load->view('User/task_entry');
+        $this->load->view('User/footer');
+    }
 
 }
 ?>

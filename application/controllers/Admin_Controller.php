@@ -299,9 +299,9 @@ class Admin_Controller extends CI_Controller
                       'Work_Type_Created_By'             => $this->session->userdata['username'] );
         $insert = $this->technical_admin_model->insert_Work_Type($data);
         redirect('Admin_Controller/Work_Type');
-
     }
     //** Delete Work Type  **//
+
     public function Delete_Work_Type()
     {
         $id= $this->input->post('id',true);
