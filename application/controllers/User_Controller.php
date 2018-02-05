@@ -96,7 +96,7 @@ class User_Controller extends CI_Controller
             // Cache the real $_FILES array, because the original
             // will be overwritten soon :)
             $files = $_FILES;
-            $file_count = sizeof($_FILES['user_files']['name']);
+            $file_count = count($_FILES['user_files']['name']);
 
             // Iterate over the $files array
             for ($i = 0; $i < $file_count; $i++) {
@@ -109,19 +109,21 @@ class User_Controller extends CI_Controller
                 $_FILES['user_files']['error'] = $files['user_files']['error'][$i];
                 $_FILES['user_files']['size'] = $files['user_files']['size'][$i];
 
+                $this->upload->initialize($config);
                 if (!$this->upload->do_upload('user_files')) {
                     // Handle upload errors
 
                     // If an error occurs jump to the next file
                     break;
                 } else {
-                    $name = $this->upload->data();
+                    //$name = $this->upload->data();
+                    $name = $data['uploads'][$i] = $this->upload->data();
                     //$data = array('file_name' =>$name['file_name']);
                     $attachment = array('Attachment_Task_Icode' => $insert_project,
                         'Attachment_Path' =>$name['file_name'],
                         'Attachment_Created_By' => $this->session->userdata['userid']);
-                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
 
+                    $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
 
                 }
             }
@@ -153,7 +155,7 @@ class User_Controller extends CI_Controller
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
-        $this->load->view('User/task_entry');
+        //$this->load->view('User/task_entry');
         $this->load->view('User/footer');
     }
 
