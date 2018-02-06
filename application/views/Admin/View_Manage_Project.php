@@ -258,13 +258,6 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function(){
-        var TotalValue = 0;
-        $("#Product tr").each(function(){
-            TotalValue += parseFloat($(this).find('.totalprice').text());
-        });
-        alert(TotalValue);
-    });
 
     $(document).ready(function() {
 
@@ -491,6 +484,24 @@
         var hour=document.getElementById("Hours").value;
         var project_icode=document.getElementById("project_icode").value;
         var text_t = $("#Phase_Master option:selected").text();
+
+
+
+        var myTab = document.getElementById('tblCustomers5');
+
+        // LOOP THROUGH EACH ROW OF THE TABLE HEADER.
+        for (i = 1; i < myTab.rows.length; i++) {
+
+            // GET THE CELLS COLLECTION OF THE CURRENT ROW.
+            var objCells = myTab.rows.item(i).cells;
+
+            // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
+            for (var j = 2; j < objCells.length; j++) {
+               var aa = objCells.item(j).innerHTML;
+            }
+
+        }
+        alert(aa);
 
         if(phase == "0" || start == "" || end=="" || hour==""  )
         {
