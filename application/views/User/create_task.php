@@ -39,9 +39,6 @@
                         <div class="row padding_class">
                             <div class="col-md-12">
                                 <form name="create_task_form" action="<?php echo site_url('User_Controller/Insert_Task'); ?>" enctype="multipart/form-data" method="post">
-                        <div id="Fixed" >
-                            <div class="row padding_class" >
-                                <div class="col-md-12" >
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Select Project</label>
@@ -56,35 +53,42 @@
                                         </div>
                                     </div>
                                     <div id="show_on_project" style="display: none">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Client Name</label>
-                                            <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
-                                            <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                            <label>Work Category</label>
-                                              <input class="form-control" type="text"  id="Work_Category" readonly  />
-                                        </div>
-                                       </div>
-                                       <div class="col-md-3">
-                                         <div class="form-group">
-                                                <label>Work Type</label>
-                                               <input class="form-control" type="text" id="Work_Type" readonly  />
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Client Name</label>
+                                                <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
+                                                <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
                                             </div>
-                                     </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Work Category</label>
+                                                <input class="form-control" type="text"  id="Work_Category" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Work Type</label>
+                                                <input class="form-control" type="text"  id="Work_Type" readonly  />
+                                            </div>
+                                        </div>
                                     </div>
+                            </div>
+                        </div>
+
+
+                        <div id="Fixed" >
+                            <div class="row padding_class" >
+                                <div class="col-md-12" >
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Select Resource</label>
-                                            <select name="Resource_Select" class="form-control" id="Resource_Select"  >
+                                            <select name="Resource_Select" class="form-control" id="Resource_Select"  required >
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label>Task Start Date </label>
+                                        <label>Task Start Date</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"> </i>
@@ -127,7 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
 
                             <button type="submit" name="insert_task" class="btn btn-success pull-right" >Save</button>
                             </form>
@@ -227,5 +231,6 @@
             });
         });
     });
+
 
 </script>
