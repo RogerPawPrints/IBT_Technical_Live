@@ -391,6 +391,8 @@
                     document.getElementById("hour"+id).innerHTML=hour;
                     document.getElementById("edit_button"+id).style.display="block";
                     document.getElementById("save_button"+id).style.display="none";
+                    document.getElementById("delete_button"+id).style.display="block";
+                    document.getElementById("cancel_button"+id).style.display="none";
                 }
             }
         });
