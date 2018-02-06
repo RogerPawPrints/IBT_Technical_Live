@@ -98,6 +98,8 @@ class User_Controller extends CI_Controller
             $files = $_FILES;
             $file_count = count($_FILES['user_files']['name']);
 
+            print_r($file_count);
+
             // Iterate over the $files array
             for ($i = 0; $i < $file_count; $i++) {
                 // Overwrite the default $_FILES array with a single file's data
@@ -179,6 +181,45 @@ class User_Controller extends CI_Controller
         }
 
     }
+
+    public function multipleadd_data()
+    {
+        $stock_item_val = $this->input->post('user_files');
+        foreach($stock_item_val as $key => $st_val)
+        {
+            if(!empty($_FILES['return']['name'][$key]))
+            {
+                foreach ($_FILES['return']['name'][$key] as $name => $value)
+                {
+                    $sourcePath = $_FILES['return']['tmp_name'][$key]['result_file'][0];//[$name]['result_file'][0]
+                    if(!empty($sourcePath))
+                    {
+                        $image_name=date('ymdHis').$_FILES['return']['name'][$key]['result_file'][0];
+                        $targetPath = "img/".$image_name;
+                        move_uploaded_file($sourcePath,$targetPath);
+                    }
+                    else
+                    {
+                        $image_name='';
+                    }
+                }
+            }
+            else
+            {
+                $image_name='';
+            }
+
+            $data = array(
+                'img_path' => $image_name,
+                'name' => $st_val['name'],
+                'address' => $st_val['address']
+            );
+            $this->db->insert('multiple_image', $data);
+        }
+
+        echo "success";
+    }
+
 
 
 }
