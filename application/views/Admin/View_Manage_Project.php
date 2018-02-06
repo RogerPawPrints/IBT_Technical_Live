@@ -269,9 +269,9 @@
             $(".estimation").each(function(){
                 sum += parseFloat($(this).text());
             });
-            alert(sum);
+            $('#sum').text(sum);
         }
-        $('#sum').text(sum);
+
 
 
 
