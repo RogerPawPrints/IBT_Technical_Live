@@ -262,15 +262,15 @@
 
     $(document).ready(function() {
 
-        calc_total();
-
-        function calc_total(){
-            var sum = 0;
-            $(".estimation").each(function(){
-                sum += parseFloat($(this).text());
-            });
-            $('#sum').text(sum);
-        }
+        // calc_total();
+        //
+        // function calc_total(){
+        //     var sum = 0;
+        //     $(".estimation").each(function(){
+        //         sum += parseFloat($(this).text());
+        //     });
+        //     $('#sum').text(sum);
+        // }
 
 
 
@@ -403,24 +403,11 @@
         var New_Hours=document.getElementById("New_Hours").value;
         var Old_Hours=document.getElementById("E_Hour").value;
         var Cmd=document.getElementById("Comments").value;
-
-
-
-        var myTab = document.getElementById('tblCustomers5');
-
-        // LOOP THROUGH EACH ROW OF THE TABLE HEADER.
-        for (i = 1; i < myTab.rows.length; i++) {
-
-            // GET THE CELLS COLLECTION OF THE CURRENT ROW.
-            var objCells = myTab.rows.item(i).cells;
-
-            // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
-            for (var j = 1; j < objCells.length; j++) {
-                var aa = objCells.item(j).innerHTML;
-            }
-
-        }
-        alert(aa);
+        var sum = 0;
+        $(".estimation").each(function(){
+            sum += parseFloat($(this).text());
+        });
+        $('#sum').text(sum);
 
         if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
