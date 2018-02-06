@@ -409,6 +409,9 @@
         });
         var current_hours = sum;
 
+        alert(current_hours);
+        alert(New_Hours);
+
         if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
             alert("Please Enter All Fields...");
