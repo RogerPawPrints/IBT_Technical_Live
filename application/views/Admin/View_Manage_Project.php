@@ -228,7 +228,7 @@
                                             </td>
                                             <td>
                                                 <div class="form-group">
-                                                    <input  class="form-control" name="Hours[]" id="Hours" placeholder="Estimation Hours" type="number" min="0" step="1" required />
+                                                    <input  class="form-control " name="Hours[]" id="Hours" placeholder="Estimation Hours" type="number" min="0" step="1" required />
                                                 </div>
                                             </td>
 
@@ -260,6 +260,18 @@
 
 
     $(document).ready(function() {
+
+        calc_total();
+
+        function calc_total(){
+            var sum = 0;
+            $(".estimation").each(function(){
+                sum += parseFloat($(this).text());
+            });
+            alert(sum);
+        }
+
+
 
         $("#Phase_Master").change(function(){
             var value = $("#Phase_Master option:selected").val();
