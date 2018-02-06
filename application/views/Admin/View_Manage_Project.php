@@ -452,8 +452,6 @@
         document.getElementById("cancel_button"+id).style.display="none";
 
     }
-
-
     function delete_row(id)
     {
        // alert(id);
