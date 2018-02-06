@@ -331,6 +331,7 @@
     }
     function edit_row(id)
     {
+        alert (id);
         var Phase=document.getElementById("phase"+id).innerHTML;
         var Start=document.getElementById("start"+id).innerHTML;
         var End=document.getElementById("end"+id).innerHTML;
