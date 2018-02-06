@@ -191,6 +191,7 @@
                                             $i++;
                                         }
                                         ?>
+                                        <th colspan="2" style="text-align:center"><span id="sum"></span></th>
 
                                         <tr id="new_row">
                                             <td>
@@ -270,6 +271,7 @@
             });
             alert(sum);
         }
+        $('#sum').text(sum);
 
 
 
