@@ -370,6 +370,12 @@
         var hour=document.getElementById("Hours"+id).value;
         var project_icode=document.getElementById("project_icode").value;
 
+        var sum = 0;
+        $(".estimation").each(function(){
+            sum += parseFloat($(this).text());
+        });
+        $('#sum').text(sum);
+
         $.ajax
         ({
             type:'post',
@@ -403,11 +409,7 @@
         var New_Hours=document.getElementById("New_Hours").value;
         var Old_Hours=document.getElementById("E_Hour").value;
         var Cmd=document.getElementById("Comments").value;
-        var sum = 0;
-        $(".estimation").each(function(){
-            sum += parseFloat($(this).text());
-        });
-        $('#sum').text(sum);
+
 
         if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
@@ -503,6 +505,13 @@
         var hour=document.getElementById("Hours").value;
         var project_icode=document.getElementById("project_icode").value;
         var text_t = $("#Phase_Master option:selected").text();
+
+
+        var sum = 0;
+        $(".estimation").each(function(){
+            sum += parseFloat($(this).text());
+        });
+        $('#sum').text(sum);
 
         if(phase == "0" || start == "" || end=="" || hour==""  )
         {
