@@ -101,6 +101,18 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
+                                       <div class="form-group">
+                                            <label>Work Category</label>
+                                              <input class="form-control" type="text"  id="Work_Category" readonly  />
+                                        </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                         <div class="form-group">
+                                                <label>Work Type</label>
+                                               <input class="form-control" type="text" id="Work_Type" readonly  />
+                                            </div>
+                                     </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Select Resource</label>
                                             <select name="Resource_Select" class="form-control" id="Resource_Select"  >
