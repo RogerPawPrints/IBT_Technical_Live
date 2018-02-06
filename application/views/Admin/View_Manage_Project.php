@@ -481,7 +481,7 @@
     }
     function delete_row(id)
     {
-        $('#Phase_Master').selectmenu("refresh");
+
        // alert(id);
         if (confirm("Do you want to delete: ")) {
             $.ajax
@@ -497,6 +497,7 @@
                         //alert("dfafaf");
                         var row = document.getElementById("row" + id);
                         row.parentNode.removeChild(row);
+                        $('#Phase_Master').selectmenu("refresh");
                     }
                 }
             });
