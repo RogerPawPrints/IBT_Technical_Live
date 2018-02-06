@@ -324,14 +324,14 @@
 
     function show_phase()
     {
-        alert("dsfdsf");
+      //  alert("dsfdsf");
         $('#Show_Phase').show();
         $('#show_Resource').hide();
         $('#show_Status').hide();
     }
     function edit_row(id)
     {
-        alert (id);
+       // alert (id);
         var Phase=document.getElementById("phase"+id).innerHTML;
         var Start=document.getElementById("start"+id).innerHTML;
         var End=document.getElementById("end"+id).innerHTML;
@@ -412,8 +412,8 @@
         });
         var current_hours = sum;
 
-        alert(current_hours);
-        alert(New_Hours);
+        //alert(current_hours);
+       // alert(New_Hours);
 
         if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
