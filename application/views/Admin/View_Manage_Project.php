@@ -481,6 +481,7 @@
     }
     function delete_row(id)
     {
+        $('#Phase_Master').selectmenu("refresh");
        // alert(id);
         if (confirm("Do you want to delete: ")) {
             $.ajax
