@@ -489,7 +489,7 @@
 
         var myTab = document.getElementById('tblCustomers5');
 
-        // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+        // LOOP THROUGH EACH ROW OF THE TABLE HEADER.
         for (i = 1; i < myTab.rows.length; i++) {
 
             // GET THE CELLS COLLECTION OF THE CURRENT ROW.
