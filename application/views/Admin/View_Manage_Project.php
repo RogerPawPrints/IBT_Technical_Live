@@ -258,6 +258,14 @@
 
 <script type="text/javascript">
 
+    $(document).ready(function(){
+        var TotalValue = 0;
+        $("#Product tr").each(function(){
+            TotalValue += parseFloat($(this).find('.totalprice').text());
+        });
+        alert(TotalValue);
+    });
+
     $(document).ready(function() {
 
         $("#Phase_Master").change(function(){
