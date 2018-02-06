@@ -331,7 +331,7 @@
     }
     function edit_row(id)
     {
-        alert (id);
+       // alert (id);
         var Phase=document.getElementById("phase"+id).innerHTML;
         var Start=document.getElementById("start"+id).innerHTML;
         var End=document.getElementById("end"+id).innerHTML;
@@ -538,7 +538,7 @@
                 success:function(response) {
                     if(response!="")
                     {
-                        alert(response);
+                        //alert(response);
                         var id=response;
                         var table=document.getElementById("tblCustomers5");
                         var table_len=(table.rows.length)-1;
