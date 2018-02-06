@@ -159,6 +159,27 @@ class User_Controller extends CI_Controller
         //$this->load->view('User/task_entry');
         $this->load->view('User/footer');
     }
+    //** Save task Entry details */
+    public function  Save_Task_Entry()
+    {
+
+        $data = array('Task_Master_Icode' =>$this->input->post('task_id'),
+            'Work_Progress'=> $this->input->post('work_progress'),
+            'Logged_Hours' =>$this->input->post('work_hours'),
+            'Created_By ' => $this->session->userdata['userid']);
+        $insert_entry = $this->technical_user_model->save_task_entry($data);
+        if($insert_entry == '1')
+        {
+            $this->session->set_flashdata('message', 'Task Updated Successfully..');
+            redirect('/User_Controller/Task_Entry');
+        }
+        else{
+            $this->session->set_flashdata('message', 'Failed..');
+            redirect('/User_Controller/Task_Entry');
+        }
+
+    }
+
 
 }
 ?>

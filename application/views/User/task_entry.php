@@ -17,6 +17,11 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
+        <?php if($this->session->flashdata('message')){?>
+            <div class="alert alert-success">
+                <?php echo $this->session->flashdata('message')?>
+            </div>
+        <?php } ?>
         <h1 style="margin-bottom: 20px;">
             Task Entry
             <small></small>
@@ -85,9 +90,9 @@
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <td><?php echo $r['Task_End_Date']; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
-                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
+                                                    <td><?php echo $r['logged_hours']; ?></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">View</button></td>
+                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">View</button></td>
 
 
                                                 </tr>
@@ -107,22 +112,24 @@
                                                         <h4 class="modal-title" id="myModalLabel">Today's Task</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form>
+                                                        <form name="create_task_form" action="<?php echo site_url('User_Controller/Save_Task_Entry'); ?>" enctype="multipart/form-data" method="post">
+                                                            <input type="hidden" id="task_id" name="task_id">
                                                             <div class="form-group">
                                                                 <label for="work_progress" class="form-control-label">Work Progress:</label>
-                                                                <textarea class="form-control" id="work_progress"></textarea>
+                                                                <textarea class="form-control" id="work_progress" name="work_progress"></textarea>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="work_hours" class="form-control-label">Hours:</label>
-                                                                <input type="text" class="form-control" id="work_hours">
+                                                                <input type="text" class="form-control" id="work_hours" name="work_hours">
                                                             </div>
 
-                                                        </form>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                        <button type="submit" class="btn btn-primary" >Save changes</button>
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -152,6 +159,10 @@
         $('#assigned_tasks').DataTable();
     } );
 
+    function task_entry(id) {
+       document.getElementById('task_id').value = id;
+
+    }
 
 
 </script>
