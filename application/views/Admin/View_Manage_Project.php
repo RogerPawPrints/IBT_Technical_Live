@@ -436,12 +436,13 @@
 
     function cancel(id)
     {
-        var Phase=document.getElementById("phase"+id).innerHTML;
-        var Start=document.getElementById("start"+id).innerHTML;
-        var End=document.getElementById("end"+id).innerHTML;
-        var Hour=document.getElementById("hour"+id).innerHTML;
-        document.getElementById("phase"+id).innerHTML=Phase;
-        document.getElementById("start"+id).innerHTML=Start;
+        var phase=document.getElementById("Phase_Master"+id).value;
+        var start=document.getElementById("Phase_date_start"+id).value;
+        var end=document.getElementById("Phase_date_end"+id).value;
+        var hour=document.getElementById("Hours"+id).value;
+        document.getElementById("phase"+id).innerHTML=phase;
+        document.getElementById("start"+id).innerHTML=start;
+        document.getElementById("end"+id).innerHTML=end;
         document.getElementById("hour"+id).innerHTML=hour;
         document.getElementById("edit_button"+id).style.display="block";
         document.getElementById("save_button"+id).style.display="none";
