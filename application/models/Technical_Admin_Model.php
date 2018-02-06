@@ -235,7 +235,7 @@ class Technical_Admin_Model extends CI_Model
     public function insert_project_phase($data)
     {
         $this->db->insert('project_phase', $data);
-        return 1;
+        return $this->db->insert_id();
     }
     //** Insert Project Modules */
     public function insert_project_modules($data)

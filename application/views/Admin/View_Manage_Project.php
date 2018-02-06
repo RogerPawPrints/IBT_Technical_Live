@@ -331,7 +331,7 @@
     }
     function edit_row(id)
     {
-       // alert (id);
+        alert (id);
         var Phase=document.getElementById("phase"+id).innerHTML;
         var Start=document.getElementById("start"+id).innerHTML;
         var End=document.getElementById("end"+id).innerHTML;
@@ -538,10 +538,11 @@
                 success:function(response) {
                     if(response!="")
                     {
+                        alert(response);
                         var id=response;
                         var table=document.getElementById("tblCustomers5");
                         var table_len=(table.rows.length)-1;
-                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/></td></tr>";
+                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' style='display: none'  id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/></td></tr>";
 
                         $("#Phase_Master").val("");
                         $("#Phase_date_start").val("");
