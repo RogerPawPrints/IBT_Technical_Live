@@ -401,7 +401,7 @@
             var objCells = myTab.rows.item(i).cells;
 
             // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
-            for (var j = 2; j < objCells.length; j++) {
+            for (var j = 1; j < objCells.length; j++) {
                 var aa = objCells.item(j).innerHTML;
             }
 
