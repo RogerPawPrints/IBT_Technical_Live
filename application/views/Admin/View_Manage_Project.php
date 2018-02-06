@@ -503,41 +503,41 @@
         }
         alert(aa);
 
-        if(phase == "0" || start == "" || end=="" || hour==""  )
-        {
-            alert("Please Select All Fields...");
-        }
-        else
-        {
-            $.ajax
-            ({
-                type:'post',
-                url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
-                data: {
-
-                    project_icode:project_icode,
-                    phase_code:phase,
-                    Start_date:start,
-                    End_date:end,
-                    Hours:hour
-                },
-                success:function(response) {
-                    if(response!="")
-                    {
-                        var id=response;
-                        var table=document.getElementById("tblCustomers5");
-                        var table_len=(table.rows.length)-1;
-                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/></td></tr>";
-
-                        $("#Phase_Master").val("");
-                        $("#Phase_date_start").val("");
-                        $("#Phase_date_end").val("");
-                        $("#Hours").val("");
-                    }
-                }
-            });
-
-        }
+        //if(phase == "0" || start == "" || end=="" || hour==""  )
+        //{
+        //    alert("Please Select All Fields...");
+        //}
+        //else
+        //{
+        //    $.ajax
+        //    ({
+        //        type:'post',
+        //        url:"<?php //echo site_url('Admin_Controller/Save_New_Phase'); ?>//",
+        //        data: {
+        //
+        //            project_icode:project_icode,
+        //            phase_code:phase,
+        //            Start_date:start,
+        //            End_date:end,
+        //            Hours:hour
+        //        },
+        //        success:function(response) {
+        //            if(response!="")
+        //            {
+        //                var id=response;
+        //                var table=document.getElementById("tblCustomers5");
+        //                var table_len=(table.rows.length)-1;
+        //                var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/></td></tr>";
+        //
+        //                $("#Phase_Master").val("");
+        //                $("#Phase_date_start").val("");
+        //                $("#Phase_date_end").val("");
+        //                $("#Hours").val("");
+        //            }
+        //        }
+        //    });
+        //
+        //}
 
     }
 
