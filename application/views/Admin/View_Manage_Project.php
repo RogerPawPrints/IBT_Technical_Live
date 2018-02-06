@@ -495,9 +495,10 @@
                     //alert(response);
                     if (response == '1') {
                         //alert("dfafaf");
-                        var row = document.getElementById("row" + id);
-                        row.parentNode.removeChild(row);
-                        $('#Phase_Master').selectmenu("refresh");
+                        // var row = document.getElementById("row" + id);
+                        // row.parentNode.removeChild(row);
+                        location.reload();
+
                     }
                 }
             });
