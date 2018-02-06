@@ -36,9 +36,10 @@
             <div class="col-md-12 ">
                 <div class="box box-primary">
                     <div class="box-body">
+                        <form name="create_task_form" action="<?php echo site_url('User_Controller/Insert_Task'); ?>" enctype="multipart/form-data" method="post">
                         <div class="row padding_class">
                             <div class="col-md-12">
-                                <form name="create_task_form" action="<?php echo site_url('User_Controller/Insert_Task'); ?>" enctype="multipart/form-data" method="post">
+
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Select Project</label>
@@ -134,8 +135,9 @@
 
 
                             <button type="submit" name="insert_task" class="btn btn-success pull-right" >Save</button>
-                            </form>
+
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
