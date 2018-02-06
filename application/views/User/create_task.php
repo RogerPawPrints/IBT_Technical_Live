@@ -39,44 +39,6 @@
                         <div class="row padding_class">
                             <div class="col-md-12">
                                 <form name="create_task_form" action="<?php echo site_url('User_Controller/Insert_Task'); ?>" enctype="multipart/form-data" method="post">
-<!--                                    <div class="col-md-3">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Select Project</label>-->
-<!--                                            <select name="Project_Select" class="form-control" id="Project_Select"  required >-->
-<!--                                                <option value="" >Select Project</option>-->
-<!--                                                --><?php //foreach ($Select_Project as $row):
-//                                                    {
-//                                                        echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
-//                                                    }
-//                                                endforeach; ?>
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div id="show_on_project" style="display: none">-->
-<!--                                        <div class="col-md-3">-->
-<!--                                            <div class="form-group">-->
-<!--                                                <label>Client Name</label>-->
-<!--                                                <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />-->
-<!--                                                <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-3">-->
-<!--                                            <div class="form-group">-->
-<!--                                                <label>Work Category</label>-->
-<!--                                                <input class="form-control" type="text" name="Work_Category" id="Work_Category" readonly  />-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-3">-->
-<!--                                            <div class="form-group">-->
-<!--                                                <label>Work Type</label>-->
-<!--                                                <input class="form-control" type="text" name="Work_Type" id="Work_Type" readonly  />-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
                         <div id="Fixed" >
                             <div class="row padding_class" >
                                 <div class="col-md-12" >
@@ -93,6 +55,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div id="show_on_project" style="display: none">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Client Name</label>
@@ -112,6 +75,7 @@
                                                <input class="form-control" type="text" id="Work_Type" readonly  />
                                             </div>
                                      </div>
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Select Resource</label>
@@ -163,7 +127,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
 
                             <button type="submit" name="insert_task" class="btn btn-success pull-right" >Save</button>
                             </form>
