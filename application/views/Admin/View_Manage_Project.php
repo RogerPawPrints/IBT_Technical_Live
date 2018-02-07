@@ -321,7 +321,7 @@
 
                                             <td>
                                                 <div class="form-group">
-                                                    <input class="form-control" id="designation" name="designation[]"  type="text"/>
+                                                    <input class="form-control" id="designation" name="designation[]" readonly  type="text"/>
                                                 </div>
                                             </td>
 
@@ -347,7 +347,7 @@
                                                     <input class="form-control" id="Member_start_working_date" name="Member_start_working_date[]" placeholder="YYYY/MM/DD" type="text"/>
                                                 </div>
                                             </td>
-                                            <td><input type="button" onclick="Add_member()" value="Add" /></td>
+                                            <td><input type="button" onclick="Add_member()" value="Save" /></td>
 
                                         </tr>
 
@@ -377,26 +377,19 @@
 
 
     $(document).ready(function() {
-
-        // calc_total();
-        //
-        // function calc_total(){
-        //     var sum = 0;
-        //     $(".estimation").each(function(){
-        //         sum += parseFloat($(this).text());
-        //     });
-        //     $('#sum').text(sum);
-        // }
-
-
-
-
-        $("#Phase_Master").change(function(){
+          $("#Phase_Master").change(function(){
             var value = $("#Phase_Master option:selected").val();
             var theDiv = $(".is" + value);
 
             theDiv.slideDown().removeClass("hidden");
             $("#Phase_Master option:selected").attr('disabled','disabled');
+        });
+        $("#Member").change(function(){
+            var value = $("#Member option:selected").val();
+            var theDiv = $(".is" + value);
+
+            theDiv.slideDown().removeClass("hidden");
+            $("#Member option:selected").attr('disabled','disabled');
         });
 
         $('#date_new').datepicker({
@@ -420,7 +413,13 @@
             $('#Phase_date_end').datepicker('setStartDate', minDate);
         });
 
+        $('#Member_start_working_date').datepicker({
+            todayBtn:  1,
+            autoclose: true,
+            startDate: new Date(),
+        })
 
+    });
     $("#Member").change(function(){
         //  alert("hiiii");
         /*dropdown post *///
@@ -436,7 +435,8 @@
             }
         });
     });
-    });
+
+
 
     function show_phase()
     {
@@ -649,6 +649,56 @@
         var text_t = $("#Phase_Master option:selected").text();
 
         if(phase == "0" || start == "" || end=="" || hour==""  )
+        {
+            alert("Please Select All Fields...");
+        }
+        else
+        {
+            $.ajax
+            ({
+                type:'post',
+                url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
+                data: {
+
+                    project_icode:project_icode,
+                    phase_code:phase,
+                    Start_date:start,
+                    End_date:end,
+                    Hours:hour
+                },
+                success:function(response) {
+                    if(response!="")
+                    {
+                        //alert(response);
+                        var id=response;
+                        var table=document.getElementById("tblCustomers5");
+                        var table_len=(table.rows.length)-1;
+                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' style='display: none'  id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/><input type='button' style='display: none' class='cancel_button' id='cancel_button"+id+"' value='cancel' onclick='cancel("+id+");'/></td></tr>";
+
+                        $("#Phase_Master").val("");
+                        $("#Phase_date_start").val("");
+                        $("#Phase_date_end").val("");
+                        $("#Hours").val("");
+                    }
+                }
+            });
+
+        }
+
+    }
+
+
+
+    function Add_member()
+    {
+        var member=document.getElementById("Member").value;
+        var desig=document.getElementById("designation").value;
+        var role=document.getElementById("Role_Master").value;
+        var work=document.getElementById("Member_start_working_date").value;
+        var project_icode=document.getElementById("project_icode").value;
+        var text_t = $("#Phase_Master option:selected").text();
+
+        if(member == "" || role == "" || work==""  )
         {
             alert("Please Select All Fields...");
         }

@@ -209,6 +209,8 @@ class Technical_Admin_Model extends CI_Model
     public function  get_Member_Details($member_id)
     {
         $query=$this->db->query("SELECT * FROM ibt_technical_users WHERE  User_Icode = '$member_id'");
+      //  echo $this->db->last_query();
+
         return $query->result_array();
     }
     //** Get Technical Platform */
@@ -350,7 +352,7 @@ class Technical_Admin_Model extends CI_Model
     //** Get All Project Member Details */
     public function Get_Project_Member_Details($project_id)
     {
-        $query=$this->db->query("SELECT * FROM  ibt_technical_users WHERE ibt_technical_users.User_Icode NOT IN (SELECT project_team.User_Icode FROM project_team WHERE project_team.Proj_Project_Icode='$project_id')) ");
+        $query=$this->db->query("SELECT * FROM  ibt_technical_users WHERE ibt_technical_users.User_Icode NOT IN (SELECT project_team.User_Icode FROM project_team WHERE project_team.Proj_Project_Icode='$project_id') ");
         return $query->result_array();
     }
 
