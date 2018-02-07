@@ -107,8 +107,14 @@ $(document).ready( function () {
                   success:function(data){ 
                     if(data == '1')
                     {
-                      alert("success");
-                       location.reload();
+                        swal({
+                                title: "Good job!",
+                                text: "You clicked the button!",
+                                type: "success"
+                            },
+                            function(){
+                                location.reload();
+                            });
                     }
                     else
                     {
