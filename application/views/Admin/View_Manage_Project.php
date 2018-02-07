@@ -379,9 +379,61 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="row padding_class" id="show_Status" style="display: none" >
+                                    <div  class="col-md-12">
+                                        <h2>Status Management</h2>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Change Status</label>
+                                                <select name="Status" class="form-control" id="Status" required >
+                                                    <option value="" >Select Member</option>
+                                                    <?php foreach ($Status as $row):
+                                                    {
+                                                        echo '<option value= "'.$row['project_status_Icode'].'">' . $row['Status_Name'] . '</option>';
+                                                    }
+                                                    endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="work_progress" class="form-control-label">Reason</label>
+                                                <textarea class="form-control" id="status_comments" name="status_comments"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-success pull-right" onclick="save_status()" >Save</button>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <table id="tblCustomers1"  data-page-length='25' class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Status</th>
+                                                    <th>Date </th>
+                                                    <th>Comments</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                $i=1;
+                                                foreach ($Status_History as $status)
+                                                {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $i; ?></td>
+                                                        <td><?php echo $status['Status_Name']; ?></td>
+                                                        <td><?php echo $status['Created_On']; ?></td>
+                                                        <td><?php echo $status['History_Comments']; ?></td>
+                                                    </tr>
+                                                <?php
+                                                    $i++;
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
 
-
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -477,6 +529,13 @@
         $('#Show_Phase').hide();
         $('#show_Resource').show();
         $('#show_Status').hide();
+    }
+    function show_Status()
+    {
+        //  alert("dsfdsf");
+        $('#Show_Phase').hide();
+        $('#show_Resource').hide();
+        $('#show_Status').show();
     }
     function edit_row(id)
     {
@@ -817,6 +876,39 @@
 
                         });
 
+                }
+            }
+        });
+    }
+
+    //** Saver Status **//
+    function save_status()
+    {
+        var project_icode=document.getElementById("project_icode").value;
+        var status_code =document.getElementById("Status").value;
+        var comments = document.getElementById("status_comments").value;
+        $.ajax
+        ({
+            type: 'post',
+            url: "<?php echo site_url('Admin_Controller/Save_Project_Status'); ?>",
+            data: {
+                Project: project_icode,
+                Status:status_code,
+                Comments:comments,
+            },
+            success: function (response) {
+                //alert(response);
+                if (response == '1') {
+                    swal({
+                            title: "success!",
+                            text: "Status Changed ...!",
+                            type: "success"
+                        },
+                        function(){
+                            //window.history.back();
+                            location.reload();
+
+                        });
                 }
             }
         });

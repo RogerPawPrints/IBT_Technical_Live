@@ -671,6 +671,8 @@ class Admin_Controller extends CI_Controller
         $this->data['Resource']=$this->technical_admin_model->Get_Project_Resource_Details($project_id);
         $this->data['Member']=$this->technical_admin_model->Get_Project_Member_Details($project_id);
         $this->data['Role_Master']= $this->technical_admin_model->get_Role_Master();
+        $this->data['Status']= $this->technical_admin_model->get_Project_Status();
+        $this->data['Status_History']= $this->technical_admin_model->get_Project_Status_History($project_id);
         //$this->data['Phase_master']= $this->technical_admin_model->get_Phase_Master();
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
@@ -817,6 +819,31 @@ class Admin_Controller extends CI_Controller
         {
             echo 0;
         }
+    }
+    //** Save Project Status */
+    public function Save_Project_Status()
+    {
+        $project_icode =$this->input->post('Project', true);
+        $data = array('History_Project_Icode' => $project_icode,
+        'History_Status_Icode' =>$this->input->post('Status', true),
+        'History_Comments' =>$this->input->post('Comments', true),
+        'Created_By' => $this->session->userdata['userid']);
+        $insert_team_history = $this->technical_admin_model->insert_Project_Status_history($data);
+        if($insert_team_history == '1')
+        {
+            $project_status = array(
+                'Project_Status' => $this->input->post('Status', true),
+                'Modified_By' =>$this->session->userdata['userid'],
+                'Modified_On' =>date('Y-m-d'));
+            $this->db->where('Project_Icode',$project_icode);
+            $this->db->update('ibt_project_table', $project_status);
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+
     }
 
 

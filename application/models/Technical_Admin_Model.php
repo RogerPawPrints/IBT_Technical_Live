@@ -372,5 +372,19 @@ class Technical_Admin_Model extends CI_Model
         $this->db->insert('project_resource_change_history', $data);
         return 1;
     }
+    //** Insert Project Status */
+    public function insert_Project_Status_history($data)
+    {
+        $this->db->insert('project_status_history', $data);
+        return 1;
+    }
+    //** Get project Status History */
+    public function get_Project_Status_History($project_id)
+    {
+        $query=$this->db->query("SELECT * FROM project_status_history A INNER JOIN  project_status_master B on A.History_Status_Icode=B.project_status_Icode 
+                                  WHERE  A.History_Project_Icode='$project_id'");
+        return $query->result_array();
+    }
+
 
 }
