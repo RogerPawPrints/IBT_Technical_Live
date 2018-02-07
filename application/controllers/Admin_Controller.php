@@ -668,6 +668,8 @@ class Admin_Controller extends CI_Controller
         $this->data['project']= $this->technical_admin_model->Get_Project_Details($project_id);
         $this->data['phase']= $this->technical_admin_model->Get_Project_Phase_Details($project_id);
         $this->data['Phase_master']=$this->technical_admin_model->Get_Project_Phase_Master_Details($project_id);
+        $this->data['Resource']=$this->technical_admin_model->Get_Project_Resource_Details($project_id);
+        $this->data['Member']=$this->technical_admin_model->Get_Project_Member_Details($project_id);
         //$this->data['Phase_master']= $this->technical_admin_model->get_Phase_Master();
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');

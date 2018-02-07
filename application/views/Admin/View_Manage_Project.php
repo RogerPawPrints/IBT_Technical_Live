@@ -123,37 +123,39 @@
                             ?>
                             <div class="row">
                                 <div class="col-md-12" style="padding: 15px;">
+
                                     <div class="col-md-3" style="font-size: 15px;color: #d43b13;"> <input type="radio" name="Rtype" id="Project" value="Project" checked  onclick="show_phase()" /> <label style="margin-right: 20px; font-weight: normal;">Change Date</label></div>
                                     <div class="col-md-3" style="font-size: 15px;color: #d43b13;"><input type="radio" name="Rtype" id="Resource" value="Resource" onclick="show_Resource()" /> <label style="font-weight: normal;">Change Resource</label></div>
                                     <div class="col-md-3" style="font-size: 15px;color: #d43b13;"><input type="radio" name="Rtype" id="Resource" value="Status" onclick="show_Status()" /> <label style="font-weight: normal;">Change Status</label></div>
                                 </div>
                             </div>
-                            <div class="col-md-12" >
-                                <div class="col-md-3">
-                                    <label>New End Date</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar">
-                                            </i>
-                                        </div>
-                                        <input class="form-control" id="date_new" name="date_new" placeholder="New End Date"   type="text" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>New Estimated Hours</label>
-                                    <input  class="form-control" name="New_Hours" id="New_Hours" placeholder="Estimation New Hours" type="number" min="0" step="1" required />
-                                </div>
-                                </div>
-                                <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Comments</label>
-                                    <textarea name="Comments" id="Comments" class="form-control"></textarea>
-                                </div>
-                                </div>
-                            </div>
+
 
                             <div class="row padding_class" id="Show_Phase" >
+                                <div class="col-md-12" >
+                                    <div class="col-md-3">
+                                        <label>New End Date</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar">
+                                                </i>
+                                            </div>
+                                            <input class="form-control" id="date_new" name="date_new" placeholder="New End Date"   type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>New Estimated Hours</label>
+                                            <input  class="form-control" name="New_Hours" id="New_Hours" placeholder="Estimation New Hours" type="number" min="0" step="1" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Comments</label>
+                                            <textarea name="Comments" id="Comments" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-12" >
                                     <h2>Phase Management</h2>
                                     <table id="tblCustomers5"  data-page-length='25' class="table table-striped">
@@ -162,7 +164,7 @@
                                             <th>Phases</th>
                                             <th>Start Date</th>
                                             <th>Planned end_date </th>
-                                            <th>Estiamtion Hour</th>
+                                            <th>Estimation Hour</th>
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -241,8 +243,122 @@
                                         </tfoot>
                                     </table>
                                 </div>
+                                <button type="button" class="btn btn-success pull-right"  onclick="Save_Phase_History()" >Save</button>
                             </div>
-                            <button type="button" class="btn btn-success pull-right"  onclick="Save_Phase_History()" >Save</button>
+
+
+                            <div class="row padding_class" id="show_Resource" style="display: none" >
+                                <div class="col-md-12" >
+                                    <h2>Resource Management</h2>
+                                    <table id="tblCustomers5"  data-page-length='25' class="table table-striped">
+                                        <thead>
+                                        <tr>
+<!--                                           // <th>#</th>-->
+                                            <th>Name</th>
+                                            <th>Designation</th>
+                                            <th>Role </th>
+                                            <th>Assigned/Released Date</th>
+                                            <th>Active</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                        <?php
+                                        $i=1;
+                                        foreach ($Resource as $row)
+                                        {
+                                            ?>
+                                            <tr id="row<?php echo $row['Project_Team_Icode'];?>">
+<!--                                                <td>--><?php //echo $i; ?><!--</td>-->
+                                                <td id="phase<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Name'];?></td>
+                                                <td id="start<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Designation'];?></td>
+                                                <td id="end<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Role_Name'];?></td>
+                                                <td id="hour<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Work_Start_Date'];?></td>
+                                                <td id="hour<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Active'];?></td>
+                                                <?php
+                                                if($row['Active'] == 'Yes')
+                                                {
+                                                    ?>
+                                                <td>
+                                                    <input type='button' class="btn btn-danger" id="save_button" value="In Active" onclick="insert_row();">
+
+                                                </td>
+                                                <?php
+                                                }
+                                                else{
+                                                    ?>
+                                                <td>
+                                                    <input type='button' class="btn btn-success" id="save_button" value="Active" onclick="insert_row();">
+                                                </td>
+                                                <?php
+                                                }
+                                                ?>
+
+                                            </tr>
+
+                                            <?php
+                                            $i++;
+                                        }
+                                        ?>
+
+
+                                        <tr id="new_row1">
+                                            <td>
+                                                <div class="form-group">
+                                                    <select name="Member[]" class="form-control" id="Member" required >
+                                                        <option value="" >Select Member</option>
+                                                        <?php foreach ($Member as $row):
+                                                        {
+                                                            echo '<option value= "'.$row['User_Icode'].'">' . $row['User_Name'] . '</option>';
+                                                        }
+                                                        endforeach; ?>
+                                                    </select>
+
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="form-group">
+                                                    <input class="form-control" id="designation" name="designation[]"  type="text"/>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="form-group">
+                                                    <select name="Role_Master[]" class="form-control" id="Role_Master" required >
+                                                        <option value="" >Select Role</option>
+                                                        <?php foreach ($Role_Master as $row):
+                                                        {
+                                                            echo '<option value= "'.$row['Role_Icode'].'">' . $row['Role_Name'] . '</option>';
+                                                        }
+                                                        endforeach; ?>
+                                                    </select>
+
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar">
+                                                        </i>
+                                                    </div>
+                                                    <input class="form-control" id="Member_start_working_date" name="Member_start_working_date[]" placeholder="YYYY/MM/DD" type="text"/>
+                                                </div>
+                                            </td>
+                                            <td><input type="button" onclick="Add_member()" value="Add" /></td>
+
+                                        </tr>
+
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -327,6 +443,13 @@
       //  alert("dsfdsf");
         $('#Show_Phase').show();
         $('#show_Resource').hide();
+        $('#show_Status').hide();
+    }
+    function show_Resource()
+    {
+        //  alert("dsfdsf");
+        $('#Show_Phase').hide();
+        $('#show_Resource').show();
         $('#show_Status').hide();
     }
     function edit_row(id)

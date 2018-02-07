@@ -341,5 +341,17 @@ class Technical_Admin_Model extends CI_Model
         $this->db->insert('phase_date_history', $data);
         return 1;
     }
+    //** Get Project Resource Details */
+    public function Get_Project_Resource_Details($project_id)
+    {
+        $query=$this->db->query("SELECT * FROM project_team A INNER JOIN ibt_technical_users B on A.User_Icode=B.User_Icode INNER JOIN role_master C on A.Role_Master_Icode=C.Role_Icode WHERE A.Proj_Project_Icode='$project_id' ");
+        return $query->result_array();
+    }
+    //** Get All Project Member Details */
+    public function Get_Project_Member_Details($project_id)
+    {
+        $query=$this->db->query("SELECT * FROM  ibt_technical_users WHERE ibt_technical_users.User_Icode NOT IN (SELECT project_team.User_Icode FROM project_team WHERE project_team.Proj_Project_Icode='$project_id')) ");
+        return $query->result_array();
+    }
 
 }
