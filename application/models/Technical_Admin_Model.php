@@ -361,5 +361,16 @@ class Technical_Admin_Model extends CI_Model
         $this->db->insert('project_team', $data);
         return $this->db->insert_id();
     }
+    //** Get_Project_Team_Old_Details */
+    public function Get_Project_Team_Old_Details($team_id)
+    {
+        $query=$this->db->query("SELECT * FROM project_team WHERE  Project_Team_Icode='$team_id'");
+        return $query->result_array();
+    }
+    public function insert_Resource_history($data)
+    {
+        $this->db->insert('project_resource_change_history', $data);
+        return 1;
+    }
 
 }

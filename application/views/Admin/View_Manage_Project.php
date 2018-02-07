@@ -282,15 +282,16 @@
                                                 {
                                                     ?>
                                                 <td>
-                                                    <input type='button' class="btn btn-danger" id="save_button" value="In Active" onclick="insert_row();">
-
+                                                    <button type="button" id="mymodal" class="btn btn-danger"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Project_Team_Icode']; ?>','<?php echo $row['Active'];?>')"
+                                                                value="<?php echo $row['Project_Team_Icode']; ?>" data-target="#myModal">InActive</button>
                                                 </td>
                                                 <?php
                                                 }
                                                 else{
                                                     ?>
                                                 <td>
-                                                    <input type='button' class="btn btn-success" id="save_button" value="Active" onclick="insert_row();">
+                                                    <button type="button" id="mymodal" class="btn btn-success"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Project_Team_Icode']; ?>','<?php echo $row['Active'];?>')"
+                                                            value="<?php echo $row['Project_Team_Icode']; ?>" data-target="#myModal">Active</button>
                                                 </td>
                                                 <?php
                                                 }
@@ -354,6 +355,31 @@
                                         </tfoot>
                                     </table>
                                 </div>
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Comments</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                    <input type="hidden" id="team_id" name="team_id">
+                                                    <input type="hidden" id="status" name="status">
+                                                    <div class="form-group">
+                                                        <label for="work_progress" class="form-control-label">Why?</label>
+                                                        <textarea class="form-control" id="comments" name="comments"></textarea>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary" onclick="insert_comments()" >Save changes</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
                             </div>
@@ -743,6 +769,59 @@
             });
 
         }
+
+    }
+
+    function Save_Comments(id,status)
+    {
+        document.getElementById('team_id').value = id;
+        document.getElementById('status').value = status;
+    }
+    function insert_comments()
+    {
+        var team_id=document.getElementById('team_id').value;
+        var statuss = document.getElementById('status').value;
+        var cmt = document.getElementById('comments').value;
+
+        if(statuss == 'Yes')
+        {
+            var type = 'InActive';
+            var status ='No';
+        }
+        else
+            {
+            var type= 'Active';
+            var status ='Yes';
+        }
+        $.ajax
+        ({
+            type: 'post',
+            url: "<?php echo site_url('Admin_Controller/Insert_Resource_Changed_Reason'); ?>",
+            data: {
+                Team_id: team_id,
+                Status:status,
+                Comments:cmt,
+                Type:type
+            },
+            success: function (response) {
+                //alert(response);
+                if (response == '1') {
+                    swal({
+                            title: "success!",
+                            text: "Status Changed ...!",
+                            type: "success"
+                        },
+                        function(){
+                            //window.history.back();
+                            location.reload();
+
+                        });
+
+                }
+            }
+        });
+
+
 
     }
 

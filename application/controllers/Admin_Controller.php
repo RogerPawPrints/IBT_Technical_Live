@@ -789,6 +789,35 @@ class Admin_Controller extends CI_Controller
         $insert_project_member = $this->technical_admin_model->insert_project_member_Details($project_member);
         echo $insert_project_member;
     }
+    //** Insert Resource Changed Reason */
+    public function Insert_Resource_Changed_Reason()
+    {
+        $Team_id = $this->input->post('Team_id', true);
+        $old_team =$this->technical_admin_model->Get_Project_Team_Old_Details($Team_id);
+       // print_r($old_team[0]['Work_Start_Date']);
+        $insert_team = array('Resource_Project_Team_Icode' => $this->input->post('Team_id', true),
+            'Eariler_Date' =>$old_team[0]['Work_Start_Date'],
+            'Changed_Date' => date('m/d/Y'),
+            'Changed_Type' => $this->input->post('Type', true),
+            'Changed_Reason' =>$this->input->post('Comments', true),
+            'Changed_By' => $this->session->userdata['userid']);
+        $insert_team_history = $this->technical_admin_model->insert_Resource_history($insert_team);
+        if($insert_team_history == '1')
+        {
+            $project_team = array(
+                'Work_Start_Date' => date('m/d/Y'),
+                'Active' => $this->input->post('Status', true),
+                'Modified_By' =>$this->session->userdata['userid'],
+                'Modified_On' =>date('Y-m-d'));
+            $this->db->where('Project_Team_Icode',$Team_id);
+            $this->db->update('project_team', $project_team);
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+    }
 
 
 
