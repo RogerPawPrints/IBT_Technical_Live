@@ -355,5 +355,11 @@ class Technical_Admin_Model extends CI_Model
         $query=$this->db->query("SELECT * FROM  ibt_technical_users WHERE ibt_technical_users.User_Icode NOT IN (SELECT project_team.User_Icode FROM project_team WHERE project_team.Proj_Project_Icode='$project_id') ");
         return $query->result_array();
     }
+    //** Insert Project Modules */
+    public function insert_project_member_Details($data)
+    {
+        $this->db->insert('project_team', $data);
+        return $this->db->insert_id();
+    }
 
 }

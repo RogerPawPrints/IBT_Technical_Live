@@ -250,7 +250,7 @@
                             <div class="row padding_class" id="show_Resource" style="display: none" >
                                 <div class="col-md-12" >
                                     <h2>Resource Management</h2>
-                                    <table id="tblCustomers5"  data-page-length='25' class="table table-striped">
+                                    <table id="tblCustomers"  data-page-length='25' class="table table-striped">
                                         <thead>
                                         <tr>
 <!--                                           // <th>#</th>-->
@@ -272,11 +272,11 @@
                                             ?>
                                             <tr id="row<?php echo $row['Project_Team_Icode'];?>">
 <!--                                                <td>--><?php //echo $i; ?><!--</td>-->
-                                                <td id="phase<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Name'];?></td>
-                                                <td id="start<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Designation'];?></td>
-                                                <td id="end<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Role_Name'];?></td>
-                                                <td id="hour<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Work_Start_Date'];?></td>
-                                                <td id="hour<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Active'];?></td>
+                                                <td id="member<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Name'];?></td>
+                                                <td id="desig<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Designation'];?></td>
+                                                <td id="role<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Role_Name'];?></td>
+                                                <td id="work<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Work_Start_Date'];?></td>
+                                                <td id="status<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Active'];?></td>
                                                 <?php
                                                 if($row['Active'] == 'Yes')
                                                 {
@@ -707,28 +707,37 @@
             $.ajax
             ({
                 type:'post',
-                url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
+                url:"<?php echo site_url('Admin_Controller/Save_New_Resource'); ?>",
                 data: {
 
                     project_icode:project_icode,
-                    phase_code:phase,
-                    Start_date:start,
-                    End_date:end,
-                    Hours:hour
+                    Member:member,
+                    Desig:desig,
+                    Role:role,
+                    Work:work
                 },
                 success:function(response) {
                     if(response!="")
                     {
+                        swal({
+                                title: "success!",
+                                text: "Resource Assigned ...!",
+                                type: "success"
+                            },
+                            function(){
+                                //window.history.back();
+                                location.reload();
+                            });
                         //alert(response);
-                        var id=response;
-                        var table=document.getElementById("tblCustomers5");
-                        var table_len=(table.rows.length)-1;
-                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' style='display: none'  id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/><input type='button' style='display: none' class='cancel_button' id='cancel_button"+id+"' value='cancel' onclick='cancel("+id+");'/></td></tr>";
-
-                        $("#Phase_Master").val("");
-                        $("#Phase_date_start").val("");
-                        $("#Phase_date_end").val("");
-                        $("#Hours").val("");
+//                        var id=response;
+//                        var table=document.getElementById("tblCustomers");
+//                        var table_len=(table.rows.length)-1;
+//                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' style='display: none'  id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/><input type='button' style='display: none' class='cancel_button' id='cancel_button"+id+"' value='cancel' onclick='cancel("+id+");'/></td></tr>";
+//
+//                        $("#Phase_Master").val("");
+//                        $("#Phase_date_start").val("");
+//                        $("#Phase_date_end").val("");
+//                        $("#Hours").val("");
                     }
                 }
             });

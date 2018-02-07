@@ -777,6 +777,18 @@ class Admin_Controller extends CI_Controller
         }
 
     }
+    //** Save new Resource */
+    public function Save_New_Resource()
+    {
+        $project_member = array('Proj_Project_Icode ' => $this->input->post('project_icode', true),
+            'User_Icode' => $this->input->post('Member', true),
+            'User_Designation' => $this->input->post('Desig', true),
+            'Role_Master_Icode' => $this->input->post('Role', true),
+            'Work_Start_Date' => $this->input->post('Work', true),
+            'Created_By' =>$this->session->userdata['userid']);
+        $insert_project_member = $this->technical_admin_model->insert_project_member_Details($project_member);
+        echo $insert_project_member;
+    }
 
 
 
