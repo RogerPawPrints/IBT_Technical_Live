@@ -245,8 +245,6 @@
                                 </div>
                                 <button type="button" class="btn btn-success pull-right"  onclick="Save_Phase_History()" >Save</button>
                             </div>
-
-
                             <div class="row padding_class" id="show_Resource" style="display: none" >
                                 <div class="col-md-12" >
                                     <h2>Resource Management</h2>
@@ -303,8 +301,6 @@
                                             $i++;
                                         }
                                         ?>
-
-
                                         <tr id="new_row1">
                                             <td>
                                                 <div class="form-group">
@@ -380,7 +376,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row padding_class" id="show_Status" style="display: none" >
                                     <div  class="col-md-12">
                                         <h2>Status Management</h2>
@@ -431,12 +426,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
