@@ -867,7 +867,7 @@
             Member_start_date.push(member_start[i].value);
 
         }
-        alert(Member_start_date);
+       // alert(Member_start_date);
 
 
 

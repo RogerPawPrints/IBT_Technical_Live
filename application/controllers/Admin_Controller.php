@@ -474,6 +474,8 @@ class Admin_Controller extends CI_Controller
         $insert_project = $this->technical_admin_model->Insert_Fixed_Cost($project_data);
         if($insert_project != '0')
         {
+
+            mkdir('Repository/'.$insert_project, 0777, TRUE);
             //** Save Project Client Contact Data */
             for($i=0; $i<$client_contact; $i++)
             {
