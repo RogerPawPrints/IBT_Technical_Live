@@ -417,11 +417,11 @@
 
         if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
-            alert("Please Enter All Fields...");
+            swal("Please fill all fileds!")
         }
         else if(current_hours!= New_Hours )
         {
-            alert("Estimation Hours Calculation Failed...");
+            swal("Please Estimation Hours not tallying with Project Hours..!")
         }
         else
             {
@@ -440,8 +440,8 @@
                         {
                            // alert("Success...");
                             swal({
-                                    title: "Good job!",
-                                    text: "You clicked the button!",
+                                    title: "success!",
+                                    text: "Revised Scheduled Updated...!",
                                     type: "success"
                                 },
                                 function(){
