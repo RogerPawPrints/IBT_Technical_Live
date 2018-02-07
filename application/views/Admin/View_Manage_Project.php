@@ -438,11 +438,19 @@
                     success:function(server_response){
                         if(server_response == 1)
                         {
-                            alert("Success...");
-                            window.location.href = document.referrer;
+                           // alert("Success...");
+                            swal({
+                                    title: "Good job!",
+                                    text: "You clicked the button!",
+                                    type: "success"
+                                },
+                                function(){
+                                    window.history.back();
+                                });
+                            //window.location.href = document.referrer;
                         }
                         else {
-                            alert("Failed..");
+                            swal("Oops...", "Something went wrong!", "error");
                         }
                     }
                 });
