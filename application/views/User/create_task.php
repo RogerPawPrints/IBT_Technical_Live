@@ -208,7 +208,7 @@
                     var work_type = task_details.Client_Details[0]['Work_Name'];
                     document.getElementById('Work_Type').value = work_type;
 
-                    var Project_Name =task_details.client_details[0]['Project_Name'];
+                    var Project_Name =task_details.Client_Details[0]['Project_Name'];
                     document.getElementById('Project_Name').value = Project_Name;
 
                 }

@@ -46,6 +46,7 @@ class User_Controller extends CI_Controller
         $project_code = $this->input->post('id', true);
 
         $data = $this->technical_user_model->Show_On_Select_Project($project_code);
+        //print_r($data);
 
         $resource_name = $this->technical_user_model->Select_Resource($project_code);
         // print_r($resource_name);
