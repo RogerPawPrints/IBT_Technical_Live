@@ -188,6 +188,7 @@ class User_Controller extends CI_Controller
         $project_id = $this->input->post('id',true);
         $phase =  $this->technical_user_model->get_project_phase($project_id);
         $output = null;
+        $output .= "<option>Select Phase</option>";
         foreach ( $phase as $row)
         {
             //here we build a dropdown item line for each
@@ -198,12 +199,15 @@ class User_Controller extends CI_Controller
 
         $modules =  $this->technical_user_model->get_project_modules($project_id);
         $output1 = null;
+        $output1 .= "<option>Select Module</option>";
+
         foreach ( $modules as $row)
         {
             //here we build a dropdown item line for each
             // query result
             $output1 .= "<option value='".$row['Project_Module_Icode']."'>".$row['Module_Name']."</option>";
         }
+
        // echo $output1;
         $full_data = array('phase_Details' => $output,
             'Modules' => $output1 );
