@@ -118,14 +118,11 @@
                                                             <div class="form-group">
                                                                 <label>Select Phase</label>
                                                                 <select name="Phase_Select" class="form-control" id="Phase_Select"  required >
-                                                                    <option value="" >Select Phase</option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Select Module</label>
                                                                 <select name="Module_Select" class="form-control" id="Module_Select"  required >
-                                                                    <option value="" >Select Module</option>
-
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
