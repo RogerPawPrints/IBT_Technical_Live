@@ -475,7 +475,7 @@ class Admin_Controller extends CI_Controller
         if($insert_project != '0')
         {
 
-            mkdir('Repository/'.$insert_project, 0777, TRUE);
+            mkdir('Repository/'.$project, 0777, TRUE);
             //** Save Project Client Contact Data */
             for($i=0; $i<$client_contact; $i++)
             {
