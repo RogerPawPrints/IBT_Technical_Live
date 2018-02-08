@@ -91,7 +91,7 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-
+            print_r($project_name);
             mkdir('Repository/'.$project_name. '/Task Docs', 0777, TRUE);
             $config ['upload_path'] = './Repository/'.$project_name. '/Task Docs/';
             $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
