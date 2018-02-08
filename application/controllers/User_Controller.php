@@ -194,7 +194,7 @@ class User_Controller extends CI_Controller
 
         $modules =  $this->technical_user_model->get_project_modules($project_id);
         $output1 = null;
-        foreach ( $phase as $row)
+        foreach ( $modules as $row)
         {
             //here we build a dropdown item line for each
             // query result

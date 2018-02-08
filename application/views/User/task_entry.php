@@ -92,7 +92,7 @@
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <td><?php echo $r['logged_hours']; ?></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>'')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
 
 
                                                 </tr>
@@ -171,7 +171,8 @@
         $('#assigned_tasks').DataTable();
     } );
 
-    function task_entry(id, project) {
+    function task_entry(id,project) {
+        alert("dsgdsgds");
        document.getElementById('task_id').value = id;
        document.getElementById('project_id').value = project_id;
 
@@ -183,6 +184,7 @@
             type: "POST",
             success: function (data) {
                 var phase_modules = $.parseJSON(data);
+                alert(phase_modules.phase_Details);
                 $("#Phase_Select").html(phase_modules.phase_Details);
                 $("#Module_Select").html(phase_modules.Modules);
             }
