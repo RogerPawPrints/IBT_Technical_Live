@@ -187,9 +187,9 @@ class User_Controller extends CI_Controller
     {
         $project_id = $this->input->post('id',true);
         $phase =  $this->technical_user_model->get_project_phase($project_id);
-        $phase = "Select Phase";
+        $phasess = "Select Phase";
         $output = null;
-        $output .= "<option value=''>".$phase."</option>";
+        $output .= "<option>Select Phase</option>";
         foreach ( $phase as $row)
         {
             //here we build a dropdown item line for each
@@ -213,7 +213,7 @@ class User_Controller extends CI_Controller
         $full_data = array('phase_Details' => $output,
             'Modules' => $output1 );
 
-        //echo json_encode($full_data);
+        echo json_encode($full_data);
     }
     /*Selecting Phases & Modules*/
 
