@@ -131,7 +131,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="work_hours" class="form-control-label">Hours:</label>
-                                                                <input type="text" class="form-control" id="work_hours" name="work_hours">
+                                                                <input class="form-control" id="work_hours" name="work_hours" type="number" min="0" step="1">
                                                             </div>
 
 
