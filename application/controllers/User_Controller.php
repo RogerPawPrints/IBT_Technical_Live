@@ -162,6 +162,8 @@ class User_Controller extends CI_Controller
     {
 
         $data = array('Task_Master_Icode' =>$this->input->post('task_id'),
+            'Task_Phase_Icode' =>$this->input->post('Phase_Select'),
+            'Task_Module_Icode' =>$this->input->post('Module_Select'),
             'Work_Progress'=> $this->input->post('work_progress'),
             'Logged_Hours' =>$this->input->post('work_hours'),
             'Created_By ' => $this->session->userdata['userid']);
@@ -179,6 +181,8 @@ class User_Controller extends CI_Controller
     }
     //** Save task Entry details */
 
+
+    /*Selecting Phases & Modules*/
     public function get_phase_modules()
     {
         $project_id = $this->input->post('id',true);
@@ -205,11 +209,8 @@ class User_Controller extends CI_Controller
             'Modules' => $output1 );
 
         echo json_encode($full_data);
-
-
-
     }
-
+    /*Selecting Phases & Modules*/
 
 
 }

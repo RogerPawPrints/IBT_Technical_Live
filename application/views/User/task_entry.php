@@ -172,7 +172,6 @@
     } );
 
     function task_entry(id,project) {
-        alert("dsgdsgds");
        document.getElementById('task_id').value = id;
        document.getElementById('project_id').value = project_id;
 
