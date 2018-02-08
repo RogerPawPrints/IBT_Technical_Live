@@ -92,10 +92,7 @@ class User_Controller extends CI_Controller
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
 
-
-
             mkdir('Repository/'.$project_name. '/Task Docs', 0777, TRUE);
-
             $config ['upload_path'] = './Repository/'.$project_name. '/Task Docs/';
             $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
             $this->load->library('upload', $config);
@@ -110,7 +107,6 @@ class User_Controller extends CI_Controller
             for ($i = 0; $i < $file_count; $i++) {
                 // Overwrite the default $_FILES array with a single file's data
                 // to make the $_FILES array consumable by the upload library
-
                 $_FILES['user_files']['name'] = $files['user_files']['name'][$i];
                 $_FILES['user_files']['type'] = $files['user_files']['type'][$i];
                 $_FILES['user_files']['tmp_name'] = $files['user_files']['tmp_name'][$i];
