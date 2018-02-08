@@ -115,6 +115,28 @@
                                                         <form name="create_task_form" action="<?php echo site_url('User_Controller/Save_Task_Entry'); ?>" enctype="multipart/form-data" method="post">
                                                             <input type="hidden" id="task_id" name="task_id">
                                                             <div class="form-group">
+                                                                <label>Select Project</label>
+                                                                <select name="Project_Select" class="form-control" id="Phase_Select"  required >
+                                                                    <option value="" >Select Project</option>
+                                                                    <?php foreach ($Select_Project as $row):
+                                                                        {
+                                                                            echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
+                                                                        }
+                                                                    endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Select Project</label>
+                                                                <select name="Project_Select" class="form-control" id="Project_Select"  required >
+                                                                    <option value="" >Select Project</option>
+                                                                    <?php foreach ($Select_Project as $row):
+                                                                        {
+                                                                            echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
+                                                                        }
+                                                                    endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <label for="work_progress" class="form-control-label">Work Progress:</label>
                                                                 <textarea class="form-control" id="work_progress" name="work_progress"></textarea>
                                                             </div>
