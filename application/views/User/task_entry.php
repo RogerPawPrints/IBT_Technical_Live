@@ -180,7 +180,7 @@
             type: "POST",
             success: function (data) {
                 var phase_modules = $.parseJSON(data);
-                alert(phase_modules.phase_Details);
+                //alert(phase_modules.phase_Details);
                 $("#Phase_Select").html(phase_modules.phase_Details);
                 $("#Module_Select").html(phase_modules.Modules);
             }
