@@ -166,8 +166,6 @@
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <script type="text/javascript">
     $(document).ready(function() {
         $('#assigned_tasks').DataTable();
@@ -184,9 +182,9 @@
             },
             type: "POST",
             success: function (data) {
-                var task_details = $.parseJSON(data);
-                $("#Phase_Select").html(task_details.phase_Details);
-                $("#Module_Select").html(task_details.Modules);
+                var phase_modules = $.parseJSON(data);
+                $("#Phase_Select").html(phase_modules.phase_Details);
+                $("#Module_Select").html(phase_modules.Modules);
             }
 
 
