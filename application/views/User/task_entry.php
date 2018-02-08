@@ -92,7 +92,7 @@
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <td><?php echo $r['logged_hours']; ?></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>'')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
 
 
                                                 </tr>
@@ -114,26 +114,18 @@
                                                     <div class="modal-body">
                                                         <form name="create_task_form" action="<?php echo site_url('User_Controller/Save_Task_Entry'); ?>" enctype="multipart/form-data" method="post">
                                                             <input type="hidden" id="task_id" name="task_id">
+                                                            <input type="hidden" id="project_id" name="project_id">
                                                             <div class="form-group">
                                                                 <label>Select Project</label>
-                                                                <select name="Project_Select" class="form-control" id="Phase_Select"  required >
-                                                                    <option value="" >Select Project</option>
-                                                                    <?php foreach ($Select_Project as $row):
-                                                                        {
-                                                                            echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
-                                                                        }
-                                                                    endforeach; ?>
+                                                                <select name="Phase_Select" class="form-control" id="Phase_Select"  required >
+                                                                    <option value="" >Select Phase</option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>Select Project</label>
-                                                                <select name="Project_Select" class="form-control" id="Project_Select"  required >
+                                                                <label>Select Module</label>
+                                                                <select name="Module_Select" class="form-control" id="Module_Select"  required >
                                                                     <option value="" >Select Project</option>
-                                                                    <?php foreach ($Select_Project as $row):
-                                                                        {
-                                                                            echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
-                                                                        }
-                                                                    endforeach; ?>
+
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
@@ -181,8 +173,24 @@
         $('#assigned_tasks').DataTable();
     } );
 
-    function task_entry(id) {
+    function task_entry(id, project) {
        document.getElementById('task_id').value = id;
+       document.getElementById('project_id').value = project_id;
+
+        $.ajax({
+            url: "<?php echo site_url('User_Controller/get_phase_modules'); ?>",
+            data: {
+                id: project
+            },
+            type: "POST",
+            success: function (data) {
+                var task_details = $.parseJSON(data);
+                $("#Phase_Select").html(task_details.phase_Details);
+                $("#Module_Select").html(task_details.Modules);
+            }
+
+
+        });
 
     }
 

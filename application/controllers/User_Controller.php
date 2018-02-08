@@ -155,15 +155,8 @@ class User_Controller extends CI_Controller
     }
     /*Task Entry*/
 
-    /*Single Assigned Task*/
-    public function Single_Assigned_Task()
-    {
-        $this->load->view('User/header');
-        $this->load->view('User/left');
-        $this->load->view('User/top');
-        //$this->load->view('User/task_entry');
-        $this->load->view('User/footer');
-    }
+
+
     //** Save task Entry details */
     public function  Save_Task_Entry()
     {
@@ -184,43 +177,37 @@ class User_Controller extends CI_Controller
         }
 
     }
+    //** Save task Entry details */
 
-    public function multipleadd_data()
+    public function get_phase_modules()
     {
-        $stock_item_val = $this->input->post('user_files');
-        foreach($stock_item_val as $key => $st_val)
+        $project_id = $this->input->post('id',true);
+        $phase =  $this->technical_user_model->get_project_phase($project_id);
+        $output = null;
+        foreach ( $phase as $row)
         {
-            if(!empty($_FILES['return']['name'][$key]))
-            {
-                foreach ($_FILES['return']['name'][$key] as $name => $value)
-                {
-                    $sourcePath = $_FILES['return']['tmp_name'][$key]['result_file'][0];//[$name]['result_file'][0]
-                    if(!empty($sourcePath))
-                    {
-                        $image_name=date('ymdHis').$_FILES['return']['name'][$key]['result_file'][0];
-                        $targetPath = "img/".$image_name;
-                        move_uploaded_file($sourcePath,$targetPath);
-                    }
-                    else
-                    {
-                        $image_name='';
-                    }
-                }
-            }
-            else
-            {
-                $image_name='';
-            }
-
-            $data = array(
-                'img_path' => $image_name,
-                'name' => $st_val['name'],
-                'address' => $st_val['address']
-            );
-            $this->db->insert('multiple_image', $data);
+            //here we build a dropdown item line for each
+            // query result
+            $output .= "<option value='".$row['Project_Phase_Master_Icode']."'>".$row['Phase_Name']."</option>";
         }
+        //echo $output;
 
-        echo "success";
+        $modules =  $this->technical_user_model->get_project_modules($project_id);
+        $output1 = null;
+        foreach ( $phase as $row)
+        {
+            //here we build a dropdown item line for each
+            // query result
+            $output1 .= "<option value='".$row['Project_Module_Icode']."'>".$row['Module_Name']."</option>";
+        }
+       // echo $output1;
+        $full_data = array('phase_Details' => $output,
+            'Modules' => $output1 );
+
+        echo json_encode($full_data);
+
+
+
     }
 
 

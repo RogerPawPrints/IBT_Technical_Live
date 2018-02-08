@@ -76,5 +76,19 @@ class Technical_User_Model extends CI_Model
 
     /*insert task entry*/
 
+    public function get_project_phase($project_id)
+    {
+        $query = $this->db->query("SELECT * FROM project_phase A INNER JOIN projct_phase_master B on A.Phase_Master_Icode=B.Project_Phase_Master_Icode WHERE A.Proj_Project_Icode='$project_id'");
+        //echo $this->db->last_query();
+        return $query->result_array();
+
+    }
+    public  function  get_project_modules($project_id)
+    {
+        $query = $this->db->query("SELECT * FROM project_modules WHERE Proj_Project_Icode='$project_id'");
+        //echo $this->db->last_query();
+        return $query->result_array();
+    }
+
 
 }
