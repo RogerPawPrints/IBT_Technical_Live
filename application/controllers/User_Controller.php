@@ -208,7 +208,7 @@ class User_Controller extends CI_Controller
         $full_data = array('phase_Details' => $output,
             'Modules' => $output1 );
 
-        echo json_encode($full_data);
+        //echo json_encode($full_data);
     }
     /*Selecting Phases & Modules*/
 
