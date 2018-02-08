@@ -76,6 +76,7 @@ class User_Controller extends CI_Controller
     /*Insert Task in Database*/
     public function Insert_Task()
     {
+        $project_name = $this->input->post('Project_Name');
         $task_data = array(
             'Task_Project_Icode' => $this->input->post('Project_Select'),
             'Task_Client_Icode ' => $this->input->post('Client_Name_icode'),
@@ -90,7 +91,12 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-            $config ['upload_path'] = './uploads/task';
+
+
+
+            mkdir('Repository/'.$project_name. '/Task Docs', 0777, TRUE);
+
+            $config ['upload_path'] = './Repository/'.$project_name. '/Task Docs/';
             $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
             $this->load->library('upload', $config);
             // Cache the real $_FILES array, because the original

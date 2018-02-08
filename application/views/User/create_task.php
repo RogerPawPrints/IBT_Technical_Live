@@ -59,6 +59,7 @@
                                                 <label>Client Name</label>
                                                 <input class="form-control" type="text"  name="Client_Name" id="Client_Name" readonly  />
                                                 <input class="form-control" type="hidden"  name="Client_Name_icode" id="Client_Name_icode" readonly  />
+                                                <input class="form-control" type="hidden"  name="Project_Name" id="Project_Name" readonly  />
                                             </div>
                                         </div>
                                         <div class="col-md-3">
