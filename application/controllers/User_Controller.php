@@ -230,9 +230,9 @@ class User_Controller extends CI_Controller
         {
             //here we build a dropdown item line for each
             // query result
-            //$output .= "<li class='list-group-item'> <a href='site_url('/file_delete/'.$data['file_name'].'');' >".$row['Attachment_Path']."</a></li>";
+            $output .= "<li class='list-group-item'> <a href='Repository/". $row['Project_Name']."/Task Docs/download/ ".$row['Attachment_Path']." ' >".$row['Attachment_Path']."</a></li>";
         }
-        //echo $output;
+        echo $output;
 
     }
 

@@ -79,7 +79,7 @@
                                                     <td><?php echo $r['Task_End_Date']; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <td><?php echo $r['logged_hours']; ?></td>
-                                                    <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="task_entry1('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
+                                                    <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
                                                     <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
 
@@ -103,7 +103,10 @@
                                                     </div>
                                                     <div class="modal-body">
 
+                                                        <ul class="list-group" id="attachment_list">
 
+
+                                                        </ul>
 
 
                                                     </div>
@@ -211,6 +214,28 @@
                 //alert(phase_modules.phase_Details);
                 $("#Phase_Select").html(phase_modules.phase_Details);
                 $("#Module_Select").html(phase_modules.Modules);
+            }
+
+
+        });
+
+    }
+
+
+    function get_attachments(id) {
+
+        document.getElementById('task_id').value = id;
+
+        $.ajax({
+            url: "<?php echo site_url('User_Controller/get_task_attachments'); ?>",
+            data: {
+                id: id
+            },
+            type: "POST",
+            success: function (data) {
+
+                $("#attachment_list").html(data);
+
             }
 
 
