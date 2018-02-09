@@ -103,8 +103,8 @@
                                                     </div>
                                                     <div class="modal-body">
 
-                                                            <input type="hidden" id="task_id" name="task_id">
-                                                            <input type="hidden" id="project_id" name="project_id">
+                                                            <input type="text" id="task_id" name="task_id">
+                                                            <input type="text" id="project_id" name="project_id">
 
 
                                                     </div>
