@@ -573,7 +573,7 @@
         document.getElementById("phase"+id).innerHTML="<input type='text' name='Phase_Master[]' id='Phase_Master"+id+"' value='"+Phase+"' readonly>";
         document.getElementById("start"+id).innerHTML="<input  type='text' name='Phase_date_start[]' class='phase_Start' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onmousedown='show_date1()'  >";
         document.getElementById("end"+id).innerHTML="<input type='text' name='Phase_date_end[]' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
-        document.getElementById("hour"+id).innerHTML="<input type='number' name='Hour[]' id='Hours"+id+"' class='estimation' value='"+Hour+"' min='0' step='1'>";
+        document.getElementById("hour"+id).innerHTML="<input type='number' name='Hour[]' id='Hours"+id+"' class=estimation' value='"+Hour+"' min='0' step='1'>";
         document.getElementById("edit_button"+id).style.display="none";
         document.getElementById("delete_button"+id).style.display="none";
         document.getElementById("save_button"+id).style.display="block";
@@ -646,8 +646,8 @@
         });
         var current_hours = sum;
 
-        //alert(current_hours);
-       // alert(New_Hours);
+        alert(current_hours);
+       alert(New_Hours);
 
         if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
@@ -891,6 +891,7 @@
             success: function (response) {
                 //alert(response);
                 if (response == '1') {
+                    $('#myModal').modal('hide');
                     swal({
                             title: "success!",
                             text: "Status Changed ...!",
