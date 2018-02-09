@@ -234,7 +234,12 @@
             type: "POST",
             success: function (data) {
 
-                $("#attachment_list").html(data);
+                var task_details = $.parseJSON(data);
+
+                alert(length(task_details));
+
+
+                $("#attachment_list").append('');
 
             }
 
