@@ -165,6 +165,18 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        /*stay in same tab after form submit*/
+        $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+        });
+        var activeTab = localStorage.getItem('activeTab');
+        if(activeTab){
+
+            $('#myTab a[href="' + activeTab + '"]').tab('show');
+        }
+        /*stay in same tab after form submit*/
+
         $('#assigned_tasks').DataTable();
     } );
 
