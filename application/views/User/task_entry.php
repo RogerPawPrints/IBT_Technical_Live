@@ -58,6 +58,7 @@
                                                 <th>End Date</th>
                                                 <th>Estimated Hours</th>
                                                 <th>Logged Hours</th>
+                                                <th>Attachments</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -72,6 +73,7 @@
                                                 <th>End Date</th>
                                                 <th>Estimated Hours</th>
                                                 <th>Logged Hours</th>
+                                                <th>Attachments</th>
                                                 <th>Action</th>
                                             </tr>
                                             </tfoot>
@@ -91,6 +93,7 @@
                                                     <td><?php echo $r['Task_End_Date']; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <td><?php echo $r['logged_hours']; ?></td>
+                                                    <td><button type="button" id="mymodal1" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Attachments</button></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
                                                     <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
 
@@ -102,6 +105,51 @@
                                             ?>
                                             </tbody>
                                         </table>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form name="create_task_form" action="<?php echo site_url('User_Controller/Save_Task_Entry'); ?>" enctype="multipart/form-data" method="post">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Today's Task</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                            <input type="hidden" id="task_id" name="task_id">
+                                                            <input type="hidden" id="project_id" name="project_id">
+                                                            <div class="form-group">
+                                                                <label>Select Phase</label>
+                                                                <select name="Phase_Select" class="form-control" required="required" id="Phase_Select"  required >
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Select Module</label>
+                                                                <select name="Module_Select" class="form-control" id="Module_Select"  required >
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="work_progress" class="form-control-label">Work Progress:</label>
+                                                                <textarea class="form-control" required="required" id="work_progress" name="work_progress" ></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="work_hours" class="form-control-label">Hours:</label>
+                                                                <input class="form-control" required="required" id="work_hours" name="work_hours" type="number" min="0" step="1">
+                                                            </div>
+
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" >Save changes</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal -->
+
 
                                         <!-- Modal -->
                                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -178,6 +226,7 @@
         /*stay in same tab after form submit*/
 
         $('#assigned_tasks').DataTable();
+
     } );
 
     function task_entry(id,project) {
