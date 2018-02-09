@@ -274,8 +274,8 @@ class Technical_Admin_Model extends CI_Model
     //** Get All Projects */
     public function Get_All_Projects($id)
     {
-        $query=$this->db->query("SELECT * FROM ibt_project_table A INNER JOIN ibt_client B on A.Project_Client_Icode = B.Client_Icode
-                                 INNER  JOIN  project_status_master C on A.Project_Status = C.project_status_Icode WHERE A.Project_Created_By = '$id' ");
+        $query=$this->db->query("SELECT *,sum(E.Logged_Hours) as logged_hours FROM ibt_project_table A INNER JOIN ibt_client B on A.Project_Client_Icode = B.Client_Icode INNER  JOIN  project_status_master C on A.Project_Status = C.project_status_Icode 
+                                 LEFT JOIN ibt_task_entry E on A.Project_Icode = E.Task_Entry_Project_Icode WHERE A.Project_Created_By = '$id' GROUP By A.Project_Icode");
         return $query->result_array();
     }
     //** Get Project Status */

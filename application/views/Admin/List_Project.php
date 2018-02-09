@@ -69,6 +69,7 @@
                                         <th>Planned End Date</th>
                                         <th>Actual End Date</th>
                                         <th>Estimated Hours</th>
+                                        <th>Overage Hours</th>
                                         <th>Status</th>
                                     </tr>
                                     </thead>
@@ -77,20 +78,66 @@
                                     $i=1;
                                     foreach($List as $r)
                                     {
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $i; ?></td>
-                                            <td><a href="select_project/<?php echo $r['Project_Icode'] ?>"><?php echo $r['Client_Company_Name']; ?></a></td>
-                                            <td><?php echo $r['Client_Country']; ?></td>
-                                            <td><?php echo $r['Project_Name']; ?></td>
-                                            <td><?php echo $r['Project_Start_Date']; ?></td>
-                                            <td><?php echo $r['Planned_End_Date']; ?></td>
-                                            <td><?php echo $r['Actual_End_Date']; ?></td>
-                                            <td><?php echo $r['Estimation_Hours']; ?></td>
-                                            <td><?php echo $r['Status_Name']; ?></td>
+                                        if($r['Planned_End_Date'] < date('m/d/Y'))
+                                        {
+                                            ?>
+                                            <tr style="color:#e94724;    ">
+                                                <td><?php echo $i; ?></td>
+                                                <td><a href="select_project/<?php echo $r['Project_Icode'] ?>"><?php echo $r['Client_Company_Name']; ?></a></td>
+                                                <td><?php echo $r['Client_Country']; ?></td>
+                                                <td><?php echo $r['Project_Name']; ?></td>
+                                                <td><?php echo $r['Project_Start_Date']; ?></td>
+                                                <td><?php echo $r['Planned_End_Date']; ?></td>
+                                                <td><?php echo $r['Actual_End_Date']; ?></td>
+                                                <td><?php echo $r['Estimation_Hours']; ?></td>
+                                                <?php
+                                                if($r['Estimation_Hours'] < $r['logged_hours'] ) {
+                                                    $values = $r['logged_hours'] - $r['Estimation_Hours'];
+                                                    ?>
+                                                    <td><?php echo $values; ?> </td>
+                                                    <?php
+                                                }
+                                                else{
+                                                    ?>
+                                                    <td></td>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <td><?php echo $r['Status_Name']; ?></td>
 
-                                        </tr>
-                                        <?php
+                                            </tr>
+                                            <?php
+                                        }
+                                        else{
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $i; ?></td>
+                                                <td><a href="select_project/<?php echo $r['Project_Icode'] ?>"><?php echo $r['Client_Company_Name']; ?></a></td>
+                                                <td><?php echo $r['Client_Country']; ?></td>
+                                                <td><?php echo $r['Project_Name']; ?></td>
+                                                <td><?php echo $r['Project_Start_Date']; ?></td>
+                                                <td><?php echo $r['Planned_End_Date']; ?></td>
+                                                <td><?php echo $r['Actual_End_Date']; ?></td>
+                                                <td><?php echo $r['Estimation_Hours']; ?></td>
+                                                <?php
+                                                if($r['Estimation_Hours'] < $r['logged_hours'] ) {
+                                                    $values = $r['logged_hours'] - $r['Estimation_Hours'];
+                                                    ?>
+                                                    <td><?php echo $values; ?> </td>
+                                                    <?php
+                                                }
+                                                else{
+                                                    ?>
+                                                    <td></td>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <td><?php echo $r['Status_Name']; ?></td>
+
+                                            </tr>
+                                    <?php
+                                        }
+
                                         $i++;
                                     }
                                     ?>
