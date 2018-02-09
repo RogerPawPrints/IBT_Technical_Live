@@ -92,7 +92,7 @@ class User_Controller extends CI_Controller
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
-            print_r($project_name);
+            //print_r($project_name);
             mkdir('Repository/'.$project_name. '/Task Docs', 0777, TRUE);
             $config ['upload_path'] = './Repository/'.$project_name. '/Task Docs/';
             $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|doc|zip|xlsx';
@@ -102,7 +102,7 @@ class User_Controller extends CI_Controller
             $files = $_FILES;
             $file_count = count($_FILES['user_files']['name']);
 
-            print_r($file_count);
+            //print_r($file_count);
 
             // Iterate over the $files array
             for ($i = 0; $i < $file_count; $i++) {
@@ -126,6 +126,7 @@ class User_Controller extends CI_Controller
                     //$data = array('file_name' =>$name['file_name']);
                     $attachment = array('Attachment_Task_Icode' => $insert_project,
                         'Attachment_Path' =>$name['file_name'],
+                        'Attachment_Project_Icode' =>$this->input->post('Project_Select'),
                         'Attachment_Created_By' => $this->session->userdata['userid']);
 
                     $insert_attachment = $this->technical_user_model->Insert_Task_Attachment($attachment); /*Insert Task Attachments*/
@@ -217,6 +218,25 @@ class User_Controller extends CI_Controller
         echo json_encode($full_data);
     }
     /*Selecting Phases & Modules*/
+
+
+    public function get_task_attachments()
+    {
+        $task_id = $this->input->post('id',true);
+        $attachment =  $this->technical_user_model->get_task_attachments($task_id);
+        $output = null;
+
+        foreach ( $attachment as $row)
+        {
+            //here we build a dropdown item line for each
+            // query result
+            //$output .= "<li class='list-group-item'> <a href='site_url('/file_delete/'.$data['file_name'].'');' >".$row['Attachment_Path']."</a></li>";
+        }
+        //echo $output;
+
+    }
+
+
 
 
 }
