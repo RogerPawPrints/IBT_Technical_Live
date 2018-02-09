@@ -44,11 +44,11 @@
                     <div class="box-body">
                         <div class="row padding_class">
                             <div class="col-md-12">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label>Project</label>
                                     <input class="form-control"  type="text" id="Project_Name" name="Project_Name" placeholder="Enter Project Name" >
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Client Name</label>
                                         <select name="Client" class="form-control" id="Client"  required >
@@ -63,7 +63,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Work Category</label>
                                         <select name="Work_Category" class="form-control" id="Work_Category"  required >
@@ -78,7 +78,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Work Type</label>
                                         <select name="Work_Type" class="form-control" id="Work_Type"  required >
@@ -87,6 +87,36 @@
                                             {
 
                                                 echo "<option value= " .$row['Work_Icode'].">" . $row['Work_Name'] . "</option>";
+
+                                            }
+                                            endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Industries</label>
+                                        <select name="Industries" class="form-control" id="Industries"  required >
+                                            <option value="" >Select Industries</option>
+                                            <?php foreach ($industries as $row):
+                                            {
+
+                                                echo "<option value= " .$row['Industries_Icode'].">" . $row['Industries_Name'] . "</option>";
+
+                                            }
+                                            endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Domain</label>
+                                        <select name="Domain" class="form-control" id="Domain"  required >
+                                            <option value="" >Select Domain</option>
+                                            <?php foreach ($domain as $row):
+                                            {
+
+                                                echo "<option value= " .$row['Domain_Icode'].">" . $row['Domain_Name'] . "</option>";
 
                                             }
                                             endforeach; ?>
@@ -769,6 +799,8 @@
         var Client = document.getElementById('Client').value;
         var Work = document.getElementById('Work_Category').value;
         var Work_Type = document.getElementById('Work_Type').value;
+        var Industries = document.getElementById('Industries').value;
+        var Domain = document.getElementById('Domain').value;
         var checkboxes = document.getElementsByName('case');
 
 
@@ -872,7 +904,7 @@
 
 
         if(project == "" || Client == "" || Work == "" || Work_Type == "" || client_contact == "" ||  contract_type == "" || project_WO == "" || Project_Start == "" || Project_End == "" || Est_Hour == ""
-            || project_Phase =="" ||  Phase_Start == "" || Phase_End == "" || phase_Hour == "" || Modules == "" )
+            || project_Phase =="" ||  Phase_Start == "" || Phase_End == "" || phase_Hour == "" || Modules == "" || Industries =="" || Domain == "" )
         {
             alert("Please Fill All Fields...");
         }
@@ -886,7 +918,7 @@
                 url:"<?php echo site_url('Admin_Controller/Save_Fixed'); ?>",
                 data: {Project_Name: project,Client_Id: Client,Work_Category: Work,Work_type: Work_Type,Client_Contact: client_contact,Contract:contract_type,Proj_WO: project_WO,Proj_start:Project_Start,
                     Proj_End:Project_End,Est_Hour:Est_Hour,Phase:project_Phase,Phase_Start:Phase_Start,Phase_End:Phase_End,Phase_Hour:phase_Hour,Module:Modules,Members:Membersss,
-                    Designation:desig,Role_master:Role,Technical:tech,Skill:skill,Member_Start:Member_start_date},
+                    Designation:desig,Role_master:Role,Technical:tech,Skill:skill,Member_Start:Member_start_date,Industries: Industries,Domain: Domain },
                 type: "POST",
                 cache: false,
                 success:function(data) {
@@ -894,7 +926,7 @@
                     {
                         swal({
                                 title: "Good job!",
-                                text: "You clicked the button!",
+                                text: "Project Created Successfully..!",
                                 type: "success"
                             },
                             function(){

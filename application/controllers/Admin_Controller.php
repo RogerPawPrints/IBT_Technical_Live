@@ -379,6 +379,8 @@ class Admin_Controller extends CI_Controller
         $this->data['contract_details']= $this->technical_admin_model->get_contract();
         $this->data['Member']= $this->technical_admin_model->get_technical_member();
         $this->data['technical']= $this->technical_admin_model->get_technical_platform();
+        $this->data['industries']= $this->technical_admin_model->get_Industries();
+        $this->data['domain']= $this->technical_admin_model->get_Domain();
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
         $this->load->view('Admin/top');
@@ -469,6 +471,8 @@ class Admin_Controller extends CI_Controller
             'Estimation_Hours '  => $this->input->post('Est_Hour',true),
             'Technical_Platform'=> $this->input->post('Technical',true),
             'Technical_Skill'=> $this->input->post('Skill',true),
+            'Project_Industries_Icode'=> $this->input->post('Industries',true),
+            'Project_Domain_Icode'=> $this->input->post('Domain',true),
             'Project_Status' => '1',
             'Project_Created_By '  => $this->session->userdata['userid']);
         $insert_project = $this->technical_admin_model->Insert_Fixed_Cost($project_data);

@@ -385,6 +385,18 @@ class Technical_Admin_Model extends CI_Model
                                   WHERE  A.History_Project_Icode='$project_id'");
         return $query->result_array();
     }
+    //** get all industires */
+    public function get_Industries()
+    {
+        $query=$this->db->query("SELECT * FROM ibt_technical_industries ");
+        return $query->result_array();
+    }
+    //** get all Domains */
+    public function get_Domain()
+    {
+        $query=$this->db->query("SELECT * FROM ibt_technical_domain");
+        return $query->result_array();
+    }
 
 
 }

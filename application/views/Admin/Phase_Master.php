@@ -71,7 +71,7 @@
                                                 <th><?php echo $i; ?></th>
                                                 <td><?php echo $data['Phase_Name']; ?></td>
                                                 <td>
-                                                    <a class="btn btn-danger" href="javascript:;" onclick="Delete_Phase_Master('<?php echo $data['Project_Phase_Icode']; ?>')">
+                                                    <a class="btn btn-danger" href="javascript:;" onclick="Delete_Phase_Master('<?php echo $data['Project_Phase_Master_Icode']; ?>')">
                                                         <i class="glyphicon glyphicon-trash icon-white"></i>
                                                         Delete
                                                     </a>
