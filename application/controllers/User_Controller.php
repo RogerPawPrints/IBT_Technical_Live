@@ -230,10 +230,19 @@ class User_Controller extends CI_Controller
         {
             //here we build a dropdown item line for each
             // query result
-            $output .= "<li class='list-group-item'> <a href='Repository/". $row['Project_Name']."/Task Docs/download/ ".$row['Attachment_Path']." ' >".$row['Attachment_Path']."</a></li>";
+            $path = $row['Attachment_Path'];
+            $folder=$row['Project_Name'];
+            $output .= "<li class='list-group-item'> <a href='download/$folder/$path' >".$row['Attachment_Path']."</a></li>";
         }
         echo $output;
 
+    }
+    public function download($folder,$path) {
+        // read file contents
+        $folder =  $this->uri->segment(3);
+        $path =  $this->uri->segment(4);
+        $data = file_get_contents(base_url('/Repository/'.$folder. '/Task Docs/' .$path));
+        force_download($path, $data);
     }
 
 
