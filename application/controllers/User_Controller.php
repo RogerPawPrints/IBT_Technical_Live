@@ -241,7 +241,7 @@ class User_Controller extends CI_Controller
         // read file contents
         $folder =  $this->uri->segment(3);
         $path =  $this->uri->segment(4);
-        $data = file_get_contents(base_url('/Repository/'.$folder. '/Task Docs/' .$path));
+        $data = file_get_contents(base_url("/Repository/".$folder. "/Task Docs/" .$path));
         force_download($path, $data);
     }
 
