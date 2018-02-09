@@ -36,7 +36,6 @@ $config['base_url'] = 'http://192.168.10.55/IBT_Technical_Live/';
 |
 */
 $config['index_page'] = 'index.php';
-
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
