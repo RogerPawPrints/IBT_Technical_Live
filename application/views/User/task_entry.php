@@ -62,21 +62,7 @@
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
-                                            <tfoot>
-                                            <tr>
-                                                <td>#</td>
-                                                <th>Client</th>
-                                                <th>Project</th>
-                                                <th>Lead</th>
-                                                <th>Task Description</th>
-                                                <th>Start date</th>
-                                                <th>End Date</th>
-                                                <th>Estimated Hours</th>
-                                                <th>Logged Hours</th>
-                                                <th>Attachments</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </tfoot>
+
                                             <tbody>
                                             <?php
                                             $i=1;
