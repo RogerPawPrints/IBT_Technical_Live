@@ -223,9 +223,7 @@
 
 
     function get_attachments(id) {
-
         document.getElementById('task_id').value = id;
-
         $.ajax({
             url: "<?php echo site_url('User_Controller/get_task_attachments'); ?>",
             data: {
@@ -235,17 +233,15 @@
             success: function (data) {
 
                 var task_details = $.parseJSON(data);
-
-                alert(length(task_details));
-
-
-                $("#attachment_list").append('');
-
+                var count = Object.keys(task_details).length;
+                alert(count);
+                for(var i = 0; i < count; i++)
+                {
+                    week = data.task_details[i];
+                    $("#attachment_list").append("<li><a href='".week.project_name."'>" + week.project_name +  "</a></li> " );
+                }
             }
-
-
         });
-
     }
 
 
