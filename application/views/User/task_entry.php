@@ -117,7 +117,7 @@
                                                             <input type="hidden" id="project_id" name="project_id">
                                                             <div class="form-group">
                                                                 <label>Select Phase</label>
-                                                                <select name="Phase_Select" class="form-control required" id="Phase_Select"  required >
+                                                                <select name="Phase_Select" class="form-control" required="required" id="Phase_Select"  required >
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
@@ -127,11 +127,11 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="work_progress" class="form-control-label">Work Progress:</label>
-                                                                <textarea class="form-control required" id="work_progress" name="work_progress" ></textarea>
+                                                                <textarea class="form-control" required="required" id="work_progress" name="work_progress" ></textarea>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="work_hours" class="form-control-label">Hours:</label>
-                                                                <input class="form-control required" id="work_hours" name="work_hours" type="number" min="0" step="1">
+                                                                <input class="form-control" required="required" id="work_hours" name="work_hours" type="number" min="0" step="1">
                                                             </div>
 
 
