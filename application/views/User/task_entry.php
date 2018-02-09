@@ -103,8 +103,8 @@
                                                     </div>
                                                     <div class="modal-body">
 
-                                                            <input type="text" id="task_id" name="task_id">
-                                                            <input type="text" id="project_id" name="project_id">
+                                                            <input type="hidden" id="task_id" name="task_id">
+                                                            <input type="hidden" id="project_id" name="project_id">
 
 
                                                     </div>
@@ -129,8 +129,8 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form name="create_task_form" action="<?php echo site_url('User_Controller/Save_Task_Entry'); ?>" enctype="multipart/form-data" method="post">
-                                                            <input type="hidden" id="task_id" name="task_id">
-                                                            <input type="hidden" id="project_id" name="project_id">
+                                                            <input type="text" id="task_id" name="task_id">
+                                                            <input type="text" id="project_id" name="project_id">
                                                             <div class="form-group">
                                                                 <label>Select Phase</label>
                                                                 <select name="Phase_Select" class="form-control" required="required" id="Phase_Select"  required >
