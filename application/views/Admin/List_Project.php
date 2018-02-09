@@ -34,7 +34,7 @@
                                     <div class="form-group">
                                         <label>Project Status</label>
                                         <select name="Status" class="form-control" id="Status"  required >
-                                            <option value="" >Select Client</option>
+                                            <option value="" >Select Status</option>
                                             <?php foreach ($Status as $row):
                                             {
 
