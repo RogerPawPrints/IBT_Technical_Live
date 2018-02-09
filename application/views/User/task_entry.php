@@ -79,7 +79,7 @@
                                                     <td><?php echo $r['Task_End_Date']; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <td><?php echo $r['logged_hours']; ?></td>
-                                                    <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
+                                                    <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="task_entry1('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
                                                     <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
 
@@ -192,14 +192,15 @@
             $('#myTab a[href="' + activeTab + '"]').tab('show');
         }
         /*stay in same tab after form submit*/
-
         $('#assigned_tasks').DataTable();
 
     } );
 
     function task_entry(id,project) {
+        alert(id);
+            alert(project);
        document.getElementById('task_id').value = id;
-       document.getElementById('project_id').value = project_id;
+       document.getElementById('project_id').value = project;
 
         $.ajax({
             url: "<?php echo site_url('User_Controller/get_phase_modules'); ?>",
