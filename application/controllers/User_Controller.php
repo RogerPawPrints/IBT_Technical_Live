@@ -162,6 +162,7 @@ class User_Controller extends CI_Controller
     {
 
         $data = array('Task_Master_Icode' =>$this->input->post('task_id'),
+            'Task_Entry_Project_Icode' =>$this->input->post('project_id'),
             'Task_Phase_Icode' =>$this->input->post('Phase_Select'),
             'Task_Module_Icode' =>$this->input->post('Module_Select'),
             'Work_Progress'=> $this->input->post('work_progress'),
