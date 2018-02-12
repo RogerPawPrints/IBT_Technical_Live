@@ -231,10 +231,9 @@
             },
             type: "POST",
             success: function (data) {
-
                 var task_details = $.parseJSON(data);
                 var count = Object.keys(task_details).length;
-                alert(count);
+               // alert(count);
                 for(var i = 0; i < count; i++)
                 {
                     week = data.task_details[i];

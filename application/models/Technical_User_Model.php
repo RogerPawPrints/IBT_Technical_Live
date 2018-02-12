@@ -53,7 +53,6 @@ class Technical_User_Model extends CI_Model
     /*Insert Task & Attachments*/
 
     /*Assigned Tasks*/
-
     public function Assigned_Task_Entry()
     {
         $user_icode = $this->session->userdata['userid'];
@@ -62,18 +61,15 @@ class Technical_User_Model extends CI_Model
         //echo $this->db->last_query();
         return $query->result_array();
     }
-
     /*Assigned Tasks*/
 
 
     /*insert task entry*/
-
     public function save_task_entry($data)
     {
         $this->db->insert('ibt_task_entry', $data);
         return 1;
     }
-
     /*insert task entry*/
 
     public function get_project_phase($project_id)
