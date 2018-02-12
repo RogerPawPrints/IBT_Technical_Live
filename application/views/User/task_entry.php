@@ -76,9 +76,25 @@
                                                     <td><?php echo $r['User_Name']; ?></td>
                                                     <td><?php echo $r['Task_Description']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
-                                                    <td><?php echo $r['Task_End_Date']; ?></td>
+                                                    <?php
+                                                    $current_date = date('m/d/Y');
+                                                    if ($r['Task_End_Date'] < $current_date){ ?>
+                                                        <td style="background: #ff0e0eba"><?php echo $r['Task_End_Date']; ?></td>
+                                                    <?php } else {?>
+
+                                                        <td><?php echo $r['Task_End_Date']; ?></td>
+                                                    <?php } ?>
+
+
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
-                                                    <td><?php echo $r['logged_hours']; ?></td>
+                                                    <?php
+                                                    if ($r['logged_hours'] > $r['Task_Estimated_Hours']){ ?>
+                                                        <td style="background: #ff0e0eba"><?php echo $r['logged_hours']; ?></td>
+                                                    <?php } else {?>
+
+                                                        <td><?php echo $r['logged_hours']; ?></td>
+                                                    <?php } ?>
+
                                                     <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
                                                     <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
@@ -239,7 +255,7 @@
                 {
                     file = data.attachments[i];
 
-                    $("#attachment_list").append("<li><a href='.file.Project_Name.'>" + file.Project_Name +  "</a></li> " );
+                    $("#attachment_list").append("<li>" + file.Project_Name +  "</a></li> " );
                 }
             }
         });

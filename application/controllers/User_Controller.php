@@ -224,17 +224,17 @@ class User_Controller extends CI_Controller
         $task_id = $this->input->post('id',true);
         $attachment =  $this->technical_user_model->get_task_attachments($task_id);
         echo json_encode($attachment);
-//        $output = null;
-//
-//        foreach ( $attachment as $row)
-//        {
-//            //here we build a dropdown item line for each
-//            // query result
-//            $path = $row['Attachment_Path'];
-//            $folder=$row['Project_Name'];
-//            $output .= "<li class='list-group-item'> <a href='download/$folder/$path' >".$row['Attachment_Path']."</a></li>";
-//        }
-//        echo $output;
+       /*$output = null;
+
+        foreach ( $attachment as $row)
+       {
+           //here we build a dropdown item line for each
+           // query result
+          $path = $row['Attachment_Path'];
+          $folder=$row['Project_Name'];
+          $output .= "<li class='list-group-item'> <a href='download/$folder/$path' >".$row['Attachment_Path']."</a></li>";
+       }
+       echo $output;*/
 
     }
     public function download($folder,$path) {
