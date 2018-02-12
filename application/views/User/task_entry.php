@@ -199,7 +199,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
         /*stay in same tab after form submit*/
         $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
             localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -255,7 +254,7 @@
                 {
                     file = data.attachments[i];
 
-                    $("#attachment_list").append("<li>" + file.Project_Name +  "</a></li> " );
+                    $("#attachment_list").append("<li>" + file.Project_Name +  "</li> " );
                 }
             }
         });
