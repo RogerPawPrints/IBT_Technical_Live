@@ -27,7 +27,7 @@
             <small></small>
         </h1>
 
-            <ul  class="nav nav-pills">
+            <ul  class="nav nav-pills" id="myTab">
                 <li class="active"><a  href="#1a" data-toggle="tab">Assigned Task</a></li>
                 <li><a href="#2a" data-toggle="tab">Other</a></li>
             </ul>
@@ -201,6 +201,7 @@
     function task_entry(id,project) {
 
        document.getElementById('task_id').value = id;
+       //alert(id);
        document.getElementById('project_id').value = project;
 
         $.ajax({
@@ -231,13 +232,14 @@
             },
             type: "POST",
             success: function (data) {
-                var task_details = $.parseJSON(data);
-                var count = Object.keys(task_details).length;
-               // alert(count);
+                var attachments = $.parseJSON(data);
+                var count = Object.keys(attachments).length;
+               alert(count);
                 for(var i = 0; i < count; i++)
                 {
-                    week = data.task_details[i];
-                    $("#attachment_list").append("<li><a href='".week.project_name."'>" + week.project_name +  "</a></li> " );
+                    file = data.attachments[i];
+
+                    $("#attachment_list").append("<li><a href='.file.Project_Name.'>" + file.Project_Name +  "</a></li> " );
                 }
             }
         });
