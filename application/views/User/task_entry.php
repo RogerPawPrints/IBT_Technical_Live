@@ -247,15 +247,16 @@
             },
             type: "POST",
             success: function (data) {
-                var attachments = $.parseJSON(data);
-                var count = Object.keys(attachments).length;
-               alert(count);
-                for(var i = 0; i < count; i++)
-                {
-                    file = data.attachments[i];
-
-                    $("#attachment_list").append("<li>" + file.Project_Name +  "</li> " );
-                }
+//                var attachments = $.parseJSON(data);
+//                var count = Object.keys(attachments).length;
+//               alert(count);
+//                for(var i = 0; i < count; i++)
+//                {
+//                   var  file = attachments[i];
+//                   var folder =file.Project_Name;
+//                    $('#attachment_list').append("<li><a href='<?php //echo base_url(); ?>//index.php/User_Controller/download/"+ file.Attachment_Path +  ">" + file.Attachment_Path +  "</a></li>" );
+//                }
+                $('#attachment_list').html(data);
             }
         });
     }

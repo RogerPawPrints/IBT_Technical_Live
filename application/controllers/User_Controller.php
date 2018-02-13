@@ -12,6 +12,8 @@ class User_Controller extends CI_Controller
         }
         //$this->load->model('LoginModel','LoginModel');
         $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->helper('download');
         /***** LOADING HELPER TO AVOID PHP ERROR ****/
         $this->load->model('Technical_User_Model', 'technical_user_model'); /* LOADING MODEL * Technical_User_Model as technical_user_model */
         $this->load->library('session');
@@ -223,8 +225,8 @@ class User_Controller extends CI_Controller
     {
         $task_id = $this->input->post('id',true);
         $attachment =  $this->technical_user_model->get_task_attachments($task_id);
-        echo json_encode($attachment);
-       /*$output = null;
+       // echo json_encode($attachment);
+       $output = null;
 
         foreach ( $attachment as $row)
        {
@@ -234,14 +236,20 @@ class User_Controller extends CI_Controller
           $folder=$row['Project_Name'];
           $output .= "<li class='list-group-item'> <a href='download/$folder/$path' >".$row['Attachment_Path']."</a></li>";
        }
-       echo $output;*/
+       echo $output;
 
     }
-    public function download($folder,$path) {
+
+    /**
+     * @param $folder
+     * @param $path
+     */
+    public function download($folder, $path) {
         // read file contents
         $folder =  $this->uri->segment(3);
         $path =  $this->uri->segment(4);
-        $data = file_get_contents(base_url("/Repository/".$folder. "/Task Docs/" .$path));
+        $file_path =base_url("/Repository/".$folder. "/Task Docs/" .$path);
+        $data = file_get_contents($file_path);
         force_download($path, $data);
     }
 
