@@ -127,7 +127,7 @@
                                     <ul  class="nav nav-pills" id="myTab">
                                         <li class="active"><a  href="#1a" data-toggle="tab">Change Date</a></li>
                                         <li><a href="#2a" data-toggle="tab">Change Resource</a></li>
-                                        <li><a href="#2a" data-toggle="tab">Change Client Contacts</a></li>
+                                        <li><a href="#4a" data-toggle="tab">Change Client Contacts</a></li>
                                         <li><a href="#3a" data-toggle="tab">Change Status</a></li>
                                     </ul>
 
@@ -446,9 +446,36 @@
 
                                 </div>
 
+                                <div class="tab-pane" id="3a">
+                                    <div class="row padding_class" id="show_Contact"  >
+                                        <div  class="col-md-12">
+                                            <h2>Client Contact Management</h2>
+                                        </div>
+                                        <table id="tblClient"  data-page-length='25' class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <!--                                           // <th>#</th>-->
+                                                <th>Name</th>
+                                                <th>Designation</th>
+                                                <th>Role </th>
+                                                <th>Assigned/Released Date</th>
+                                                <th>Active</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            <tfoot>
+                                              </tfoot>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+
 
                             </div>
-
 
 
 
