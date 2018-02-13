@@ -253,7 +253,7 @@
 //                {
 //                   var  file = attachments[i];
 //                   var folder =file.Project_Name;
-//                    $('#attachment_list').append("<li><a href='<?php //echo base_url(); ?>//index.php/User_Controller/download/"+ file.Attachment_Path +  ">" + file.Attachment_Path +  "</a></li>" );
+//                    $('#attachment_list').append("<li><a href='<?php //echo base_url(); ?>//index.php/User_Controller/download/"+file.Project_Name+"/"+file.Attachment_Path+"/ '>" + file.Attachment_Path +  "</a></li>" );
 //                }
                 $('#attachment_list').html(data);
             }

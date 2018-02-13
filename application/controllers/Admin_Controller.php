@@ -484,6 +484,7 @@ class Admin_Controller extends CI_Controller
             for($i=0; $i<$client_contact; $i++)
             {
                 $project_Contact = array('Proj_Project_Icode ' => $insert_project,
+                    'Project_Client_Icode' =>$this->input->post('Client_Id',true),
                     'Client_Contact_Icode' => $Lost[$i],
                     'Project_Contact_Created_By' =>$this->session->userdata['userid']);
                 $insert_project_contact = $this->technical_admin_model->insert_project_contact($project_Contact);
@@ -677,6 +678,9 @@ class Admin_Controller extends CI_Controller
         $this->data['Role_Master']= $this->technical_admin_model->get_Role_Master();
         $this->data['Status']= $this->technical_admin_model->get_Project_Status();
         $this->data['Status_History']= $this->technical_admin_model->get_Project_Status_History($project_id);
+        $this->data['client_contact']= $this->technical_admin_model->get_Project_Client_Contacts($project_id);
+        $this->data['client_inactive']= $this->technical_admin_model->get_Project_Inactive_Client_Contacts($project_id);
+
         //$this->data['Phase_master']= $this->technical_admin_model->get_Phase_Master();
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');

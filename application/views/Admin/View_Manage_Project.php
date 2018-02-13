@@ -446,7 +446,7 @@
 
                                 </div>
 
-                                <div class="tab-pane" id="3a">
+                                <div class="tab-pane" id="4a">
                                     <div class="row padding_class" id="show_Contact"  >
                                         <div  class="col-md-12">
                                             <h2>Client Contact Management</h2>
@@ -454,18 +454,61 @@
                                         <table id="tblClient"  data-page-length='25' class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <!--                                           // <th>#</th>-->
-                                                <th>Name</th>
+
+
+                                                <th>Contact Name</th>
                                                 <th>Designation</th>
-                                                <th>Role </th>
-                                                <th>Assigned/Released Date</th>
+                                                <th>Contact Number </th>
+                                                <th>Email</th>
                                                 <th>Active</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <?php
+
+                                            foreach ($client_contact as $row)
+                                            {
+                                                ?>
+                                                <tr>
+
+                                                    <td id=""><?php echo $row['Contact_Name'];?></td>
+                                                    <td id=""><?php echo $row['Contact_Designation'];?></td>
+                                                    <td id=""><?php echo $row['Contact_Number'];?></td>
+                                                    <td id=""><?php echo $row['Contact_Email'];?></td>
+                                                    <td id="">Yes</td>
+                                                    <td><button type="button" id="mymodal" class="btn btn-danger"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Proj_Client_Contact_Icode']; ?>')"
+                                                                    value="<?php echo $row['Proj_Client_Contact_Icode']; ?>" data-target="#myModal">InActive</button>
+                                                    </td>
+                                                </tr>
+
+                                                <?php
+
+                                            }
+                                            ?>
                                             </tbody>
                                             <tfoot>
+                                            <?php
+
+                                            foreach ($client_inactive as $row)
+                                            {
+                                                ?>
+                                                <tr>
+
+                                                    <td id=""><?php echo $row['Contact_Name'];?></td>
+                                                    <td id=""><?php echo $row['Contact_Designation'];?></td>
+                                                    <td id=""><?php echo $row['Contact_Number'];?></td>
+                                                    <td id=""><?php echo $row['Contact_Email'];?></td>
+                                                    <td id="">No</td>
+                                                    <td><button type="button" id="mymodal" class="btn btn-success"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Proj_Client_Contact_Icode']; ?>')"
+                                                                value="<?php echo $row['Proj_Client_Contact_Icode']; ?>" data-target="#myModal">Active</button>
+                                                    </td>
+                                                </tr>
+
+                                                <?php
+
+                                            }
+                                            ?>
                                               </tfoot>
                                         </table>
 
