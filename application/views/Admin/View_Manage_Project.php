@@ -127,6 +127,7 @@
                                     <ul  class="nav nav-pills" id="myTab">
                                         <li class="active"><a  href="#1a" data-toggle="tab">Change Date</a></li>
                                         <li><a href="#2a" data-toggle="tab">Change Resource</a></li>
+                                        <li><a href="#2a" data-toggle="tab">Change Client Contacts</a></li>
                                         <li><a href="#3a" data-toggle="tab">Change Status</a></li>
                                     </ul>
 
