@@ -397,6 +397,20 @@ class Technical_Admin_Model extends CI_Model
         $query=$this->db->query("SELECT * FROM ibt_technical_domain");
         return $query->result_array();
     }
+    //** Get Project Client Contacs */
+    public function get_Project_Client_Contacts($project_id)
+    {
+        $query=$this->db->query("SELECT * FROM ibt_client_contacts A LEFT JOIN project_client_contacts B on  A.Contact_Client_Icode=B.Project_Client_Icode AND A.Contact_ID=B.Client_Contact_Icode
+                                 WHERE B.Proj_Project_Icode='$project_id' ");
+        return $query->result_array();
+    }
+    //** Get Project Client Contacs */
+    public function get_Project_Inactive_Client_Contacts($project_id)
+    {
+        $query=$this->db->query("SELECT * FROM ibt_client_contacts A LEFT JOIN project_client_contacts B on  A.Contact_Client_Icode=B.Project_Client_Icode AND A.Contact_ID!=B.Client_Contact_Icode
+                                 WHERE B.Proj_Project_Icode='$project_id' ");
+        return $query->result_array();
+    }
 
 
 }
