@@ -210,7 +210,7 @@
         /*stay in same tab after form submit*/
         $('#assigned_tasks').DataTable();
 
-    } );
+    }    );
 
     function task_entry(id,project) {
 
