@@ -231,7 +231,7 @@ class User_Controller extends CI_Controller
 
         foreach ( $attachment as $row)
        {
-           //here we build a dropdown item line for each
+           //   here we build a dropdown item line for each
            // query result
           $path = $row['Attachment_Path'];
           $folder=$row['Project_Name'];
