@@ -183,7 +183,7 @@
 
                                     </div>
                                     <div class="tab-pane" id="2a">
-                                        <h3>Other Task</h3>
+                                        <h3>Other Task.</h3>
                                     </div>
 
                                 </div>
