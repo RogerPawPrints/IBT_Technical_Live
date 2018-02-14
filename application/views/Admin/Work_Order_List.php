@@ -17,7 +17,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-           Manage Fixed Cost Project
+            Manage Work Order
             <small></small>
         </h1>
     </section>
@@ -135,7 +135,7 @@
                                                 <td><?php echo $r['Status_Name']; ?></td>
 
                                             </tr>
-                                    <?php
+                                            <?php
                                         }
 
                                         $i++;

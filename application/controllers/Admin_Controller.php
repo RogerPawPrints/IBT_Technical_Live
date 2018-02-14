@@ -872,6 +872,19 @@ class Admin_Controller extends CI_Controller
         $insert_project_contact = $this->technical_admin_model->insert_project_contact($project_Contact);
         echo $insert_project_contact;
     }
+    //** List of All Work Orderes */
+    public function List_Work_Order()
+    {
+        $icode = $this->session->userdata['userid'];
+      //  $this->data['Status']= $this->technical_admin_model->Get_Project_Status($icode);
+        $this->data['WO_List']= $this->technical_admin_model->Get_All_Work_Order($icode);
+        $this->load->view('Admin/header');
+        $this->load->view('Admin/left');
+        $this->load->view('Admin/top');
+        $this->load->view('Admin/Work_Order_List',$this->data, FALSE);
+        $this->load->view('Admin/footer');
+
+    }
 
 
 

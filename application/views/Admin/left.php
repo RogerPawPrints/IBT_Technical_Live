@@ -73,8 +73,8 @@
             </span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="<?php echo site_url('Admin_Controller/List_Project'); ?>"><i class="fa fa-circle-o"></i> <span>List of Project</span></a></li>
-<!--                  <li><a href="--><?php //echo site_url('Admin_Controller/Create_Resource'); ?><!--"><i class="fa fa-circle-o"></i>Resource Project</a></li>-->
+                  <li><a href="<?php echo site_url('Admin_Controller/List_Project'); ?>"><i class="fa fa-circle-o"></i> <span>Fixed Cost Project</span></a></li>
+                  <li><a href="<?php echo site_url('Admin_Controller/List_Work_Order'); ?>"><i class="fa fa-circle-o"></i>Resource Project</a></li>
                   <!--                  <li><a href="--><?php //echo site_url('Admin_Controller/Add_Contact'); ?><!--"><i class="fa fa-circle-o"></i>Add Contact</a></li>-->
                   <!--                  <li><a href="--><?php //echo site_url('Admin_Controller/View_Client'); ?><!--"><i class="fa fa-circle-o"></i>View Contact</a></li>-->
 

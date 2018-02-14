@@ -418,6 +418,13 @@ class Technical_Admin_Model extends CI_Model
         return 1;
 
     }
+    //** Get All work order details */
+    public function Get_All_Work_Order($id)
+    {
+        $query=$this->db->query("SELECT * FROM work_order WHERE Created_By='$id'");
+        return $query->result_array();
+    }
+
 
 
 
