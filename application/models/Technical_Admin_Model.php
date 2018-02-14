@@ -421,9 +421,26 @@ class Technical_Admin_Model extends CI_Model
     //** Get All work order details */
     public function Get_All_Work_Order($id)
     {
-        $query=$this->db->query("SELECT * FROM work_order WHERE Created_By='$id'");
+        $query=$this->db->query("SELECT * FROM work_order A INNER JOIN ibt_client B on A.Resource_Client_Icode=B.Client_Icode WHERE A.Created_By='$id'");
         return $query->result_array();
     }
+    //** get Perticular work order details */
+    public function Get_Work_Order_Details($id)
+    {
+        $query=$this->db->query("SELECT * FROM work_order A INNER JOIN ibt_client B on A.Resource_Client_Icode = B.Client_Icode
+                                   INNER  JOIN ibt_workcategory D on A.Resource_Category_Icode = D.WorkCategory_Icode
+                                  INNER  JOIN ibt_work_type E on A.Resource_Work_Type_Icode = E.Work_Icode INNER JOIN ibt_contractcategory F on A.Resource_Contract_Type = F.Contracttype_Icode 
+                                  WHERE A.Work_Order_Icode ='$id' ");
+        return $query->result_array();
+    }
+    //** get Work Order Resource Details */
+    public function Get_Work_Order_Resource_Details($id)
+    {
+        $query=$this->db->query("SELECT * FROM work_order_resource A INNER JOIN ibt_technical_users B on A.Member_Icode=B.User_Icode INNER JOIN role_master C on A.Role_Icode=C.Role_Icode 
+                               INNER JOIN ibt_contract_terms D on A.Term_Icode=D.Contract_Term_Icode WHERE A.WO_Icode='$id' ");
+        return $query->result_array();
+    }
+
 
 
 

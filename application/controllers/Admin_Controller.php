@@ -885,6 +885,36 @@ class Admin_Controller extends CI_Controller
         $this->load->view('Admin/footer');
 
     }
+    //** Select Perticular Project */
+    public function select_Work_Order($wo_id,$client_id)
+    {
+        $project_id =  $this->uri->segment(3);
+        $client_id =  $this->uri->segment(4);
+        //$icode = $this->session->userdata['userid'];
+         $this->data['WO']= $this->technical_admin_model->Get_Work_Order_Details($project_id);
+//        $this->data['phase']= $this->technical_admin_model->Get_Project_Phase_Details($project_id);
+//        $this->data['Phase_master']=$this->technical_admin_model->Get_Project_Phase_Master_Details($project_id);
+         $this->data['Resource']=$this->technical_admin_model->Get_Work_Order_Resource_Details($project_id);
+//        $this->data['Member']=$this->technical_admin_model->Get_Project_Member_Details($project_id);
+//        $this->data['Role_Master']= $this->technical_admin_model->get_Role_Master();
+//        $this->data['Status']= $this->technical_admin_model->get_Project_Status();
+//        $this->data['Status_History']= $this->technical_admin_model->get_Project_Status_History($project_id);
+//        $this->data['client_contact']= $this->technical_admin_model->get_Project_Client_Contacts($project_id);
+//        $this->data['client_inactive']= $this->technical_admin_model->get_Project_Inactive_Client_Contacts($project_id,$client_id);
+
+        //$this->data['Phase_master']= $this->technical_admin_model->get_Phase_Master();
+        $this->load->view('Admin/header');
+        $this->load->view('Admin/left');
+        $this->load->view('Admin/top');
+        $this->load->view('Admin/View_Manage_Work_Order',$this->data, FALSE);
+        $this->load->view('Admin/footer');
+    }
+
+    //** Save extended Resource Date */
+    public function Save_Extended_Date()
+    {
+
+    }
 
 
 
