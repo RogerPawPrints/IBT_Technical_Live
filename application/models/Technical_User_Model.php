@@ -96,9 +96,19 @@ class Technical_User_Model extends CI_Model
 
     public  function  View_Manage_Task()
     {
-        $query = $this->db->query("SELECT * FROM project_modules WHERE Proj_Project_Icode='1'");
-        //echo $this->db->last_query();
-        return $query->result_array();
+//        $user_icode = $this->session->userdata['userid'];
+//        $query = $this->db->query("SELECT a.Task_Icode, ash.Task_Entry_Icode, SUM(ash.Logged_Hours) AS Total_Logged_Hours
+//                                    FROM ibt_task_master as a INNER JOIN ibt_task_entry AS ash ON ash.Task_Master_Icode = a.Task_Icode  WHERE a.Task_Status ='1' and a.Task_Created_By='$user_icode'
+//                                    GROUP BY ash.Task_Master_Icode");
+//
+//       $roww =  $query->num_rows();
+//
+//       for ($i=0; $i<=$roww; $i++ )
+//       {
+//           $row =  $query->result_array();
+//           $sql = $this->db->query("SELECT * FROM project_modules WHERE Proj_Project_Icode='$project_id'");
+//       }
+
     }
 
 
