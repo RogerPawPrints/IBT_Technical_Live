@@ -23,7 +23,7 @@
             </div>
         <?php } ?>
         <h1 style="margin-bottom: 20px;">
-            Task Entry
+            View / Manage Task
             <small></small>
         </h1>
 
@@ -52,13 +52,13 @@
                                                 <td>#</td>
                                                 <th>Client</th>
                                                 <th>Project</th>
-                                                <th>Lead</th>
-                                                <th>Task Description</th>
+                                                <th>Resource</th>
+                                                <th>Task Progress</th>
                                                 <th>Start date</th>
                                                 <th>End Date</th>
                                                 <th>Estimated Hours</th>
                                                 <th>Logged Hours</th>
-                                                <th>Attachments</th>
+                                                <th>Billable Hours</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -66,7 +66,7 @@
                                             <tbody>
                                             <?php
                                             $i=1;
-                                            foreach($task_details as $r)
+                                            foreach($manage_tasks as $r)
                                             {
                                                 ?>
                                                 <tr>

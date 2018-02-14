@@ -262,7 +262,7 @@ class User_Controller extends CI_Controller
     /*View Manage Tasks*/
     public function View_Manage_Task()
     {
-        $this->data['task_details'] = $this->technical_user_model->Assigned_Task_Entry();
+        $this->data['manage_tasks'] = $this->technical_user_model->View_Manage_Task();
         //$this->data['Select_Project']= $this->technical_user_model->Show_On_Select_Project();
         $this->load->view('User/header');
         $this->load->view('User/left');

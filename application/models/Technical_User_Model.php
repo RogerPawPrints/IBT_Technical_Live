@@ -57,7 +57,7 @@ class Technical_User_Model extends CI_Model
     {
         $user_icode = $this->session->userdata['userid'];
         //print_r($user_icode);
-        $query = $this->db->query("SELECT *,sum(E.Logged_Hours) as logged_hours FROM ibt_task_master A INNER JOIN ibt_client B ON A.Task_Client_Icode=B.Client_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode INNER JOIN ibt_technical_users D on A.Task_Created_By=D.User_Icode LEFT JOIN ibt_task_entry E on A.Task_Icode = E.Task_Master_Icode WHERE A.Task_Resource_Icode ='$user_icode' GROUP BY A.Task_Icode ");
+        $query = $this->db->query("SELECT *,sum(E.Logged_Hours) as logged_hours FROM ibt_task_master A INNER JOIN ibt_client B ON A.Task_Client_Icode=B.Client_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode INNER JOIN ibt_technical_users D on A.Task_Created_By=D.User_Icode LEFT JOIN ibt_task_entry E on A.Task_Icode = E.Task_Master_Icode WHERE A.Task_Resource_Icode ='$user_icode' AND A.Task_Status='1' GROUP BY A.Task_Icode ");
         //echo $this->db->last_query();
         return $query->result_array();
     }
@@ -90,6 +90,13 @@ class Technical_User_Model extends CI_Model
     public function get_task_attachments($task_id)
     {
         $query = $this->db->query("SELECT * FROM ibt_task_attachments A INNER JOIN ibt_project_table B on A.Attachment_Project_Icode=B.Project_Icode WHERE Attachment_Task_Icode ='$task_id'");
+        //echo $this->db->last_query();
+        return $query->result_array();
+    }
+
+    public  function  View_Manage_Task()
+    {
+        $query = $this->db->query("SELECT * FROM project_modules WHERE Proj_Project_Icode='1'");
         //echo $this->db->last_query();
         return $query->result_array();
     }
