@@ -587,7 +587,7 @@
             $.ajax({
                 url:"<?php echo site_url('Admin_Controller/Save_Resource'); ?>",
                 data: {Project_Name: project,Client_Id: Client,Work_Category: Work,Work_type: Work_Type,Contract:contract_type,Proj_WO: project_WO,Work_Order:Work_order,
-                    Proj_End:Project_End,Members:Membersss, Role_master:Role,Contract_Start:Member_start_date,Contract_End:Contract_End,Min_Hours: Min_Hour,Resource_Terms: Resource_Term },
+                   Members:Membersss, Role_master:Role,Contract_Start:Member_start_date,Contract_End:Contract_End,Min_Hours: Min_Hour,Resource_Terms: Resource_Term },
                 type: "POST",
                 cache: false,
                 success:function(data) {
