@@ -118,7 +118,7 @@
                             <div class="row padding_class" >
                                 <div class="col-md-12" >
                                     <div class="col-md-3">
-                                        <label>Contract Date</label>
+                                        <label>Contract Signed Date</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar">
@@ -127,28 +127,10 @@
                                             <input class="form-control" id="date_Wo" name="date_Wo" placeholder="YYYY/MM/DD" type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>Contract Start Date</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar">
-                                                </i>
-                                            </div>
-                                            <input class="form-control" type="text" placehoder="Start Date" name="date_start" id="startdate"/>
 
-                                            <!--                                        <input class="form-control" id="date_start" name="date_start" placeholder="YYYY/MM/DD" type="text"/>-->
-                                        </div>
-                                    </div>
                                     <div class="col-md-3">
-                                        <label>Contract End Date </label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar">
-                                                </i>
-                                            </div>
-                                            <!--                                        <input class="form-control" id="date_end" name="date_end" placeholder="YYYY/MM/DD" type="text"/>-->
-                                            <input class="form-control" type="text" placehoder="End Date" name="date_end" id="enddate"/>
-                                        </div>
+                                        <label>Work Order Title </label>
+                                        <input class="form-control"  type="text" id="WO_Title" name="WO_Title" placeholder="Enter Work Order Title" >
                                     </div>
 
                                 </div>
@@ -540,8 +522,8 @@
 //        var client_contact=vals;
 //        var contract_type = '1';
         var project_WO = document.getElementById('date_Wo').value;
-        var Project_Start = document.getElementById('startdate').value;
-        var Project_End = document.getElementById('enddate').value;
+        var Work_order = document.getElementById('WO_Title').value;
+
 
 
         var Member_P =document.getElementsByName("Member[]");
@@ -595,7 +577,7 @@
 
 
 
-        if(project == "" || Client == "" || Work == "" || Work_Type == ""  ||  contract_type == "" || project_WO == "" || Project_Start == "" || Project_End == ""  )
+        if(project == "" || Client == "" || Work == "" || Work_Type == ""  ||  contract_type == "" || project_WO == "" || Work_order == "" )
         {
             alert("Please Fill All Fields...");
         }
@@ -604,7 +586,7 @@
         {
             $.ajax({
                 url:"<?php echo site_url('Admin_Controller/Save_Resource'); ?>",
-                data: {Project_Name: project,Client_Id: Client,Work_Category: Work,Work_type: Work_Type,Contract:contract_type,Proj_WO: project_WO,Proj_start:Project_Start,
+                data: {Project_Name: project,Client_Id: Client,Work_Category: Work,Work_type: Work_Type,Contract:contract_type,Proj_WO: project_WO,Work_Order:Work_order,
                     Proj_End:Project_End,Members:Membersss, Role_master:Role,Contract_Start:Member_start_date,Contract_End:Contract_End,Min_Hours: Min_Hour,Resource_Terms: Resource_Term },
                 type: "POST",
                 cache: false,

@@ -262,12 +262,12 @@ class Technical_Admin_Model extends CI_Model
     //** Insert Resource */
     public function insert_Resource($data)
     {
-        $this->db->insert('ibt_resource_table', $data);
+        $this->db->insert('work_order', $data);
         return $this->db->insert_id();
     }
     public function Save_Contract_Resource($data)
     {
-        $this->db->insert('ibt_resource_contract', $data);
+        $this->db->insert('work_order_resource', $data);
         return 1;
     }
 

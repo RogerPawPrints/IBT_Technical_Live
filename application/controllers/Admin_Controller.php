@@ -596,9 +596,8 @@ class Admin_Controller extends CI_Controller
             'Resource_Client_Icode' => $this->input->post('Client_Id',true),
             'Resource_Category_Icode' => $this->input->post('Work_Category',true),
             'Resource_Work_Type_Icode' => $this->input->post('Work_type',true),
-            'Resource_Contract_Date' => $this->input->post('Proj_WO',true),
-            'Contract_Start_Date' => $this->input->post('Proj_start',true),
-            'Contract_End_Date' => $this->input->post('Proj_End',true),
+            'Contract_Signed_Date' => $this->input->post('Proj_WO',true),
+            'Work_Order_Title' => $this->input->post('Work_Order',true),
             'Resource_Contract_Type' => $this->input->post('Contract',true),
             'Created_By' =>$this->session->userdata['userid']);
         $insert_resource =  $this->technical_admin_model->insert_Resource($data);
@@ -607,7 +606,7 @@ class Admin_Controller extends CI_Controller
 
             for($i=0; $i<$count; $i++)
             {
-                $resource_contact = array('Resource_Icode' => $insert_resource,
+                $resource_contact = array('WO_Icode' => $insert_resource,
                     'Role_Icode' => $Role_Master[$i],
                     'Member_Icode' => $Member[$i],
                     'Term_Icode' => $Terms[$i],
