@@ -221,7 +221,7 @@ class User_Controller extends CI_Controller
     }
     /*Selecting Phases & Modules*/
 
-
+    /*Task Attachment List*/
     public function get_task_attachments()
     {
         $task_id = $this->input->post('id',true);
@@ -240,11 +240,13 @@ class User_Controller extends CI_Controller
        echo $output;
 
     }
-
+    /*Task Attachment List*/
     /**
      * @param $folder
      * @param $path
+     * Download Task Attachments
      */
+
     public function download($folder, $path) {
         // read file contents
 
@@ -257,5 +259,11 @@ class User_Controller extends CI_Controller
     }
 
 
+    /*View Manage Tasks*/
+    public function View_Manage_Task()
+    {
+
+    }
+    /*View Manage Tasks*/
 }
 ?>
