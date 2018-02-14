@@ -648,11 +648,12 @@ class Admin_Controller extends CI_Controller
         $i = 1;
         foreach ($data as $row) {
               $Project = $row['Project_Icode'];
+              $client = $row['Project_Client_Icode'];
 //            $req_Status = $row['Requirement_Status'];
 //            $rtype = $row['Requirement_Type'];
             $output .= "<tr >";
             $output .= "<td>" . $i . "</td>";
-            $output .= "<td><a href='select_project/$Project'>" . $row['Client_Company_Name'] . "</a></td>";
+            $output .= "<td><a href='select_project/$Project/$client'>" . $row['Client_Company_Name'] . "</a></td>";
             $output .= "<td>" . $row['Client_Country'] . "</td>";
             $output .= "<td>" . $row['Project_Name'] . "</td>";
             $output .= "<td>" . $row['Project_Start_Date'] . "</td>";
@@ -667,8 +668,10 @@ class Admin_Controller extends CI_Controller
     }
 
     //** Select Perticular Project */
-    public function select_project($project_id)
+    public function select_project($project_id,$client_id)
     {
+        $project_id =  $this->uri->segment(3);
+        $client_id =  $this->uri->segment(4);
         //$icode = $this->session->userdata['userid'];
         $this->data['project']= $this->technical_admin_model->Get_Project_Details($project_id);
         $this->data['phase']= $this->technical_admin_model->Get_Project_Phase_Details($project_id);
@@ -679,7 +682,7 @@ class Admin_Controller extends CI_Controller
         $this->data['Status']= $this->technical_admin_model->get_Project_Status();
         $this->data['Status_History']= $this->technical_admin_model->get_Project_Status_History($project_id);
         $this->data['client_contact']= $this->technical_admin_model->get_Project_Client_Contacts($project_id);
-        $this->data['client_inactive']= $this->technical_admin_model->get_Project_Inactive_Client_Contacts($project_id);
+        $this->data['client_inactive']= $this->technical_admin_model->get_Project_Inactive_Client_Contacts($project_id,$client_id);
 
         //$this->data['Phase_master']= $this->technical_admin_model->get_Phase_Master();
         $this->load->view('Admin/header');
@@ -852,6 +855,23 @@ class Admin_Controller extends CI_Controller
             echo 0;
         }
 
+    }
+    //** Contact Inactive */
+    public function Inactive_contact()
+    {
+        $client_code =$this->input->post('id', true);
+        $inactive = $this->technical_admin_model->client_change_inactive($client_code);
+        echo $inactive;
+    }
+    //** Active Contact */
+    public function Active_contact()
+    {
+        $project_Contact = array('Proj_Project_Icode ' => $this->input->post('Project',true),
+            'Project_Client_Icode' =>$this->input->post('Client',true),
+            'Client_Contact_Icode' => $this->input->post('Contact',true),
+            'Project_Contact_Created_By' =>$this->session->userdata['userid']);
+        $insert_project_contact = $this->technical_admin_model->insert_project_contact($project_Contact);
+        echo $insert_project_contact;
     }
 
 

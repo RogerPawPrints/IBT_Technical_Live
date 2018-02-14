@@ -83,7 +83,7 @@
                                             ?>
                                             <tr style="color:#e94724;    ">
                                                 <td><?php echo $i; ?></td>
-                                                <td><a href="select_project/<?php echo $r['Project_Icode'] ?>"><?php echo $r['Client_Company_Name']; ?></a></td>
+                                                <td><a href="select_project/<?php echo $r['Project_Icode'] ?>/<?php echo $r['Project_Client_Icode'] ?>"><?php echo $r['Client_Company_Name']; ?></a></td>
                                                 <td><?php echo $r['Client_Country']; ?></td>
                                                 <td><?php echo $r['Project_Name']; ?></td>
                                                 <td><?php echo $r['Project_Start_Date']; ?></td>
@@ -112,7 +112,7 @@
                                             ?>
                                             <tr>
                                                 <td><?php echo $i; ?></td>
-                                                <td><a href="select_project/<?php echo $r['Project_Icode'] ?>"><?php echo $r['Client_Company_Name']; ?></a></td>
+                                                <td><a href="select_project/<?php echo $r['Project_Icode'] ?>/<?php echo $r['Project_Client_Icode'] ?>"><?php echo $r['Client_Company_Name']; ?></a></td>
                                                 <td><?php echo $r['Client_Country']; ?></td>
                                                 <td><?php echo $r['Project_Name']; ?></td>
                                                 <td><?php echo $r['Project_Start_Date']; ?></td>

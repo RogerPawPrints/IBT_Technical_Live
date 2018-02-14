@@ -405,12 +405,20 @@ class Technical_Admin_Model extends CI_Model
         return $query->result_array();
     }
     //** Get Project Client Contacs */
-    public function get_Project_Inactive_Client_Contacts($project_id)
+    public function get_Project_Inactive_Client_Contacts($project_id,$client_id)
     {
-        $query=$this->db->query("SELECT * FROM ibt_client_contacts A LEFT JOIN project_client_contacts B on  A.Contact_Client_Icode=B.Project_Client_Icode AND A.Contact_ID!=B.Client_Contact_Icode
-                                 WHERE B.Proj_Project_Icode='$project_id' ");
+        $query=$this->db->query("SELECT * FROM ibt_client_contacts A WHERE A.Contact_Client_Icode='$client_id' and  A.Contact_ID 
+                                 NOT IN (SELECT B.Client_Contact_Icode from project_client_contacts B WHERE B.Proj_Project_Icode='$project_id') ");
         return $query->result_array();
+    }
+    //** change to inactive */
+    public function client_change_inactive($id)
+    {
+        $query = $this->db->query("DELETE from project_client_contacts where Proj_Client_Contact_Icode = $id");
+        return 1;
+
     }
 
 
-}
+
+    }

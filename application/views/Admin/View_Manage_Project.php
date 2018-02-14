@@ -477,8 +477,8 @@
                                                     <td id=""><?php echo $row['Contact_Number'];?></td>
                                                     <td id=""><?php echo $row['Contact_Email'];?></td>
                                                     <td id="">Yes</td>
-                                                    <td><button type="button" id="mymodal" class="btn btn-danger"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Proj_Client_Contact_Icode']; ?>')"
-                                                                    value="<?php echo $row['Proj_Client_Contact_Icode']; ?>" data-target="#myModal">InActive</button>
+                                                    <td><button type="button" id="mymodal" class="btn btn-danger"  onclick="Inactive('<?php echo $row['Proj_Client_Contact_Icode']; ?>')"
+                                                                    value="<?php echo $row['Proj_Client_Contact_Icode']; ?>" >InActive</button>
                                                     </td>
                                                 </tr>
 
@@ -500,8 +500,8 @@
                                                     <td id=""><?php echo $row['Contact_Number'];?></td>
                                                     <td id=""><?php echo $row['Contact_Email'];?></td>
                                                     <td id="">No</td>
-                                                    <td><button type="button" id="mymodal" class="btn btn-success"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Proj_Client_Contact_Icode']; ?>')"
-                                                                value="<?php echo $row['Proj_Client_Contact_Icode']; ?>" data-target="#myModal">Active</button>
+                                                    <td><button type="button" id="mymodal" class="btn btn-success"   onclick="Active('<?php echo $row['Contact_ID']; ?>','<?php echo $row['Contact_Client_Icode']; ?>')"
+                                                                value="<?php echo $row['Contact_ID']; ?>" >Active</button>
                                                     </td>
                                                 </tr>
 
@@ -1010,7 +1010,67 @@
                 }
             }
         });
+    }
 
+    //** In Active **//
+    function Inactive(id)
+    {
+        if (confirm("Do you want to DeActive: ")) {
+
+            $.ajax
+            ({
+                type: 'post',
+                url: "<?php echo site_url('Admin_Controller/Inactive_contact'); ?>",
+                data: {id: id},
+                success: function (response) {
+                    //alert(response);
+                    if (response == '1') {
+                        swal({
+                                title: "success!",
+                                text: "Status Changed Deactive ...!",
+                                type: "success"
+                            },
+                            function () {
+                                //window.history.back();
+                                location.reload();
+
+                            });
+                    }
+                }
+            });
+        }
+
+    }
+    function Active(contact_id,Client_id)
+    {
+        var project_icode=document.getElementById("project_icode").value;
+
+        if (confirm("Do you want to Active: ")) {
+
+            $.ajax
+            ({
+                type: 'post',
+                url: "<?php echo site_url('Admin_Controller/Active_contact'); ?>",
+                data: {Contact: contact_id,
+                    Client: Client_id,
+                    Project: project_icode },
+                success: function (response) {
+                    //alert(response);
+                    if (response == '1') {
+                        swal({
+                                title: "success!",
+                                text: "Status Changed to Active ...!",
+                                type: "success"
+                            },
+                            function(){
+                                //window.history.back();
+                                location.reload();
+
+                            });
+                    }
+                }
+            });
+        }
 
 
     }
