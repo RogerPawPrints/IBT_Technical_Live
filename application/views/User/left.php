@@ -29,7 +29,7 @@
               </a>
               <ul class="treeview-menu">
                   <li><a href="<?php echo site_url('User_Controller/Create_Task'); ?>"><i class="fa fa-circle-o"></i> <span>Create Task</span></a></li>
-                  <li><a href="<?php echo site_url('Admin_Controller/View_Manage_Task'); ?>"><i class="fa fa-circle-o"></i> <span>View / Manage Tasks</span></a></li>
+                  <li><a href="<?php echo site_url('User_Controller/View_Manage_Task'); ?>"><i class="fa fa-circle-o"></i> <span>View / Manage Tasks</span></a></li>
                   <!-- <li><a href="<?php /*echo site_url('Admin_Controller/Work_Type'); */?>"><i class="fa fa-circle-o"></i> <span>Work Type</span></a></li>
                   <li><a href="<?php /*echo site_url('Admin_Controller/Phase_Master'); */?>"><i class="fa fa-circle-o"></i> <span>Phase Master</span></a></li>
                   <li><a href="<?php /*echo site_url('Admin_Controller/Role_Master'); */?>"><i class="fa fa-circle-o"></i> <span>Role Master</span></a></li>-->
