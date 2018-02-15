@@ -440,6 +440,18 @@ class Technical_Admin_Model extends CI_Model
                                INNER JOIN ibt_contract_terms D on A.Term_Icode=D.Contract_Term_Icode WHERE A.WO_Icode='$id' ");
         return $query->result_array();
     }
+    //** Get Work Order Old Details */
+    public function Get_Work_order_Old_Details($id)
+    {
+        $query=$this->db->query("SELECT * FROM work_order_resource WHERE WO_Resource_Icode='$id'");
+        return $query->result_array();
+    }
+    //** Insert WO Extension History */
+    public function insert_WO_Extension_history($data)
+    {
+        $this->db->insert('wo_resource_date_extension', $data);
+        return 1;
+    }
 
 
 

@@ -506,9 +506,7 @@
             type:'post',
             url:"<?php echo site_url('Admin_Controller/Save_Extended_Date'); ?>",
             data: {
-                project:id,
-                project_icode:project_icode,
-                phase_code:phase,
+                Resource:id,
                 Start_date:start,
                 End_date:end,
                 Hours:hour
@@ -516,7 +514,6 @@
             success:function(response) {
                 if(response=="1")
                 {
-                    document.getElementById("phase"+id).innerHTML=phase;
                     document.getElementById("start"+id).innerHTML=start;
                     document.getElementById("end"+id).innerHTML=end;
                     document.getElementById("hour"+id).innerHTML=hour;

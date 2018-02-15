@@ -913,6 +913,34 @@ class Admin_Controller extends CI_Controller
     //** Save extended Resource Date */
     public function Save_Extended_Date()
     {
+        $WO_Icode = $this->input->post('Resource', true);
+        $old_phase =$this->technical_admin_model->Get_Work_order_Old_Details($WO_Icode);
+        $insert_WO = array('WO_Resource_Icode' => $this->input->post('Resource', true),
+            'Old_Start_Date' => $old_phase[0]['Start_Date'],
+            'Old_End_Date' => $old_phase[0]['End_Date'],
+            'Old_Hours' => $old_phase[0]['Min_Hour'],
+            'New_Start_Date' => $this->input->post('Start_date', true),
+            'New_End_Date' => $this->input->post('End_date', true),
+            'New_Hours' => $this->input->post('Hours', true),
+            'Created_By' => $this->session->userdata['userid']);
+        $insert_phase_history = $this->technical_admin_model->insert_WO_Extension_history($insert_WO);
+        if($insert_phase_history == '1')
+        {
+            $project_phase = array(
+                'Start_Date' => $this->input->post('Start_date', true),
+                'End_Date' => $this->input->post('End_date', true),
+                'Min_Hour' => $this->input->post('Hours', true),
+                'Modified_By' =>$this->session->userdata['userid'],
+                'Modified_On' =>date('Y-m-d'));
+            $this->db->where('WO_Resource_Icode',$WO_Icode);
+            $this->db->update('work_order_resource', $project_phase);
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+
 
     }
 
