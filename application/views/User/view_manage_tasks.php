@@ -97,7 +97,7 @@
 
                                                         <td><?php echo $r['Total_logged_Hours']; ?></td>
                                                     <?php } ?>
-                                                    <td><input type="text" name="Billable" value="<?php echo $r['Logged_Hours']; ?>"></td>
+                                                    <td><input type="text" name="Billable" id="Billable" value="<?php echo $r['Logged_Hours']; ?>"></td>
 
 
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
@@ -219,12 +219,13 @@
 
     function save_manage_task(id) {
 
-       var
+       var Billable = document.getElementById('Billable').value;
 
         $.ajax({
-            url: "<?php echo site_url('User_Controller/get_phase_modules'); ?>",
+            url: "<?php echo site_url('User_Controller/Save_Manage_Task'); ?>",
             data: {
-                id: project
+                Task_id: id,
+                Billable: Billable
             },
             type: "POST",
             success: function (data) {

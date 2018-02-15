@@ -271,5 +271,17 @@ class User_Controller extends CI_Controller
         $this->load->view('User/footer');
     }
     /*View Manage Tasks*/
+
+    /** Save manage Task */
+    public function Save_Manage_Task()
+    {
+//        $task_id= $this->input->post('Task_id',true);
+//        $data = array(
+//            'Task_Billable_Hours' => $this->input->post('Billable', true),
+//            'Modified_By' =>$this->session->userdata['userid'],
+//            'Modified_On' =>date('Y-m-d'));
+//        $this->db->where('Project_Icode',$project_icode);
+//        $this->db->update('ibt_project_table', $project_status);
+    }
 }
 ?>
