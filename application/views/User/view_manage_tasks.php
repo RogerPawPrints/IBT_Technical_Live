@@ -101,8 +101,8 @@
 
 
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" class="btn btn-success" value="">Save</button> <button type="button" class="btn btn-danger" value="">Close Task</button>
-                                                        <button type="button" class="btn btn-primary" value="">View</button></td>
+                                                    <td><button type="button" class="btn btn-primary" value="">View</button> <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Master_Icode']; ?>'')" value="">Save</button> <button type="button" class="btn btn-danger" value="">Close Task</button>
+                                                        </td>
 
                                                 </tr>
                                                 <?php
@@ -217,11 +217,9 @@
 
     }    );
 
-    function task_entry(id,project) {
+    function save_manage_task(id) {
 
-        document.getElementById('task_id').value = id;
-        //alert(id);
-        document.getElementById('project_id').value = project;
+       var
 
         $.ajax({
             url: "<?php echo site_url('User_Controller/get_phase_modules'); ?>",
