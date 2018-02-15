@@ -101,7 +101,8 @@
 
 
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Master_Icode']; ?>', '<?php echo $r['Task_Master_Icode']; ?>')" value="<?php echo $r['Task_Master_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+                                                    <td><button type="button" class="btn btn-success" value="">Save</button> <button type="button" class="btn btn-danger" value="">Close Task</button>
+                                                        <button type="button" class="btn btn-primary" value="">View</button></td>
 
                                                 </tr>
                                                 <?php
