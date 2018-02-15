@@ -184,7 +184,6 @@
                                         </div>
                                         <!-- Modal -->
 
-
                                     </div>
                                     <div class="tab-pane" id="2a">
                                         <h3>Other Task.</h3>
@@ -215,7 +214,7 @@
         /*stay in same tab after form submit*/
         $('#assigned_tasks').DataTable();
 
-    }    );
+        }    );
 
     function save_manage_task(id) {
 
