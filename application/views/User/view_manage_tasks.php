@@ -56,9 +56,9 @@
                                                 <th>Task Progress</th>
                                                 <th>Logged Hours</th>
                                                 <th>Estimated Hours</th>
-                                                <th>Total Logged Hours</th>
                                                 <th>Start date</th>
                                                 <th>End Date</th>
+                                                <th>Total Logged Hours</th>
                                                 <th>Billable Hours</th>
                                                 <th>Action</th>
                                             </tr>
@@ -78,7 +78,6 @@
                                                     <td><?php echo $r['task_status']; ?></td>
                                                     <td><?php echo $r['Logged_Hours']; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
-                                                    <td><?php echo $r['Total_logged_Hours']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <?php
                                                     $current_date = date('m/d/Y');
