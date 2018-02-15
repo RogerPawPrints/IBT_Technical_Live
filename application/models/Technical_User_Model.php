@@ -90,20 +90,42 @@ class Technical_User_Model extends CI_Model
     public function get_task_attachments($task_id)
     {
         $query = $this->db->query("SELECT * FROM ibt_task_attachments A INNER JOIN ibt_project_table B on A.Attachment_Project_Icode=B.Project_Icode WHERE Attachment_Task_Icode ='$task_id'");
-        //echo $this->db->last_query();
+        echo $this->db->last_query();
         return $query->result_array();
     }
 
     public  function  View_Manage_Task()
     {
         $user_icode = $this->session->userdata['userid'];
-        $query = $this->db->query("SELECT B.Task_Entry_Icode, B.Task_Master_Icode, B.Logged_Hours,A.Task_Estimated_Hours,A.Task_Start_Date,A.Task_End_Date,(SELECT Work_Progress FROM ibt_task_entry WHERE Task_Master_Icode=B.Task_Master_Icode ORDER BY B.Created_On DESC LIMIT 1 OFFSET 0) as task_status,
-                                SUM(B.Logged_Hours) as Total_logged_Hours, C.Client_Company_Name,C.Client_Icode,D.Project_Icode,D.Project_Name,E.User_Icode,E.User_Name FROM ibt_task_master A INNER JOIN ibt_task_entry B ON A.Task_Icode=B.Task_Master_Icode INNER JOIN ibt_client C on A.Task_Client_Icode=C.Client_Icode INNER JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode 
-                                INNER JOIN ibt_technical_users E on B.Created_By=E.User_Icode WHERE A.Task_Created_By='$user_icode'
+        $query = $this->db->query("SELECT B.Task_Entry_Icode, B.Task_Master_Icode, B.Logged_Hours,A.Task_Estimated_Hours,B.Task_Entry_Icode,A.Task_Start_Date,A.Task_End_Date,(SELECT Work_Progress FROM ibt_task_entry WHERE Task_Master_Icode=B.Task_Master_Icode ORDER BY B.Created_On DESC LIMIT 1 OFFSET 0) as task_status,(SELECT Task_Entry_Icode FROM ibt_task_entry WHERE Task_Master_Icode = B.Task_Master_Icode ORDER BY Created_On DESC LIMIT 1 OFFSET 0) as New_Task_Entry_Icode,
+                        SUM(B.Logged_Hours) as Total_logged_Hours, C.Client_Company_Name,C.Client_Icode,D.Project_Icode,D.Project_Name,E.User_Icode,E.User_Name,B.Leader_Reviewed FROM ibt_task_master A INNER JOIN ibt_task_entry B ON A.Task_Icode=B.Task_Master_Icode INNER JOIN ibt_client C on A.Task_Client_Icode=C.Client_Icode INNER JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode
+                                INNER JOIN ibt_technical_users E on B.Created_By=E.User_Icode WHERE A.Task_Created_By='$user_icode' and B.Leader_Reviewed='No'
                                 GROUP BY B.task_master_icode");
         return $query->result_array();
 
 
+    }
+//    public  function  View_Manage_Task()
+//    {
+//        $user_icode = $this->session->userdata['userid'];
+//        $query = $this->db->query("SELECT *  FROM ibt_task_master A INNER JOIN ibt_task_entry B ON A.Task_Icode=B.Task_Master_Icode INNER JOIN ibt_client C on A.Task_Client_Icode=C.Client_Icode INNER JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode
+//                                INNER JOIN ibt_technical_users E on B.Created_By=E.User_Icode WHERE A.Task_Created_By='7' and B.Leader_Reviewed='No' ");
+//        return $query->result_array();
+//
+//
+//    }
+    //** Get Task Description */
+    public function get_task_desc($id)
+    {
+        $query = $this->db->query(" SELECT * FROM ibt_task_master A LEFT JOIN ibt_task_attachments B on A.Task_Icode=B.Attachment_Task_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode   WHERE A.Task_Icode='$id'");
+        return $query->result_array();
+    }
+    //** Get Task Billable Hour */
+    public  function  Get_Task_Billable_Hours($id)
+    {
+        $query = $this->db->query("SELECT Task_Billable_Hours FROM ibt_task_master WHERE Task_Icode='$id'");
+        //echo $this->db->last_query();
+        return $query->result_array();
     }
 
 

@@ -97,11 +97,14 @@
 
                                                         <td><?php echo $r['Total_logged_Hours']; ?></td>
                                                     <?php } ?>
-                                                    <td><input type="text" name="Billable" id="Billable" value="<?php echo $r['Logged_Hours']; ?>"></td>
+                                                    <td><input type="text" name="Billable" id="Billable<?php echo $r['New_Task_Entry_Icode'];?>" value="<?php echo $r['Logged_Hours']; ?>"></td>
 
 
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" class="btn btn-primary" value="">View</button> <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Master_Icode']; ?>'')" value="">Save</button> <button type="button" class="btn btn-danger" value="">Close Task</button>
+                                                    <td><button type="button" class="btn btn-primary" id="mymodal1" onclick="get_attachments('<?php echo $r['Task_Master_Icode']; ?>')"
+                                                                data-toggle="modal" data-target="#myModal1" value="">View</button>
+                                                        <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Master_Icode']; ?>','<?php echo $r['New_Task_Entry_Icode']; ?>')" value="">Save</button>
+                                                        <button type="button" class="btn btn-danger" value="">Close Task</button>
                                                         </td>
 
                                                 </tr>
@@ -119,7 +122,7 @@
 
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="myModalLabel">Task Attachments</h4>
+                                                        <h4 class="modal-title" id="myModalLabel">View / Manage Tasks</h4>
                                                     </div>
                                                     <div class="modal-body">
 
@@ -216,22 +219,38 @@
 
         }    );
 
-    function save_manage_task(id) {
+    function save_manage_task(id,task_entry) {
+      //  alert(task_entry);
 
-       var Billable = document.getElementById('Billable').value;
+       var Billable = document.getElementById('Billable'+task_entry).value;
+       //alert(Billable);
 
         $.ajax({
             url: "<?php echo site_url('User_Controller/Save_Manage_Task'); ?>",
             data: {
                 Task_id: id,
-                Billable: Billable
+                Billable: Billable,
+                Task_Entry: task_entry
             },
             type: "POST",
             success: function (data) {
-                var phase_modules = $.parseJSON(data);
-                //alert(phase_modules.phase_Details);
-                $("#Phase_Select").html(phase_modules.phase_Details);
-                $("#Module_Select").html(phase_modules.Modules);
+               if(data == '1')
+               {
+                   swal({
+                           title: "success!",
+                           text: "Status Changed ...!",
+                           type: "success"
+                       },
+                       function(){
+                           //window.history.back();
+                           location.reload();
+
+                       });
+
+               }
+               else {
+
+               }
             }
 
 
@@ -241,23 +260,15 @@
 
 
     function get_attachments(id) {
+
         document.getElementById('task_id').value = id;
         $.ajax({
-            url: "<?php echo site_url('User_Controller/get_task_attachments'); ?>",
+            url: "<?php echo site_url('User_Controller/Get_Task_Desc'); ?>",
             data: {
                 id: id
             },
             type: "POST",
             success: function (data) {
-//                var attachments = $.parseJSON(data);
-//                var count = Object.keys(attachments).length;
-//               alert(count);
-//                for(var i = 0; i < count; i++)
-//                {
-//                   var  file = attachments[i];
-//                   var folder =file.Project_Name;
-//                    $('#attachment_list').append("<li><a href='<?php //echo base_url(); ?>//index.php/User_Controller/download/"+file.Project_Name+"/"+file.Attachment_Path+"/ '>" + file.Attachment_Path +  "</a></li>" );
-//                }
                 $('#attachment_list').html(data);
             }
         });

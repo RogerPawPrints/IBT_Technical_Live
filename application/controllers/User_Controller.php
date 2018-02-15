@@ -275,13 +275,44 @@ class User_Controller extends CI_Controller
     /** Save manage Task */
     public function Save_Manage_Task()
     {
-//        $task_id= $this->input->post('Task_id',true);
-//        $data = array(
-//            'Task_Billable_Hours' => $this->input->post('Billable', true),
-//            'Modified_By' =>$this->session->userdata['userid'],
-//            'Modified_On' =>date('Y-m-d'));
-//        $this->db->where('Project_Icode',$project_icode);
-//        $this->db->update('ibt_project_table', $project_status);
+        $task_id= $this->input->post('Task_id',true);
+        $billable = $this->input->post('Billable',true);
+        //print_r($billable);
+        $Task_Entry = $this->input->post('Task_Entry',true);
+        $old_value =$this->technical_user_model->Get_Task_Billable_Hours($task_id);
+        $new_billable = $old_value[0]['Task_Billable_Hours'] ;
+        //print_r($new_billable);
+
+        $data = array(
+            'Task_Billable_Hours' => $new_billable,
+            'Modified_By' =>$this->session->userdata['userid'],
+            'Modified_On' =>date('Y-m-d'));
+        $this->db->where('Task_Icode',$task_id);
+        $this->db->update('ibt_task_master', $data);
+
+        $task = array(
+        'Leader_Reviewed' => 'Yes');
+        $this->db->where('Task_Entry_Icode',$Task_Entry);
+        $this->db->update('ibt_task_entry', $task);
+        echo 1;
+    }
+
+    //** Get Task Description */
+    public function Get_Task_Desc()
+    {
+        $task_id = $this->input->post('id',true);
+        $attachment =  $this->technical_user_model->get_task_desc($task_id);
+        // echo json_encode($attachment);
+        $output = null;
+        $output .="<h3>Task Description</h3>";
+        $output .="<h4 style='line-height: 30px;'>" .$attachment[0]['Task_Description']. "</h4>";
+        foreach ($attachment as $row)
+        {
+            $path = $row['Attachment_Path'];
+            $folder=$row['Project_Name'];
+            $output .= "<li class='list-group-item'> <a target='_blank' href='download/$folder/$path' >".$row['Attachment_Path']."</a></li>";
+        }
+        echo $output;
     }
 }
 ?>
