@@ -54,10 +54,11 @@
                                                 <th>Project</th>
                                                 <th>Resource</th>
                                                 <th>Task Progress</th>
+                                                <th>Logged Hours</th>
+                                                <th>Estimated Hours</th>
+                                                <th>Total Logged Hours</th>
                                                 <th>Start date</th>
                                                 <th>End Date</th>
-                                                <th>Estimated Hours</th>
-                                                <th>Logged Hours</th>
                                                 <th>Billable Hours</th>
                                                 <th>Action</th>
                                             </tr>
@@ -74,7 +75,10 @@
                                                     <td><?php echo $r['Client_Company_Name']; ?></td>
                                                     <td><?php echo $r['Project_Name']; ?></td>
                                                     <td><?php echo $r['User_Name']; ?></td>
-                                                    <td><?php echo $r['Task_Description']; ?></td>
+                                                    <td><?php echo $r['task_status']; ?></td>
+                                                    <td><?php echo $r['Logged_Hours']; ?></td>
+                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
+                                                    <td><?php echo $r['Total_Logged_Hours']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <?php
                                                     $current_date = date('m/d/Y');
@@ -88,11 +92,11 @@
 
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <?php
-                                                    if ($r['logged_hours'] > $r['Task_Estimated_Hours']){ ?>
-                                                        <td style="background: #ff0e0eba"><?php echo $r['logged_hours']; ?></td>
+                                                    if ($r['Total_Logged_Hours'] > $r['Task_Estimated_Hours']){ ?>
+                                                        <td style="background: #ff0e0eba"><?php echo $r['Total_Logged_Hours']; ?></td>
                                                     <?php } else {?>
 
-                                                        <td><?php echo $r['logged_hours']; ?></td>
+                                                        <td><?php echo $r['Total_Logged_Hours']; ?></td>
                                                     <?php } ?>
 
                                                     <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
