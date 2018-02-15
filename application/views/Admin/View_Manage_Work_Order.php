@@ -161,7 +161,7 @@
                                                 </tfoot>
                                             </table>
                                         </div>
-                                        <button type="button" class="btn btn-success pull-right"  onclick="Save_Phase_History()" >Save</button>
+
                                     </div>
 
                                 </div>
@@ -175,27 +175,29 @@
                                                 <tr>
                                                     <!--                                           // <th>#</th>-->
                                                     <th>Name</th>
-                                                    <th>Designation</th>
-                                                    <th>Role </th>
-                                                    <th>Assigned/Released Date</th>
+                                                    <th>Role</th>
+                                                    <th>Contract Terms </th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Min Billable Hours</th>
                                                     <th>Active</th>
                                                     <th></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                </tbody>
-                                                <tfoot>
                                                 <?php
                                                 $i=1;
                                                 foreach ($Resource as $row)
                                                 {
                                                     ?>
-                                                    <tr id="row<?php echo $row['Project_Team_Icode'];?>">
-                                                        <!--                                                <td>--><?php //echo $i; ?><!--</td>-->
-                                                        <td id="member<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Name'];?></td>
-                                                        <td id="desig<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['User_Designation'];?></td>
-                                                        <td id="role<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Role_Name'];?></td>
-                                                        <td id="work<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Work_Start_Date'];?></td>
+                                                    <tr id="row<?php echo $row['WO_Resource_Icode'];?>">
+
+                                                        <td id="member<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['User_Name'];?></td>
+                                                        <td id="role<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Role_Name'];?></td>
+                                                        <td id="term<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Contract_Term_Name'];?></td>
+                                                        <td id="start<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Start_Date'];?></td>
+                                                        <td id="end<?php echo $row['WO_Resource_Icode'];?>" ><?php echo $row['End_Date'];?></td>
+                                                        <td id="hour<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Min_Hour'];?></td>
                                                         <td id="status<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Active'];?></td>
                                                         <?php
                                                         if($row['Active'] == 'Yes')
@@ -223,6 +225,9 @@
                                                     $i++;
                                                 }
                                                 ?>
+                                                </tbody>
+                                                <tfoot>
+
                                                 <tr id="new_row1">
                                                     <td>
                                                         <div class="form-group">

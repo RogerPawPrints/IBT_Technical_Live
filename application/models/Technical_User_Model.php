@@ -96,18 +96,13 @@ class Technical_User_Model extends CI_Model
 
     public  function  View_Manage_Task()
     {
-//        $user_icode = $this->session->userdata['userid'];
-//        $query = $this->db->query("SELECT a.Task_Icode, ash.Task_Entry_Icode, SUM(ash.Logged_Hours) AS Total_Logged_Hours
-//                                    FROM ibt_task_master as a INNER JOIN ibt_task_entry AS ash ON ash.Task_Master_Icode = a.Task_Icode  WHERE a.Task_Status ='1' and a.Task_Created_By='$user_icode'
-//                                    GROUP BY ash.Task_Master_Icode");
-//
-//       $roww =  $query->num_rows();
-//
-//       for ($i=0; $i<=$roww; $i++ )
-//       {
-//           $row =  $query->result_array();
-//           $sql = $this->db->query("SELECT * FROM project_modules WHERE Proj_Project_Icode='$project_id'");
-//       }
+        $user_icode = $this->session->userdata['userid'];
+        $query = $this->db->query("SELECT B.Task_Entry_Icode, B.Task_Master_Icode, B.Logged_Hours,A.Task_Estimated_Hours,A.Task_Start_Date,A.Task_End_Date,(SELECT Work_Progress FROM ibt_task_entry WHERE Task_Master_Icode=B.Task_Master_Icode ORDER BY B.Created_On DESC LIMIT 1 OFFSET 0) as task_status,
+                                SUM(B.Logged_Hours) as Total_logged_Hours, C.Client_Company_Name,C.Client_Icode,D.Project_Icode,D.Project_Name,E.User_Icode,E.User_Name FROM ibt_task_master A INNER JOIN ibt_task_entry B ON A.Task_Icode=B.Task_Master_Icode INNER JOIN ibt_client C on A.Task_Client_Icode=C.Client_Icode INNER JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode 
+                                INNER JOIN ibt_technical_users E on B.Created_By=E.User_Icode WHERE A.Task_Created_By='$user_icode'
+                                GROUP BY B.task_master_icode;");
+        return $query->result_array();
+
 
     }
 

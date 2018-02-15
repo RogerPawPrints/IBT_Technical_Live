@@ -453,6 +453,13 @@ class Technical_Admin_Model extends CI_Model
         return 1;
     }
 
+    //** Get All Resource Member Details */
+    public function Get_Resource_Member_Details($project_id)
+    {
+        $query=$this->db->query("SELECT * FROM  ibt_technical_users WHERE ibt_technical_users.User_Icode NOT IN (SELECT work_order_resource.Member_Icode FROM work_order_resource WHERE work_order_resource.WO_Icode='$project_id') ");
+        return $query->result_array();
+    }
+
 
 
 
