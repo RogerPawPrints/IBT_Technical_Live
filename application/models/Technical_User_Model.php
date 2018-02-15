@@ -90,7 +90,7 @@ class Technical_User_Model extends CI_Model
     public function get_task_attachments($task_id)
     {
         $query = $this->db->query("SELECT * FROM ibt_task_attachments A INNER JOIN ibt_project_table B on A.Attachment_Project_Icode=B.Project_Icode WHERE Attachment_Task_Icode ='$task_id'");
-        echo $this->db->last_query();
+       // echo $this->db->last_query();
         return $query->result_array();
     }
 
