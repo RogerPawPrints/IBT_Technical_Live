@@ -78,7 +78,7 @@
                                                     <td><?php echo $r['task_status']; ?></td>
                                                     <td><?php echo $r['Logged_Hours']; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
-                                                    <td><?php echo $r['Total_Logged_Hours']; ?></td>
+                                                    <td><?php echo $r['Total_logged_Hours']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <?php
                                                     $current_date = date('m/d/Y');
@@ -92,11 +92,11 @@
 
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <?php
-                                                    if ($r['Total_Logged_Hours'] > $r['Task_Estimated_Hours']){ ?>
-                                                        <td style="background: #ff0e0eba"><?php echo $r['Total_Logged_Hours']; ?></td>
+                                                    if ($r['Total_logged_Hours'] > $r['Task_Estimated_Hours']){ ?>
+                                                        <td style="background: #ff0e0eba"><?php echo $r['Total_logged_Hours']; ?></td>
                                                     <?php } else {?>
 
-                                                        <td><?php echo $r['Total_Logged_Hours']; ?></td>
+                                                        <td><?php echo $r['Total_logged_Hours']; ?></td>
                                                     <?php } ?>
 
                                                     <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
