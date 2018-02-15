@@ -89,7 +89,7 @@
                                                     <?php } ?>
 
 
-                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
+
                                                     <?php
                                                     if ($r['Total_logged_Hours'] > $r['Task_Estimated_Hours']){ ?>
                                                         <td style="background: #ff0e0eba"><?php echo $r['Total_logged_Hours']; ?></td>
@@ -97,6 +97,7 @@
 
                                                         <td><?php echo $r['Total_logged_Hours']; ?></td>
                                                     <?php } ?>
+                                                    <td><input type="text" name="Billable" value="<?php echo $r['Logged_Hours']; ?>"></td>
 
 
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
