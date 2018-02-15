@@ -149,7 +149,7 @@
                                                             <input type='button' class="edit_button" id="edit_button<?php echo $row['WO_Resource_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['WO_Resource_Icode'];?>');">
                                                             <input type='button' class="save_button" style="display: none" id="save_button<?php echo $row['WO_Resource_Icode'];?>" value="save" onclick="save_row('<?php echo $row['WO_Resource_Icode'];?>');">
                                                             <input type='button' class="cancel_button" style="display: none" id="cancel_button<?php echo $row['WO_Resource_Icode'];?>" value="cancel" onclick="cancel('<?php echo $row['WO_Resource_Icode'];?>');">
-                                                            <input type='button' class="delete_button" id="delete_button<?php echo $row['WO_Resource_Icode'];?>" value="delete" onclick="delete_row('<?php echo $row['WO_Resource_Icode'];?>');">
+
                                                         </td>
                                                     </tr>
 
@@ -198,22 +198,22 @@
                                                         <td id="start<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Start_Date'];?></td>
                                                         <td id="end<?php echo $row['WO_Resource_Icode'];?>" ><?php echo $row['End_Date'];?></td>
                                                         <td id="hour<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Min_Hour'];?></td>
-                                                        <td id="status<?php echo $row['Project_Team_Icode'];?>"><?php echo $row['Active'];?></td>
+                                                        <td id="status<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Active'];?></td>
                                                         <?php
                                                         if($row['Active'] == 'Yes')
                                                         {
                                                             ?>
                                                             <td>
-                                                                <button type="button" id="mymodal" class="btn btn-danger"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Project_Team_Icode']; ?>','<?php echo $row['Active'];?>')"
-                                                                        value="<?php echo $row['Project_Team_Icode']; ?>" data-target="#myModal">InActive</button>
+                                                                <button type="button" id="mymodal" class="btn btn-danger"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['WO_Resource_Icode']; ?>','<?php echo $row['Active'];?>')"
+                                                                        value="<?php echo $row['WO_Resource_Icode']; ?>" data-target="#myModal">InActive</button>
                                                             </td>
                                                             <?php
                                                         }
                                                         else{
                                                             ?>
                                                             <td>
-                                                                <button type="button" id="mymodal" class="btn btn-success"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['Project_Team_Icode']; ?>','<?php echo $row['Active'];?>')"
-                                                                        value="<?php echo $row['Project_Team_Icode']; ?>" data-target="#myModal">Active</button>
+                                                                <button type="button" id="mymodal" class="btn btn-success"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['WO_Resource_Icode']; ?>','<?php echo $row['Active'];?>')"
+                                                                        value="<?php echo $row['WO_Resource_Icode']; ?>" data-target="#myModal">Active</button>
                                                             </td>
                                                             <?php
                                                         }
@@ -229,6 +229,7 @@
                                                 <tfoot>
 
                                                 <tr id="new_row1">
+                                                <tr>
                                                     <td>
                                                         <div class="form-group">
                                                             <select name="Member[]" class="form-control" id="Member" required >
@@ -242,13 +243,6 @@
 
                                                         </div>
                                                     </td>
-
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <input class="form-control" id="designation" name="designation[]" readonly  type="text"/>
-                                                        </div>
-                                                    </td>
-
                                                     <td>
                                                         <div class="form-group">
                                                             <select name="Role_Master[]" class="form-control" id="Role_Master" required >
@@ -262,16 +256,51 @@
 
                                                         </div>
                                                     </td>
+
+
+
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <select name="Terms[]" class="form-control" id="Terms" required >
+                                                                <option value="" >Select Contract Term</option>
+                                                                <?php foreach ($Contract_Term as $row):
+                                                                {
+                                                                    echo '<option value= "'.$row['Contract_Term_Icode'].'">' . $row['Contract_Term_Name'] . '</option>';
+                                                                }
+                                                                endforeach; ?>
+                                                            </select>
+
+                                                        </div>
+                                                    </td>
+
                                                     <td>
                                                         <div class="input-group">
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-calendar">
                                                                 </i>
                                                             </div>
-                                                            <input class="form-control" id="Member_start_working_date" name="Member_start_working_date[]" placeholder="YYYY/MM/DD" type="text"/>
+                                                            <input class="form-control" id="Contract_date_start" name="Contract_date_start[]" placeholder="YYYY/MM/DD" type="text"/>
                                                         </div>
                                                     </td>
-                                                    <td><input type="button" onclick="Add_member()" value="Save" /></td>
+
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                            <input class="form-control" id="Contract_date_end" name="Contract_date_end[]" placeholder="YYYY/MM/DD" type="text"/>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input  class="form-control" name="Hours[]" id="Hours" placeholder="Min Billable Hours" type="number" min="0" step="1" required />
+                                                        </div>
+                                                    </td>
+
+                                                    <td><input type="button" onclick="Add_member()" value="Add" /></td>
+
+
 
                                                 </tr>
 
@@ -468,6 +497,22 @@
         }
         /*stay in same tab after form submit*/
 
+        $("#Contract_date_start").datepicker({
+            todayBtn:  1,
+            autoclose: true,
+            startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#Contract_date_end').datepicker('setStartDate', minDate);
+        });
+
+        $("#Contract_date_end").datepicker()
+            .on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('#Contract_date_start').datepicker('setEndDate', minDate);
+            });
+
+
     });
 
     function edit_row(id)
@@ -482,7 +527,7 @@
         document.getElementById("end"+id).innerHTML="<input type='text' name='Phase_date_end[]' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
         document.getElementById("hour"+id).innerHTML="<input type='number' name='Hour[]' id='Hours"+id+"' class=estimation' value='"+Hour+"' min='0' step='1'>";
         document.getElementById("edit_button"+id).style.display="none";
-        document.getElementById("delete_button"+id).style.display="none";
+
         document.getElementById("save_button"+id).style.display="block";
         document.getElementById("cancel_button"+id).style.display="block";
     }
@@ -607,17 +652,16 @@
 
     function cancel(id)
     {
-        var phase=document.getElementById("Phase_Master"+id).value;
+
         var start=document.getElementById("Phase_date_start"+id).value;
         var end=document.getElementById("Phase_date_end"+id).value;
         var hour=document.getElementById("Hours"+id).value;
-        document.getElementById("phase"+id).innerHTML=phase;
         document.getElementById("start"+id).innerHTML=start;
         document.getElementById("end"+id).innerHTML=end;
         document.getElementById("hour"+id).innerHTML=hour;
         document.getElementById("edit_button"+id).style.display="block";
         document.getElementById("save_button"+id).style.display="none";
-        document.getElementById("delete_button"+id).style.display="block";
+
 
         document.getElementById("cancel_button"+id).style.display="none";
 
@@ -701,13 +745,13 @@
     function Add_member()
     {
         var member=document.getElementById("Member").value;
-        var desig=document.getElementById("designation").value;
+        var terms=document.getElementById("Terms").value;
         var role=document.getElementById("Role_Master").value;
-        var work=document.getElementById("Member_start_working_date").value;
+        var start=document.getElementById("Contract_date_start").value;
+        var end=document.getElementById("Contract_date_end").value;
+        var Hours=document.getElementById("Hours").value;
         var project_icode=document.getElementById("project_icode").value;
-        var text_t = $("#Phase_Master option:selected").text();
-
-        if(member == "" || role == "" || work==""  )
+        if(member == "" || role == "" || terms=="" || start=="" ||end=="" || Hours == "" )
         {
             alert("Please Select All Fields...");
         }
@@ -716,14 +760,15 @@
             $.ajax
             ({
                 type:'post',
-                url:"<?php echo site_url('Admin_Controller/Save_New_Resource'); ?>",
+                url:"<?php echo site_url('Admin_Controller/Save_New_WO_Resource'); ?>",
                 data: {
-
-                    project_icode:project_icode,
+                    WO_Icode:project_icode,
                     Member:member,
-                    Desig:desig,
+                    Term:terms,
                     Role:role,
-                    Work:work
+                    Start:start,
+                    End:end,
+                    Hours:Hours
                 },
                 success:function(response) {
                     if(response!="")

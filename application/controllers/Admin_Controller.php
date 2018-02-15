@@ -897,6 +897,7 @@ class Admin_Controller extends CI_Controller
          $this->data['Resource']=$this->technical_admin_model->Get_Work_Order_Resource_Details($project_id);
         $this->data['Member']=$this->technical_admin_model->Get_Resource_Member_Details($project_id);
         $this->data['Role_Master']= $this->technical_admin_model->get_Role_Master();
+        $this->data['Contract_Term']= $this->technical_admin_model->get_Contract_terms();
 //        $this->data['Status']= $this->technical_admin_model->get_Project_Status();
 //        $this->data['Status_History']= $this->technical_admin_model->get_Project_Status_History($project_id);
 //        $this->data['client_contact']= $this->technical_admin_model->get_Project_Client_Contacts($project_id);
@@ -940,9 +941,8 @@ class Admin_Controller extends CI_Controller
         {
             echo 0;
         }
-
-
     }
+
 
 
 
