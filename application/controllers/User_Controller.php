@@ -280,7 +280,7 @@ class User_Controller extends CI_Controller
         //print_r($billable);
         $Task_Entry = $this->input->post('Task_Entry',true);
         $old_value =$this->technical_user_model->Get_Task_Billable_Hours($task_id);
-        $new_billable = $old_value[0]['Task_Billable_Hours'] ;
+        $new_billable = $old_value[0]['Task_Billable_Hours'] + $billable ;
         //print_r($new_billable);
 
         $data = array(
@@ -313,6 +313,19 @@ class User_Controller extends CI_Controller
             $output .= "<li class='list-group-item'> <a target='_blank' href='download/$folder/$path' >".$row['Attachment_Path']."</a></li>";
         }
         echo $output;
+    }
+    //** Close Task */
+    public function  Close_Task()
+    {
+        $task_id = $this->input->post('id',true);
+        $data = array(
+            'Task_Status' => '0',
+            'Modified_By' =>$this->session->userdata['userid'],
+            'Modified_On' =>date('Y-m-d'));
+        $this->db->where('Task_Icode',$task_id);
+        $this->db->update('ibt_task_master', $data);
+
+
     }
 }
 ?>

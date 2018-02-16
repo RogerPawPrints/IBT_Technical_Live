@@ -104,7 +104,7 @@
                                                     <td><button type="button" class="btn btn-primary" id="mymodal1" onclick="get_attachments('<?php echo $r['Task_Master_Icode']; ?>')"
                                                                 data-toggle="modal" data-target="#myModal1" value="">View</button>
                                                         <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Master_Icode']; ?>','<?php echo $r['New_Task_Entry_Icode']; ?>')" value="">Save</button>
-                                                        <button type="button" class="btn btn-danger" value="">Close Task</button>
+                                                        <button type="button" class="btn btn-danger" onclick="close_task('<?php echo $r['Task_Master_Icode']; ?>')">Close Task</button>
                                                         </td>
 
                                                 </tr>
@@ -238,7 +238,7 @@
                {
                    swal({
                            title: "success!",
-                           text: "Status Changed ...!",
+                           text: "Task Reviewed Successfully ...!",
                            type: "success"
                        },
                        function(){
@@ -272,6 +272,33 @@
                 $('#attachment_list').html(data);
             }
         });
+    }
+    function close_task(id)
+    {
+        if (confirm("Do you want to Close Task: ")) {
+            $.ajax({
+                url: "<?php echo site_url('User_Controller/Close_Task'); ?>",
+                data: {
+                    id: id
+                },
+                type: "POST",
+                success: function (data) {
+                    swal({
+                            title: "success!",
+                            text: "Task Closed Successfully ...!",
+                            type: "success"
+                        },
+                        function(){
+                            //window.history.back();
+                            location.reload();
+
+                        });
+                }
+            });
+
+
+        }
+
     }
 
 
