@@ -104,8 +104,8 @@
                                     <ul  class="nav nav-pills" id="myTab">
                                         <li class="active"><a  href="#1a" data-toggle="tab">Extend Date</a></li>
                                         <li><a href="#2a" data-toggle="tab">Change Resource</a></li>
-                                        <li><a href="#4a" data-toggle="tab">Change Client Contacts</a></li>
-                                        <li><a href="#3a" data-toggle="tab">Change Status</a></li>
+<!--                                        <li><a href="#4a" data-toggle="tab">Change Client Contacts</a></li>-->
+<!--                                        <li><a href="#3a" data-toggle="tab">Change Status</a></li>-->
                                     </ul>
 
                                     <!--<div class="col-md-3" style="font-size: 15px;color: #d43b13;"> <input type="radio" name="Rtype" id="Project" value="Project" checked  onclick="show_phase()" /> <label style="margin-right: 20px; font-weight: normal;">Change Date</label></div>
@@ -518,23 +518,18 @@
     function edit_row(id)
     {
         // alert (id);
-
         var Start=document.getElementById("start"+id).innerHTML;
         var End=document.getElementById("end"+id).innerHTML;
         var Hour=document.getElementById("hour"+id).innerHTML;
-
         document.getElementById("start"+id).innerHTML="<input  type='text' name='Phase_date_start[]' class='phase_Start' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onmousedown='show_date1()'  >";
         document.getElementById("end"+id).innerHTML="<input type='text' name='Phase_date_end[]' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
         document.getElementById("hour"+id).innerHTML="<input type='number' name='Hour[]' id='Hours"+id+"' class=estimation' value='"+Hour+"' min='0' step='1'>";
         document.getElementById("edit_button"+id).style.display="none";
-
         document.getElementById("save_button"+id).style.display="block";
         document.getElementById("cancel_button"+id).style.display="block";
     }
     function show_date1()
     {
-
-
         $('.phase_Start').datepicker({
             dateFormat: 'yy-mm-dd',
             startDate: new Date(),
@@ -547,7 +542,6 @@
     }
     function save_row(id)
     {
-
         var start=document.getElementById("Phase_date_start"+id).value;
         var end=document.getElementById("Phase_date_end"+id).value;
         var hour=document.getElementById("Hours"+id).value;
@@ -588,10 +582,6 @@
             sum += parseFloat($(this).text());
         });
         var current_hours = sum;
-
-        alert(current_hours);
-        alert(New_Hours);
-
         if(project_New_End == "" || Cmd == "" || New_Hours =="" )
         {
             swal("Please fill all fileds!")
@@ -634,17 +624,13 @@
         }
     }
 
-
-
     function Remove(button) {
         //Determine the reference of the Row using the Button.
         var row = $(button).closest("TR");
         var name = $("TD", row).eq(0).html();
         if (confirm("Do you want to delete: ")) {
-
             //Get the reference of the Table.
             var table = $("#tblCustomers5")[0];
-
             //Delete the Table row using it's Index.
             table.deleteRow(row[0].rowIndex);
         }
@@ -652,7 +638,6 @@
 
     function cancel(id)
     {
-
         var start=document.getElementById("Phase_date_start"+id).value;
         var end=document.getElementById("Phase_date_end"+id).value;
         var hour=document.getElementById("Hours"+id).value;
@@ -661,14 +646,10 @@
         document.getElementById("hour"+id).innerHTML=hour;
         document.getElementById("edit_button"+id).style.display="block";
         document.getElementById("save_button"+id).style.display="none";
-
-
         document.getElementById("cancel_button"+id).style.display="none";
-
     }
     function delete_row(id)
     {
-
         // alert(id);
         if (confirm("Do you want to delete: ")) {
             $.ajax
@@ -685,7 +666,6 @@
                         // var row = document.getElementById("row" + id);
                         // row.parentNode.removeChild(row);
                         location.reload();
-
                     }
                 }
             });
@@ -735,12 +715,8 @@
                     }
                 }
             });
-
         }
-
     }
-
-
 
     function Add_member()
     {
@@ -782,22 +758,10 @@
                                 //window.history.back();
                                 location.reload();
                             });
-                        //alert(response);
-//                        var id=response;
-//                        var table=document.getElementById("tblCustomers");
-//                        var table_len=(table.rows.length)-1;
-//                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' style='display: none'  id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/><input type='button' style='display: none' class='cancel_button' id='cancel_button"+id+"' value='cancel' onclick='cancel("+id+");'/></td></tr>";
-//
-//                        $("#Phase_Master").val("");
-//                        $("#Phase_date_start").val("");
-//                        $("#Phase_date_end").val("");
-//                        $("#Hours").val("");
                     }
                 }
             });
-
         }
-
     }
 
     function Save_Comments(id,status)
@@ -845,7 +809,6 @@
                             location.reload();
 
                         });
-
                 }
             }
         });
@@ -911,7 +874,6 @@
                 }
             });
         }
-
     }
     function Active(contact_id,Client_id)
     {
@@ -944,13 +906,6 @@
             });
         }
 
-
     }
-
-
-
-
-
-
 
 </script>

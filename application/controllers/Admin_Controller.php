@@ -942,6 +942,20 @@ class Admin_Controller extends CI_Controller
             echo 0;
         }
     }
+    //** Save Work Order Resouce Added */
+    public function Save_New_WO_Resource()
+    {
+        $resource_contact = array('WO_Icode' => $this->input->post('WO_Icode', true),
+            'Role_Icode' => $this->input->post('Role', true),
+            'Member_Icode' => $this->input->post('Member', true),
+            'Term_Icode' => $this->input->post('Term', true),
+            'Start_Date' => $this->input->post('Start', true),
+            'End_Date' => $this->input->post('End', true),
+            'Min_Hour' => $this->input->post('Hours', true),
+            'Created_By' => $this->session->userdata['userid']);
+        $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
+        echo 1;
+    }
 
 
 
