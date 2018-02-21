@@ -421,7 +421,9 @@ class Technical_Admin_Model extends CI_Model
     //** Get All work order details */
     public function Get_All_Work_Order($id)
     {
-        $query=$this->db->query("SELECT * FROM work_order A INNER JOIN ibt_client B on A.Resource_Client_Icode=B.Client_Icode WHERE A.Created_By='$id'");
+       // $query=$this->db->query("SELECT * FROM work_order A INNER JOIN ibt_client B on A.Resource_Client_Icode=B.Client_Icode WHERE A.Created_By='$id'");
+        $query=$this->db->query("SELECT *, COUNT(C.WO_Resource_Icode) as Resource_count FROM work_order A  INNER JOIN ibt_client B on A.Resource_Client_Icode=B.Client_Icode INNER JOIN work_order_resource C on A.Work_Order_Icode=C.WO_Icode 
+                                  WHERE A.Created_By='$id'  and C.Active='Yes' GROUP by A.Work_Order_Icode");
         return $query->result_array();
     }
     //** get Perticular work order details */

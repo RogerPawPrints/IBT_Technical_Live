@@ -38,6 +38,7 @@
                                         <th>Country</th>
                                         <th>Project</th>
                                         <th>Signed Date</th>
+                                        <th>No.of Resource</th>
                                         <th>Work Order Title</th>
                                     </tr>
                                     </thead>
@@ -53,6 +54,7 @@
                                                 <td><?php echo $r['Client_Country']; ?></td>
                                                 <td><?php echo $r['Project_Name']; ?></td>
                                                 <td><?php echo $r['Contract_Signed_Date']; ?></td>
+                                                <td><?php echo $r['Resource_count']; ?></td>
                                                 <td><?php echo $r['Work_Order_Title']; ?></td>
                                             </tr>
                                          <?php
