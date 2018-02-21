@@ -52,14 +52,14 @@
         </li>
           <li class="treeview">
               <a href="#">
-                  <i class="fa fa-table"></i> <span>Project</span>
+                  <i class="fa fa-table"></i> <span>Create Project</span>
                   <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
               </a>
               <ul class="treeview-menu">
                   <li><a href="<?php echo site_url('Admin_Controller/Create_Project'); ?>"><i class="fa fa-circle-o"></i> <span>Create Fixed Cost Project</span></a></li>
-                  <li><a href="<?php echo site_url('Admin_Controller/Create_Resource'); ?>"><i class="fa fa-circle-o"></i>Resource Project</a></li>
+                  <li><a href="<?php echo site_url('Admin_Controller/Create_Resource'); ?>"><i class="fa fa-circle-o"></i>Create Resource Project</a></li>
 <!--                  <li><a href="--><?php //echo site_url('Admin_Controller/Add_Contact'); ?><!--"><i class="fa fa-circle-o"></i>Add Contact</a></li>-->
 <!--                  <li><a href="--><?php //echo site_url('Admin_Controller/View_Client'); ?><!--"><i class="fa fa-circle-o"></i>View Contact</a></li>-->
 

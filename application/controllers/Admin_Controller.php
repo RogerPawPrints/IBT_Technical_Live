@@ -943,9 +943,11 @@ class Admin_Controller extends CI_Controller
             'Old_Start_Date' => $old_phase[0]['Start_Date'],
             'Old_End_Date' => $old_phase[0]['End_Date'],
             'Old_Hours' => $old_phase[0]['Min_Hour'],
+            'Old_Terms_Icode' => $old_phase[0]['Term_Icode'],
             'New_Start_Date' => $this->input->post('Start_date', true),
             'New_End_Date' => $this->input->post('End_date', true),
             'New_Hours' => $this->input->post('Hours', true),
+            'New_Terms_Icode' => $this->input->post('Terms', true),
             'Created_By' => $this->session->userdata['userid']);
         $insert_phase_history = $this->technical_admin_model->insert_WO_Extension_history($insert_WO);
         if($insert_phase_history == '1')
@@ -954,6 +956,7 @@ class Admin_Controller extends CI_Controller
                 'Start_Date' => $this->input->post('Start_date', true),
                 'End_Date' => $this->input->post('End_date', true),
                 'Min_Hour' => $this->input->post('Hours', true),
+                'Term_Icode' => $this->input->post('Terms', true),
                 'Modified_By' =>$this->session->userdata['userid'],
                 'Modified_On' =>date('Y-m-d'));
             $this->db->where('WO_Resource_Icode',$WO_Icode);

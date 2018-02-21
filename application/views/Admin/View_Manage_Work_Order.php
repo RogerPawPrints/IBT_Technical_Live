@@ -102,9 +102,9 @@
                                 <div class="col-md-12" style="padding: 15px;">
 
                                     <ul  class="nav nav-pills" id="myTab">
-                                        <li class="active"><a  href="#1a" data-toggle="tab">Extend Date</a></li>
-                                        <li><a href="#2a" data-toggle="tab">Change Resource</a></li>
-<!--                                        <li><a href="#4a" data-toggle="tab">Change Client Contacts</a></li>-->
+                                        <li class="active"><a  href="#1a" data-toggle="tab">Renewal</a></li>
+                                        <li><a href="#2a" data-toggle="tab">Resource Management</a></li>
+                                        <li><a href="#4a" data-toggle="tab">Change Client Contacts</a></li>
 <!--                                        <li><a href="#3a" data-toggle="tab">Change Status</a></li>-->
                                     </ul>
 
@@ -146,9 +146,8 @@
                                                         <td id="end<?php echo $row['WO_Resource_Icode'];?>" ><?php echo $row['End_Date'];?></td>
                                                         <td id="hour<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Min_Hour'];?></td>
                                                         <td>
-                                                            <input type='button' class="edit_button" id="edit_button<?php echo $row['WO_Resource_Icode'];?>" value="edit" onclick="edit_row('<?php echo $row['WO_Resource_Icode'];?>');">
-                                                            <input type='button' class="save_button" style="display: none" id="save_button<?php echo $row['WO_Resource_Icode'];?>" value="save" onclick="save_row('<?php echo $row['WO_Resource_Icode'];?>');">
-                                                            <input type='button' class="cancel_button" style="display: none" id="cancel_button<?php echo $row['WO_Resource_Icode'];?>" value="cancel" onclick="cancel('<?php echo $row['WO_Resource_Icode'];?>');">
+                                                            <button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="Show_Renewal('<?php echo $row['WO_Resource_Icode']; ?>','<?php echo $row['Start_Date'];?>','<?php echo $row['End_Date'];?>')"
+                                                                    value="<?php echo $row['WO_Resource_Icode']; ?>" data-target="#myModal1">Renewal</button>
 
                                                         </td>
                                                     </tr>
@@ -162,6 +161,82 @@
                                             </table>
                                         </div>
 
+                                    </div>
+
+
+
+                                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Renewal Date</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <input type="hidden" class="form-control" id="resource_id" name="resource_id">
+
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-6">
+                                                            <label>Current Start Date</label>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" id="Start_date" name="Start_date" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>Current End Date</label>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" id="End_date" name="End_date" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <h3>Renewal Details</h3>
+                                                        <div class="form-group">
+                                                        <label>Start Date</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                            <input class="form-control" id="Contract_date_start" name="Contract_date_start" placeholder="YYYY/MM/DD" type="text"/>
+                                                        </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                        <label>End Date</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                            <input class="form-control" id="Contract_date_end" name="Contract_date_end" placeholder="YYYY/MM/DD" type="text"/>
+                                                        </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Contract Term</label>
+                                                            <select name="Terms" class="form-control" id="Terms" required >
+                                                                <option value="" >Select Contract Term</option>
+                                                                <?php foreach ($Contract_Term as $row):
+                                                                {
+                                                                    echo '<option value= "'.$row['Contract_Term_Icode'].'">' . $row['Contract_Term_Name'] . '</option>';
+                                                                }
+                                                                endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input  class="form-control" name="Hours[]" id="Hours" placeholder="Min Billable Hours" type="number" min="0" step="1" required />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" onclick="save_row()" >Save</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -227,83 +302,6 @@
                                                 ?>
                                                 </tbody>
                                                 <tfoot>
-
-                                                <tr id="new_row1">
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <select name="Member[]" class="form-control" id="Member" required >
-                                                                <option value="" >Select Member</option>
-                                                                <?php foreach ($Member as $row):
-                                                                {
-                                                                    echo '<option value= "'.$row['User_Icode'].'">' . $row['User_Name'] . '</option>';
-                                                                }
-                                                                endforeach; ?>
-                                                            </select>
-
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <select name="Role_Master[]" class="form-control" id="Role_Master" required >
-                                                                <option value="" >Select Role</option>
-                                                                <?php foreach ($Role_Master as $row):
-                                                                {
-                                                                    echo '<option value= "'.$row['Role_Icode'].'">' . $row['Role_Name'] . '</option>';
-                                                                }
-                                                                endforeach; ?>
-                                                            </select>
-
-                                                        </div>
-                                                    </td>
-
-
-
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <select name="Terms[]" class="form-control" id="Terms" required >
-                                                                <option value="" >Select Contract Term</option>
-                                                                <?php foreach ($Contract_Term as $row):
-                                                                {
-                                                                    echo '<option value= "'.$row['Contract_Term_Icode'].'">' . $row['Contract_Term_Name'] . '</option>';
-                                                                }
-                                                                endforeach; ?>
-                                                            </select>
-
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-calendar">
-                                                                </i>
-                                                            </div>
-                                                            <input class="form-control" id="Contract_date_start" name="Contract_date_start[]" placeholder="YYYY/MM/DD" type="text"/>
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-calendar">
-                                                                </i>
-                                                            </div>
-                                                            <input class="form-control" id="Contract_date_end" name="Contract_date_end[]" placeholder="YYYY/MM/DD" type="text"/>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <input  class="form-control" name="Hours[]" id="Hours" placeholder="Min Billable Hours" type="number" min="0" step="1" required />
-                                                        </div>
-                                                    </td>
-
-                                                    <td><input type="button" onclick="Add_member()" value="Add" /></td>
-
-
-
-                                                </tr>
-
                                                 </tfoot>
                                             </table>
                                         </div>
@@ -500,7 +498,7 @@
         $("#Contract_date_start").datepicker({
             todayBtn:  1,
             autoclose: true,
-            startDate: new Date(),
+
         }).on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#Contract_date_end').datepicker('setStartDate', minDate);
@@ -532,7 +530,6 @@
     {
         $('.phase_Start').datepicker({
             dateFormat: 'yy-mm-dd',
-            startDate: new Date(),
             autoclose: true,
             todayBtn:  1
         }).on('changeDate', function (selected) {
@@ -540,11 +537,13 @@
             $('.phase_end').datepicker('setStartDate', minDate);
         });
     }
-    function save_row(id)
+    function save_row()
     {
-        var start=document.getElementById("Phase_date_start"+id).value;
-        var end=document.getElementById("Phase_date_end"+id).value;
-        var hour=document.getElementById("Hours"+id).value;
+        var start=document.getElementById("Contract_date_start").value;
+        var end=document.getElementById("Contract_date_end").value;
+        var hour=document.getElementById("Hours").value;
+        var terms=document.getElementById("Terms").value;
+        var id = document.getElementById("resource_id").value;
         $.ajax
         ({
             type:'post',
@@ -553,18 +552,22 @@
                 Resource:id,
                 Start_date:start,
                 End_date:end,
-                Hours:hour
+                Hours:hour,
+                Terms:terms
             },
             success:function(response) {
                 if(response=="1")
                 {
-                    document.getElementById("start"+id).innerHTML=start;
-                    document.getElementById("end"+id).innerHTML=end;
-                    document.getElementById("hour"+id).innerHTML=hour;
-                    document.getElementById("edit_button"+id).style.display="block";
-                    document.getElementById("save_button"+id).style.display="none";
-                    document.getElementById("delete_button"+id).style.display="block";
-                    document.getElementById("cancel_button"+id).style.display="none";
+                    // alert("Success...");
+                    $('#myModal1').modal('hide');
+                    swal({
+                            title: "success!",
+                            text: "Resource Date Renewed Successfully...!",
+                            type: "success"
+                        },
+                        function(){
+                            location.reload();
+                        });
                 }
             }
         });
@@ -768,6 +771,13 @@
     {
         document.getElementById('team_id').value = id;
         document.getElementById('status').value = status;
+    }
+    function Show_Renewal(id,sdate,edate)
+    {
+        document.getElementById('resource_id').value = id;
+        document.getElementById('Start_date').value = sdate;
+        document.getElementById('End_date').value = edate;
+
     }
     function insert_comments()
     {
