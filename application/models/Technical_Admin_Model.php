@@ -459,6 +459,13 @@ class Technical_Admin_Model extends CI_Model
         $query=$this->db->query("SELECT * FROM  ibt_technical_users WHERE ibt_technical_users.User_Icode NOT IN (SELECT work_order_resource.Member_Icode FROM work_order_resource WHERE work_order_resource.WO_Icode='$project_id') ");
         return $query->result_array();
     }
+    //** Insert WorkOrder Contact */
+    public function insert_WO_contact($data)
+    {
+        $this->db->insert('wo_client_contacts', $data);
+        return 1;
+
+    }
 
 
 

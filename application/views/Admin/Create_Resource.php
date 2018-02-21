@@ -96,23 +96,23 @@
                                 </div>
                             </div>
                         </div>
-<!--                        <div class="row padding_class">-->
-<!--                            <div class="col-md-12" id="details" style="display: none;">-->
-<!--                                <table id="tblCustomer"  data-page-length='25' class="table  table-bordered bootstrap-datatable datatable responsive">-->
-<!--                                    <thead>-->
-<!--                                    <th><input id="check-all" type="checkbox" /></th>-->
-<!--                                    <th>#</th>-->
-<!--                                    <th>Name</th>-->
-<!--                                    <th>Designation</th>-->
-<!--                                    <th>Phone</th>-->
-<!--                                    <th>Email</th>-->
-<!--                                    <th>IM</th>-->
-<!--                                    </thead>-->
-<!--                                    <tbody id="contacts">-->
-<!--                                    </tbody>-->
-<!--                                </table>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class="row padding_class">
+                            <div class="col-md-12" id="details" style="display: none;">
+                                <table id="tblCustomer"  data-page-length='25' class="table  table-bordered bootstrap-datatable datatable responsive">
+                                    <thead>
+                                    <th><input id="check-all" type="checkbox" /></th>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Designation</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>IM</th>
+                                    </thead>
+                                    <tbody id="contacts">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <div id="Fixed" >
                             <div class="row padding_class" >
@@ -507,20 +507,20 @@
         var Client = document.getElementById('Client').value;
         var Work = document.getElementById('Work_Category').value;
         var Work_Type = document.getElementById('Work_Type').value;
-//        var checkboxes = document.getElementsByName('case');
-//
-//
-//
-//        var vals = "";
-//        for (var i=0, n=checkboxes.length;i<n;i++)
-//        {
-//            if (checkboxes[i].checked)
-//            {
-//                vals += ","+checkboxes[i].value;
-//            }
-//        }
-//        var client_contact=vals;
-//        var contract_type = '1';
+        var checkboxes = document.getElementsByName('case');
+
+
+
+        var vals = "";
+        for (var i=0, n=checkboxes.length;i<n;i++)
+        {
+            if (checkboxes[i].checked)
+            {
+                vals += ","+checkboxes[i].value;
+            }
+        }
+        var client_contact=vals;
+        var contract_type = '1';
         var project_WO = document.getElementById('date_Wo').value;
         var Work_order = document.getElementById('WO_Title').value;
 
@@ -577,7 +577,7 @@
 
 
 
-        if(project == "" || Client == "" || Work == "" || Work_Type == ""  ||  contract_type == "" || project_WO == "" || Work_order == "" )
+        if(project == "" || Client == "" || Work == "" || Work_Type == "" || client_contact == ""   ||  contract_type == "" || project_WO == "" || Work_order == "" )
         {
             alert("Please Fill All Fields...");
         }
@@ -586,7 +586,7 @@
         {
             $.ajax({
                 url:"<?php echo site_url('Admin_Controller/Save_Resource'); ?>",
-                data: {Project_Name: project,Client_Id: Client,Work_Category: Work,Work_type: Work_Type,Contract:contract_type,Proj_WO: project_WO,Work_Order:Work_order,
+                data: {Project_Name: project,Client_Id: Client,Work_Category: Work,Client_Contact: client_contact,Work_type: Work_Type,Contract:contract_type,Proj_WO: project_WO,Work_Order:Work_order,
                    Members:Membersss, Role_master:Role,Contract_Start:Member_start_date,Contract_End:Contract_End,Min_Hours: Min_Hour,Resource_Terms: Resource_Term },
                 type: "POST",
                 cache: false,

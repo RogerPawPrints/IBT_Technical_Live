@@ -587,6 +587,13 @@ class Admin_Controller extends CI_Controller
         $Member =  $this->input->post('Members',true);
         $count = sizeof($Member);
 
+
+        $client_con = $this->input->post('Client_Contact',true);                 // Client Contact Checkbox
+
+        $client_c= trim($client_con,",");
+        $Lost = explode(',', $client_c);
+        $client_contact = count($Lost);// Trim Comma
+
         $Terms =  $this->input->post('Resource_Terms',true);
         $sdate =  $this->input->post('Contract_Start',true);
         $edate =  $this->input->post('Contract_End',true);
@@ -615,6 +622,22 @@ class Admin_Controller extends CI_Controller
                     'Min_Hour' => $Hours[$i],
                     'Created_By' => $this->session->userdata['userid']);
                 $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
+            }
+
+            for($i=0; $i<$client_contact; $i++)
+            {
+                $project_Contact = array('WO_Icode' => $insert_resource,
+                    'WO_Client_Icode' =>$this->input->post('Client_Id',true),
+                    'Client_Contact_Icode' => $Lost[$i],
+                    'Created_By' =>$this->session->userdata['userid']);
+                $insert_WO_contact = $this->technical_admin_model->insert_WO_contact($project_Contact);
+                if($insert_WO_contact == 1)
+                {
+                    // print_r("Success");
+                }
+                else{
+                    // print_r("Faild");
+                }
             }
             echo 1;
 
