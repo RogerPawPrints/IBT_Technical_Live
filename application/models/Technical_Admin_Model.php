@@ -437,7 +437,7 @@ class Technical_Admin_Model extends CI_Model
     public function Get_Work_Order_Resource_Details($id)
     {
         $query=$this->db->query("SELECT * FROM work_order_resource A INNER JOIN ibt_technical_users B on A.Member_Icode=B.User_Icode INNER JOIN role_master C on A.Role_Icode=C.Role_Icode 
-                               INNER JOIN ibt_contract_terms D on A.Term_Icode=D.Contract_Term_Icode WHERE A.WO_Icode='$id' ");
+                               INNER JOIN ibt_contract_terms D on A.Term_Icode=D.Contract_Term_Icode WHERE A.WO_Icode='$id' and A.Active = 'Yes' ");
         return $query->result_array();
     }
     //** Get Work Order Old Details */
@@ -466,6 +466,13 @@ class Technical_Admin_Model extends CI_Model
         return 1;
 
     }
+    //** Insert Work Order Resource Chnage History */
+    public  function  Insert_WO_Resource_Change_history($data)
+    {
+        $this->db->insert('wo_resource_change_history', $data);
+        return 1;
+    }
+
 
 
 

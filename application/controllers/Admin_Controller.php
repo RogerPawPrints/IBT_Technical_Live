@@ -982,6 +982,54 @@ class Admin_Controller extends CI_Controller
         $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
         echo 1;
     }
+    //** Work Order Resource Stop */
+    public function WO_Resource_Cancel()
+    {
+        $resource_id = $this->input->post('Team_id', true);
+        $wo_cancel = array(
+            'Active' => 'No',
+            'WO_Cancel_Comments' => $this->input->post('Comments', true),
+            'Modified_By' =>$this->session->userdata['userid'],
+            'Modified_On' =>date('Y-m-d'));
+        $this->db->where('WO_Resource_Icode',$resource_id);
+        $this->db->update('work_order_resource', $wo_cancel);
+        echo 1;
+    }
+
+    //** Work Order Resource Switch */
+    public function WO_Resource_Switch()
+    {
+        $WO_Resource_Icode = $this->input->post('Team_id', true);
+        $old_resource =$this->technical_admin_model->Get_Work_order_Old_Details($WO_Resource_Icode);
+        $insert_WO = array(
+            'WO_Icode' => $old_resource[0]['WO_Icode'],
+            'WO_Role_Icode' => $old_resource[0]['Role_Icode'],
+            'Old_Member_Icode' => $old_resource[0]['Member_Icode'],
+            'Old_Start_Date' => $old_resource[0]['Start_Date'],
+            'Old_End_Date' => $old_resource[0]['End_Date'],
+            'New_Start_Date' => $this->input->post('New_Start', true),
+            'New_End_Date' => $this->input->post('New_End', true),
+            'New_Member_Icode' => $this->input->post('New_Resource_Id', true),
+            'Change_Comments ' => $this->input->post('Comments', true),
+            'Created_By' => $this->session->userdata['userid']);
+        $insert_resource_history = $this->technical_admin_model->Insert_WO_Resource_Change_history($insert_WO);
+        if($insert_resource_history == '1')
+        {
+            $project_resource = array(
+                'Member_Icode' => $this->input->post('New_Resource_Id', true),
+                'Start_Date' => $this->input->post('New_Start', true),
+                'End_Date' => $this->input->post('New_End', true),
+                'Modified_By' =>$this->session->userdata['userid'],
+                'Modified_On' =>date('Y-m-d'));
+            $this->db->where('WO_Resource_Icode',$WO_Resource_Icode);
+            $this->db->update('work_order_resource', $project_resource);
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+    }
 
 
 

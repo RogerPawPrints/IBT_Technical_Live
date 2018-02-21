@@ -274,26 +274,13 @@
                                                         <td id="end<?php echo $row['WO_Resource_Icode'];?>" ><?php echo $row['End_Date'];?></td>
                                                         <td id="hour<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Min_Hour'];?></td>
                                                         <td id="status<?php echo $row['WO_Resource_Icode'];?>"><?php echo $row['Active'];?></td>
-                                                        <?php
-                                                        if($row['Active'] == 'Yes')
-                                                        {
-                                                            ?>
-                                                            <td>
-                                                                <button type="button" id="mymodal" class="btn btn-danger"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['WO_Resource_Icode']; ?>','<?php echo $row['Active'];?>')"
-                                                                        value="<?php echo $row['WO_Resource_Icode']; ?>" data-target="#myModal">InActive</button>
-                                                            </td>
-                                                            <?php
-                                                        }
-                                                        else{
-                                                            ?>
-                                                            <td>
-                                                                <button type="button" id="mymodal" class="btn btn-success"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['WO_Resource_Icode']; ?>','<?php echo $row['Active'];?>')"
-                                                                        value="<?php echo $row['WO_Resource_Icode']; ?>" data-target="#myModal">Active</button>
-                                                            </td>
-                                                            <?php
-                                                        }
-                                                        ?>
+                                                        <td>
+                                                            <button type="button" id="mymodal" class="btn btn-danger"  data-toggle="modal" onclick="Save_Comments('<?php echo $row['WO_Resource_Icode']; ?>','<?php echo $row['Active'];?>')"
+                                                                    value="<?php echo $row['WO_Resource_Icode']; ?>" data-target="#myModal">Stop Work</button>
+                                                            <button type="button" id="mymodal2" class="btn btn-info"  data-toggle="modal" onclick="Switch('<?php echo $row['WO_Resource_Icode']; ?>','<?php echo $row['Start_Date'];?>','<?php echo $row['End_Date'];?>')"
+                                                                    value="<?php echo $row['WO_Resource_Icode']; ?>" data-target="#myModal2">Switch Resource</button>
 
+                                                        </td>
                                                     </tr>
 
                                                     <?php
@@ -324,6 +311,81 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary" onclick="insert_comments()" >Save changes</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Switch Resource</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" class="form-control" id="WO_resource_id" name="WO_resource_id">
+
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <label>Current Start Date</label>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="WO_Start_date" name="WO_Start_date" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Current End Date</label>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="WO_End_date" name="WO_End_date" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <h3>Replacement Resource</h3>
+
+                                                            <div class="form-group">
+                                                                <label>Select Resource</label>
+                                                                <select name="WO_New_Resource" class="form-control" id="WO_New_Resource" required >
+                                                                    <option value="" >Select Resource</option>
+                                                                    <?php foreach ($Member as $row):
+                                                                    {
+                                                                        echo '<option value= "'.$row['User_Icode'].'">' . $row['User_Name'] . '</option>';
+                                                                    }
+                                                                    endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Start Date</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-calendar">
+                                                                        </i>
+                                                                    </div>
+                                                                    <input class="form-control" id="WO_Contract_date_start" name="WO_Contract_date_start" placeholder="YYYY/MM/DD" type="text"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>End Date</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-calendar">
+                                                                        </i>
+                                                                    </div>
+                                                                    <input class="form-control" id="WO_Contract_date_end" name="WO_Contract_date_end" placeholder="YYYY/MM/DD" type="text" readonly/>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="work_progress" class="form-control-label">Change Comments</label>
+                                                                <textarea class="form-control" id="Change_comments" name="Change_comments"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success" onclick="Change_Comments()" >Save</button>
                                                     </div>
 
                                                 </div>
@@ -509,6 +571,18 @@
                 var minDate = new Date(selected.date.valueOf());
                 $('#Contract_date_start').datepicker('setEndDate', minDate);
             });
+
+
+        $("#WO_Contract_date_start").datepicker({
+            todayBtn:  1,
+            autoclose: true,
+
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#WO_Contract_date_end').datepicker('setStartDate', minDate);
+        });
+
+
 
 
     });
@@ -779,50 +853,95 @@
         document.getElementById('End_date').value = edate;
 
     }
+    function Switch(id,sdate,edate)
+    {
+        document.getElementById('WO_resource_id').value = id;
+        document.getElementById('WO_Start_date').value = sdate;
+        document.getElementById('WO_End_date').value = edate;
+        document.getElementById('WO_Contract_date_end').value = edate;
+
+    }
     function insert_comments()
     {
         var team_id=document.getElementById('team_id').value;
-        var statuss = document.getElementById('status').value;
         var cmt = document.getElementById('comments').value;
 
-        if(statuss == 'Yes')
-        {
-            var type = 'InActive';
-            var status ='No';
-        }
-        else
-        {
-            var type= 'Active';
-            var status ='Yes';
-        }
-        $.ajax
-        ({
-            type: 'post',
-            url: "<?php echo site_url('Admin_Controller/Insert_Resource_Changed_Reason'); ?>",
-            data: {
-                Team_id: team_id,
-                Status:status,
-                Comments:cmt,
-                Type:type
-            },
-            success: function (response) {
-                //alert(response);
-                if (response == '1') {
-                    $('#myModal').modal('hide');
-                    swal({
-                            title: "success!",
-                            text: "Status Changed ...!",
-                            type: "success"
-                        },
-                        function(){
-                            //window.history.back();
-                            location.reload();
+        if (confirm("Do you want to stop work for this Resource: ")) {
 
-                        });
+            $.ajax
+            ({
+                type: 'post',
+                url: "<?php echo site_url('Admin_Controller/WO_Resource_Cancel'); ?>",
+                data: {
+                    Team_id: team_id,
+                    Comments: cmt,
+                },
+                success: function (response) {
+                    //alert(response);
+                    if (response == '1') {
+                        $('#myModal').modal('hide');
+                        swal({
+                                title: "success!",
+                                text: "Resource Stop Successfully ...!",
+                                type: "success"
+                            },
+                            function () {
+                                //window.history.back();
+                                location.reload();
+
+                            });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
+
+    function Change_Comments()
+    {
+        var team_id=document.getElementById('WO_resource_id').value;
+        var cmt = document.getElementById('Change_comments').value;
+        var new_resource = document.getElementById('WO_New_Resource').value;
+        var new_sdate = document.getElementById('WO_Contract_date_start').value;
+        var new_enddate = document.getElementById('WO_Contract_date_end').value;
+
+        if (confirm("Do you want to Switch this Resource: ")) {
+
+            $.ajax
+            ({
+                type: 'post',
+                url: "<?php echo site_url('Admin_Controller/WO_Resource_Switch'); ?>",
+                data: {
+                    Team_id: team_id,
+                    Comments: cmt,
+                    New_Resource_Id: new_resource,
+                    New_Start: new_sdate,
+                    New_End: new_enddate
+                },
+                success: function (response) {
+                    //alert(response);
+                    if (response == '1') {
+                        $('#myModal2').modal('hide');
+                        swal({
+                                title: "success!",
+                                text: "Resource Switch Successfully ...!",
+                                type: "success"
+                            },
+                            function () {
+                                //window.history.back();
+                                location.reload();
+
+                            });
+                    }
+                }
+            });
+        }
+    }
+
+
+
+
+
+
 
     //** Saver Status **//
     function save_status()
