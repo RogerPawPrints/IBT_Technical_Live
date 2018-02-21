@@ -387,75 +387,16 @@
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-success" onclick="Change_Comments()" >Save</button>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
-                                <div class="tab-pane" id="3a">
-                                    <div class="row padding_class" id="show_Status"  >
-                                        <div  class="col-md-12">
-                                            <h2>Status Management</h2>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Change Status</label>
-                                                    <select name="Status" class="form-control" id="Status" required >
-                                                        <option value="" >Select Member</option>
-                                                        <?php foreach ($Status as $row):
-                                                        {
-                                                            echo '<option value= "'.$row['project_status_Icode'].'">' . $row['Status_Name'] . '</option>';
-                                                        }
-                                                        endforeach; ?>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="work_progress" class="form-control-label">Reason</label>
-                                                    <textarea class="form-control" id="status_comments" name="status_comments"></textarea>
-                                                </div>
-                                                <button type="submit" class="btn btn-success pull-right" onclick="save_status()" >Save</button>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <table id="tblCustomers1"  data-page-length='25' class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Status</th>
-                                                        <th>Date </th>
-                                                        <th>Comments</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php
-                                                    $i=1;
-                                                    foreach ($Status_History as $status)
-                                                    {
-                                                        ?>
-                                                        <tr>
-                                                            <td><?php echo $i; ?></td>
-                                                            <td><?php echo $status['Status_Name']; ?></td>
-                                                            <td><?php echo $status['Created_On']; ?></td>
-                                                            <td><?php echo $status['History_Comments']; ?></td>
-                                                        </tr>
-                                                        <?php
-                                                        $i++;
-                                                    }
-                                                    ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
                                 <div class="tab-pane" id="4a">
                                     <div class="row padding_class" id="show_Contact"  >
                                         <div  class="col-md-12">
                                             <h2>Client Contact Management</h2>
-                                        </div>
+
                                         <table id="tblClient"  data-page-length='25' class="table table-striped">
                                             <thead>
                                             <tr>
@@ -516,6 +457,7 @@
                                             ?>
                                             </tfoot>
                                         </table>
+                                        </div>
 
                                     </div>
 
