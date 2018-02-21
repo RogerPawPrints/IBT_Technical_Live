@@ -473,6 +473,29 @@ class Technical_Admin_Model extends CI_Model
         return 1;
     }
 
+    //** Get Project Client Contacs */
+    public function get_WO_Client_Contacts($project_id)
+    {
+        $query=$this->db->query("SELECT * FROM ibt_client_contacts A LEFT JOIN wo_client_contacts B on  A.Contact_Client_Icode=B.WO_Client_Icode AND A.Contact_ID=B.Client_Contact_Icode 
+                                 WHERE B.WO_Icode='$project_id' ");
+        return $query->result_array();
+    }
+    //** Get Project Client Contacs */
+    public function get_WO_Inactive_Client_Contacts($project_id,$client_id)
+    {
+        $query=$this->db->query("SELECT * FROM ibt_client_contacts A WHERE A.Contact_Client_Icode='$client_id' and  A.Contact_ID 
+                                 NOT IN (SELECT B.Client_Contact_Icode from wo_client_contacts B WHERE B.WO_Icode='$project_id') ");
+        return $query->result_array();
+    }
+
+    //** WO change to inactive */
+    public function wo_client_change_inactive($id)
+    {
+        $query = $this->db->query("DELETE from wo_client_contacts where WO_Client_Contact_Icode = $id");
+        return 1;
+
+    }
+
 
 
 

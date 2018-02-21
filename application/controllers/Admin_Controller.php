@@ -923,8 +923,8 @@ class Admin_Controller extends CI_Controller
         $this->data['Contract_Term']= $this->technical_admin_model->get_Contract_terms();
 //        $this->data['Status']= $this->technical_admin_model->get_Project_Status();
 //        $this->data['Status_History']= $this->technical_admin_model->get_Project_Status_History($project_id);
-//        $this->data['client_contact']= $this->technical_admin_model->get_Project_Client_Contacts($project_id);
-//        $this->data['client_inactive']= $this->technical_admin_model->get_Project_Inactive_Client_Contacts($project_id,$client_id);
+        $this->data['client_contact']= $this->technical_admin_model->get_WO_Client_Contacts($project_id);
+        $this->data['client_inactive']= $this->technical_admin_model->get_WO_Inactive_Client_Contacts($project_id,$client_id);
 
         //$this->data['Phase_master']= $this->technical_admin_model->get_Phase_Master();
         $this->load->view('Admin/header');
@@ -1029,6 +1029,25 @@ class Admin_Controller extends CI_Controller
         {
             echo 0;
         }
+    }
+
+
+    //** WO Contact Inactive */
+    public function WO_Inactive_contact()
+    {
+        $client_code =$this->input->post('id', true);
+        $inactive = $this->technical_admin_model->wo_client_change_inactive($client_code);
+        echo $inactive;
+    }
+    //** WO Active Contact */
+    public function WO_Active_contact()
+    {
+        $project_Contact = array('WO_Icode ' => $this->input->post('Project',true),
+            'WO_Client_Icode' =>$this->input->post('Client',true),
+            'Client_Contact_Icode' => $this->input->post('Contact',true),
+            'Created_By' =>$this->session->userdata['userid']);
+        $insert_project_contact = $this->technical_admin_model->insert_WO_contact($project_Contact);
+        echo $insert_project_contact;
     }
 
 

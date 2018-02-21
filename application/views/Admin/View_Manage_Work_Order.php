@@ -482,8 +482,8 @@
                                                     <td id=""><?php echo $row['Contact_Number'];?></td>
                                                     <td id=""><?php echo $row['Contact_Email'];?></td>
                                                     <td id="">Yes</td>
-                                                    <td><button type="button" id="mymodal" class="btn btn-danger"  onclick="Inactive('<?php echo $row['Proj_Client_Contact_Icode']; ?>')"
-                                                                value="<?php echo $row['Proj_Client_Contact_Icode']; ?>" >InActive</button>
+                                                    <td><button type="button" id="mymodal" class="btn btn-danger"  onclick="Inactive('<?php echo $row['WO_Client_Contact_Icode']; ?>')"
+                                                                value="<?php echo $row['WO_Client_Contact_Icode']; ?>" >InActive</button>
                                                     </td>
                                                 </tr>
 
@@ -587,30 +587,7 @@
 
     });
 
-    function edit_row(id)
-    {
-        // alert (id);
-        var Start=document.getElementById("start"+id).innerHTML;
-        var End=document.getElementById("end"+id).innerHTML;
-        var Hour=document.getElementById("hour"+id).innerHTML;
-        document.getElementById("start"+id).innerHTML="<input  type='text' name='Phase_date_start[]' class='phase_Start' id='Phase_date_start"+id+"' name='Phase_date_start' value='"+Start+"' onmousedown='show_date1()'  >";
-        document.getElementById("end"+id).innerHTML="<input type='text' name='Phase_date_end[]' class='phase_end' id='Phase_date_end"+id+"' value='"+End+"' >";
-        document.getElementById("hour"+id).innerHTML="<input type='number' name='Hour[]' id='Hours"+id+"' class=estimation' value='"+Hour+"' min='0' step='1'>";
-        document.getElementById("edit_button"+id).style.display="none";
-        document.getElementById("save_button"+id).style.display="block";
-        document.getElementById("cancel_button"+id).style.display="block";
-    }
-    function show_date1()
-    {
-        $('.phase_Start').datepicker({
-            dateFormat: 'yy-mm-dd',
-            autoclose: true,
-            todayBtn:  1
-        }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('.phase_end').datepicker('setStartDate', minDate);
-        });
-    }
+
     function save_row()
     {
         var start=document.getElementById("Contract_date_start").value;
@@ -646,156 +623,8 @@
             }
         });
     }
-    function Save_Phase_History()
-    {
-        var project_icode=document.getElementById("project_icode").value;
-        var project_Old_End=document.getElementById("enddate").value;
-        var project_New_End=document.getElementById("date_new").value;
-        var New_Hours=document.getElementById("New_Hours").value;
-        var Old_Hours=document.getElementById("E_Hour").value;
-        var Cmd=document.getElementById("Comments").value;
-        var sum = 0;
-        $(".estimation").each(function(){
-            sum += parseFloat($(this).text());
-        });
-        var current_hours = sum;
-        if(project_New_End == "" || Cmd == "" || New_Hours =="" )
-        {
-            swal("Please fill all fileds!")
-        }
-        else if(current_hours!= New_Hours )
-        {
-            swal("Please Estimation Hours not tallying with Project Hours..!")
-        }
-        else
-        {
-            $.ajax({
-                url:"<?php echo site_url('Admin_Controller/Save_History'); ?>",
-                data: {Project_id:project_icode,
-                    Project_old:project_Old_End,
-                    Project_New:project_New_End,
-                    New_Hours:New_Hours,
-                    Old_Hours:Old_Hours,
-                    Comments:Cmd
-                },
-                type: "POST",
-                success:function(server_response){
-                    if(server_response == 1)
-                    {
-                        // alert("Success...");
-                        swal({
-                                title: "success!",
-                                text: "Revised Scheduled Updated...!",
-                                type: "success"
-                            },
-                            function(){
-                                window.history.back();
-                            });
-                        //window.location.href = document.referrer;
-                    }
-                    else {
-                        swal("Oops...", "Something went wrong!", "error");
-                    }
-                }
-            });
-        }
-    }
 
-    function Remove(button) {
-        //Determine the reference of the Row using the Button.
-        var row = $(button).closest("TR");
-        var name = $("TD", row).eq(0).html();
-        if (confirm("Do you want to delete: ")) {
-            //Get the reference of the Table.
-            var table = $("#tblCustomers5")[0];
-            //Delete the Table row using it's Index.
-            table.deleteRow(row[0].rowIndex);
-        }
-    };
-
-    function cancel(id)
-    {
-        var start=document.getElementById("Phase_date_start"+id).value;
-        var end=document.getElementById("Phase_date_end"+id).value;
-        var hour=document.getElementById("Hours"+id).value;
-        document.getElementById("start"+id).innerHTML=start;
-        document.getElementById("end"+id).innerHTML=end;
-        document.getElementById("hour"+id).innerHTML=hour;
-        document.getElementById("edit_button"+id).style.display="block";
-        document.getElementById("save_button"+id).style.display="none";
-        document.getElementById("cancel_button"+id).style.display="none";
-    }
-    function delete_row(id)
-    {
-        // alert(id);
-        if (confirm("Do you want to delete: ")) {
-            $.ajax
-            ({
-                type: 'post',
-                url: "<?php echo site_url('Admin_Controller/Delete_Phase'); ?>",
-                data: {
-                    Phase_id: id,
-                },
-                success: function (response) {
-                    //alert(response);
-                    if (response == '1') {
-                        //alert("dfafaf");
-                        // var row = document.getElementById("row" + id);
-                        // row.parentNode.removeChild(row);
-                        location.reload();
-                    }
-                }
-            });
-        }
-    }
-
-    function insert_row()
-    {
-        var phase=document.getElementById("Phase_Master").value;
-        var start=document.getElementById("Phase_date_start").value;
-        var end=document.getElementById("Phase_date_end").value;
-        var hour=document.getElementById("Hours").value;
-        var project_icode=document.getElementById("project_icode").value;
-        var text_t = $("#Phase_Master option:selected").text();
-
-        if(phase == "0" || start == "" || end=="" || hour==""  )
-        {
-            alert("Please Select All Fields...");
-        }
-        else
-        {
-            $.ajax
-            ({
-                type:'post',
-                url:"<?php echo site_url('Admin_Controller/Save_New_Phase'); ?>",
-                data: {
-
-                    project_icode:project_icode,
-                    phase_code:phase,
-                    Start_date:start,
-                    End_date:end,
-                    Hours:hour
-                },
-                success:function(response) {
-                    if(response!="")
-                    {
-                        //alert(response);
-                        var id=response;
-                        var table=document.getElementById("tblCustomers5");
-                        var table_len=(table.rows.length)-1;
-                        var row = table.insertRow(table_len).outerHTML="<tr id='row"+id+"'><td id='phase"+id+"'>"+text_t+"</td><td id='start"+id+"'>"+start+"</td><td id='end"+id+"'>"+end+"</td><td id='hour"+id+"'>"+hour+"</td><td><input type='button' class='edit_button' id='edit_button"+id+"' value='edit' onclick='edit_row("+id+");'/><input type='button' class='save_button' style='display: none'  id='save_button"+id+"' value='save' onclick='save_row("+id+");'/><input type='button' class='delete_button' id='delete_button"+id+"' value='delete' onclick='delete_row("+id+");'/><input type='button' style='display: none' class='cancel_button' id='cancel_button"+id+"' value='cancel' onclick='cancel("+id+");'/></td></tr>";
-
-                        $("#Phase_Master").val("");
-                        $("#Phase_date_start").val("");
-                        $("#Phase_date_end").val("");
-                        $("#Hours").val("");
-                    }
-                }
-            });
-        }
-    }
-
-    function Add_member()
+     function Add_member()
     {
         var member=document.getElementById("Member").value;
         var terms=document.getElementById("Terms").value;
@@ -937,45 +766,6 @@
         }
     }
 
-
-
-
-
-
-
-    //** Saver Status **//
-    function save_status()
-    {
-        var project_icode=document.getElementById("project_icode").value;
-        var status_code =document.getElementById("Status").value;
-        var comments = document.getElementById("status_comments").value;
-        $.ajax
-        ({
-            type: 'post',
-            url: "<?php echo site_url('Admin_Controller/Save_Project_Status'); ?>",
-            data: {
-                Project: project_icode,
-                Status:status_code,
-                Comments:comments,
-            },
-            success: function (response) {
-                //alert(response);
-                if (response == '1') {
-                    swal({
-                            title: "success!",
-                            text: "Status Changed ...!",
-                            type: "success"
-                        },
-                        function(){
-                            //window.history.back();
-                            location.reload();
-
-                        });
-                }
-            }
-        });
-    }
-
     //** In Active **//
     function Inactive(id)
     {
@@ -984,7 +774,7 @@
             $.ajax
             ({
                 type: 'post',
-                url: "<?php echo site_url('Admin_Controller/Inactive_contact'); ?>",
+                url: "<?php echo site_url('Admin_Controller/WO_Inactive_contact'); ?>",
                 data: {id: id},
                 success: function (response) {
                     //alert(response);
@@ -1013,7 +803,7 @@
             $.ajax
             ({
                 type: 'post',
-                url: "<?php echo site_url('Admin_Controller/Active_contact'); ?>",
+                url: "<?php echo site_url('Admin_Controller/WO_Active_contact'); ?>",
                 data: {Contact: contact_id,
                     Client: Client_id,
                     Project: project_icode },
