@@ -174,6 +174,8 @@
                                                                     <label for="work_hours" class="form-control-label">Hours:</label>
                                                                     <input class="form-control" required="required" id="work_hours" name="work_hours" type="number" min="0" step="1">
                                                                 </div>
+
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

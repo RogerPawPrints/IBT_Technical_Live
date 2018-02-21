@@ -954,6 +954,7 @@ class Admin_Controller extends CI_Controller
             'Min_Hour' => $this->input->post('Hours', true),
             'Created_By' => $this->session->userdata['userid']);
         $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
+        echo 1;
     }
 
 
