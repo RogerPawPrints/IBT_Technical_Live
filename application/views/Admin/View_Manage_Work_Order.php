@@ -646,34 +646,43 @@
         var team_id=document.getElementById('team_id').value;
         var cmt = document.getElementById('comments').value;
 
-        if (confirm("Do you want to stop work for this Resource: ")) {
-
-            $.ajax
-            ({
-                type: 'post',
-                url: "<?php echo site_url('Admin_Controller/WO_Resource_Cancel'); ?>",
-                data: {
-                    Team_id: team_id,
-                    Comments: cmt,
-                },
-                success: function (response) {
-                    //alert(response);
-                    if (response == '1') {
-                        $('#myModal').modal('hide');
-                        swal({
-                                title: "success!",
-                                text: "Resource Stop Successfully ...!",
-                                type: "success"
-                            },
-                            function () {
-                                //window.history.back();
-                                location.reload();
-
-                            });
-                    }
-                }
-            });
+        if(cmt == "")
+        {
+           alert("Please Enter Reason..");
         }
+        else
+        {
+            if (confirm("Do you want to stop work for this Resource: ")) {
+
+                $.ajax
+                ({
+                    type: 'post',
+                    url: "<?php echo site_url('Admin_Controller/WO_Resource_Cancel'); ?>",
+                    data: {
+                        Team_id: team_id,
+                        Comments: cmt,
+                    },
+                    success: function (response) {
+                        //alert(response);
+                        if (response == '1') {
+                            $('#myModal').modal('hide');
+                            swal({
+                                    title: "success!",
+                                    text: "Resource Stop Successfully ...!",
+                                    type: "success"
+                                },
+                                function () {
+                                    //window.history.back();
+                                    location.reload();
+
+                                });
+                        }
+                    }
+                });
+            }
+        }
+
+
     }
 
     function Change_Comments()
@@ -684,37 +693,46 @@
         var new_sdate = document.getElementById('WO_Contract_date_start').value;
         var new_enddate = document.getElementById('WO_Contract_date_end').value;
 
-        if (confirm("Do you want to Switch this Resource: ")) {
-
-            $.ajax
-            ({
-                type: 'post',
-                url: "<?php echo site_url('Admin_Controller/WO_Resource_Switch'); ?>",
-                data: {
-                    Team_id: team_id,
-                    Comments: cmt,
-                    New_Resource_Id: new_resource,
-                    New_Start: new_sdate,
-                    New_End: new_enddate
-                },
-                success: function (response) {
-                    //alert(response);
-                    if (response == '1') {
-                        $('#myModal2').modal('hide');
-                        swal({
-                                title: "success!",
-                                text: "Resource Switch Successfully ...!",
-                                type: "success"
-                            },
-                            function () {
-                                //window.history.back();
-                                location.reload();
-
-                            });
-                    }
-                }
-            });
+        if(new_resource == "" || new_sdate == "" || cmt == ""  )
+        {
+            alert("Please fill all fields...");
         }
+        else
+        {
+            if (confirm("Do you want to Switch this Resource: ")) {
+
+                $.ajax
+                ({
+                    type: 'post',
+                    url: "<?php echo site_url('Admin_Controller/WO_Resource_Switch'); ?>",
+                    data: {
+                        Team_id: team_id,
+                        Comments: cmt,
+                        New_Resource_Id: new_resource,
+                        New_Start: new_sdate,
+                        New_End: new_enddate
+                    },
+                    success: function (response) {
+                        //alert(response);
+                        if (response == '1') {
+                            $('#myModal2').modal('hide');
+                            swal({
+                                    title: "success!",
+                                    text: "Resource Switch Successfully ...!",
+                                    type: "success"
+                                },
+                                function () {
+                                    //window.history.back();
+                                    location.reload();
+
+                                });
+                        }
+                    }
+                });
+            }
+        }
+
+
     }
 
     //** In Active **//
