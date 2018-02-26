@@ -536,33 +536,43 @@
         var hour=document.getElementById("Hours").value;
         var terms=document.getElementById("Terms").value;
         var id = document.getElementById("resource_id").value;
-        $.ajax
-        ({
-            type:'post',
-            url:"<?php echo site_url('Admin_Controller/Save_Extended_Date'); ?>",
-            data: {
-                Resource:id,
-                Start_date:start,
-                End_date:end,
-                Hours:hour,
-                Terms:terms
-            },
-            success:function(response) {
-                if(response=="1")
-                {
-                    // alert("Success...");
-                    $('#myModal1').modal('hide');
-                    swal({
-                            title: "success!",
-                            text: "Resource Date Renewed Successfully...!",
-                            type: "success"
-                        },
-                        function(){
-                            location.reload();
-                        });
+
+        if(start == "" || end == "" || hour == "" || terms == "" )
+        {
+         alert("Please Select All Fields...");
+        }
+        else
+        {
+            $.ajax
+            ({
+                type:'post',
+                url:"<?php echo site_url('Admin_Controller/Save_Extended_Date'); ?>",
+                data: {
+                    Resource:id,
+                    Start_date:start,
+                    End_date:end,
+                    Hours:hour,
+                    Terms:terms
+                },
+                success:function(response) {
+                    if(response=="1")
+                    {
+                        // alert("Success...");
+                        $('#myModal1').modal('hide');
+                        swal({
+                                title: "success!",
+                                text: "Resource Date Renewed Successfully...!",
+                                type: "success"
+                            },
+                            function(){
+                                location.reload();
+                            });
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
     }
 
      function Add_member()
