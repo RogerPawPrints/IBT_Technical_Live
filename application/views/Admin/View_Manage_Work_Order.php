@@ -173,7 +173,6 @@
                                                     <h4 class="modal-title" id="myModalLabel">Renewal Date</h4>
                                                 </div>
                                                 <div class="modal-body">
-
                                                     <input type="hidden" class="form-control" id="resource_id" name="resource_id">
 
                                                     <div class="col-md-12">
@@ -229,7 +228,6 @@
                                                             <input  class="form-control" name="Hours[]" id="Hours" placeholder="Min Billable Hours" type="number" min="0" step="1" required />
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
