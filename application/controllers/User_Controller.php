@@ -160,6 +160,7 @@ class User_Controller extends CI_Controller
             $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
             $data = array();
         }
+
         else{
             $task_data = array(
                 'Task_Project_Icode' => '0',
@@ -234,8 +235,10 @@ class User_Controller extends CI_Controller
     /*Task Entry*/
     public function Task_Entry()
     {
-        $this->data['task_details'] = $this->technical_user_model->Assigned_Task_Entry();
-        //$this->data['Select_Project']= $this->technical_user_model->Show_On_Select_Project();
+        $data1 = $this->technical_user_model->Assigned_Task_Entry();
+        $data2= $this->technical_user_model->Assigned_Task_Entry_WO();
+        $this->data['task_details'] = array_merge($data1,$data2);
+
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');

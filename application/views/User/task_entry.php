@@ -52,6 +52,7 @@
                                                 <td>#</td>
                                                 <th>Client</th>
                                                 <th>Project</th>
+                                                <th>Contract Type</th>
                                                 <th>Lead</th>
                                                 <th>Task Description</th>
                                                 <th>Start date</th>
@@ -74,6 +75,7 @@
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $r['Client_Company_Name']; ?></td>
                                                     <td><?php echo $r['Project_Name']; ?></td>
+                                                    <td><?php echo $r['Contracttype_Name']; ?></td>
                                                     <td><?php echo $r['User_Name']; ?></td>
                                                     <td><?php echo $r['Task_Description']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
@@ -96,9 +98,27 @@
                                                         <td><?php echo $r['logged_hours']; ?></td>
                                                     <?php } ?>
 
-                                                    <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
-                                                    <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                    <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+                                                    <?php
+                                                    if($r['Task_Project_Icode'] == 0)
+                                                    {
+                                                        ?>
+                                                        <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
+                                                        <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
+                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_WO_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+
+                                                        <?php
+                                                    }
+                                                    else
+                                                    {
+                                                        ?>
+                                                        <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
+                                                        <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
+                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+
+                                                        <?php
+                                                    }
+                                                    ?>
+
 
                                                 </tr>
                                                 <?php
@@ -214,6 +234,8 @@
     }    );
 
     function task_entry(id,project) {
+//        alert(id);
+//        alert(project);
 
        document.getElementById('task_id').value = id;
        //alert(id);

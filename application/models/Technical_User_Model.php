@@ -81,6 +81,19 @@ class Technical_User_Model extends CI_Model
         //print_r($user_icode);
         $query = $this->db->query("SELECT *,sum(E.Logged_Hours) as logged_hours FROM ibt_task_master A INNER JOIN ibt_client B ON A.Task_Client_Icode=B.Client_Icode 
                                   INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode INNER JOIN ibt_technical_users D on A.Task_Created_By=D.User_Icode 
+                                  INNER JOIN ibt_contractcategory F on A.Task_Contract_Type=F.Contracttype_Icode 
+                                  LEFT JOIN ibt_task_entry E on A.Task_Icode = E.Task_Master_Icode WHERE A.Task_Resource_Icode ='$user_icode' AND A.Task_Status='1' 
+                                  GROUP BY A.Task_Icode ");
+        //echo $this->db->last_query();
+        return $query->result_array();
+    }
+
+    public function Assigned_Task_Entry_WO()
+    {
+        $user_icode = $this->session->userdata['userid'];
+        //print_r($user_icode);
+        $query = $this->db->query("SELECT *,sum(E.Logged_Hours) as logged_hours FROM ibt_task_master A INNER JOIN ibt_client B ON A.Task_Client_Icode=B.Client_Icode 
+                                  INNER JOIN work_order C on A.Task_WO_Icode=C.Work_Order_Icode INNER JOIN ibt_technical_users D on A.Task_Created_By=D.User_Icode INNER JOIN ibt_contractcategory F on A.Task_Contract_Type=F.Contracttype_Icode 
                                   LEFT JOIN ibt_task_entry E on A.Task_Icode = E.Task_Master_Icode WHERE A.Task_Resource_Icode ='$user_icode' AND A.Task_Status='1' 
                                   GROUP BY A.Task_Icode ");
         //echo $this->db->last_query();
@@ -99,7 +112,7 @@ class Technical_User_Model extends CI_Model
 
     public function get_project_phase($project_id)
     {
-        $query = $this->db->query("SELECT * FROM project_phase A INNER JOIN projct_phase_master B on A.Phase_Master_Icode=B.Project_Phase_Master_Icode WHERE A.Proj_Project_Icode='$project_id'");
+        $query = $this->db->query("SELECT * FROM project_phase A INNER JOIN project_phase_master B on A.Phase_Master_Icode=B.Project_Phase_Master_Icode WHERE A.Proj_Project_Icode='$project_id'");
         //echo $this->db->last_query();
         return $query->result_array();
 
