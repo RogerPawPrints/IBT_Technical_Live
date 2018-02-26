@@ -225,6 +225,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
+                                                            <label>Min Billable Hours</label>
                                                             <input  class="form-control" name="Hours[]" id="Hours" placeholder="Min Billable Hours" type="number" min="0" step="1" required />
                                                         </div>
                                                     </div>
