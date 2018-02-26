@@ -249,10 +249,10 @@ class User_Controller extends CI_Controller
 
     public function download($folder, $path) {
         // read file contents
-
         $folder =  $this->uri->segment(3);
         $path =  $this->uri->segment(4);
         $file_path =base_url('/Repository/'.$folder. '/Task Docs/' .$path);
+//        fopen("/Repository/$folder/Task Docs/$path", "r");
         $url = str_replace(" ", "%20", $file_path);
         $data = file_get_contents($url);
          force_download($path.".",$data);
@@ -322,8 +322,6 @@ class User_Controller extends CI_Controller
             'Modified_On' =>date('Y-m-d'));
         $this->db->where('Task_Icode',$task_id);
         $this->db->update('ibt_task_master', $data);
-
-
     }
 }
 ?>

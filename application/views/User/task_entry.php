@@ -70,6 +70,7 @@
                                             {
                                                 ?>
                                                 <tr>
+
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $r['Client_Company_Name']; ?></td>
                                                     <td><?php echo $r['Project_Name']; ?></td>
