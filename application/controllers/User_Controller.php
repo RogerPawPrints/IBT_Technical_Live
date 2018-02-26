@@ -227,7 +227,7 @@ class User_Controller extends CI_Controller
         $task_id = $this->input->post('id',true);
         $attachment =  $this->technical_user_model->get_task_attachments($task_id);
       // echo json_encode($attachment);
-       $output = null;
+        $output = null;
 
         foreach ( $attachment as $row)
        {
@@ -282,14 +282,12 @@ class User_Controller extends CI_Controller
         $old_value =$this->technical_user_model->Get_Task_Billable_Hours($task_id);
         $new_billable = $old_value[0]['Task_Billable_Hours'] + $billable ;
         //print_r($new_billable);
-
         $data = array(
             'Task_Billable_Hours' => $new_billable,
             'Modified_By' =>$this->session->userdata['userid'],
             'Modified_On' =>date('Y-m-d'));
         $this->db->where('Task_Icode',$task_id);
         $this->db->update('ibt_task_master', $data);
-
         $task = array(
         'Leader_Reviewed' => 'Yes');
         $this->db->where('Task_Entry_Icode',$Task_Entry);
