@@ -10,9 +10,17 @@
 		"slack": "https://codeigniterchat.slack.com",
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
+	"autoload":{
+		"psr-4": {
+			"Hazzard\\Filepicker\\": "application/third_party/uploader/src"
+		}
+	},
 	"require": {
 		"php": ">=5.3.7",
-		"phpunit/phpunit": "6.4.x-dev"
+		"phpunit/phpunit": "6.4.x-dev",
+		"hazzard/config": "^1.0",
+		"intervention/image": "2.2.*",
+		"symfony/http-foundation": "2.6.*"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

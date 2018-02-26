@@ -104,7 +104,7 @@
                                                         ?>
                                                         <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
                                                         <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_WO_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry_resource('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_WO_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
 
                                                         <?php
                                                     }
@@ -113,7 +113,7 @@
                                                         ?>
                                                         <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
                                                         <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_Project_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry('<?php echo $r['Task_Icode']; ?>','<?php echo $r['Task_Project_Icode']; ?>','<?php echo $r['Task_Project_Phase_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
 
                                                         <?php
                                                     }
@@ -170,8 +170,9 @@
                                                             <input type="hidden" id="task_id" name="task_id">
                                                             <input type="hidden" id="project_id" name="project_id">
                                                             <div class="form-group">
-                                                                <label>Select Phase</label>
-                                                                <select name="Phase_Select" class="form-control" required="required" id="Phase_Select"  required >
+                                                                <label>Phase</label>
+                                                               <input type="hidden" class="form-control" name="phase_id" id="phase_id">
+                                                                <input type="text" class="form-control" name="phase_name" id="phase_name" readonly>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
@@ -233,10 +234,7 @@
 
     }    );
 
-    function task_entry(id,project) {
-//        alert(id);
-//        alert(project);
-
+    function task_entry(id,project,phase_id) {
        document.getElementById('task_id').value = id;
        //alert(id);
        document.getElementById('project_id').value = project;
@@ -244,13 +242,18 @@
         $.ajax({
             url: "<?php echo site_url('User_Controller/get_phase_modules'); ?>",
             data: {
-                id: project
+                id: project,
+                Phase: phase_id
+
             },
             type: "POST",
             success: function (data) {
                 var phase_modules = $.parseJSON(data);
-                //alert(phase_modules.phase_Details);
-                $("#Phase_Select").html(phase_modules.phase_Details);
+
+                var phasename = phase_modules.phase_Details[0]['Phase_Name'];
+                document.getElementById('phase_name').value = phasename;
+                var phaseid = phase_modules.phase_Details[0]['Project_Phase_Icode'];
+                document.getElementById('phase_id').value = phaseid;
                 $("#Module_Select").html(phase_modules.Modules);
             }
 

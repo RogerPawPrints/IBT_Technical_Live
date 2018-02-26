@@ -255,7 +255,7 @@ class User_Controller extends CI_Controller
 
         $data = array('Task_Master_Icode' =>$this->input->post('task_id'),
             'Task_Entry_Project_Icode' =>$this->input->post('project_id'),
-            'Task_Phase_Icode' =>$this->input->post('Phase_Select'),
+            'Task_Phase_Icode' =>$this->input->post('phase_id'),
             'Task_Module_Icode' =>$this->input->post('Module_Select'),
             'Work_Progress'=> $this->input->post('work_progress'),
             'Logged_Hours' =>$this->input->post('work_hours'),
@@ -279,17 +279,9 @@ class User_Controller extends CI_Controller
     public function get_phase_modules()
     {
         $project_id = $this->input->post('id',true);
-        $phase =  $this->technical_user_model->get_project_phase($project_id);
-        $phasess = "Select Phase";
-        $output = null;
-        $output .= "<option>Select Phase</option>";
-        foreach ( $phase as $row)
-        {
-            //here we build a dropdown item line for each
-            // query result
-            $output .= "<option value='".$row['Project_Phase_Master_Icode']."'>".$row['Phase_Name']."</option>";
-        }
-        //echo $output;
+        $phase_id=$this->input->post('Phase',true);
+        $phase =  $this->technical_user_model->get_project_phase($project_id,$phase_id);
+
 
         $modules =  $this->technical_user_model->get_project_modules($project_id);
         $output1 = null;
@@ -303,7 +295,7 @@ class User_Controller extends CI_Controller
         }
 
        // echo $output1;
-        $full_data = array('phase_Details' => $output,
+        $full_data = array('phase_Details' => $phase,
                            'Modules' => $output1 );
         echo json_encode($full_data);
     }
