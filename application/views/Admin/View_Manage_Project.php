@@ -985,31 +985,39 @@
         var project_icode=document.getElementById("project_icode").value;
         var status_code =document.getElementById("Status").value;
         var comments = document.getElementById("status_comments").value;
-        $.ajax
-        ({
-            type: 'post',
-            url: "<?php echo site_url('Admin_Controller/Save_Project_Status'); ?>",
-            data: {
-                Project: project_icode,
-                Status:status_code,
-                Comments:comments,
-            },
-            success: function (response) {
-                //alert(response);
-                if (response == '1') {
-                    swal({
-                            title: "success!",
-                            text: "Status Changed ...!",
-                            type: "success"
-                        },
-                        function(){
-                            //window.history.back();
-                            location.reload();
+        if(status_code == "" || comments == "" )
+        {
+            alert("Please fill all fields...");
+        }
+        else
+        {
+            $.ajax
+            ({
+                type: 'post',
+                url: "<?php echo site_url('Admin_Controller/Save_Project_Status'); ?>",
+                data: {
+                    Project: project_icode,
+                    Status:status_code,
+                    Comments:comments,
+                },
+                success: function (response) {
+                    //alert(response);
+                    if (response == '1') {
+                        swal({
+                                title: "success!",
+                                text: "Status Changed ...!",
+                                type: "success"
+                            },
+                            function(){
+                                //window.history.back();
+                                location.reload();
 
-                        });
+                            });
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
     //** In Active **//
