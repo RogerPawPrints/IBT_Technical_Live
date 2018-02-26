@@ -281,7 +281,7 @@ class Technical_Admin_Model extends CI_Model
     //** Get Project Status */
     public function Get_Project_Status()
     {
-        $query=$this->db->query("SELECT * FROM project_status_master ");
+        $query=$this->db->query("SELECT * FROM project_status_master WHERE project_status_Icode != '1' ");
         return $query->result_array();
     }
     //** Search Project */
