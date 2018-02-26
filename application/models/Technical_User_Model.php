@@ -136,10 +136,13 @@ class Technical_User_Model extends CI_Model
     public  function  View_Manage_Task()
     {
         $user_icode = $this->session->userdata['userid'];
-        $query = $this->db->query("SELECT B.Task_Entry_Icode, B.Task_Master_Icode, B.Logged_Hours,A.Task_Estimated_Hours,B.Task_Entry_Icode,A.Task_Start_Date,A.Task_End_Date,(SELECT Work_Progress FROM ibt_task_entry WHERE Task_Master_Icode=B.Task_Master_Icode ORDER BY B.Created_On DESC LIMIT 1 OFFSET 0) as task_status,(SELECT Task_Entry_Icode FROM ibt_task_entry WHERE Task_Master_Icode = B.Task_Master_Icode ORDER BY Created_On DESC LIMIT 1 OFFSET 0) as New_Task_Entry_Icode,
-                        SUM(B.Logged_Hours) as Total_logged_Hours, C.Client_Company_Name,C.Client_Icode,D.Project_Icode,D.Project_Name,E.User_Icode,E.User_Name,B.Leader_Reviewed FROM ibt_task_master A INNER JOIN ibt_task_entry B ON A.Task_Icode=B.Task_Master_Icode INNER JOIN ibt_client C on A.Task_Client_Icode=C.Client_Icode INNER JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode
-                                INNER JOIN ibt_technical_users E on B.Created_By=E.User_Icode WHERE A.Task_Created_By='$user_icode' and B.Leader_Reviewed='No' and A.Task_Status='1  '
-                                GROUP BY B.task_master_icode");
+//        $query = $this->db->query("SELECT B.Task_Entry_Icode, B.Task_Master_Icode, B.Logged_Hours,A.Task_Estimated_Hours,B.Task_Entry_Icode,A.Task_Start_Date,A.Task_End_Date,(SELECT Work_Progress FROM ibt_task_entry WHERE Task_Master_Icode=B.Task_Master_Icode ORDER BY B.Created_On DESC LIMIT 1 OFFSET 0) as task_status,(SELECT Task_Entry_Icode FROM ibt_task_entry WHERE Task_Master_Icode = B.Task_Master_Icode ORDER BY Created_On DESC LIMIT 1 OFFSET 0) as New_Task_Entry_Icode,
+//                        SUM(B.Logged_Hours) as Total_logged_Hours, C.Client_Company_Name,C.Client_Icode,D.Project_Icode,D.Project_Name,E.User_Icode,E.User_Name,B.Leader_Reviewed FROM ibt_task_master A INNER JOIN ibt_task_entry B ON A.Task_Icode=B.Task_Master_Icode INNER JOIN ibt_client C on A.Task_Client_Icode=C.Client_Icode INNER JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode
+//                                INNER JOIN ibt_technical_users E on B.Created_By=E.User_Icode WHERE A.Task_Created_By='$user_icode' and B.Leader_Reviewed='No' and A.Task_Status='1  '
+//                                GROUP BY B.task_master_icode");
+
+        $query = $this->db->query("SELECT *  FROM ibt_task_entry A INNER JOIN ibt_task_master B on A.Task_Master_Icode=B.Task_Icode INNER JOIN ibt_technical_users C on A.Created_By=C.User_Icode
+                                   WHERE B.Task_Created_By='$user_icode' and A.Leader_Reviewed='No' and B.Task_Status='1'");
         return $query->result_array();
 
 

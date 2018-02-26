@@ -44,21 +44,18 @@
                             <div class="col-md-12">
                                 <div class="tab-content clearfix">
                                     <div class="tab-pane active" id="1a">
-                                        <h3>Assigned Tasks</h3>
+                                        <h3>Task Progress</h3>
 
                                         <table id="assigned_tasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                             <tr>
                                                 <td>#</td>
-                                                <th>Client</th>
-                                                <th>Project</th>
                                                 <th>Resource</th>
                                                 <th>Task Progress</th>
-                                                <th>Logged Hours</th>
-                                                <th>Estimated Hours</th>
                                                 <th>Start date</th>
                                                 <th>End Date</th>
-                                                <th>Total Logged Hours</th>
+                                                <th>Estimated Hours</th>
+                                                <th>Logged Hours</th>
                                                 <th>Billable Hours</th>
                                                 <th>Action</th>
                                             </tr>
@@ -72,12 +69,8 @@
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
-                                                    <td><?php echo $r['Client_Company_Name']; ?></td>
-                                                    <td><?php echo $r['Project_Name']; ?></td>
                                                     <td><?php echo $r['User_Name']; ?></td>
                                                     <td><?php echo $r['task_status']; ?></td>
-                                                    <td><?php echo $r['Logged_Hours']; ?></td>
-                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <?php
                                                     $current_date = date('m/d/Y');
