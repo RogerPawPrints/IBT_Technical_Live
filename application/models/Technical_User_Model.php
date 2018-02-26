@@ -6,7 +6,7 @@ class Technical_User_Model extends CI_Model
         parent::__construct();
     }
 
-    /*Select Project*/
+    /*Select Project/ resource project*/
 
     public function Select_Project()
     {
@@ -15,6 +15,14 @@ class Technical_User_Model extends CI_Model
         $query = $this->db->query("SELECT * FROM ibt_project_table A INNER JOIN project_team B on A.Project_Icode=B.Proj_Project_Icode WHERE B.User_Icode ='$user_icode' and B.Role_Master_Icode ='1'");
         return $query->result_array();
     }
+    public function Select_Resource_project()
+    {
+        $user_icode = $this->session->userdata['userid'];
+
+        $query = $this->db->query("SELECT * FROM work_order A INNER JOIN work_order_resource B on A.Work_Order_Icode=B.WO_Icode  WHERE B.Member_Icode='$user_icode' and B.Role_Icode='1'");
+        return $query->result_array();
+    }
+
 
     /*Select Project*/
 
@@ -23,16 +31,30 @@ class Technical_User_Model extends CI_Model
 
     public function Show_On_Select_Project($id)
     {
-        $query = $this->db->query("SELECT * FROM ibt_project_table A INNER JOIN ibt_client B ON A.Project_Client_Icode=B.Client_Icode INNER JOIN ibt_workcategory C ON C.WorkCategory_Icode=A.Project_Work_Category_Icode INNER JOIN ibt_work_type D ON D.Work_Icode=A.Project_Work_Type_Icode  WHERE A.Project_Icode='$id'");
+        $query = $this->db->query("SELECT * FROM ibt_project_table A INNER JOIN ibt_client B ON A.Project_Client_Icode=B.Client_Icode INNER JOIN ibt_workcategory C ON C.WorkCategory_Icode=A.Project_Work_Category_Icode INNER JOIN ibt_work_type D ON D.Work_Icode=A.Project_Work_Type_Icode 
+                                  INNER JOIN ibt_contractcategory E on A.Project_Contract_Icode=E.Contracttype_Icode  WHERE A.Project_Icode='$id'");
+        return $query->result_array();
+    }
+    public function Show_On_Select_Resource($id)
+    {
+        $query = $this->db->query("SELECT * FROM work_order A INNER JOIN ibt_client B ON A.Resource_Client_Icode=B.Client_Icode INNER JOIN ibt_workcategory C ON C.WorkCategory_Icode=A.Resource_Category_Icode INNER JOIN ibt_work_type D ON D.Work_Icode=A.Resource_Work_Type_Icode
+                                   INNER JOIN ibt_contractcategory E on A.Resource_Contract_Type=E.Contracttype_Icode  WHERE A.Work_Order_Icode='$id'");
         return $query->result_array();
     }
 
+
     /*Show on Select Resource*/
 
-    public function Select_Resource($id)
+    public function Select_Project_Resource($id)
     {
         $query = $this->db->query("SELECT * FROM project_team A INNER JOIN ibt_technical_users B ON A.User_Icode=B.User_Icode WHERE A.Proj_Project_Icode = '$id'");
        // echo $this->db->last_query();
+        return $query->result_array();
+    }
+    public function Select_Work_Order_Resource($id)
+    {
+        $query = $this->db->query("SELECT * FROM work_order_resource A INNER JOIN ibt_technical_users B ON A.Member_Icode=B.User_Icode WHERE A.WO_Icode = '$id'");
+        // echo $this->db->last_query();
         return $query->result_array();
     }
 
@@ -127,6 +149,21 @@ class Technical_User_Model extends CI_Model
     public  function  Get_Task_Billable_Hours($id)
     {
         $query = $this->db->query("SELECT Task_Billable_Hours FROM ibt_task_master WHERE Task_Icode='$id'");
+        //echo $this->db->last_query();
+        return $query->result_array();
+    }
+
+    //** Select project phase details */
+    public function Select_Project_Phase($id)
+    {
+        $query = $this->db->query("SELECT * FROM project_phase A INNER JOIN project_phase_master B on A.Phase_Master_Icode=B.Project_Phase_Master_Icode WHERE A.Proj_Project_Icode='$id'");
+        //echo $this->db->last_query();
+        return $query->result_array();
+    }
+    //** Get project phase details */
+    public function Show_Project_Phase_Details($id)
+    {
+        $query = $this->db->query("SELECT * FROM project_phase WHERE Project_Phase_Icode='$id'");
         //echo $this->db->last_query();
         return $query->result_array();
     }

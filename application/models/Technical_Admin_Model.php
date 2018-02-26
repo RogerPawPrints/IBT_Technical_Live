@@ -71,7 +71,7 @@ class Technical_Admin_Model extends CI_Model
 	/** GET ALL CONTRACT */
 	public function get_contract()
 	{
-		$query=$this->db->query("SELECT * FROM ibt_contractcategory "); 
+		$query=$this->db->query("SELECT * FROM ibt_contractcategory WHERE  Contracttype_Icode != '1'");
 		return $query->result_array();
 	}
 
@@ -156,14 +156,14 @@ class Technical_Admin_Model extends CI_Model
     //** phase Master Get */
     public function get_Phase_Master()
     {
-        $query=$this->db->query("SELECT * FROM projct_phase_master ");
+        $query=$this->db->query("SELECT * FROM project_phase_master ");
         return $query->result_array();
 
     }
     //** Insert phase Master */
     public function insert_Phase_Master($data)
     {
-        $this->db->insert('projct_phase_master', $data);
+        $this->db->insert('project_phase_master', $data);
         return TRUE;
     }
     //** Delete delete_work_Type */
@@ -175,7 +175,7 @@ class Technical_Admin_Model extends CI_Model
             return 0;
         }
         else {
-            $query = $this->db->query("DELETE from projct_phase_master where Project_Phase_Icode = $id");
+            $query = $this->db->query("DELETE from project_phase_master where Project_Phase_Icode = $id");
             return 1;
         }
     }
@@ -307,7 +307,7 @@ class Technical_Admin_Model extends CI_Model
     public function Get_Project_Phase_Details($project_id)
     {
         $query=$this->db->query(" SELECT * FROM ibt_project_table A INNER JOIN project_phase B on A.Project_Icode = B.Proj_Project_Icode
-                                  INNER  JOIN  projct_phase_master C on B.Phase_Master_Icode = C.Project_Phase_Master_Icode WHERE A.Project_Icode ='$project_id'  ");
+                                  INNER  JOIN  project_phase_master C on B.Phase_Master_Icode = C.Project_Phase_Master_Icode WHERE A.Project_Icode ='$project_id'  ");
         // echo $this->db->last_query();
         return $query->result_array();
 
@@ -315,7 +315,7 @@ class Technical_Admin_Model extends CI_Model
     //** Get project phase master details */
     public function Get_Project_Phase_Master_Details($project_id)
     {
-        $query=$this->db->query("SELECT * FROM  projct_phase_master WHERE projct_phase_master.Project_Phase_Master_Icode NOT IN (SELECT project_phase.Phase_Master_Icode FROM project_phase WHERE project_phase.Proj_Project_Icode='$project_id') ");
+        $query=$this->db->query("SELECT * FROM  project_phase_master WHERE project_phase_master.Project_Phase_Master_Icode NOT IN (SELECT project_phase.Phase_Master_Icode FROM project_phase WHERE project_phase.Proj_Project_Icode='$project_id') ");
         return $query->result_array();
     }
     //** Save Project History */

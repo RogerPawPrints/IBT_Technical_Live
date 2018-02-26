@@ -137,8 +137,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Contract Type</label><br>
-                                <input type="radio" name="Rtype" id="Retainer" value="3"  /> <label style="margin-right: 20px; font-weight: normal;">Retainer</label>
-                                <input type="radio" name="Rtype" id="T&M" value="2" /> <label style="font-weight: normal;">T&M</label>
+                                <input type="radio" name="Rtype" id="Retainer" value="2"  /> <label style="margin-right: 20px; font-weight: normal;">Retainer</label>
+                                <input type="radio" name="Rtype" id="T&M" value="3" /> <label style="font-weight: normal;">T&M</label>
 
                             </div>
                             <div class="row padding_class">
@@ -520,7 +520,7 @@
             }
         }
         var client_contact=vals;
-        var contract_type = '1';
+
         var project_WO = document.getElementById('date_Wo').value;
         var Work_order = document.getElementById('WO_Title').value;
 

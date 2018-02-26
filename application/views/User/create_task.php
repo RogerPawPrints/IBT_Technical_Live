@@ -47,7 +47,14 @@
                                                 <option value="" >Select Project</option>
                                                 <?php foreach ($Select_Project as $row):
                                                     {
-                                                        echo "<option value= " .$row['Project_Icode'].">" . $row['Project_Name'] . "</option>";
+                                                        if($row['Project_Contract_Icode'] == '1')
+                                                        {
+                                                            echo "<option value= " .$row['Project_Icode']._.$row['Project_Contract_Icode']. ">" . $row['Project_Name'] . "</option>";
+                                                        }
+                                                        else{
+                                                            echo "<option value= " .$row['Work_Order_Icode']._.$row['Resource_Contract_Type'].">" . $row['Project_Name'] . "</option>";
+                                                        }
+
                                                     }
                                                 endforeach; ?>
                                             </select>
@@ -62,16 +69,23 @@
                                                 <input class="form-control" type="hidden"  name="Project_Name" id="Project_Name" readonly  />
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Work Category</label>
                                                 <input class="form-control" type="text"  id="Work_Category" readonly  />
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Work Type</label>
                                                 <input class="form-control" type="text"  id="Work_Type" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Contract Type</label>
+                                                <input class="form-control" type="text"  id="Contract_Type" readonly  />
+                                                <input class="form-control" type="hidden"  name="Contract_Type_icode" id="Contract_Type_icode" readonly  />
                                             </div>
                                         </div>
                                     </div>
@@ -88,6 +102,34 @@
                                             <select name="Resource_Select" class="form-control" id="Resource_Select"  required >
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="col-md-3" style="display: none" id="phase_show" >
+                                        <div class="form-group">
+                                            <label>Select Phase</label>
+                                            <select name="Phase_Select" class="form-control" id="Phase_Select"  >
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="show_on_Phase" style="display: none">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input class="form-control" type="text"  id="S_date" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input class="form-control" type="text"  id="E_date" readonly  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Estimation Hours</label>
+                                                <input class="form-control" type="text"  id="E_Hours" readonly  />
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="col-md-3">
                                         <label>Task Start Date</label>
@@ -115,6 +157,7 @@
                                             <input class="form-control" id="Task_E_Hour" name="Task_E_Hour" placeholder="Estimtion Hours" type="number" min="0" step="1"/>
                                         </div>
                                     </div>
+
 
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -181,11 +224,15 @@
             //alert("hiiii");
             /*dropdown post *///
             //document.getElementById('Resource_Select').value = '';
+            var result = $(this).val();
+            var str_array = result.split('_');
+            var id = str_array[0];
+            var type = str_array[1];
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Show_On_Project_Select'); ?>",
                 data: {
-                    id:
-                        $(this).val()
+                    id: id,
+                    Type: type
                 },
                 type: "POST",
                 success: function (data) {
@@ -210,6 +257,13 @@
                     var Project_Name =task_details.Client_Details[0]['Project_Name'];
                     document.getElementById('Project_Name').value = Project_Name;
 
+                    var Contract_Name =task_details.Client_Details[0]['Contracttype_Name'];
+                    document.getElementById('Contract_Type').value = Contract_Name;
+
+                    var Contract_icode = task_details.Client_Details[0]['Contracttype_Icode'];
+                    //alert(client_name);
+                    document.getElementById('Contract_Type_icode').value = Client_Name_icode;
+
                 }
 
 
@@ -218,14 +272,15 @@
 
 
         $("#Project_Select").change(function () {         /*Selecting Project Detais And Resource*/
-            //alert("hiiii");
-            /*dropdown post *///
-            //document.getElementById('Resource_Select').value = '';
+            var result = $(this).val();
+            var str_array = result.split('_');
+            var id = str_array[0];
+            var type = str_array[1];
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Show_On_Project_Resource'); ?>",
                 data: {
-                    id:
-                        $(this).val()
+                    id: id,
+                    Type: type
                 },
                 type: "POST",
                 success: function (data) {
@@ -234,6 +289,66 @@
 
 
             });
+        });
+
+        $("#Project_Select").change(function () {         /*Selecting Project Phase Detais */
+            var result = $(this).val();
+            var str_array = result.split('_');
+            var id = str_array[0];
+            var type = str_array[1];
+            $.ajax({
+                url: "<?php echo site_url('User_Controller/Show_On_Project_Phase'); ?>",
+                data: {
+                    id: id,
+                    Type: type
+                },
+                type: "POST",
+                success: function (data) {
+
+                    if(data == '0')
+                    {
+
+                    }
+                    else
+                    {
+                        $("#phase_show").show();
+                        $("#Phase_Select").html(data);
+                    }
+
+                }
+
+
+            });
+        });
+    });
+
+    $("#Phase_Select").change(function () {         /*Selecting Project Detais And Resource*/
+        $.ajax({
+            url: "<?php echo site_url('User_Controller/Show_Project_Phase_Details'); ?>",
+            data: {
+                id: $(this).val()
+            },
+            type: "POST",
+            success: function (data) {
+                $("#show_on_Phase").show();
+                var task_details = $.parseJSON(data);
+                //alert(task_details);
+                var client_name = task_details.Phase_Details[0]['Phase_Start_Date'];
+                //alert(client_name);
+                document.getElementById('S_date').value = client_name;
+
+                var Client_Name_icode = task_details.Phase_Details[0]['Phase_End_Date'];
+                //alert(client_name);
+                document.getElementById('E_date').value = Client_Name_icode;
+
+                var work_cat = task_details.Phase_Details[0]['Estimate_Hour'];
+                document.getElementById('E_Hours').value = work_cat;
+
+
+
+            }
+
+
         });
     });
 

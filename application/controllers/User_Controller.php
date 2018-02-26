@@ -33,8 +33,10 @@ class User_Controller extends CI_Controller
     /*Create Task*/
     public function Create_Task()
     {
-        $this->data['Select_Project'] = $this->technical_user_model->Select_Project();
-        //$this->data['Select_Project']= $this->technical_user_model->Show_On_Select_Project();
+        $data1 = $this->technical_user_model->Select_Project();
+        $data2= $this->technical_user_model->Select_Resource_project();
+        $this->data['Select_Project'] = array_merge($data1,$data2);
+        //print_r($this->data['Select_Project']);
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
@@ -48,10 +50,21 @@ class User_Controller extends CI_Controller
     {
         $project_code = $this->input->post('id', true);
 
-        $data = $this->technical_user_model->Show_On_Select_Project($project_code);
+        $type_icode = $this->input->post('Type', true);
+
+        if($type_icode == '1')
+        {
+            $data = $this->technical_user_model->Show_On_Select_Project($project_code);
+        }
+        else
+            {
+                $data = $this->technical_user_model->Show_On_Select_Resource($project_code);
+        }
+
+
         //print_r($data);
 
-        $resource_name = $this->technical_user_model->Select_Resource($project_code);
+//        $resource_name = $this->technical_user_model->Select_Resource($project_code);
         // print_r($resource_name);
 
         $full_data = array('Client_Details' => $data );
@@ -63,16 +76,60 @@ class User_Controller extends CI_Controller
     public function Show_On_Project_Resource()
     {
         $project_code = $this->input->post('id', true);
+        $type_icode = $this->input->post('Type', true);
 
-        $resource_name = $this->technical_user_model->Select_Resource($project_code);
-        $output = null;
-        foreach ( $resource_name as $row)
+        if($type_icode == '1')
         {
-            //here we build a dropdown item line for each
-            // query result
-            $output .= "<option value='".$row['User_Icode']."'>".$row['User_Name']."</option>";
+            $resource_name = $this->technical_user_model->Select_Project_Resource($project_code);
+            $output = null;
+            foreach ( $resource_name as $row)
+            {
+                //here we build a dropdown item line for each
+                // query result
+                $output .= "<option value='".$row['User_Icode']."'>".$row['User_Name']."</option>";
+            }
         }
+        else
+        {
+            $resource_name = $this->technical_user_model->Select_Work_Order_Resource($project_code);
+            $output = null;
+            foreach ( $resource_name as $row)
+            {
+                //here we build a dropdown item line for each
+                // query result
+                $output .= "<option value='".$row['User_Icode']."'>".$row['User_Name']."</option>";
+            }
+        }
+
+
         echo $output;
+    }
+
+    //** show on project phase details */
+    public function  Show_On_Project_Phase()
+    {
+        $project_code = $this->input->post('id', true);
+        $type_icode = $this->input->post('Type', true);
+
+        if($type_icode == '1')
+        {
+            $resource_name = $this->technical_user_model->Select_Project_Phase($project_code);
+            $output = null;
+            $output .= "<option>Select Phase</option>";
+            foreach ( $resource_name as $row)
+            {
+                $output .= "<option value='".$row['Project_Phase_Icode']."'>".$row['Phase_Name']."</option>";
+            }
+            echo $output;
+        }
+        else
+        {
+            $output = "0";
+            echo $output;
+        }
+
+
+
     }
 
 
@@ -81,17 +138,45 @@ class User_Controller extends CI_Controller
     public function Insert_Task()
     {
         $project_name = $this->input->post('Project_Name');
-        $task_data = array(
-            'Task_Project_Icode' => $this->input->post('Project_Select'),
-            'Task_Client_Icode ' => $this->input->post('Client_Name_icode'),
-            'Task_Resource_Icode' => $this->input->post('Resource_Select'),
-            'Task_Start_Date' => $this->input->post('task_date_start'),
-            'Task_End_Date' => $this->input->post('task_date_end'),
-            'Task_Estimated_Hours' => $this->input->post('Task_E_Hour'),
-            'Task_Description' => $this->input->post('task_desc'),
-            'Task_Created_By' => $this->session->userdata['userid']);
-        $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
-        $data = array();
+        $project = $this->input->post('Project_Select');
+        $vall = explode("_",$project);
+        $project_icode = $vall[0];
+        $contract_type = $vall[1];
+
+        if($contract_type == '1')
+        {
+            $task_data = array(
+                'Task_Project_Icode' => $project_icode,
+                'Task_Client_Icode' => $this->input->post('Client_Name_icode'),
+                'Task_WO_Icode' => '0',
+                'Task_Resource_Icode' => $this->input->post('Resource_Select'),
+                'Task_Contract_Type' => $this->input->post('Contract_Type_icode'),
+                'Task_Project_Phase_Icode' => $this->input->post('Phase_Select'),
+                'Task_Start_Date' => $this->input->post('task_date_start'),
+                'Task_End_Date' => $this->input->post('task_date_end'),
+                'Task_Estimated_Hours' => $this->input->post('Task_E_Hour'),
+                'Task_Description' => $this->input->post('task_desc'),
+                'Task_Created_By' => $this->session->userdata['userid']);
+            $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
+            $data = array();
+        }
+        else{
+            $task_data = array(
+                'Task_Project_Icode' => '0',
+                'Task_WO_Icode' => $project_icode,
+                'Task_Client_Icode ' => $this->input->post('Client_Name_icode'),
+                'Task_Resource_Icode' => $this->input->post('Resource_Select'),
+                'Task_Contract_Type' => $this->input->post('Contract_Type_icode'),
+                'Task_Project_Phase_Icode' => '0',
+                'Task_Start_Date' => $this->input->post('task_date_start'),
+                'Task_End_Date' => $this->input->post('task_date_end'),
+                'Task_Estimated_Hours' => $this->input->post('Task_E_Hour'),
+                'Task_Description' => $this->input->post('task_desc'),
+                'Task_Created_By' => $this->session->userdata['userid']);
+            $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
+            $data = array();
+        }
+
 
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
@@ -322,6 +407,17 @@ class User_Controller extends CI_Controller
             'Modified_On' =>date('Y-m-d'));
         $this->db->where('Task_Icode',$task_id);
         $this->db->update('ibt_task_master', $data);
+    }
+    //** Show project phase details */
+    public function Show_Project_Phase_Details()
+    {
+        $project_phase_id = $this->input->post('id',true);
+        $data = $this->technical_user_model->Show_Project_Phase_Details($project_phase_id);
+
+        $full_data = array('Phase_Details' => $data );
+
+        echo json_encode($full_data);
+
     }
 }
 ?>
