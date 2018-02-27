@@ -307,7 +307,7 @@
 
                     if(data == '0')
                     {
-
+                        $("#phase_show").hide();
                     }
                     else
                     {
@@ -343,8 +343,6 @@
 
                 var work_cat = task_details.Phase_Details[0]['Estimate_Hour'];
                 document.getElementById('E_Hours').value = work_cat;
-
-
 
             }
 
