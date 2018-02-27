@@ -52,10 +52,12 @@
                                                 <td>#</td>
                                                 <th>Resource</th>
                                                 <th>Task Progress</th>
+                                                <th>Task Entered Date</th>
                                                 <th>Start date</th>
                                                 <th>End Date</th>
                                                 <th>Estimated Hours</th>
                                                 <th>Logged Hours</th>
+                                                <th>Total Logged Hours</th>
                                                 <th>Billable Hours</th>
                                                 <th>Action</th>
                                             </tr>
@@ -70,7 +72,8 @@
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $r['User_Name']; ?></td>
-                                                    <td><?php echo $r['task_status']; ?></td>
+                                                    <td><?php echo $r['Work_Progress']; ?></td>
+                                                    <td><?php echo date($r['Created_On']) ; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <?php
                                                     $current_date = date('m/d/Y');
@@ -82,22 +85,24 @@
                                                     <?php } ?>
 
 
+                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
+                                                    <td><?php echo $r['Logged_Hours']; ?></td>
 
                                                     <?php
-                                                    if ($r['Total_logged_Hours'] > $r['Task_Estimated_Hours']){ ?>
-                                                        <td style="background: #ff0e0eba"><?php echo $r['Total_logged_Hours']; ?></td>
+                                                    if ($r['Total_Logged_Hours'] > $r['Task_Estimated_Hours']){ ?>
+                                                        <td style="background: #ff0e0eba"><?php echo $r['Total_Logged_Hours']; ?></td>
                                                     <?php } else {?>
 
-                                                        <td><?php echo $r['Total_logged_Hours']; ?></td>
+                                                        <td><?php echo $r['Total_Logged_Hours']; ?></td>
                                                     <?php } ?>
-                                                    <td><input type="text" name="Billable" id="Billable<?php echo $r['New_Task_Entry_Icode'];?>" value="<?php echo $r['Logged_Hours']; ?>"></td>
+                                                    <td><input type="text" name="Billable" id="Billable<?php echo $r['Task_Entry_Icode'];?>" value="<?php echo $r['Logged_Hours']; ?>"></td>
 
 
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
                                                     <td><button type="button" class="btn btn-primary" id="mymodal1" onclick="get_attachments('<?php echo $r['Task_Master_Icode']; ?>')"
                                                                 data-toggle="modal" data-target="#myModal1" value="">View</button>
-                                                        <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Master_Icode']; ?>','<?php echo $r['New_Task_Entry_Icode']; ?>')" value="">Save</button>
-                                                        <button type="button" class="btn btn-danger" onclick="close_task('<?php echo $r['Task_Master_Icode']; ?>')">Close Task</button>
+                                                        <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Master_Icode']; ?>','<?php echo $r['Task_Entry_Icode']; ?>')" value="">Save</button>
+                                                        <button type="button" class="btn btn-danger" onclick="close_task('<?php echo $r['Task_Master_Icode']; ?>','<?php echo $r['Task_Entry_Icode']; ?>')">Close Task</button>
                                                         </td>
 
                                                 </tr>
@@ -218,36 +223,42 @@
        var Billable = document.getElementById('Billable'+task_entry).value;
        //alert(Billable);
 
-        $.ajax({
-            url: "<?php echo site_url('User_Controller/Save_Manage_Task'); ?>",
-            data: {
-                Task_id: id,
-                Billable: Billable,
-                Task_Entry: task_entry
-            },
-            type: "POST",
-            success: function (data) {
-               if(data == '1')
-               {
-                   swal({
-                           title: "success!",
-                           text: "Task Reviewed Successfully ...!",
-                           type: "success"
-                       },
-                       function(){
-                           //window.history.back();
-                           location.reload();
+        if (confirm("Do you want to Conform: ")) {
 
-                       });
+            $.ajax({
+                url: "<?php echo site_url('User_Controller/Save_Manage_Task'); ?>",
+                data: {
+                    Task_id: id,
+                    Billable: Billable,
+                    Task_Entry: task_entry
+                },
+                type: "POST",
+                success: function (data) {
+                    if (data == '1') {
+                        swal({
+                                title: "success!",
+                                text: "Task Reviewed Successfully ...!",
+                                type: "success"
+                            },
+                            function () {
+                                //window.history.back();
+                                location.reload();
 
-               }
-               else {
+                            });
 
-               }
-            }
+                    }
+                    else {
+
+                    }
+                }
 
 
-        });
+            });
+        }
+        else
+        {
+
+        }
 
     }
 
@@ -266,13 +277,17 @@
             }
         });
     }
-    function close_task(id)
+    function close_task(id,entry)
     {
+        var Billable2 = document.getElementById('Billable'+entry).value;
+        //alert(Billable2);
         if (confirm("Do you want to Close Task: ")) {
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Close_Task'); ?>",
                 data: {
-                    id: id
+                    id: id,
+                    Billable: Billable2,
+                    Task_Entry: entry
                 },
                 type: "POST",
                 success: function (data) {

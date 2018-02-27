@@ -252,6 +252,24 @@ class User_Controller extends CI_Controller
     //** Save task Entry details */
     public function  Save_Task_Entry()
     {
+        $master_id = $this->input->post('task_id');
+        $user_id=$this->session->userdata['userid'];
+
+        $get_data = $this->technical_user_model->get_total_logged_hours($master_id,$user_id);
+        //print_r($get_data[0]['Logged_Hours']);
+
+        if($get_data[0]['Logged_Hours'] == "")
+        {
+           // print_r("empty");
+            $Total_logged = $this->input->post('work_hours');
+        }
+        else{
+            //print_r("not empty");
+            $hours = $this->input->post('work_hours');
+            $Lhours = $get_data[0]['Logged_Hours'];
+            $Total_logged = $Lhours + $hours;
+
+        }
 
         $data = array('Task_Master_Icode' =>$this->input->post('task_id'),
             'Task_Entry_Project_Icode' =>$this->input->post('project_id'),
@@ -259,6 +277,7 @@ class User_Controller extends CI_Controller
             'Task_Module_Icode' =>$this->input->post('Module_Select'),
             'Work_Progress'=> $this->input->post('work_progress'),
             'Logged_Hours' =>$this->input->post('work_hours'),
+            'Total_Logged_Hours' =>$Total_logged,
             'Created_By ' => $this->session->userdata['userid']);
         $insert_entry = $this->technical_user_model->save_task_entry($data);
         if($insert_entry == '1')
@@ -382,6 +401,8 @@ class User_Controller extends CI_Controller
         $attachment =  $this->technical_user_model->get_task_desc($task_id);
         // echo json_encode($attachment);
         $output = null;
+        $output .="<h3>Project Name:</h3><h4>" .$attachment[0]['Project_Name']. "</h4>";
+        $output .="<h3>Client:</h3><h4>" .$attachment[0]['Client_Company_Name']."</h4>";
         $output .="<h3>Task Description</h3>";
         $output .="<h4 style='line-height: 30px;'>" .$attachment[0]['Task_Description']. "</h4>";
         foreach ($attachment as $row)
@@ -396,12 +417,23 @@ class User_Controller extends CI_Controller
     public function  Close_Task()
     {
         $task_id = $this->input->post('id',true);
+        $billable = $this->input->post('Billable',true);
+        //print_r($billable);
+        $Task_Entry = $this->input->post('Task_Entry',true);
+        $old_value =$this->technical_user_model->Get_Task_Billable_Hours($task_id);
+        $new_billable = $old_value[0]['Task_Billable_Hours'] + $billable ;
         $data = array(
+            'Task_Billable_Hours' => $new_billable,
             'Task_Status' => '0',
             'Modified_By' =>$this->session->userdata['userid'],
             'Modified_On' =>date('Y-m-d'));
         $this->db->where('Task_Icode',$task_id);
         $this->db->update('ibt_task_master', $data);
+        $task = array(
+            'Leader_Reviewed' => 'Yes');
+        $this->db->where('Task_Entry_Icode',$Task_Entry);
+        $this->db->update('ibt_task_entry', $task);
+        echo 1;
     }
     //** Show project phase details */
     public function Show_Project_Phase_Details()

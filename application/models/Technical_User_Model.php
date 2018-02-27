@@ -159,7 +159,8 @@ class Technical_User_Model extends CI_Model
     //** Get Task Description */
     public function get_task_desc($id)
     {
-        $query = $this->db->query(" SELECT * FROM ibt_task_master A LEFT JOIN ibt_task_attachments B on A.Task_Icode=B.Attachment_Task_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode   WHERE A.Task_Icode='$id'");
+        $query = $this->db->query(" SELECT * FROM ibt_task_master A LEFT JOIN ibt_task_attachments B on A.Task_Icode=B.Attachment_Task_Icode INNER JOIN ibt_project_table C on A.Task_Project_Icode=C.Project_Icode  
+                                    INNER JOIN ibt_client D on A.Task_Client_Icode=D.Client_Icode  WHERE A.Task_Icode='$id'");
         return $query->result_array();
     }
     //** Get Task Billable Hour */
@@ -185,5 +186,13 @@ class Technical_User_Model extends CI_Model
         return $query->result_array();
     }
 
+    //** Get total Logged Hours */
+    public function get_total_logged_hours($master_id,$user_id)
+    {
+        $query = $this->db->query("SELECT sum(Logged_Hours) as Logged_Hours FROM ibt_task_entry WHERE Task_Master_Icode='$master_id' and Created_By='$user_id' ");
+        //echo $this->db->last_query();
+        return $query->result_array();
+
+    }
 
 }
