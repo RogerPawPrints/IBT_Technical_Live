@@ -32,6 +32,7 @@
                   <li><a href="<?php echo site_url('Admin_Controller/Work_Type'); ?>"><i class="fa fa-circle-o"></i> <span>Work Type</span></a></li>
                   <li><a href="<?php echo site_url('Admin_Controller/Phase_Master'); ?>"><i class="fa fa-circle-o"></i> <span>Phase Master</span></a></li>
                   <li><a href="<?php echo site_url('Admin_Controller/Role_Master'); ?>"><i class="fa fa-circle-o"></i> <span>Role Master</span></a></li>
+                  <li><a href="<?php echo site_url('Admin_Controller/Task_Category_Master'); ?>"><i class="fa fa-circle-o"></i> <span>Task Category</span></a></li>
 
               </ul>
           </li>

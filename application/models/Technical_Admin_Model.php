@@ -497,6 +497,12 @@ class Technical_Admin_Model extends CI_Model
         return 1;
 
     }
+    //** insert task category */
+    public function insert_Task_Category_Master($data)
+    {
+        $this->db->insert('task_category_master', $data);
+        return 1;
+    }
 
 
 
