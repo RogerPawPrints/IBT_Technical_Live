@@ -236,7 +236,124 @@
 
                                     </div>
                                     <div class="tab-pane" id="2a">
-                                        <h3>Other Task.</h3>
+                                        <div class="row padding_class">
+                                            <div class="col-md-12" >
+                                                <h2>Other Task</h2>
+                                                <table id="tblCustomers5"  data-page-length='25' class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Task Type</th>
+                                                        <th>Project</th>
+                                                        <th>Phase</th>
+                                                        <th>Project Incharge</th>
+                                                        <th>Task Category</th>
+                                                        <th>Description</th>
+                                                        <th>Task Date</th>
+                                                        <th>Logged Hours</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <select name="Task_Type[]" class="form-control" id="Task_Type" required >
+                                                                    <option value="" >Select Task Type</option>
+                                                                    <option value="Project" >Project</option>
+                                                                    <option value="Non_Project" >Non_Project</option>
+                                                                </select>
+
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="Project1" >
+                                                            <div class="form-group">
+                                                                <select name="Project_Name[]" class="form-control" id="Project_Name" required >
+                                                                    <option value="" >Select Project</option>
+                                                                    <?php foreach ($Project_details as $row):
+                                                                    {
+                                                                        if($row['Project_Contract_Icode'] == '1')
+                                                                        {
+                                                                            echo "<option value= " .$row['Project_Icode']._.$row['Project_Contract_Icode']. ">" . $row['Project_Name'] . "</option>";
+                                                                        }
+                                                                        else{
+                                                                            echo "<option value= " .$row['Work_Order_Icode']._.$row['Resource_Contract_Type'].">" . $row['Project_Name'] . "</option>";
+                                                                        }
+
+                                                                    }
+                                                                    endforeach; ?>
+                                                                </select>
+
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="Project1">
+                                                            <div class="form-group">
+                                                                <select name="Phase[]" class="form-control" id="Phase" required >
+                                                                    <option value="" >Select Phase</option>
+                                                                    <?php foreach ($Contract_Term as $row):
+                                                                    {
+                                                                        echo '<option value= "'.$row['Contract_Term_Icode'].'">' . $row['Contract_Term_Name'] . '</option>';
+                                                                    }
+                                                                    endforeach; ?>
+                                                                </select>
+
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="Project" style="display: none;" >
+                                                            <div class="form-group">
+                                                                <select  class="form-control"  required  readonly="">
+
+                                                                </select>
+
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="Project" style="display: none;">
+                                                            <div class="form-group">
+                                                                <select  class="form-control"  required readonly="">
+
+                                                                </select>
+
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon">
+                                                                    <i class="fa fa-calendar">
+                                                                    </i>
+                                                                </div>
+                                                                <input class="form-control" id="Contract_date_start" name="Contract_date_start[]" placeholder="YYYY/MM/DD" type="text"/>
+                                                            </div>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon">
+                                                                    <i class="fa fa-calendar">
+                                                                    </i>
+                                                                </div>
+                                                                <input class="form-control" id="Contract_date_end" name="Contract_date_end[]" placeholder="YYYY/MM/DD" type="text"/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input  class="form-control" name="Hours[]" id="Hours" placeholder="Min Billable Hours" type="number" min="0" step="1" required />
+                                                            </div>
+                                                        </td>
+
+                                                        <td><input type="button" onclick="Add()" value="Add" /></td>
+                                                    </tr>
+
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-info pull-right" onclick="Save_Fixed()" >Save</button>
                                     </div>
 
                                 </div>
@@ -264,64 +381,31 @@
         /*stay in same tab after form submit*/
         $('#assigned_tasks').DataTable();
 
+        $("#Task_Type").change(function(){
+            var value = $("#Task_Type option:selected").val();
+
+            if(value == 'Project')
+            {
+                alert("show");
+                $('.Project').hide();
+                $('.Project1').show();
+            }
+            else
+            {
+                alert("hide");
+                $('.Project').show();
+                $('.Project1').hide();
+            }
+
+
+        });
+
     }    );
 
-    function task_entry(id,project,phase_id) {
-       document.getElementById('task_id').value = id;
-       //alert(id);
-       document.getElementById('project_id').value = project;
-
-        $.ajax({
-            url: "<?php echo site_url('User_Controller/get_phase_modules'); ?>",
-            data: {
-                id: project,
-                Phase: phase_id
-
-            },
-            type: "POST",
-            success: function (data) {
-                var phase_modules = $.parseJSON(data);
-
-                var phasename = phase_modules.phase_Details[0]['Phase_Name'];
-                document.getElementById('phase_name').value = phasename;
-                var phaseid = phase_modules.phase_Details[0]['Project_Phase_Icode'];
-                document.getElementById('phase_id').value = phaseid;
-                $("#Module_Select").html(phase_modules.Modules);
-            }
 
 
-        });
 
-    }
 
-    function task_entry_resource(id,wo) {
-        document.getElementById('wo_task_id').value = id;
-        //alert(id);
-        document.getElementById('wo_id').value = wo;
-    }
-
-    function get_attachments(id) {
-        document.getElementById('task_id').value = id;
-        $.ajax({
-            url: "<?php echo site_url('User_Controller/get_task_attachments'); ?>",
-            data: {
-                id: id
-            },
-            type: "POST",
-            success: function (data) {
-//                var attachments = $.parseJSON(data);
-//                var count = Object.keys(attachments).length;
-//               alert(count);
-//                for(var i = 0; i < count; i++)
-//                {
-//                   var  file = attachments[i];
-//                   var folder =file.Project_Name;
-//                    $('#attachment_list').append("<li><a href='<?php //echo base_url(); ?>//index.php/User_Controller/download/"+file.Project_Name+"/"+file.Attachment_Path+"/ '>" + file.Attachment_Path +  "</a></li>" );
-//                }
-                $('#attachment_list').html(data);
-            }
-        });
-    }
 
 
 </script>

@@ -195,4 +195,20 @@ class Technical_User_Model extends CI_Model
 
     }
 
+    //** Un Assigned User Project / WO */
+    public function Un_Assigned_Project()
+    {
+        $user_icode = $this->session->userdata['userid'];
+        $query = $this->db->query("SELECT B.Project_Icode,B.Project_Name,B.Project_Contract_Icode  FROM project_team A INNER JOIN ibt_project_table B on A.Proj_Project_Icode=B.Project_Icode 
+                                   WHERE A.User_Icode='$user_icode' and A.Active ='Yes' and B.Project_Status ='1' ");
+        return $query->result_array();
+    }
+    public function Un_Assigned_Wo()
+    {
+        $user_icode = $this->session->userdata['userid'];
+        $query = $this->db->query("SELECT B.Work_Order_Icode,B.Project_Name,B.Resource_Contract_Type FROM work_order_resource A INNER JOIN work_order B on A.WO_Icode=B.Work_Order_Icode 
+                                   WHERE A.Member_Icode='$user_icode' and A.Active='Yes' AND B.Wo_Status='1' ");
+        return $query->result_array();
+    }
+
 }

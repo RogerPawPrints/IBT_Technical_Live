@@ -224,6 +224,10 @@ class User_Controller extends CI_Controller
         $data2= $this->technical_user_model->Assigned_Task_Entry_WO();
         $this->data['task_details'] = array_merge($data1,$data2);
 
+        $un_assign_project =$this->technical_user_model->Un_Assigned_Project();
+        $un_assign_wo =$this->technical_user_model->Un_Assigned_Wo();
+        $this->data['Project_details'] = array_merge($un_assign_project,$un_assign_wo);
+
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
