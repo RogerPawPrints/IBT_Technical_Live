@@ -108,15 +108,15 @@ class Technical_Admin_Model extends CI_Model
 	    return $query->result_array();
 	}
 	/** Delete Contract **/
-	public function delete_work($id)
+	public function delete_work_Category($id)
 	{
         $sql = $this->db->query("SELECT * FROM ibt_contract_work WHERE Project_Type = '$id' ");  // Contract check
-        if($sql->num_rows() == 1)
+        if($sql->num_rows() > 0)
         {
             return 0;
         }
         else {
-            $query = $this->db->query("DELETE from ibt_workcategory where WorkCategory_Icode = $id");
+           // $query = $this->db->query("DELETE from ibt_workcategory where WorkCategory_Icode = $id");
             return 1;
         }
 
@@ -143,8 +143,8 @@ class Technical_Admin_Model extends CI_Model
     //** Delete delete_work_Type */
     public function  delete_work_Type($id)
     {
-        //$sql = $this->db->query("SELECT * FROM ibt_contract_work WHERE Project_Type = '$id' ");  // Contract check
-        if($sql->num_rows() == 1)
+        $sql = $this->db->query("SELECT * FROM ibt_project_table WHERE Project_Work_Type_Icode = '$id' ");  // Contract check
+        if($sql->num_rows() > 0)
         {
             return 0;
         }

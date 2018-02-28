@@ -92,7 +92,7 @@
 </div>
 <script>
 
-    function Delete_Contact(id)
+    function Delete_Work_Type(id)
     {
 
         var job = confirm("Are you sure you want  to Delete confirm ?");
@@ -102,7 +102,7 @@
         }
         else
         {
-            $.ajax({   url:"<?php echo site_url('Admin_Controller/delete_contract'); ?>",
+            $.ajax({   url:"<?php echo site_url('Admin_Controller/Delete_Work_Type'); ?>",
                 data: {id: id},
                 type: "POST",
                 cache: false,
@@ -120,7 +120,7 @@
                     }
                     else
                     {
-                        alert("These Contract Assigned to Project Dont Delete that Contract");
+                        alert("These Work Type Assigned to Project Don't Delete ");
                     }
 
                 }

@@ -230,7 +230,7 @@ class Admin_Controller extends CI_Controller
 	public function delete_work()
 	{
 		 $id= $this->input->post('id',true);
-		$checkval = $this->technical_admin_model->delete_work($id);
+		$checkval = $this->technical_admin_model->delete_work_Category($id);
 		if($checkval == '1')
 		{
 			echo 1;
@@ -240,6 +240,8 @@ class Admin_Controller extends CI_Controller
 			echo 0;
 		}
 	}
+
+
 	//** Add Contact */
     public  function  Add_Contact()
     {
