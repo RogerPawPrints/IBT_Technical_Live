@@ -169,8 +169,8 @@ class Technical_Admin_Model extends CI_Model
     //** Delete delete_work_Type */
     public function  Delete_Phase_Master($id)
     {
-        //$sql = $this->db->query("SELECT * FROM ibt_contract_work WHERE Project_Type = '$id' ");  // Contract check
-        if($sql->num_rows() == 1)
+        $sql = $this->db->query("SELECT * FROM project_phase WHERE Phase_Master_Icode = '$id' ");  // Contract check
+        if($sql->num_rows() > 0)
         {
             return 0;
         }
