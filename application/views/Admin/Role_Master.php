@@ -96,7 +96,7 @@
 </div>
 <script>
 
-    function Delete_Contact(id)
+    function Delete_Role_Master(id)
     {
 
         var job = confirm("Are you sure you want  to Delete confirm ?");
@@ -106,7 +106,7 @@
         }
         else
         {
-            $.ajax({   url:"<?php echo site_url('Admin_Controller/delete_contract'); ?>",
+            $.ajax({   url:"<?php echo site_url('Admin_Controller/Delete_Role_Master'); ?>",
                 data: {id: id},
                 type: "POST",
                 cache: false,
@@ -124,7 +124,7 @@
                     }
                     else
                     {
-                        alert("These Contract Assigned to Project Dont Delete that Contract");
+                        alert("This Role Master is Assigned to Employee. Dont Delete the Role");
                     }
 
                 }
