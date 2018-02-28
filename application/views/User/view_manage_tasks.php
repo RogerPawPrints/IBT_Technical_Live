@@ -52,6 +52,7 @@
                                                 <td>#</td>
                                                 <th>Resource</th>
                                                 <th>Task Progress</th>
+                                                <th>Contract Category</th>
                                                 <th>Task Entered Date</th>
                                                 <th>Start date</th>
                                                 <th>End Date</th>
@@ -73,6 +74,7 @@
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $r['User_Name']; ?></td>
                                                     <td><?php echo $r['Work_Progress']; ?></td>
+                                                    <td><?php echo $r['Contracttype_Name']; ?></td>
                                                     <td><?php echo date($r['Created_On']) ; ?></td>
                                                     <td><?php echo $r['Task_Start_Date']; ?></td>
                                                     <?php

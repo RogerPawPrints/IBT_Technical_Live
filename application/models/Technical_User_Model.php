@@ -141,7 +141,7 @@ class Technical_User_Model extends CI_Model
 //                                INNER JOIN ibt_technical_users E on B.Created_By=E.User_Icode WHERE A.Task_Created_By='$user_icode' and B.Leader_Reviewed='No' and A.Task_Status='1  '
 //                                GROUP BY B.task_master_icode");
 
-        $query = $this->db->query("SELECT *  FROM ibt_task_entry A INNER JOIN ibt_task_master B on A.Task_Master_Icode=B.Task_Icode INNER JOIN ibt_technical_users C on A.Created_By=C.User_Icode
+        $query = $this->db->query("SELECT *  FROM ibt_task_entry A INNER JOIN ibt_task_master B on A.Task_Master_Icode=B.Task_Icode INNER JOIN ibt_technical_users C on A.Created_By=C.User_Icode INNER JOIN ibt_contractcategory D on B.Task_Contract_Type=D.Contracttype_Icode
                                    WHERE B.Task_Created_By='$user_icode' and A.Leader_Reviewed='No' and B.Task_Status='1'");
         return $query->result_array();
 
