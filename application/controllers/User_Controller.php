@@ -276,6 +276,49 @@ class User_Controller extends CI_Controller
         }
 
     }
+
+
+    public function  Save_Resource_Task_Entry()
+    {
+        $master_id = $this->input->post('wo_task_id');
+        $user_id=$this->session->userdata['userid'];
+
+        $get_data = $this->technical_user_model->get_total_logged_hours($master_id,$user_id);
+        //print_r($get_data[0]['Logged_Hours']);
+
+        if($get_data[0]['Logged_Hours'] == "")
+        {
+            // print_r("empty");
+            $Total_logged = $this->input->post('work_hours');
+        }
+        else{
+            //print_r("not empty");
+            $hours = $this->input->post('work_hours');
+            $Lhours = $get_data[0]['Logged_Hours'];
+            $Total_logged = $Lhours + $hours;
+
+        }
+
+        $data = array('Task_Master_Icode' =>$this->input->post('wo_task_id'),
+            'Task_Entry_Project_Icode' =>'0',
+            'Task_Phase_Icode' =>'0',
+            'Task_Module_Icode' =>'0',
+            'Work_Progress'=> $this->input->post('work_progress'),
+            'Logged_Hours' =>$this->input->post('work_hours'),
+            'Total_Logged_Hours' =>$Total_logged,
+            'Created_By ' => $this->session->userdata['userid']);
+        $insert_entry = $this->technical_user_model->save_task_entry($data);
+        if($insert_entry == '1')
+        {
+            $this->session->set_flashdata('message', 'Task Updated Successfully..');
+            redirect('/User_Controller/Task_Entry');
+        }
+        else{
+            $this->session->set_flashdata('message', 'Failed..');
+            redirect('/User_Controller/Task_Entry');
+        }
+
+    }
     //** Save task Entry details */
 
 

@@ -104,7 +104,7 @@
                                                         ?>
                                                         <td><button type="button" id="mymodal1" class="btn btn-success"  data-toggle="modal" onclick="get_attachments('<?php echo $r['Task_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal1">Attachments</button></td>
                                                         <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
-                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry_resource('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_WO_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal">Enter Progress</button></td>
+                                                        <td><button type="button" id="mymodal" class="btn btn-primary"  data-toggle="modal" onclick="task_entry_resource('<?php echo $r['Task_Icode']; ?>', '<?php echo $r['Task_WO_Icode']; ?>')" value="<?php echo $r['Task_Icode']; ?>" data-target="#myModal_Resource">Enter Progress</button></td>
 
                                                         <?php
                                                     }
@@ -160,7 +160,7 @@
                                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
-                                                    <form name="create_task_form" action="<?php echo site_url('User_Controller/Save_Task_Entry'); ?>" enctype="multipart/form-data" method="post">
+<!--                                                    <form name="create_task_form" action="--><?php //echo site_url('User_Controller/Save_Task_Entry'); ?><!--" enctype="multipart/form-data" method="post">-->
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                         <h4 class="modal-title" id="myModalLabel">Today's Task</h4>
@@ -195,6 +195,38 @@
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary" >Save changes</button>
                                                     </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="myModal_Resource" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form name="create_task_form" action="<?php echo site_url('User_Controller/Save_Resource_Task_Entry'); ?>" enctype="multipart/form-data" method="post">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Today's Task</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+<!--                                                            <form name="create_task_form" action="--><?php //echo site_url('User_Controller/Save_Task_Entry'); ?><!--" enctype="multipart/form-data" method="post">-->
+                                                                <input type="text" id="wo_task_id" name="wo_task_id">
+                                                                <input type="text" id="wo_id" name="wo_id">
+                                                                <div class="form-group">
+                                                                    <label for="work_progress" class="form-control-label">Work Progress:</label>
+                                                                    <textarea class="form-control" required="required" id="work_progress" name="work_progress" ></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="work_hours" class="form-control-label">Hours:</label>
+                                                                    <input class="form-control" required="required" id="work_hours" name="work_hours" type="number" min="0" step="1">
+                                                                </div>
+
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary" >Save changes</button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -262,6 +294,11 @@
 
     }
 
+    function task_entry_resource(id,wo) {
+        document.getElementById('wo_task_id').value = id;
+        //alert(id);
+        document.getElementById('wo_id').value = wo;
+    }
 
     function get_attachments(id) {
         document.getElementById('task_id').value = id;
