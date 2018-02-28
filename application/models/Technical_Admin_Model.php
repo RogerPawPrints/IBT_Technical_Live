@@ -191,6 +191,19 @@ class Technical_Admin_Model extends CI_Model
         $this->db->insert('role_master', $data);
         return TRUE;
     }
+    //** Delete delete_work_Type */
+    public function  Delete_Role_Master($id)
+    {
+        $sql = $this->db->query("SELECT * FROM project_team WHERE Role_Master_Icode = '$id' ");  // Contract check
+        if($sql->num_rows() > 0)
+        {
+            return 0;
+        }
+        else {
+            $query = $this->db->query("DELETE from role_master where Role_Icode = $id");
+            return 1;
+        }
+    }
 
     //** START: PROJECT */
     //** Get Client Based Contact */

@@ -368,6 +368,21 @@ class Admin_Controller extends CI_Controller
         redirect('Admin_Controller/Role_Master');
     }
 
+    //** Delete Delete_Phase_Master**//
+    public function Delete_Role_Master()
+    {
+        $id= $this->input->post('id',true);
+        $checkval = $this->technical_admin_model->Delete_Role_Master($id);
+        if($checkval == '1')
+        {
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
+    }
+
     //** Start: PROJECT  */
 
     //** Create Project */
