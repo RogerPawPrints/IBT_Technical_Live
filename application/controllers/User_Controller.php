@@ -110,7 +110,6 @@ class User_Controller extends CI_Controller
     {
         $project_code = $this->input->post('id', true);
         $type_icode = $this->input->post('Type', true);
-
         if($type_icode == '1')
         {
             $resource_name = $this->technical_user_model->Select_Project_Phase($project_code);
@@ -127,13 +126,7 @@ class User_Controller extends CI_Controller
             $output = "0";
             echo $output;
         }
-
-
-
     }
-
-
-
     /*Insert Task in Database*/
     public function Insert_Task()
     {
@@ -142,7 +135,6 @@ class User_Controller extends CI_Controller
         $vall = explode("_",$project);
         $project_icode = $vall[0];
         $contract_type = $vall[1];
-
         if($contract_type == '1')
         {
             $task_data = array(
@@ -160,7 +152,6 @@ class User_Controller extends CI_Controller
             $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
             $data = array();
         }
-
         else{
             $task_data = array(
                 'Task_Project_Icode' => '0',
@@ -177,8 +168,6 @@ class User_Controller extends CI_Controller
             $insert_project = $this->technical_user_model->Insert_Task($task_data); /*Insert Task Details*/
             $data = array();
         }
-
-
         /*Insert Task Attachments.*/
         if ($insert_project != '0') {
             //print_r($project_name);
@@ -222,16 +211,12 @@ class User_Controller extends CI_Controller
 
                 }
             }
-
             $this->session->set_flashdata('message', 'Task Created Successfully..');
             redirect('/User_Controller/Create_Task');
-
         }
 
     }
     /*Insert Task in Database*/
-
-
     /*Task Entry*/
     public function Task_Entry()
     {
