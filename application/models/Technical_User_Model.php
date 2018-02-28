@@ -210,5 +210,28 @@ class Technical_User_Model extends CI_Model
                                    WHERE A.Member_Icode='$user_icode' and A.Active='Yes' AND B.Wo_Status='1' ");
         return $query->result_array();
     }
+    public function Get_User_Incharge()
+    {
+        $query = $this->db->query("SELECT A.User_Icode,B.User_Name FROM project_team A INNER JOIN ibt_technical_users B on A.User_Icode=B.User_Icode WHERE  Role_Master_Icode ='1' ");
+        return $query->result_array();
+    }
+
+    //** get Project Incharge */
+    public function Get_Project_Incharge($project_id)
+    {
+        $query = $this->db->query("SELECT A.User_Icode,B.User_Name FROM project_team A INNER JOIN ibt_technical_users B on A.User_Icode=B.User_Icode WHERE A.Proj_Project_Icode='$project_id' and A.Role_Master_Icode='1' ");
+        return $query->result_array();
+    }
+    public function Get_WO_Incharge($wo_id)
+    {
+        $query = $this->db->query("SELECT B.User_Icode,B.User_Name FROM work_order_resource A INNER JOIN ibt_technical_users B on A.Member_Icode=B.User_Icode WHERE A.WO_Icode='$wo_id' and A.Role_Icode='1' ");
+        return $query->result_array();
+    }
+    //** Get Task Category */
+    public function Get_Task_Category()
+    {
+        $query = $this->db->query("SELECT * FROM task_category_master ");
+        return $query->result_array();
+    }
 
 }

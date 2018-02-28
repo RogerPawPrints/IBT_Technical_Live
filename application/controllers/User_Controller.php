@@ -228,6 +228,9 @@ class User_Controller extends CI_Controller
         $un_assign_wo =$this->technical_user_model->Un_Assigned_Wo();
         $this->data['Project_details'] = array_merge($un_assign_project,$un_assign_wo);
 
+        $this->data['Incharge'] =$this->technical_user_model->Get_User_Incharge();
+        $this->data['task_category'] =$this->technical_user_model->Get_Task_Category();
+
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
@@ -476,6 +479,59 @@ class User_Controller extends CI_Controller
         $full_data = array('Phase_Details' => $data );
 
         echo json_encode($full_data);
+
+    }
+    //** Get_Project_Incharge */
+    public function Get_Project_Incharge()
+    {
+        $project_id = $this->input->post('id',true);
+        $type = $this->input->post('Type',true);
+
+        if($type == '1')
+        {
+            $data = $this->technical_user_model->Get_Project_Incharge($project_id);
+        }
+        else{
+            $data = $this->technical_user_model->Get_WO_Incharge($project_id);
+        }
+        echo json_encode($data);
+
+    }
+
+    //** Save other task entry */
+    public function Save_Other_Task_Entry()
+    {
+        $type =  $this->input->post('Task_Type',true);
+        $count = sizeof($type);
+        $project =  $this->input->post('Project_Id',true);
+        $phase =  $this->input->post('Phase_Id',true);
+        $leader =  $this->input->post('Project_Leader',true);
+        $category =  $this->input->post('Task_Category',true);
+        $description =  $this->input->post('Task_Description',true);
+        $task_date =  $this->input->post('Task_Date',true);
+        $Hours =  $this->input->post('Logged_Hours',true);
+
+
+            for($i=0; $i<$count; $i++)
+            {
+                $resource_contact = array('Task_Type' => $insert_resource,
+                    'Task_Category_Icode' => $Role_Master[$i],
+                    'Task_Project_Icode' => $Member[$i],
+                    'Task_WO_Icode' => $Terms[$i],
+                    'Task_Client_Icode' => $sdate[$i],
+                    'Task_Resource_Icode' => $edate[$i],
+                    'Task_Contract_Type' => $Hours[$i],
+                    'Task_Project_Phase_Icode' => $Hours[$i],
+                    'Task_Start_Date' => $Hours[$i],
+                    'Task_End_Date' => $Hours[$i],
+                    'Task_Estimated_Hours' => $Hours[$i],
+                    'Task_Description' => $Hours[$i],
+                    'Task_End_Date' => $Hours[$i],
+
+                    'Created_By' => $this->session->userdata['userid']);
+                $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
+            }
+
 
     }
 }

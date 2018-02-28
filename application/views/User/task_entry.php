@@ -291,17 +291,10 @@
 
                                                         <td class="Project1">
                                                             <div class="form-group">
-                                                                <select name="Phase[]" class="form-control" id="Phase" required >
-                                                                    <option value="" >Select Phase</option>
-                                                                    <?php foreach ($Contract_Term as $row):
-                                                                    {
-                                                                        echo '<option value= "'.$row['Contract_Term_Icode'].'">' . $row['Contract_Term_Name'] . '</option>';
-                                                                    }
-                                                                    endforeach; ?>
-                                                                </select>
-
+                                                                <select name="Phase_Select[]" class="form-control" id="Phase_Select"  >
                                                             </div>
                                                         </td>
+
 
                                                         <td class="Project" style="display: none;" >
                                                             <div class="form-group">
@@ -321,6 +314,52 @@
                                                             </div>
                                                         </td>
 
+                                                        <td id="project_leader" style="display: none">
+                                                            <div class="input-group">
+                                                                <input type="hidden" name="Project_Leader_Id[]" id="Project_Leader_Id">
+                                                                <input type="text" name="Project_Leader_Name" id="Project_Leader_Name" readonly>
+
+                                                            </div>
+                                                        </td>
+                                                        <td id="User_leader">
+                                                            <div class="form-group">
+                                                                <select name="User_Name[]" class="form-control" id="User_Name" required >
+                                                                    <option value="" >Select Incharge</option>
+                                                                    <?php foreach ($Incharge as $row):
+                                                                    {
+                                                                            echo "<option value= " .$row['User_Icode'].">" . $row['User_Name'] . "</option>";
+                                                                    }
+                                                                    endforeach; ?>
+                                                                </select>
+
+                                                            </div>
+                                                        </td>
+                                                        
+                                                        <td class="Project">
+                                                            <div class="input-group">
+                                                                <select name="Task_Category[]" class="form-control" id="Task_Category" required >
+                                                                    <option value="" >Task Category</option>
+                                                                    <?php foreach ($task_category as $row):
+                                                                    {
+                                                                        echo "<option value= " .$row['Task_Category_Icode'].">" . $row['Task_Category_Name'] . "</option>";
+                                                                    }
+                                                                    endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td class="Project1" style="display: none;" >
+                                                            <div class="form-group">
+                                                                <select  class="form-control"  required  readonly="">
+
+                                                                </select>
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <textarea name="task_desc[]" id="task_desc" class="form-control"></textarea>
+                                                            </div>
+                                                        </td>
                                                         <td>
                                                             <div class="input-group">
                                                                 <div class="input-group-addon">
@@ -330,19 +369,9 @@
                                                                 <input class="form-control" id="Contract_date_start" name="Contract_date_start[]" placeholder="YYYY/MM/DD" type="text"/>
                                                             </div>
                                                         </td>
-                                                        
-                                                        <td>
-                                                            <div class="input-group">
-                                                                <div class="input-group-addon">
-                                                                    <i class="fa fa-calendar">
-                                                                    </i>
-                                                                </div>
-                                                                <input class="form-control" id="Contract_date_end" name="Contract_date_end[]" placeholder="YYYY/MM/DD" type="text"/>
-                                                            </div>
-                                                        </td>
                                                         <td>
                                                             <div class="form-group">
-                                                                <input  class="form-control" name="Hours[]" id="Hours" placeholder="Min Billable Hours" type="number" min="0" step="1" required />
+                                                                <input  class="form-control" name="Hours[]" id="Hours" placeholder="Logged Hours" type="number" min="0" step="1" required />
                                                             </div>
                                                         </td>
 
@@ -353,7 +382,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-info pull-right" onclick="Save_Fixed()" >Save</button>
+                                        <button type="submit" class="btn btn-info pull-right" onclick="Save_Task()" >Save</button>
                                     </div>
 
                                 </div>
@@ -366,7 +395,8 @@
 </section>
 </div>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 <script type="text/javascript">
     $(document).ready(function() {
         /*stay in same tab after form submit*/
@@ -378,21 +408,31 @@
 
             $('#myTab a[href="' + activeTab + '"]').tab('show');
         }
+
         /*stay in same tab after form submit*/
         $('#assigned_tasks').DataTable();
+
+        $("#Contract_date_start").datepicker({
+            todayBtn:  1,
+            autoclose: true,
+            startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#Contract_date_end').datepicker('setStartDate', minDate);
+        });
 
         $("#Task_Type").change(function(){
             var value = $("#Task_Type option:selected").val();
 
             if(value == 'Project')
             {
-                alert("show");
+                //alert("show");
                 $('.Project').hide();
                 $('.Project1').show();
             }
             else
             {
-                alert("hide");
+                //alert("hide");
                 $('.Project').show();
                 $('.Project1').hide();
             }
@@ -400,7 +440,365 @@
 
         });
 
+        $("#Project_Name").change(function () {         /*Selecting Project Phase Detais */
+            var result = $(this).val();
+            var str_array = result.split('_');
+            var id = str_array[0];
+            var type = str_array[1];
+            $.ajax({
+                url: "<?php echo site_url('User_Controller/Show_On_Project_Phase'); ?>",
+                data: {
+                    id: id,
+                    Type: type
+                },
+                type: "POST",
+                success: function (data) {
+
+                    if(data == '0')
+                    {
+                        $("#Phase_Select").hide();
+                        $(".Phase").show();
+                    }
+                    else
+                    {
+                        $("#Phase_Select").show();
+                        $(".Phase").hide();
+                        $("#Phase_Select").html(data);
+                    }
+
+                }
+
+            });
+        });
+        $("#Project_Name").change(function () {         /*Selecting Project Phase Detais */
+            var result = $(this).val();
+            var str_array = result.split('_');
+            var id = str_array[0];
+            var type = str_array[1];
+            $.ajax({
+                url: "<?php echo site_url('User_Controller/Get_Project_Incharge'); ?>",
+                data: {
+                    id: id,
+                    Type: type
+                },
+                type: "POST",
+                success: function (data) {
+                    $('#project_leader').show();
+                    $('#User_leader').hide();
+                    var task_details = $.parseJSON(data);
+                    var leader_name = task_details[0]['User_Name'];
+                    document.getElementById('Project_Leader_Name').value = leader_name;
+                    var leader_id = task_details[0]['User_Icode'];
+                    document.getElementById('Project_Leader_Id').value = leader_id;
+                }
+
+            });
+        });
+
     }    );
+
+    function Add() {
+
+        if($('#Task_Type').val() == "" || $('#task_desc').val() == "" || $('#Contract_date_start').val() == "" || $('#Hours').val() == "" )
+        {
+            alert("Please Fill All Fields...");
+        }
+        else
+        {
+
+            var Task_Type = $("#Task_Type option:selected").text();
+            var Project_Name = $("#Project_Name option:selected").text();
+            var Phase_Select = $("#Phase_Select option:selected").text();
+            var task_category = $("#Task_Category option:selected").text();
+            var user_name = $("#User_Name option:selected").text();
+            AddRow($('#Task_Type').val(), $("#Phase_Select").val(),$("#Project_Name option:selected").val(),$("#Project_Leader_Id").val(),$("#User_Name").val(),$("#task_desc").val(),
+                            $("#Contract_date_start").val(),$("#Hours").val(),$("#Task_Category").val(),$("#Project_Leader_Name").val(),Task_Type,Project_Name,Phase_Select,task_category,user_name);
+            $("#Task_Type").val("");
+            $("#Phase_Select").val("");
+            $("#Project_Name").val("");
+            $("#Contract_date_start").val("");
+            $("#Project_Leader_Id").val("");
+            $("#Hours").val("");
+            $("#User_Name").val("");
+            $("#task_desc").val("");
+            $("#Task_Category").val("");
+            $("#Project_Leader_Name").val("");
+        }
+
+    }
+    function AddRow(Task_Type,Phase_Select,Project_Name,Project_Leader_Id,User_Name,task_desc,Contract_date_start,Hours,Task_Category,project_leader_name,Task_Type1,Project_Name1,Phase_Select1,task_category1,user_name1) {
+        //Get the reference of the Table's TBODY element.
+        alert(Project_Leader_Id);
+
+
+        if(Task_Type == 'Project')
+        {
+            var tBody = $("#tblCustomers5 > TBODY")[0];
+            //Add Row.
+            row = tBody.insertRow(-1);
+            //Add Task Type
+            var cell = $(row.insertCell(-1));
+            var tech = $("<input />");
+            tech.attr("type", "text");
+            tech.attr("name", "Task_Type[]");
+            tech.val(Task_Type);
+            cell.append(tech);
+
+            // Project name
+            var cell = $(row.insertCell(-1));
+            var term = $("<input />");
+            term.attr("type", "hidden");
+            term.attr("name", "Project_Name[]");
+            term.val(Project_Name);
+            cell.append(term);
+
+
+            var term1 = $("<input />");
+            term1.attr("type", "text");
+            term1.attr("name", "test1");
+            term1.attr('readonly', true);
+            term1.val(Project_Name1);
+            cell.append(term1);
+
+            //phase name
+            var cell = $(row.insertCell(-1));
+            var membe = $("<input />");
+            membe.attr("type", "hidden");
+            membe.attr("name", "Phase_Select[]");
+            membe.val(Phase_Select);
+            cell.append(membe);
+
+            var membe1 = $("<input />");
+            membe1.attr("type", "text");
+            membe1.attr("name", "test2");
+            membe1.attr('readonly', true);
+            membe1.val(Phase_Select1);
+            cell.append(membe1);
+
+            // project leader
+            var cell = $(row.insertCell(-1));
+            var expr = $("<input />");
+            expr.attr("type", "hidden");
+            expr.attr("name", "Project_Leader_Id[]");
+            expr.attr('readonly', true);
+            expr.val(Project_Leader_Id);
+            cell.append(expr);
+            var membe2 = $("<input />");
+            membe2.attr("type", "text");
+            membe2.attr("name", "test2");
+            membe2.attr('readonly', true);
+            membe2.val(project_leader_name);
+            cell.append(membe2);
+
+            // task category
+            var cell = $(row.insertCell(-1));
+            var task = $("<input />");
+            task.attr("type", "hidden");
+            task.attr("name", "Task_Category[]");
+            task.val(Task_Category);
+            cell.append(leader);
+
+            // work progress
+            cell = $(row.insertCell(-1));
+            var desc = $("<input />");
+            desc.attr("type", "text");
+            desc.attr("name", "task_desc[]");
+            desc.attr('readonly', true);
+            desc.val(task_desc);
+            cell.append(desc);
+
+            //task date
+            cell = $(row.insertCell(-1));
+            var Area = $("<input />");
+            Area.attr("type", "text");
+            Area.attr("name", "Contract_date_start[]");
+            Area.attr('readonly', true);
+            Area.val(Contract_date_start);
+            cell.append(Area);
+
+            //hours
+            cell = $(row.insertCell(-1));
+            var time = $("<input />");
+            time.attr("type", "text");
+            time.attr("name", "Hours[]");
+            time.attr('readonly', true);
+            time.val(Hours);
+            cell.append(time);
+        }
+        else
+        {
+            var tBody = $("#tblCustomers5 > TBODY")[0];
+            row = tBody.insertRow(-1);
+            //Add Task Type
+            var cell = $(row.insertCell(-1));
+            var tech = $("<input />");
+            tech.attr("type", "text");
+            tech.attr("name", "Task_Type[]");
+            tech.val(Task_Type);
+            cell.append(tech);
+
+            // Project name
+            var cell = $(row.insertCell(-1));
+            var term = $("<input />");
+            term.attr("type", "hidden");
+            term.attr("name", "Project_Name[]");
+            term.val(Project_Name);
+            cell.append(term);
+
+            //phase name
+            var cell = $(row.insertCell(-1));
+            var membe = $("<input />");
+            membe.attr("type", "hidden");
+            membe.attr("name", "Phase_Select[]");
+            membe.val(Phase_Select);
+            cell.append(membe);
+
+            //user select leader
+            var cell = $(row.insertCell(-1));
+            var leader = $("<input />");
+            leader.attr("type", "hidden");
+            leader.attr("name", "Project_Leader_Id[]");
+            leader.val(User_Name);
+            cell.append(leader);
+            var leader1 = $("<input />");
+            leader1.attr("type", "text");
+            leader1.attr("name", "test2");
+            leader1.attr('readonly', true);
+            leader1.val(user_name1  );
+            cell.append(leader1);
+
+            //Task Category
+            var cell = $(row.insertCell(-1));
+            var task = $("<input />");
+            task.attr("type", "hidden");
+            task.attr("name", "Task_Category[]");
+            task.val(Task_Category);
+            cell.append(leader);
+            var task1 = $("<input />");
+            task1.attr("type", "text");
+            task1.attr("name", "test2");
+            task1.attr('readonly', true);
+            task1.val(task_category1);
+            cell.append(task1);
+
+            //task description
+            cell = $(row.insertCell(-1));
+            var desc = $("<input />");
+            desc.attr("type", "text");
+            desc.attr("name", "task_desc[]");
+            desc.attr('readonly', true);
+            desc.val(task_desc);
+            cell.append(desc);
+
+            //task date
+            cell = $(row.insertCell(-1));
+            var Area = $("<input />");
+            Area.attr("type", "text");
+            Area.attr("name", "Contract_date_start[]");
+            Area.attr('readonly', true);
+            Area.val(Contract_date_start);
+            cell.append(Area);
+
+            //hours
+            cell = $(row.insertCell(-1));
+            var time = $("<input />");
+            time.attr("type", "text");
+            time.attr("name", "Hours[]");
+            time.attr('readonly', true);
+            time.val(Hours);
+            cell.append(time);
+
+        }
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+    }
+
+    //** Save Fixed Cost **//
+    function Save_Task()
+    {
+        var type =document.getElementsByName("Task_Type[]");
+        var task_type = [];
+        for (var j = 0, iLen = type.length; j < iLen; j++) {
+            task_type.push(type[j].value);
+        }
+
+        var project = document.getElementsByName('Project_Name[]');
+        var project_icode = [];
+        for (var i = 0, iLen = project.length; i < iLen; i++) {
+            project_icode.push(project[i].value);
+        }
+
+        var phase = document.getElementsByName("Phase_Select[]");
+        var phase_icode = [];
+        for (var i = 0, iLen = phase.length; i < iLen; i++) {
+            phase_icode.push(phase[i].value);
+        }
+
+        var leader = document.getElementsByName("Project_Leader_Id[]");
+        var project_leader = [];
+        for (var i = 0, iLen = leader.length; i < iLen; i++) {
+            project_leader.push(leader[i].value);
+        }
+
+        var category = document.getElementsByName("Task_Category[]");
+        var task_category = [];
+        for (var i = 0, iLen = category.length; i < iLen; i++) {
+            task_category.push(category[i].value);
+        }
+        var desc = document.getElementsByName("task_desc[]");
+        var description = [];
+        for (var i = 0, iLen = desc.length; i < iLen; i++) {
+            description.push(desc[i].value);
+        }
+
+        var start_date = document.getElementsByName("Contract_date_start[]");
+        var task_start_date = [];
+        for (var i = 0, iLen = start_date.length; i < iLen; i++) {
+            task_start_date.push(start_date[i].value);
+        }
+        var Hour_P = document.getElementsByName("Hours[]");
+        var Min_Hour = [];
+        var total = 0;
+        for (var i = 0, iLen = Hour_P.length; i < iLen; i++) {
+            Min_Hour.push(Hour_P[i].value);
+
+        }
+
+            $.ajax({
+                url:"<?php echo site_url('Admin_Controller/Save_Other_Task_Entry'); ?>",
+                data: {Task_Type: task_type,Project_Id: project_icode,
+                       Phase_Id: phase_icode,Project_Leader: project_leader,
+                       Task_Category: task_category,Task_Description:description,
+                       Task_Date: task_start_date,Logged_Hours:Min_Hour },
+                type: "POST",
+                cache: false,
+                success:function(data) {
+                    if(data == '1')
+                    {
+                        swal({
+                                title: "Good job!",
+                                text: "You clicked the button!",
+                                type: "success"
+                            },
+                            function(){
+                                location.reload();
+                            });
+                    }
+                    else {
+                        alert("Failed..");
+                    }
+
+                }
+            })
+
+    }
+
 
 
 
