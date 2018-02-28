@@ -1053,7 +1053,7 @@ class Admin_Controller extends CI_Controller
     //** Task_Category_Master */
     public function Task_Category_Master()
     {
-        $this->data['Role_Master']= $this->technical_admin_model->get_Task_Category_Master();
+        $this->data['Task_Category']= $this->technical_admin_model->get_Task_Category_Master();
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
         $this->load->view('Admin/top');
@@ -1063,8 +1063,8 @@ class Admin_Controller extends CI_Controller
     //** insert_Phase_Master */
     public  function  insert_Task_Category_Master()
     {
-        $data = array('Task_Category_Name '                   => $this->input->post('Role_master_name'),
-            'Role_Created_By'             => $this->session->userdata['userid']);
+        $data = array('Task_Category_Name'     => $this->input->post('Task_Category_name'),
+                      'Created_By'             => $this->session->userdata['userid']);
         $insert = $this->technical_admin_model->insert_Task_Category_Master($data);
         redirect('Admin_Controller/Task_Category_Master');
     }

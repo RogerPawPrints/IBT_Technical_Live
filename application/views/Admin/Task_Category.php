@@ -26,7 +26,7 @@
                                     <form method="post" role="form" action="<?php echo site_url('Admin_Controller/insert_Task_Category_Master'); ?>" name="data_register">
                                         <div class="form-group">
                                             <label>Task Category Name</label>
-                                            <input type="text" class="form-control" name="Role_master_name" placeholder="Task Category Name" required >
+                                            <input type="text" class="form-control" name="Task_Category_name" placeholder="Task Category Name" required >
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
@@ -40,7 +40,7 @@
     </section>
     <section class="content-header">
         <h1>
-            View Role Master
+            View Task Category
             <small></small>
         </h1>
     </section>
@@ -57,21 +57,21 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Role Master Name</th>
+                                            <th>Category Name</th>
                                             <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <?php
                                         $i=1;
-                                        foreach ($Role_Master as $key => $data)
+                                        foreach ($Task_Category as $key )
                                         {
                                             ?>
                                             <tr>
                                                 <th><?php echo $i; ?></th>
-                                                <td><?php echo $data['Role_Name']; ?></td>
+                                                <td><?php echo $key['Task_Category_Name']; ?></td>
                                                 <td>
-                                                    <a class="btn btn-danger" href="javascript:;" onclick="Delete_Role_Master('<?php echo $data['Role_Icode']; ?>')">
+                                                    <a class="btn btn-danger" href="javascript:;" onclick="Delete_Role_Master('<?php echo $key['Task_Category_Icode']; ?>')">
                                                         <i class="glyphicon glyphicon-trash icon-white"></i>
                                                         Delete
                                                     </a>

@@ -503,6 +503,12 @@ class Technical_Admin_Model extends CI_Model
         $this->db->insert('task_category_master', $data);
         return 1;
     }
+    //** get_Task_Category_Master */
+    public function get_Task_Category_Master()
+    {
+        $query=$this->db->query("SELECT * FROM task_category_master ");
+        return $query->result_array();
+    }
 
 
 
