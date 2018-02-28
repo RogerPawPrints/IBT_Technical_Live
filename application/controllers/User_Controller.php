@@ -514,7 +514,8 @@ class User_Controller extends CI_Controller
 
             for($i=0; $i<$count; $i++)
             {
-                $resource_contact = array('Task_Type' => $insert_resource,
+                $resource_contact = array('Type_Of_Task' => 'Un_Assigned',
+                    'Task_Type' => $insert_resource,
                     'Task_Category_Icode' => $Role_Master[$i],
                     'Task_Project_Icode' => $Member[$i],
                     'Task_WO_Icode' => $Terms[$i],
