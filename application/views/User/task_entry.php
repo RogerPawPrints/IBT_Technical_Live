@@ -27,10 +27,10 @@
             <small></small>
         </h1>
 
-            <ul  class="nav nav-pills" id="myTab">
-                <li class="active"><a  href="#1a" data-toggle="tab">Assigned Task</a></li>
-                <li><a href="#2a" data-toggle="tab">Other</a></li>
-            </ul>
+        <ul  class="nav nav-pills" id="myTab">
+            <li class="active"><a  href="#1a" data-toggle="tab">Assigned Task</a></li>
+            <li><a href="#2a" data-toggle="tab">Other</a></li>
+        </ul>
 
     </section>
 
@@ -160,7 +160,7 @@
                                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
-<!--                                                    <form name="create_task_form" action="--><?php //echo site_url('User_Controller/Save_Task_Entry'); ?><!--" enctype="multipart/form-data" method="post">-->
+                                                    <!--                                                    <form name="create_task_form" action="--><?php //echo site_url('User_Controller/Save_Task_Entry'); ?><!--" enctype="multipart/form-data" method="post">-->
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                         <h4 class="modal-title" id="myModalLabel">Today's Task</h4>
@@ -171,7 +171,7 @@
                                                             <input type="hidden" id="project_id" name="project_id">
                                                             <div class="form-group">
                                                                 <label>Phase</label>
-                                                               <input type="hidden" class="form-control" name="phase_id" id="phase_id">
+                                                                <input type="hidden" class="form-control" name="phase_id" id="phase_id">
                                                                 <input type="text" class="form-control" name="phase_name" id="phase_name" readonly>
                                                                 </select>
                                                             </div>
@@ -209,17 +209,17 @@
                                                             <h4 class="modal-title" id="myModalLabel">Today's Task</h4>
                                                         </div>
                                                         <div class="modal-body">
-<!--                                                            <form name="create_task_form" action="--><?php //echo site_url('User_Controller/Save_Task_Entry'); ?><!--" enctype="multipart/form-data" method="post">-->
-                                                                <input type="text" id="wo_task_id" name="wo_task_id">
-                                                                <input type="text" id="wo_id" name="wo_id">
-                                                                <div class="form-group">
-                                                                    <label for="work_progress" class="form-control-label">Work Progress:</label>
-                                                                    <textarea class="form-control" required="required" id="work_progress" name="work_progress" ></textarea>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="work_hours" class="form-control-label">Hours:</label>
-                                                                    <input class="form-control" required="required" id="work_hours" name="work_hours" type="number" min="0" step="1">
-                                                                </div>
+                                                            <!--                                                            <form name="create_task_form" action="--><?php //echo site_url('User_Controller/Save_Task_Entry'); ?><!--" enctype="multipart/form-data" method="post">-->
+                                                            <input type="text" id="wo_task_id" name="wo_task_id">
+                                                            <input type="text" id="wo_id" name="wo_id">
+                                                            <div class="form-group">
+                                                                <label for="work_progress" class="form-control-label">Work Progress:</label>
+                                                                <textarea class="form-control" required="required" id="work_progress" name="work_progress" ></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="work_hours" class="form-control-label">Hours:</label>
+                                                                <input class="form-control" required="required" id="work_hours" name="work_hours" type="number" min="0" step="1">
+                                                            </div>
 
 
                                                         </div>
@@ -285,6 +285,7 @@
                                                                     }
                                                                     endforeach; ?>
                                                                 </select>
+                                                                <input type="hidden" name="Contract_Id[]" id="Contract_Id">
 
                                                             </div>
                                                         </td>
@@ -327,14 +328,14 @@
                                                                     <option value="" >Select Incharge</option>
                                                                     <?php foreach ($Incharge as $row):
                                                                     {
-                                                                            echo "<option value= " .$row['User_Icode'].">" . $row['User_Name'] . "</option>";
+                                                                        echo "<option value= " .$row['User_Icode'].">" . $row['User_Name'] . "</option>";
                                                                     }
                                                                     endforeach; ?>
                                                                 </select>
 
                                                             </div>
                                                         </td>
-                                                        
+
                                                         <td class="Project">
                                                             <div class="input-group">
                                                                 <select name="Task_Category[]" class="form-control" id="Task_Category" required >
@@ -386,13 +387,13 @@
                                     </div>
 
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</div>
-</section>
+    </section>
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
@@ -435,6 +436,8 @@
                 //alert("hide");
                 $('.Project').show();
                 $('.Project1').hide();
+                $('#User_leader').show();
+                $('#project_leader').hide();
             }
 
 
@@ -445,6 +448,7 @@
             var str_array = result.split('_');
             var id = str_array[0];
             var type = str_array[1];
+            document.getElementById('Contract_Id').value = type;
             $.ajax({
                 url: "<?php echo site_url('User_Controller/Show_On_Project_Phase'); ?>",
                 data: {
@@ -512,7 +516,7 @@
             var task_category = $("#Task_Category option:selected").text();
             var user_name = $("#User_Name option:selected").text();
             AddRow($('#Task_Type').val(), $("#Phase_Select").val(),$("#Project_Name option:selected").val(),$("#Project_Leader_Id").val(),$("#User_Name").val(),$("#task_desc").val(),
-                            $("#Contract_date_start").val(),$("#Hours").val(),$("#Task_Category").val(),$("#Project_Leader_Name").val(),Task_Type,Project_Name,Phase_Select,task_category,user_name);
+                $("#Contract_date_start").val(),$("#Hours").val(),$("#Task_Category").val(),$("#Project_Leader_Name").val(),Task_Type,Project_Name,Phase_Select,task_category,user_name);
             $("#Task_Type").val("");
             $("#Phase_Select").val("");
             $("#Project_Name").val("");
@@ -528,7 +532,11 @@
     }
     function AddRow(Task_Type,Phase_Select,Project_Name,Project_Leader_Id,User_Name,task_desc,Contract_date_start,Hours,Task_Category,project_leader_name,Task_Type1,Project_Name1,Phase_Select1,task_category1,user_name1) {
         //Get the reference of the Table's TBODY element.
-        alert(Project_Leader_Id);
+        // alert(Project_Name);
+
+        var str_array = Project_Name.split('_');
+        var Project_id = str_array[0];
+        var Contract_id = str_array[1];
 
 
         if(Task_Type == 'Project')
@@ -549,8 +557,15 @@
             var term = $("<input />");
             term.attr("type", "hidden");
             term.attr("name", "Project_Name[]");
-            term.val(Project_Name);
+            term.val(Project_id);
             cell.append(term);
+
+            var contract = $("<input />");
+            contract.attr("type", "hidden");
+            contract.attr("name", "Contract_Id[]");
+            contract.attr('readonly', true);
+            contract.val(Contract_id);
+            cell.append(contract);
 
 
             var term1 = $("<input />");
@@ -595,8 +610,8 @@
             var task = $("<input />");
             task.attr("type", "hidden");
             task.attr("name", "Task_Category[]");
-            task.val(Task_Category);
-            cell.append(leader);
+            task.val(0);
+            cell.append(task);
 
             // work progress
             cell = $(row.insertCell(-1));
@@ -642,8 +657,16 @@
             var term = $("<input />");
             term.attr("type", "hidden");
             term.attr("name", "Project_Name[]");
-            term.val(Project_Name);
+            term.val(Project_id);
             cell.append(term);
+            var contract = $("<input />");
+            contract.attr("type", "text");
+            contract.attr("name", "Contract_Id[]");
+            contract.attr('readonly', true);
+            contract.val(0);
+            cell.append(contract);
+
+
 
             //phase name
             var cell = $(row.insertCell(-1));
@@ -673,7 +696,7 @@
             task.attr("type", "hidden");
             task.attr("name", "Task_Category[]");
             task.val(Task_Category);
-            cell.append(leader);
+            cell.append(task);
             var task1 = $("<input />");
             task1.attr("type", "text");
             task1.attr("name", "test2");
@@ -728,11 +751,43 @@
             task_type.push(type[j].value);
         }
 
+        if(task_type == 'Non_Project')
+        {
+            //alert("first");
+
+            var leader = document.getElementsByName("User_Name[]");
+            var project_leader = [];
+            for (var i = 0, iLen = leader.length; i < iLen; i++) {
+                project_leader.push(leader[i].value);
+            }
+
+        }
+        else
+        {
+            //alert("multiple");
+            var leader = document.getElementsByName("Project_Leader_Id[]");
+            var project_leader = [];
+            for (var i = 0, iLen = leader.length; i < iLen; i++) {
+                project_leader.push(leader[i].value);
+            }
+        }
+
+
+
+
         var project = document.getElementsByName('Project_Name[]');
         var project_icode = [];
         for (var i = 0, iLen = project.length; i < iLen; i++) {
             project_icode.push(project[i].value);
         }
+
+        var contract = document.getElementsByName('Contract_Id[]');
+        var contract_icode = [];
+        for (var i = 0, iLen = contract.length; i < iLen; i++) {
+            contract_icode.push(contract[i].value);
+        }
+
+
 
         var phase = document.getElementsByName("Phase_Select[]");
         var phase_icode = [];
@@ -740,17 +795,15 @@
             phase_icode.push(phase[i].value);
         }
 
-        var leader = document.getElementsByName("Project_Leader_Id[]");
-        var project_leader = [];
-        for (var i = 0, iLen = leader.length; i < iLen; i++) {
-            project_leader.push(leader[i].value);
-        }
+
+
 
         var category = document.getElementsByName("Task_Category[]");
         var task_category = [];
         for (var i = 0, iLen = category.length; i < iLen; i++) {
             task_category.push(category[i].value);
         }
+
         var desc = document.getElementsByName("task_desc[]");
         var description = [];
         for (var i = 0, iLen = desc.length; i < iLen; i++) {
@@ -770,23 +823,30 @@
 
         }
 
+        if(Hour_P == "" || start_date == "" || desc == "" || type == "" )
+        {
+            alert("Please Fill All Fields...");
+        }
+        else {
+
             $.ajax({
-                url:"<?php echo site_url('Admin_Controller/Save_Other_Task_Entry'); ?>",
-                data: {Task_Type: task_type,Project_Id: project_icode,
-                       Phase_Id: phase_icode,Project_Leader: project_leader,
-                       Task_Category: task_category,Task_Description:description,
-                       Task_Date: task_start_date,Logged_Hours:Min_Hour },
+                url: "<?php echo site_url('User_Controller/Save_Other_Task_Entry'); ?>",
+                data: {
+                    Task_Type: task_type, Project_Id: project_icode,Contract_Id: contract_icode,
+                    Phase_Id: phase_icode, Project_Leader: project_leader,
+                    Task_Category: task_category, Task_Description: description,
+                    Task_Date: task_start_date, Logged_Hours: Min_Hour
+                },
                 type: "POST",
                 cache: false,
-                success:function(data) {
-                    if(data == '1')
-                    {
+                success: function (data) {
+                    if (data == '1') {
                         swal({
                                 title: "Good job!",
                                 text: "You clicked the button!",
                                 type: "success"
                             },
-                            function(){
+                            function () {
                                 location.reload();
                             });
                     }
@@ -796,6 +856,7 @@
 
                 }
             })
+        }
 
     }
 

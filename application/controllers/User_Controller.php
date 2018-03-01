@@ -503,37 +503,87 @@ class User_Controller extends CI_Controller
     {
         $type =  $this->input->post('Task_Type',true);
         $count = sizeof($type);
+
+        //print_r($count);
         $project =  $this->input->post('Project_Id',true);
+        $contract =  $this->input->post('Contract_Id',true);
         $phase =  $this->input->post('Phase_Id',true);
         $leader =  $this->input->post('Project_Leader',true);
         $category =  $this->input->post('Task_Category',true);
+
         $description =  $this->input->post('Task_Description',true);
         $task_date =  $this->input->post('Task_Date',true);
         $Hours =  $this->input->post('Logged_Hours',true);
+            for($i=0; $i<$count; $i++) {
+                print_r($type[$i]);
+                if ($type[$i] == "") {
 
+                } else {
+                    print_r("valaif");
+                   if($contract[$i] == '1')
+                   {
+                       $resource_contact = array('Type_Of_Task' => 'Un_Assigned',
+                           'Task_Type' =>$type[$i],
+                           'Task_Category_Icode' => $category[$i],
+                           'Task_Project_Icode' => $project[$i],
+                           'Task_WO_Icode' => '0',
+                           'Task_Client_Icode' => '0',
+                           'Task_Resource_Icode' => $this->session->userdata['userid'],
+                           'Task_Contract_Type' => $contract[$i],
+                           'Task_Project_Phase_Icode' => $phase[$i],
+                           'Task_Start_Date' => $task_date[$i],
+                           'Task_End_Date' => $task_date[$i],
+                           'Task_Estimated_Hours' => $Hours[$i],
+                           'Task_Description' => $description[$i],
+                           'Task_Created_By' => $leader[$i]);
+                       $insert_Req = $this->technical_user_model->Insert_Task($resource_contact);
 
-            for($i=0; $i<$count; $i++)
-            {
-                $resource_contact = array('Type_Of_Task' => 'Un_Assigned',
-                    'Task_Type' => $insert_resource,
-                    'Task_Category_Icode' => $Role_Master[$i],
-                    'Task_Project_Icode' => $Member[$i],
-                    'Task_WO_Icode' => $Terms[$i],
-                    'Task_Client_Icode' => $sdate[$i],
-                    'Task_Resource_Icode' => $edate[$i],
-                    'Task_Contract_Type' => $Hours[$i],
-                    'Task_Project_Phase_Icode' => $Hours[$i],
-                    'Task_Start_Date' => $Hours[$i],
-                    'Task_End_Date' => $Hours[$i],
-                    'Task_Estimated_Hours' => $Hours[$i],
-                    'Task_Description' => $Hours[$i],
-                    'Task_End_Date' => $Hours[$i],
+                   }
+                   else if($contract[$i] > 1)
+                   {
+                       //print_r("work order");
+                       //print_r($contract[$i]);
+                       $resource_contact = array('Type_Of_Task' => 'Un_Assigned',
+                           'Task_Type' =>$type[$i],
+                           'Task_Category_Icode' => $category[$i],
+                           'Task_Project_Icode' => '0',
+                           'Task_WO_Icode' => $project[$i],
+                           'Task_Client_Icode' => '0',
+                           'Task_Resource_Icode' => $this->session->userdata['userid'],
+                           'Task_Contract_Type' => $contract[$i],
+                           'Task_Project_Phase_Icode' => $phase[$i],
+                           'Task_Start_Date' => $task_date[$i],
+                           'Task_End_Date' => $task_date[$i],
+                           'Task_Estimated_Hours' => $Hours[$i],
+                           'Task_Description' => $description[$i],
+                           'Task_Created_By' => $leader[$i]);
+                       $insert_Req = $this->technical_user_model->Insert_Task($resource_contact);
 
-                    'Created_By' => $this->session->userdata['userid']);
-                $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
+                   }
+                   else
+                   {
+
+                       //print_r("non project");
+                       //print_r($leader[$i]);
+                       $resource_contact = array('Type_Of_Task' => 'Un_Assigned',
+                           'Task_Type' =>$type[$i],
+                           'Task_Category_Icode' => $category[$i],
+                           'Task_Project_Icode' => '0',
+                           'Task_WO_Icode' => '0',
+                           'Task_Client_Icode' => '0',
+                           'Task_Resource_Icode' => $this->session->userdata['userid'],
+                           'Task_Contract_Type' => '0',
+                           'Task_Project_Phase_Icode' => '0',
+                           'Task_Start_Date' => $task_date[$i],
+                           'Task_End_Date' => $task_date[$i],
+                           'Task_Estimated_Hours' => $Hours[$i],
+                           'Task_Description' => $description[$i],
+                           'Task_Created_By' => $leader[$i]);
+                       $insert_Req = $this->technical_user_model->Insert_Task($resource_contact);
+                   }
+               }
             }
-
-
+        echo 1;
     }
 }
 ?>
