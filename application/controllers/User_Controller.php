@@ -515,11 +515,11 @@ class User_Controller extends CI_Controller
         $task_date =  $this->input->post('Task_Date',true);
         $Hours =  $this->input->post('Logged_Hours',true);
             for($i=0; $i<$count; $i++) {
-                print_r($type[$i]);
+
                 if ($type[$i] == "") {
 
                 } else {
-                    print_r("valaif");
+
                    if($contract[$i] == '1')
                    {
                        $resource_contact = array('Type_Of_Task' => 'Un_Assigned',
@@ -562,7 +562,6 @@ class User_Controller extends CI_Controller
                    }
                    else
                    {
-
                        //print_r("non project");
                        //print_r($leader[$i]);
                        $resource_contact = array('Type_Of_Task' => 'Un_Assigned',

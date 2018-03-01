@@ -823,7 +823,7 @@
 
         }
 
-        if(Hour_P == "" || start_date == "" || desc == "" || type == "" )
+        if(task_type == "")
         {
             alert("Please Fill All Fields...");
         }
