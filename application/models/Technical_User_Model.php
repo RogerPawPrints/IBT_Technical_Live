@@ -233,5 +233,21 @@ class Technical_User_Model extends CI_Model
         $query = $this->db->query("SELECT * FROM task_category_master ");
         return $query->result_array();
     }
+    //** get other task details view in leader */
+    public function Show_Other_Task()
+    {
+        $user_icode = $this->session->userdata['userid'];
+        $query = $this->db->query(" SELECT * FROM ibt_task_master A LEFT JOIN ibt_technical_users B on A.Task_Resource_Icode=B.User_Icode 
+                                    LEFT JOIN ibt_contractcategory C on A.Task_Contract_Type=C.Contracttype_Icode 
+                                    LEFT JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode LEFT JOIN work_order E on A.Task_WO_Icode=E.Work_Order_Icode 
+                                    LEFT JOIN task_category_master F on A.Task_Category_Icode=F.Task_Category_Icode WHERE A.Task_Created_By='$user_icode' and A.Type_Of_Task='Un_Assigned' ");
+        return $query->result_array();
+    }
+    public function get_other_task_desc($id)
+    {
+        $query = $this->db->query(" SELECT * FROM ibt_task_master A  LEFT JOIN ibt_project_table D on A.Task_Project_Icode=D.Project_Icode LEFT JOIN work_order E on A.Task_WO_Icode=E.Work_Order_Icode LEFT JOIN ibt_client B on D.Project_Client_Icode=B.Client_Icode and E.Resource_Client_Icode=B.Client_Icode
+                                    LEFT JOIN task_category_master F on A.Task_Category_Icode=F.Task_Category_Icode WHERE A.Task_Icode ='$id' ");
+        return $query->result_array();
+    }
 
 }

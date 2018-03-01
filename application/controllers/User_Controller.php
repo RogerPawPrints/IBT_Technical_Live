@@ -397,7 +397,7 @@ class User_Controller extends CI_Controller
     public function View_Manage_Task()
     {
         $this->data['manage_tasks'] = $this->technical_user_model->View_Manage_Task();
-        //$this->data['Select_Project']= $this->technical_user_model->Show_On_Select_Project();
+        $this->data['other_task']= $this->technical_user_model->Show_Other_Task();
         $this->load->view('User/header');
         $this->load->view('User/left');
         $this->load->view('User/top');
@@ -583,6 +583,24 @@ class User_Controller extends CI_Controller
                }
             }
         echo 1;
+    }
+
+    //** Get other task Description */
+    public function Get_Other_Task_Desc()
+    {
+        $task_id = $this->input->post('id',true);
+        $attachment =  $this->technical_user_model->get_other_task_desc($task_id);
+        // echo json_encode($attachment);
+        $output = null;
+        $output .="<h3>Task Type:</h3><p>" .$attachment[0]['Task_Type']. "</p>";
+         $output .="<h3>Client Name:</h3><p>" .$attachment[0]['Client_Company_Name']. "</p>";
+        $output .="<h3>Project Name:</h3><p>" .$attachment[0]['Project_Name']. "</p>";
+        $output .="<h3>Start Date:</h3><p>" .$attachment[0]['Task_Start_Date']. "</p>";
+        $output .="<h3>Task Category:</h3><p>" .$attachment[0]['Task_Category_Name']. "</p>";
+        $output .="<h3>Task Description</h3>";
+        $output .="<p style='line-height: 30px;'>" .$attachment[0]['Task_Description']. "</p>";
+        echo $output;
+
     }
 }
 ?>

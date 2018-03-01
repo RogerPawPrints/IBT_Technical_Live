@@ -190,6 +190,80 @@
                                     </div>
                                     <div class="tab-pane" id="2a">
                                         <h3>Other Task.</h3>
+
+                                        <table id="assigned_tasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <th>Resource</th>
+                                                <th>Task Type</th>
+                                                <th>Contract Category</th>
+                                                <th>Task Category</th>
+                                                <th>Task Progress</th>
+                                                <th>Task Entered Date</th>
+                                                <th>Logged Hours</th>
+                                                <th>Billable Hours</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <?php
+                                            $i=1;
+                                            foreach($other_task as $r)
+                                            {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $r['User_Name']; ?></td>
+                                                    <td><?php echo $r['Task_Type']; ?></td>
+                                                    <td><?php echo $r['Contracttype_Name']; ?></td>
+                                                    <td><?php echo $r['Task_Category_Name']; ?></td>
+                                                    <td><?php echo $r['Task_Description']; ?></td>
+                                                    <td><?php echo date($r['Task_Created_On']) ; ?></td>
+                                                    <td><?php echo $r['Task_Estimated_Hours']; ?></td>
+
+                                                    <td><input type="text" name="Billable" id="Billable<?php echo $r['Task_Icode'];?>" value="<?php echo $r['Task_Estimated_Hours']; ?>"></td>
+
+
+                                                    <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
+                                                    <td><button type="button" class="btn btn-primary" id="myModal" onclick="get_other_task_details('<?php echo $r['Task_Icode']; ?>')"
+                                                                data-toggle="modal" data-target="#myModalA" value="">View</button>
+                                                        <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Icode']; ?>')" value="">Save</button>
+                                                        <button type="button" class="btn btn-danger" onclick="close_task('<?php echo $r['Task_Icode']; ?>')">Close Task</button>
+                                                    </td>
+
+                                                </tr>
+                                                <?php
+                                                $i++;
+                                            }
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal fade" id="myModalA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">View / Manage Tasks</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <ul class="list-group" id="attachment_other">
+
+
+                                                    </ul>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -309,6 +383,22 @@
 
         }
 
+    }
+
+
+    function get_other_task_details(id) {
+
+
+        $.ajax({
+            url: "<?php echo site_url('User_Controller/Get_Other_Task_Desc'); ?>",
+            data: {
+                id: id
+            },
+            type: "POST",
+            success: function (data) {
+                $('#attachment_other').html(data);
+            }
+        });
     }
 
 
