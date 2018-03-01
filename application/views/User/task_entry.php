@@ -859,6 +859,81 @@
         }
 
     }
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: ")) {
+
+            //Get the reference of the Table.
+            var table = $("#tblCustomers5")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+
+    function task_entry(id,project,phase_id) {
+        document.getElementById('task_id').value = id;
+        //alert(id);
+        document.getElementById('project_id').value = project;
+
+        $.ajax({
+            url: "<?php echo site_url('User_Controller/get_phase_modules'); ?>",
+            data: {
+                id: project,
+                Phase: phase_id
+
+            },
+            type: "POST",
+            success: function (data) {
+                var phase_modules = $.parseJSON(data);
+
+                var phasename = phase_modules.phase_Details[0]['Phase_Name'];
+                document.getElementById('phase_name').value = phasename;
+                var phaseid = phase_modules.phase_Details[0]['Project_Phase_Icode'];
+                document.getElementById('phase_id').value = phaseid;
+                $("#Module_Select").html(phase_modules.Modules);
+            }
+
+
+        });
+
+    }
+
+    function task_entry_resource(id,wo) {
+        alert(id);
+        alert(wo);
+        document.getElementById('wo_task_id').value = id;
+        //alert(id);
+        document.getElementById('wo_id').value = wo;
+    }
+
+    function get_attachments(id) {
+        document.getElementById('task_id').value = id;
+        $.ajax({
+            url: "<?php echo site_url('User_Controller/get_task_attachments'); ?>",
+            data: {
+                id: id
+            },
+            type: "POST",
+            success: function (data) {
+//                var attachments = $.parseJSON(data);
+//                var count = Object.keys(attachments).length;
+//               alert(count);
+//                for(var i = 0; i < count; i++)
+//                {
+//                   var  file = attachments[i];
+//                   var folder =file.Project_Name;
+//                    $('#attachment_list').append("<li><a href='<?php //echo base_url(); ?>//index.php/User_Controller/download/"+file.Project_Name+"/"+file.Attachment_Path+"/ '>" + file.Attachment_Path +  "</a></li>" );
+//                }
+                $('#attachment_list').html(data);
+            }
+        });
+    }
+
+
 
 
 
