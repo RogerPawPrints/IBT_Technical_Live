@@ -191,7 +191,7 @@
                                     <div class="tab-pane" id="2a">
                                         <h3>Other Task.</h3>
 
-                                        <table id="assigned_tasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <table id="assigned_tasks1" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                             <tr>
                                                 <td>#</td>
@@ -223,14 +223,13 @@
                                                     <td><?php echo date($r['Task_Created_On']) ; ?></td>
                                                     <td><?php echo $r['Task_Estimated_Hours']; ?></td>
 
-                                                    <td><input type="text" name="Billable" id="Billable<?php echo $r['Task_Icode'];?>" value="<?php echo $r['Task_Estimated_Hours']; ?>"></td>
+                                                    <td><input type="text" name="Billable" id="Billable_other<?php echo $r['Task_Icode'];?>" value="<?php echo $r['Task_Estimated_Hours']; ?>"></td>
 
 
                                                     <!--<td><a href='<?php /*echo site_url('User_Controller/Single_Assigned_Task'); */?>'>VIEW</a> </td>-->
                                                     <td><button type="button" class="btn btn-primary" id="myModal" onclick="get_other_task_details('<?php echo $r['Task_Icode']; ?>')"
                                                                 data-toggle="modal" data-target="#myModalA" value="">View</button>
-                                                        <button type="button" class="btn btn-success" onclick="save_manage_task('<?php echo $r['Task_Icode']; ?>')" value="">Save</button>
-                                                        <button type="button" class="btn btn-danger" onclick="close_task('<?php echo $r['Task_Icode']; ?>')">Close Task</button>
+                                                        <button type="button" class="btn btn-success" onclick="save_other_task('<?php echo $r['Task_Icode']; ?>')" value="">Close Task</button>
                                                     </td>
 
                                                 </tr>
@@ -290,6 +289,7 @@
         }
         /*stay in same tab after form submit*/
         $('#assigned_tasks').DataTable();
+        $('#assigned_tasks1').DataTable();
 
         }    );
 
@@ -385,7 +385,6 @@
 
     }
 
-
     function get_other_task_details(id) {
 
 
@@ -397,6 +396,35 @@
             type: "POST",
             success: function (data) {
                 $('#attachment_other').html(data);
+            }
+        });
+    }
+
+    function save_other_task(task_id)
+    {
+        var Billable2 = document.getElementById('Billable_other'+task_id).value;
+        $.ajax({
+            url: "<?php echo site_url('User_Controller/Save_Other_Task'); ?>",
+            data: {
+                Task_id: task_id,
+                Billable: Billable2,
+            },
+            type: "POST",
+            success: function (data) {
+                if (data == '1') {
+                    swal({
+                            title: "success!",
+                            text: "Task Reviewed Successfully ...!",
+                            type: "success"
+                        },
+                        function () {
+                            //window.history.back();
+                            location.reload();
+                        });
+                }
+                else {
+
+                }
             }
         });
     }

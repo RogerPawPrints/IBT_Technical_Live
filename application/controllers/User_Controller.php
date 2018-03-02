@@ -503,23 +503,17 @@ class User_Controller extends CI_Controller
     {
         $type =  $this->input->post('Task_Type',true);
         $count = sizeof($type);
-
-        //print_r($count);
         $project =  $this->input->post('Project_Id',true);
         $contract =  $this->input->post('Contract_Id',true);
         $phase =  $this->input->post('Phase_Id',true);
         $leader =  $this->input->post('Project_Leader',true);
         $category =  $this->input->post('Task_Category',true);
-
         $description =  $this->input->post('Task_Description',true);
         $task_date =  $this->input->post('Task_Date',true);
         $Hours =  $this->input->post('Logged_Hours',true);
             for($i=0; $i<$count; $i++) {
-
                 if ($type[$i] == "") {
-
                 } else {
-
                    if($contract[$i] == '1')
                    {
                        $resource_contact = array('Type_Of_Task' => 'Un_Assigned',
@@ -601,6 +595,20 @@ class User_Controller extends CI_Controller
         $output .="<p style='line-height: 30px;'>" .$attachment[0]['Task_Description']. "</p>";
         echo $output;
 
+    }
+    //** Save other task */
+    public function Save_Other_Task()
+    {
+        $task_id= $this->input->post('Task_id',true);
+        $billable = $this->input->post('Billable',true);
+        $data = array(
+            'Task_Billable_Hours' => $billable,
+            'Task_Status' => '0',
+            'Modified_By' =>$this->session->userdata['userid'],
+            'Modified_On' =>date('Y-m-d'));
+        $this->db->where('Task_Icode',$task_id);
+        $this->db->update('ibt_task_master', $data);
+        echo 1;
     }
 }
 ?>
