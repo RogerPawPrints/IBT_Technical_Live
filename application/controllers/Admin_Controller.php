@@ -630,15 +630,21 @@ class Admin_Controller extends CI_Controller
 
             for($i=0; $i<$count; $i++)
             {
-                $resource_contact = array('WO_Icode' => $insert_resource,
-                    'Role_Icode' => $Role_Master[$i],
-                    'Member_Icode' => $Member[$i],
-                    'Term_Icode' => $Terms[$i],
-                    'Start_Date' => $sdate[$i],
-                    'End_Date' => $edate[$i],
-                    'Min_Hour' => $Hours[$i],
-                    'Created_By' => $this->session->userdata['userid']);
-                $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
+                if ($Member[$i] == "") {
+
+                }
+                else{
+                    $resource_contact = array('WO_Icode' => $insert_resource,
+                        'Role_Icode' => $Role_Master[$i],
+                        'Member_Icode' => $Member[$i],
+                        'Term_Icode' => $Terms[$i],
+                        'Start_Date' => $sdate[$i],
+                        'End_Date' => $edate[$i],
+                        'Min_Hour' => $Hours[$i],
+                        'Created_By' => $this->session->userdata['userid']);
+                    $insert_Req = $this->technical_admin_model->Save_Contract_Resource($resource_contact);
+                }
+
             }
 
             for($i=0; $i<$client_contact; $i++)
