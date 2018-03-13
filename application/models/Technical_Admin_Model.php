@@ -542,6 +542,25 @@ class Technical_Admin_Model extends CI_Model
         return $query->result_array();
     }
 
+    //** Update Requirement Master */
+    public function Assigned_Requirement_Leader($data,$id)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $DB2->where('Requirement_Icode',$id);
+        $DB2->update('ibt_requirement_master', $data);
+        return 1;
+    }
+    public function Get_Assigned_Requirements()
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT A.*,B.Prospect_Icode,B.Company_Name,B.WebURL,C.User_Icode,C.User_Name,D.Req_Name FROM ibt_requirement_master A 
+                            INNER JOIN ibt_prospect_data B on A.Prospect_Icode=B.Prospect_Icode 
+                            INNER JOIN ibt_technical_user C on A.Tech_Leader_Code=C.User_Icode 
+                            INNER JOIN requirement_status_types D on A.Requirement_Status=D.Req_Id 
+                            WHERE A.Tech_Leader_Code !='0' ");
+        return $query->result_array();
+    }
+
 
 
 

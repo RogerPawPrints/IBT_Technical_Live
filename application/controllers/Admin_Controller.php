@@ -1097,11 +1097,21 @@ class Admin_Controller extends CI_Controller
     {
         $this->data['Requirements']= $this->technical_admin_model->Get_Requirements();
         $this->data['Leader']= $this->technical_admin_model->Get_Project_Leader();
+        $this->data['Assigned']= $this->technical_admin_model->Get_Assigned_Requirements();
         $this->load->view('Admin/header');
         $this->load->view('Admin/left');
         $this->load->view('Admin/top');
         $this->load->view('Admin/Requirements',$this->data, FALSE);
         $this->load->view('Admin/footer');
+    }
+    //** Assign Leader */
+    public function Assigned_Leader()
+    {
+        $req_id =$this->input->post('id', true);
+        $data = array('Tech_Leader_Code'     => $this->input->post('Leader_Id', true),
+                      'Requirement_Status'      => '2');
+        $insert = $this->technical_admin_model->Assigned_Requirement_Leader($data,$req_id);
+        echo $insert;
     }
 
 
