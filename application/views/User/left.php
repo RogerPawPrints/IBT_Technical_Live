@@ -19,23 +19,34 @@
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="<?php echo site_url('User_Controller/dashboard'); ?>"><i class="fa fa-book"></i> <span>Dashboard</span></a></li>
 
-          <li class="treeview">
-              <a href="#">
-                  <i class="fa fa-table"></i> <span>Task Management</span>
-                  <span class="pull-right-container">
+          <?php
+          if($_SESSION['active'] == 'Yes')
+          {
+              ?>
+              <li><a href="<?php echo site_url('User_Controller/Requirements'); ?>"><i class="fa fa-book"></i> <span>Project Requirements</span></a></li>
+              <li class="treeview">
+                  <a href="#">
+                      <i class="fa fa-table"></i> <span>Task Management</span>
+                      <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
 
-              </a>
-              <ul class="treeview-menu">
-                  <li><a href="<?php echo site_url('User_Controller/Create_Task'); ?>"><i class="fa fa-circle-o"></i> <span>Create Task</span></a></li>
-                  <li><a href="<?php echo site_url('User_Controller/View_Manage_Task'); ?>"><i class="fa fa-circle-o"></i> <span>View / Manage Tasks</span></a></li>
-                  <!-- <li><a href="<?php /*echo site_url('Admin_Controller/Work_Type'); */?>"><i class="fa fa-circle-o"></i> <span>Work Type</span></a></li>
+                  </a>
+                  <ul class="treeview-menu">
+                      <li><a href="<?php echo site_url('User_Controller/Create_Task'); ?>"><i class="fa fa-circle-o"></i> <span>Create Task</span></a></li>
+                      <li><a href="<?php echo site_url('User_Controller/View_Manage_Task'); ?>"><i class="fa fa-circle-o"></i> <span>View / Manage Tasks</span></a></li>
+                      <!-- <li><a href="<?php /*echo site_url('Admin_Controller/Work_Type'); */?>"><i class="fa fa-circle-o"></i> <span>Work Type</span></a></li>
                   <li><a href="<?php /*echo site_url('Admin_Controller/Phase_Master'); */?>"><i class="fa fa-circle-o"></i> <span>Phase Master</span></a></li>
                   <li><a href="<?php /*echo site_url('Admin_Controller/Role_Master'); */?>"><i class="fa fa-circle-o"></i> <span>Role Master</span></a></li>-->
 
-              </ul>
-          </li>
+                  </ul>
+              </li>
+
+          <?php
+          }
+          ?>
+
+
           <li><a href="<?php echo site_url('User_Controller/Task_Entry'); ?>"><i class="fa fa-history"></i> <span>Task Entry</span></a></li>
           <!--<li class="treeview">
           <a href="#">
