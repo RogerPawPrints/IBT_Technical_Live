@@ -19,6 +19,8 @@
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="<?php echo site_url('Admin_Controller/dashboard'); ?>"><i class="fa fa-book"></i> <span>Dashboard</span></a></li>  
 
+         <li><a href="<?php echo site_url('Admin_Controller/Requirements'); ?>"><i class="fa fa-book"></i> <span>Requirements</span></a></li>  
+
           <li class="treeview">
               <a href="#">
                   <i class="fa fa-table"></i> <span>Data Entry</span>

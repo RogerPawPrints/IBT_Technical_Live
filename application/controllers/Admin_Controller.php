@@ -1092,6 +1092,18 @@ class Admin_Controller extends CI_Controller
         redirect('Admin_Controller/Task_Category_Master');
     }
 
+    //** Requirements **//
+    public function Requirements()
+    {
+        $this->data['Requirements']= $this->technical_admin_model->Get_Requirements();
+        $this->data['Leader']= $this->technical_admin_model->Get_Project_Leader();
+        $this->load->view('Admin/header');
+        $this->load->view('Admin/left');
+        $this->load->view('Admin/top');
+        $this->load->view('Admin/Requirements',$this->data, FALSE);
+        $this->load->view('Admin/footer');
+    }
+
 
 
 

@@ -1,9 +1,11 @@
 <?php
 class Technical_Admin_Model extends CI_Model
 {
+          
     public function __construct()
     {
         parent::__construct();
+  
     }
 
     //** get auto search client **//
@@ -520,6 +522,23 @@ class Technical_Admin_Model extends CI_Model
     public function get_Task_Category_Master()
     {
         $query=$this->db->query("SELECT * FROM task_category_master ");
+        return $query->result_array();
+    }
+
+    //** Get Requirements Model **//
+    public function Get_Requirements()
+     {
+    //     $DB2 = $this->load->database('another_db', TRUE);
+    //     $query=$DB2->query("SELECT * FROM domain_data "); 
+    //     return $query->result_array();
+
+     $query=$this->db->query("SELECT * FROM ibt_requirement_details ");
+        return $query->result_array();
+    }
+    //** Get Project Leader **//
+    public function Get_Project_Leader()
+    {
+        $query=$this->db->query("SELECT * FROM ibt_technical_users WHERE User_Leave_Approval_Rights = 'Yes' ");
         return $query->result_array();
     }
 
