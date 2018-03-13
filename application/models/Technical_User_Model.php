@@ -249,5 +249,80 @@ class Technical_User_Model extends CI_Model
                                     LEFT JOIN task_category_master F on A.Task_Category_Icode=F.Task_Category_Icode WHERE A.Task_Icode ='$id' ");
         return $query->result_array();
     }
+    //** Get Leader Requirements */
+    public function Get_Requirements()
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $user_icode = $this->session->userdata['userid'];
+        $query=$DB2->query("SELECT A.*,B.Prospect_Icode,B.Company_Name,B.WebURL,C.User_Icode,C.User_Name,D.Req_Name FROM ibt_requirement_master A 
+                            INNER JOIN ibt_prospect_data B on A.Prospect_Icode=B.Prospect_Icode 
+                            INNER JOIN ibt_technical_user C on A.Tech_Leader_Code=C.User_Icode 
+                            INNER JOIN requirement_status_types D on A.Requirement_Status=D.Req_Id 
+                            WHERE A.Tech_Leader_Code ='$user_icode' ");
+        return $query->result_array();
+    }
+    //** Select Requirement based Compnay **/
+
+    public function Select_Req_company($req_id)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM ibt_requirement_master A INNER JOIN ibt_prospect_data B on A.Prospect_Icode=B.Prospect_Icode INNER JOIN requirement_status_types C on A.Requirement_Status = C.Req_Id where Requirement_Icode = '$req_id'  ");
+        return $query->result_array();
+    }
+    public function Select_Requirement_Status($type,$status)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM `requirement_status_types` WHERE Req_Type='$type' and Req_Id > '$status'  ");
+        return $query->result_array();
+    }
+
+    //** Client Reason **//
+    public function Select_Client_Reason()
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM project_loss_client_side  ");
+        return $query->result_array();
+    }
+
+    //** Our Reason **//
+    public function Select_Our_Reason()
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM Project_Loss_Our_Side  ");
+        return $query->result_array();
+    }
+    //** Select lost Details **/
+    public function Select_Lost_Details($req_id)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM project_lost where Requirement_Icode = '$req_id'  ");
+        return $query->row_array(0);
+    }
+
+    //** Select lost Reason Details **/
+    public function Select_Lost_Reason_Client($lid)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM project_loss_client_side where Project_Loss_Client_Icode = '$lid'  ");
+        return $query->result_array();
+    }
+
+    //** Select lost Reason OUR Details **/
+    public function Select_Lost_Reason_Our($lid)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM project_loss_our_side where Project_Loss_Our_Icode = '$lid'  ");
+        return $query->result_array();
+    }
+
+    //** poroject won details **//
+    public function Select_Won_Details($req_id)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT * FROM Project_Won A INNER JOIN ibt_workcategory B on A.Project_Type = B.WorkCategory_Icode INNER JOIN ibt_contractcategory C on A.Contract_Type=C.Contracttype_Icode where Requirement_Icode = '$req_id'  ");
+        return $query->row_array(0);
+    }
+
+
 
 }
