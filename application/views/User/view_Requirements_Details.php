@@ -117,8 +117,8 @@ $(document).ready(function() {
                                                      value="<?php echo $new['Requirement_Status']; ?>">
                                               <input type="hidden" name="Pros_code" id="Pros_code1"
                                                      value="<?php echo $new['Prospect_Icode']; ?>">
-                                              <input type="hidden" name="Leader_Code1" id="Leader_Code1"
-                                                     value="<?php echo $new['Tech_Leader_Code']; ?>">
+                                              <input type="hidden" name="Bde_Code1" id="Bde_Code1"
+                                                     value="<?php echo $new['Current_BDE_User_Code']; ?>">
 
                                               <textarea name="pcmd1" id="pcmd1" class="form-control"></textarea>
                                           </div>
@@ -138,8 +138,17 @@ $(document).ready(function() {
                                               </select>
 
                                           </div>
+
+                                          <div class="input-group" id="tech_date" style="display: none;">
+                                              <label>Our Estimation Date</label>
+                                              <div class="input-group-addon">
+                                                  <i class="fa fa-calendar">
+                                                  </i>
+                                              </div>
+                                              <input class="form-control" id="Contract_date_start" name="Contract_date_start" placeholder="YYYY/MM/DD" type="text"/>
+                                          </div>
                                           <button type="button" id="Save_Comments1" style="float: right;"
-                                                  class="btn btn-success" onclick="Save_status_cmd()">Save
+                                                  class="btn btn-success" onclick="Save_project_status_cmd()">Save
                                           </button>
                                       </div>
 
@@ -150,37 +159,7 @@ $(document).ready(function() {
                                       <?php
                                   } else {
                                       ?>
-                                      <div class="row" style="padding: 0 15px;" id="show_Status">
-                                          <div class="form-group">
-                                              <label>Post Comments</label>
-                                              <input type="hidden" name="Requirement_id" id="Requirement_id1"
-                                                     value="<?php echo $new['Requirement_Icode']; ?>">
-                                              <input type="hidden" name="Req_status" id="Req_status1"
-                                                     value="<?php echo $new['Requirement_Status']; ?>">
-                                              <input type="hidden" name="Pros_code" id="Pros_code1"
-                                                     value="<?php echo $new['Prospect_Icode']; ?>">
-                                              <input type="hidden" name="Leader_Code1" id="Leader_Code1"
-                                                     value="<?php echo $new['Tech_Leader_Code']; ?>">
 
-                                              <textarea name="pcmd1" id="pcmd1" class="form-control"></textarea>
-                                          </div>
-                                          <div class="form-group">
-                                              <label>Select Status</label>
-                                              <select name="mySelect" class="form-control" id="mySelect">
-                                                  <option value="">Select Status</option>
-                                                  <?php
-                                                  foreach ($Req_Status as $val) {
-
-                                                      echo "<option value= " . $val['Req_Id'] . " >" . $val['Req_Name'] . "</option>";
-                                                  }
-                                                  ?>
-                                              </select>
-
-                                          </div>
-                                          <button type="button" id="Save_Comments1" style="float: right;"
-                                                  class="btn btn-success" onclick="Save_status_cmd()">Save
-                                          </button>
-                                      </div>
                                       <?php
 
                                   }
@@ -276,14 +255,6 @@ $(document).ready(function() {
 
                                 }
                                 ?>
-
-
-                                <!-- /.direct-chat-info -->
-
-                                <!-- /.direct-chat-img -->
-
-
-                                <!-- /.direct-chat-text -->
                             </div>
                             <?php
                         }
@@ -308,57 +279,44 @@ $(document).ready(function() {
 </div>
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
 <script>
-    function Save_Comments()   // Save Comments
+
+    $(document).ready(function() {
+        $("#Contract_date_start").datepicker({
+            todayBtn: 1,
+            autoclose: true,
+            startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#Contract_date_end').datepicker('setStartDate', minDate);
+        });
+    });
+    function Save_project_status_cmd()    // save status cmd
     {
-
-        var req_id = document.getElementById('Requirement_id').value;
-        var req_status = document.getElementById('Req_status').value;
-        var pcode = document.getElementById('Pros_code').value;
-        var pcmd = document.getElementById('pcmd').value;
-        var leader_code = document.getElementById('Leader_Code').value;
-
-        if(pcmd == "")
-        {
-            alert("Please put Comments");
-        }
-        else
-        {
-            $.ajax({
-                url:"<?php echo site_url('User/save_Comments'); ?>",
-                data: {Req_id: req_id,Req_status: req_status,Pcmd: pcmd,Pros_code: pcode,Leader_Code: leader_code },
-                type: "POST",
-                success:function(data){
-                    alert("successfully Comment Posted..");
-                    window.location.href = document.referrer;
-                }
-            });
-
-        }
-
-
-    }
-
-    function Save_status_cmd()    // save status cmd
-    {
-
         var req_id = document.getElementById('Requirement_id1').value;
         var req_status = document.getElementById('Req_status1').value;
         var pcode = document.getElementById('Pros_code1').value;
         var pcmd = document.getElementById('pcmd1').value;
-        var leader_code = document.getElementById('Leader_Code1').value;
+        var bde_code = document.getElementById('Bde_Code1').value;
         var next_status = document.getElementById('mySelect').value;
-
-        if(pcmd == "")
+        var Exp_date = document.getElementById('Contract_date_start').value;
+        if(pcmd == "" )
         {
             alert("Please put Comments");
         }
+        else if(next_status == '4' && Exp_date == "")
+        {
+            alert("Please Select Date")
+        }
         else
         {
+
             $.ajax({
-                url:"<?php echo site_url('User/save_Status_Comments'); ?>",
-                data: {Req_id: req_id,Req_status: req_status,Pcmd: pcmd,Pros_code: pcode,Nstatus: next_status,Leader_Code: leader_code  },
+                url:"<?php echo site_url('User_Controller/save_Status_Comments'); ?>",
+                data: {Req_id: req_id,Req_status: req_status,Pcmd: pcmd,Pros_code: pcode,Nstatus: next_status,BDE_Code: bde_code,Expected: Exp_date   },
                 type: "POST",
                 success:function(data){
                     alert("successfully Comment Posted and Change Status..");
@@ -370,170 +328,6 @@ $(document).ready(function() {
 
     }
 
-    function Save_Project_Won()
-    {
-
-        var req_id = document.getElementById('Requirement_id1').value;
-        var req_status = document.getElementById('Req_status1').value;
-
-        var pcode = document.getElementById('Pros_code1').value;
-
-        var pcmd = document.getElementById('pcmd1').value;
-        var leader_code = document.getElementById('Leader_Code1').value;
-
-        var next_status = document.getElementById('mySelect').value;
-
-        var Hours = document.getElementById('Hours').value;
-
-        var Project_Type = document.getElementById('Project_Type').value;
-
-        var Contract_Type = document.getElementById('Contract_Type').value;
-        // alert(Contract_Type);
-        var price = document.getElementById('price').value;
-        var symbol = document.getElementById('symbol').value;
-
-
-
-        if(Hours =="" )
-        {
-            alert("Please Fill Hours...");
-        }
-        else if(Project_Type =="")
-        {
-            alert("Please Select Project Type");
-        }
-        else if(Contract_Type =="")
-        {
-            alert("Please Select Contract Type");
-        }
-        else if(price =="")
-        {
-            alert("Please Enter Price..");
-        }
-        else if(symbol =="")
-        {
-            alert("Please Select Symbol");
-        }
-        else
-        {
-            $.ajax({
-                url:"<?php echo site_url('User/Save_Project_Won'); ?>",
-                data: {Req_id: req_id,Req_status: req_status,Pcmd: pcmd,Pros_code: pcode,Nstatus: next_status,Leader_Code: leader_code,Project_Hours: Hours,Ptype: Project_Type,CType: Contract_Type,Project_price: price, symbol: symbol     },
-                type: "POST",
-                success:function(data){
-                    alert("success..");
-                    window.location.href = document.referrer;
-                }
-            });
-
-        }
-
-    }
-
-    function show_Client()
-    {
-        $('#Client_reason').show();
-        $('#Our_reason').hide();
-    }
-    function show_Our()
-    {
-        $('#Client_reason').hide();
-        $('#Our_reason').show();
-    }
-
-    function Save_Client_Loss()
-    {
-        var req_id = document.getElementById('Requirement_id1').value;
-        var req_status = document.getElementById('Req_status1').value;
-        var pcode = document.getElementById('Pros_code1').value;
-        var pcmd = document.getElementById('pcmd1').value;
-        var type = $('input[name=Rtype]:checked').val();
-        var next_status = document.getElementById('mySelect').value;
-        var leader_code = document.getElementById('Leader_Code1').value;
-
-        var checkboxes = document.getElementsByName('case');
-
-        var vals = "";
-        for (var i=0, n=checkboxes.length;i<n;i++)
-        {
-            if (checkboxes[i].checked)
-            {
-                vals += ","+checkboxes[i].value;
-            }
-        }
-        var tbldata=vals;
-
-
-        if(pcmd =="" )
-        {
-            alert("Please Type Comments for Reason...");
-        }
-        else if(tbldata =="")
-        {
-            alert("Please SelectReason");
-        }
-        else
-        {
-            $.ajax({
-                url:"<?php echo site_url('User/Save_Project_Client_Lost'); ?>",
-                data: {Req_id: req_id,Req_status: req_status,Pcmd: pcmd,Pros_code: pcode,Nstatus: next_status,Leader_Code: leader_code,Type: type,Reason: tbldata   },
-                type: "POST",
-                success:function(data){
-                    alert("success..");
-                    window.location.href = document.referrer;
-                }
-            });
-        }
-    }
-    function Save_Our_Loss()
-    {
-        var req_id = document.getElementById('Requirement_id1').value;
-        var req_status = document.getElementById('Req_status1').value;
-        var pcode = document.getElementById('Pros_code1').value;
-        var pcmd = document.getElementById('pcmd1').value;
-        var type = $('input[name=Rtype]:checked').val();
-        var next_status = document.getElementById('mySelect').value;
-        var leader_code = document.getElementById('Leader_Code1').value;
-
-        var checkboxes = document.getElementsByName('case_our');
-
-        var vals = "";
-        for (var i=0, n=checkboxes.length;i<n;i++)
-        {
-            if (checkboxes[i].checked)
-            {
-                vals += ","+checkboxes[i].value;
-            }
-        }
-        var tbldata=vals;
-
-
-        if(pcmd =="" )
-        {
-            alert("Please Type Comments for Reason...");
-        }
-        else if(tbldata =="")
-        {
-            alert("Please SelectReason");
-        }
-        else
-        {
-            $.ajax({
-                url:"<?php echo site_url('User/Save_Project_Our_Lost'); ?>",
-                data: {Req_id: req_id,Req_status: req_status,Pcmd: pcmd,Pros_code: pcode,Nstatus: next_status,Leader_Code: leader_code,Type: type,Reason: tbldata   },
-                type: "POST",
-                success:function(data){
-                    alert("success..");
-                    window.location.href = document.referrer;
-                }
-            });
-        }
-    }
-
-
-
-
-
 </script>
 
 <script type="text/javascript">
@@ -542,58 +336,18 @@ $(document).ready(function() {
         $("#mySelect").change(function()
         {
             var val = $(this).val();
-            if(val =='7')
+            if(val =='4')
             {
-                $('#Project_Won').show();
-                $('#Save_Comments').hide();
-                $('#Save_Comments1').hide();
-                $('#Project_Loss').hide();
+                $('#tech_date').show();
 
-            }
-            else if(val =='8')
-            {
-                $('#Project_Loss').show();
-                $('#Project_Won').hide();
-                $('#Save_Comments').hide();
-                $('#Save_Comments1').hide();
             }
             else
             {
-
+                $('#tech_date').hide();
             }
         });
     });
 
-    $(function(){
-        // add multiple select / deselect functionality
-        $("#selectall").click(function () {
-            $('.case').attr('checked', this.checked);
-        });
-        // if all checkbox are selected, check the selectall checkbox
-        // and viceversa
-        $(".case").click(function(){
-
-            if($(".case").length == $(".case:checked").length) {
-                $("#selectall").attr("checked", "checked");
-            } else {
-                $("#selectall").removeAttr("checked");
-            }
-
-        });
-        // add multiple select / deselect functionality
-        $("#selectall_our").click(function () {
-            $('.case_our').attr('checked', this.checked);
-        });
-        $(".case_our").click(function(){
-
-            if($(".case_our").length == $(".case_our:checked").length) {
-                $("#selectall_our").attr("checked", "checked");
-            } else {
-                $("#selectall_our").removeAttr("checked");
-            }
-
-        });
-    });
 </script>
 
 </body>

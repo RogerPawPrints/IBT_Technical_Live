@@ -73,14 +73,15 @@
                                                     <td><?php echo $r['Estimation_Date']; ?></td>
                                                     <td>
                                                         <div class="form-group">
-                                                            <select id="Leader" name="Leader"  >
-                                                                <option>Select Leader</option>
-                                                            <?php foreach ($Leader as $row):
-                                                            { 
-                                                            echo "<option value= " .$row['User_Icode'].">" . $row['User_Name'] . "</option>";
-                                                            } 
-                                                            endforeach; ?>
-                                                            </select> 
+                                                            <select name="Leader_Code[]" class="form-control" id="Leader<?php echo $r['Requirement_Icode']; ?>" required >
+                                                                <option value="" >Select Leader</option>
+                                                                <?php foreach ($Leader as $row):
+                                                                {
+                                                                    echo '<option value= "'.$row['User_Icode'].'">' . $row['User_Name'] . '</option>';
+                                                                }
+                                                                endforeach; ?>
+                                                            </select>
+
                                                         </div>
                                                     </td>
                                                     <td>
@@ -172,7 +173,8 @@
     });
     function Assign_Leader(id)
     {
-        var leader = document.getElementById('Leader').value;
+
+        var leader = $("#Leader"+id).val();
         if(leader == " ")
         {
             alert("Please Select Leader");

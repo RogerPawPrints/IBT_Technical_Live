@@ -604,6 +604,7 @@ class User_Controller extends CI_Controller
         $Type = $type;
         $data['Req'] = $this->technical_user_model->Select_Req_company($Req_id);
         $data['Req_Status'] = $this->technical_user_model->Select_Requirement_Status($Type,$status);
+        $data['leader_cmd'] = $this->technical_user_model->Select_Leader_Comments($Req_id);
 
         $data['Client_Reason'] = $this->technical_user_model->Select_Client_Reason();
 
@@ -651,6 +652,30 @@ class User_Controller extends CI_Controller
         $this->load->view('User/top');
         $this->load->view('User/view_Requirements_Details', $data, FALSE);
         $this->load->view('User/footer');
+    }
+    //** Save Comments and Status **/
+
+    public function save_Status_Comments()
+    {
+        $User_Icode =  $this->session->userdata['userid'];
+        $req_id = $this->input->post('Req_id',true);
+        $current_timestamp = date('Y-m-d H:i:s');
+        $data = array('Prospect_Icode' => $this->input->post('Pros_code',true),
+            'Requirement_Icode' => $this->input->post('Req_id',true),
+            'Requirement_Status' => $this->input->post('Nstatus',true),
+            'Tech_Leader_Cmd' => $this->input->post('Pcmd',true),
+            'Tech_Leader_Code' => $User_Icode,
+            'BDE_Code' => $this->input->post('BDE_Code',true)  );
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->insert('ibt_requirement_status', $data);
+
+        $data_update = array('Requirement_Status' => $this->input->post('Nstatus',true),
+            'Tech_Team_Date' => $this->input->post('Expected',true),
+            'Modified_On' => $current_timestamp );
+        $query=$DB2->where('Requirement_Icode',$req_id);
+        $query=$DB2->update('ibt_requirement_master', $data_update);
+        echo 1;
+
     }
 }
 ?>

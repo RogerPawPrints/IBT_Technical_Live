@@ -272,7 +272,7 @@ class Technical_User_Model extends CI_Model
     public function Select_Requirement_Status($type,$status)
     {
         $DB2 = $this->load->database('another_db', TRUE);
-        $query=$DB2->query("SELECT * FROM `requirement_status_types` WHERE Req_Type='$type' and Req_Id > '$status'  ");
+        $query=$DB2->query("SELECT * FROM `requirement_status_types` WHERE Req_Type='$type' and Req_Id > '$status' and Req_Id <= '4'  ");
         return $query->result_array();
     }
 
@@ -321,6 +321,14 @@ class Technical_User_Model extends CI_Model
         $DB2 = $this->load->database('another_db', TRUE);
         $query=$DB2->query("SELECT * FROM Project_Won A INNER JOIN ibt_workcategory B on A.Project_Type = B.WorkCategory_Icode INNER JOIN ibt_contractcategory C on A.Contract_Type=C.Contracttype_Icode where Requirement_Icode = '$req_id'  ");
         return $query->row_array(0);
+    }
+    //** Select Leaders Comments **/
+
+    public function Select_Leader_Comments($req_id)
+    {
+        $DB2 = $this->load->database('another_db', TRUE);
+        $query=$DB2->query("SELECT A.Req_Comments,A.Tech_Leader_Cmd,A.Modified_Date,B.User_Name as Leader,C.User_Name as Bde FROM ibt_requirement_status A LEFT OUTER JOIN ibt_technical_user B on A.Tech_Leader_Code = B.User_Icode LEFT OUTER JOIN ibt_marketing_user C on A.BDE_Code=C.User_Icode WHERE A.Requirement_Icode='$req_id' ORDER by A.Modified_Date DESC   ");
+        return $query->result_array();
     }
 
 
