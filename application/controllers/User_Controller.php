@@ -663,7 +663,7 @@ class User_Controller extends CI_Controller
         $data = array('Prospect_Icode' => $this->input->post('Pros_code',true),
             'Requirement_Icode' => $this->input->post('Req_id',true),
             'Requirement_Status' => $this->input->post('Nstatus',true),
-            'Tech_Leader_Cmd' => $this->input->post('Pcmd',true),
+            'Req_Comments' => $this->input->post('Pcmd',true),
             'Tech_Leader_Code' => $User_Icode,
             'BDE_Code' => $this->input->post('BDE_Code',true)  );
         $DB2 = $this->load->database('another_db', TRUE);
